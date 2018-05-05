@@ -1,10 +1,12 @@
 package it.polimi.se2018.Model;
 
+import it.polimi.se2018.Model.Cell.*;
+
 public class Map {
 
     String name;
     int difficultyLevel;
-    it.polimi.se2018.Model.Box.Box Box[][];
+    Cell cell[][];
 
 
 }
