@@ -10,6 +10,10 @@ public class Cell {
         dice = null;
     }
     
+    public void setDice(Dice nextDice){
+        dice = nextDice;
+    }
+    
     public Dice getDice(){
         return dice;
     }
