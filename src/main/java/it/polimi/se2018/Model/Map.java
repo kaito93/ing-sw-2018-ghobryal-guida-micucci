@@ -8,5 +8,13 @@ public class Map {
     int difficultyLevel;
     Cell cell[][];
 
-
+    public int numColumn(){
+        return 0;
+    }
+    public int numRow(){
+        return 0;
+    }
+    public Cell getCell(int row, int column){
+        return cell[row][column];
+    }
 }
