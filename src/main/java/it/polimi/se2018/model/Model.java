@@ -9,6 +9,6 @@ public class Model {
     Player player;
     static ArrayList<Dice> diceBag=new ArrayList <Dice>();
     static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <PublicObjectiveCard>();
-    RoundScheme roundSchemeMap;
+    RoundSchemeCell roundSchemeMap;
 
 }
