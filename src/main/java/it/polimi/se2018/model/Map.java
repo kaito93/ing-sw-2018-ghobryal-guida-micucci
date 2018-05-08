@@ -11,7 +11,7 @@ public class Map {
     public Map(String glassWindowName, int difficulty, int row, int column){
         name = glassWindowName;
         difficultyLevel = difficulty;
-        // matrice? parliamone con anton
+        cell = new Cell[row][column];
     }
     
     public int getDifficultyLevel(){
@@ -19,11 +19,11 @@ public class Map {
     }
 
     public int numColumn(){
-        return 0;
+        return cell[0].length;
     }
     
     public int numRow(){
-        return 0;
+        return cell.length;
     }
     
     public Cell getCell(int row, int column){
@@ -39,7 +39,7 @@ public class Map {
             return false;
         else
         {
-            cell[row][column].setDice(d);
+            
             return true;
         }
     }

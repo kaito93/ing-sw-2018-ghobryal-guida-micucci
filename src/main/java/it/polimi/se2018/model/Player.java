@@ -5,7 +5,6 @@ import it.polimi.se2018.model.cell.Cell;
 
 public class Player {
 
-    Long id;
     String name;
     Map map;
     int favorSig;
@@ -13,7 +12,6 @@ public class Player {
     int score;
     
     public Player(Long id_Player_interface, String name_player, Map glassWindow, PrivateObjectiveCard priv){
-        id = id_Player_interface;
         name = name_player;
         map = glassWindow;
         favorSig = 0;

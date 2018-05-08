@@ -3,14 +3,18 @@ package it.polimi.se2018.model;
 import java.util.ArrayList;
 
 public class RoundScheme {
-    ArrayList<Dice> restOfStrock;
+    ArrayList<Dice> restOfStock;
     
     public RoundScheme(){
-        restOfStrock = new ArrayList<Dice>();
+        restOfStock = new ArrayList<Dice>();
     }
     
-  /*  public Dice getDice(int value, Color color){
-        
-    }*/
+    public ArrayList<Dice> getRestOfStock(){
+        return restOfStock;
+    }
+    
+    public void setDice(ArrayList<Dice> toAdd){
+       // restOfStock.add(toAdd);
+    }
 }
 
