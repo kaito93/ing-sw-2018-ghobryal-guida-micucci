@@ -2,7 +2,20 @@ package it.polimi.se2018.model.cards.strategy;
 
 import it.polimi.se2018.model.Map;
 
+/**
+ * Color Diagonals Public Objective Card
+ * @author Anton Ghobryal
+ */
+
 public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
+
+    /**
+     * Read description of this card for further information
+     * @param map player's map
+     * @param score the score the player achieves out of this card
+     * @return how many times the player achieves this card multiplied to its score
+     */
+
     @Override
     public int search(Map map, int score){ //kill score
         int counter=0;

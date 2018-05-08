@@ -2,7 +2,20 @@ package it.polimi.se2018.model.cards.strategy;
 
 import it.polimi.se2018.model.Map;
 
+/**
+ * Shade Variety Public Objective Card
+ * @author Anton Ghobryal
+ */
+
 public class ShadeVarietyStrategy extends ObjectiveCardStrategy{
+
+    /**
+     * Read description of this card for further information
+     * @param map player's map
+     * @param score the score the player achieves out of this card
+     * @return how many times the player achieves this card multiplied to its score
+     */
+
     @Override
     public int search(Map map, int score){
         int counter1=0;
@@ -11,6 +24,7 @@ public class ShadeVarietyStrategy extends ObjectiveCardStrategy{
         int counter4=0;
         int counter5=0;
         int counter6=0;
+        //counts how many dices of each value
         for(int i=0; i<map.numRow(); i++){
             for(int j=0; j<map.numColumn(); j++){
                 if(map.getCell(i,j).getDice()!=null){
@@ -29,6 +43,7 @@ public class ShadeVarietyStrategy extends ObjectiveCardStrategy{
                 }
             }
         }
+        // the minimum of the counters is how many times the player achieved this card
         counter1=Math.min(counter1, counter2);
         counter1=Math.min(counter1, counter3);
         counter1=Math.min(counter1, counter4);
