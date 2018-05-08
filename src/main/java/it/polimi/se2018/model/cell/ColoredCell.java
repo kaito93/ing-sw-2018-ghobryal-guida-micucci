@@ -13,4 +13,9 @@ public class ColoredCell extends Cell {
     public Color getColor(){
         return color;
     }
+
+    @Override
+    public int getValue() {
+        return 0;
+    }
 }

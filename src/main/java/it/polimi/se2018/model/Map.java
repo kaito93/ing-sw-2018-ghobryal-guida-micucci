@@ -34,8 +34,32 @@ public class Map {
         return name;
     }
     
+    public boolean AlreadyExistInColumn(int column, Color color, int value){
+        int index;
+        for(index = 0; index < this.numRow(); index++)
+        {
+            if((this.getCell(index, column).getColor() == color) || (this.getCell(index, column).getValue() == value))
+                return true;
+            else 
+                continue;
+        }
+        return false;
+    }
+    
+    public boolean AlreadyExistInRow(int row, Color color, int value){
+        int index;
+        for(index = 0; index < this.numRow(); index++)
+        {
+            if((this.getCell(row, index).getColor() == color) || (this.getCell(row, index).getValue() == value))
+                return true;
+            else 
+                continue;
+        }
+        return false;
+    }
+    
     public boolean setCell(Dice d, int row, int column){
-        if (validPosition(row, column) == false)
+        if (validPosition(row, column, d) == false)
             return false;
         else
         {
@@ -44,10 +68,15 @@ public class Map {
         }
     }
     
-    public boolean validPosition(int row, int column){
-        if (getCell(row, column) != null)
+    public boolean validPosition(int row, int column, Dice dice){
+        if ((this.getCell(row, column).getDice() != null) && (this.getCell(row, column).getDice().getValue() != dice.getValue()) && (this.getCell(row, column).getDice().getColor() != dice.getColor()))
             return false;
-        else
-            return true;
+        else if ((this.getCell(row, column).getDice() == null) && (this.getCell(row, column).getDice().getValue() == dice.getValue()) && (this.getCell(row, column).getDice().getColor() == dice.getColor()))
+        {
+            if(((this.AlreadyExistInColumn(column, dice.getColor(), dice.getValue())) == true) && (this.AlreadyExistInRow(row, dice.getColor(), dice.getValue()) == true))
+                return false;
+        }
+        return true;
+            
     }
 }

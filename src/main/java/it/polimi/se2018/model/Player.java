@@ -40,20 +40,22 @@ public class Player {
         return name;
     }
     
-    public boolean posDice(Dice dice, Cell cell){
-        if (cell.getDice() == null)
-        {
-            cell.setDice(dice);
-            return true;
-        }
-        else
-            return false;
+    public boolean posDice(Dice dice, int row, int column){
+        if(this.map.validPosition(row, column, dice) == true)
+                {
+                    map.getCell(row, column).setDice(dice);
+                    return true;
+                }
+              else
+                return false;
     }
     
     public void initFavor(Map glassWindow){
         favorSig = glassWindow.getDifficultyLevel();
     }
     
- //   public boolean useTool()
+  /*  public boolean useTool(ToolCard toolCard){
+       toolCard.handle(this); 
+    }*/
 
 }
