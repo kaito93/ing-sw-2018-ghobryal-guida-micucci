@@ -18,5 +18,7 @@ public class Lobby extends Thread {
 
     public void start(){
 
+        // TO DO: ... tutto.
+
     }
 }

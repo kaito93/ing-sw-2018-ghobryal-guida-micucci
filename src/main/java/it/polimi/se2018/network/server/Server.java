@@ -6,6 +6,7 @@ import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
+import sun.misc.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -41,23 +42,21 @@ public class Server implements ServerRMI{
         active = true;
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
+            System.out.println("server socket avviato. In attesa di giocatori");
             while (active) {
-                System.out.println("server avviato. In attesa di giocatori");
                 Socket socket = socketServer.accept();  // rimani in attesa fino a quando si connette un giocatore
                 System.out.println("Ho ricevuto una richiesta");
-                Object i = new Object();
-                synchronized (i){
-                    i.wait(10);
-                }
+
                 ObjectOutputStream outputSocket = new ObjectOutputStream(socket.getOutputStream()); // crea un oggetto che legga la richiesta socket
                 ObjectInputStream inputSocket = new ObjectInputStream(socket.getInputStream()); // crea un oggetto che legga la richiesta socket
                 Object obj=inputSocket.readObject();
                 if (obj instanceof RequestConnection) {
-                    ConnectionServer conness = new ConnectionServerSocket(socket);
-                    clients.add(conness);
                     System.out.println("Richiesta di connessione da parte di un giocatore");
-                }
+                    ConnectionServer conness = new ConnectionServerSocket(socket,(RequestConnection)obj);
+                    clients.add(conness);
 
+
+                }
 
 
                 if (!active)
@@ -69,8 +68,6 @@ public class Server implements ServerRMI{
             System.out.print("Errore I/O Socket");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
     }
@@ -79,6 +76,7 @@ public class Server implements ServerRMI{
         LocateRegistry.createRegistry(1099);
         skeleton = (ServerRMI) UnicastRemoteObject.exportObject(this, 0);
         try {
+            System.out.println("Server RMI avviato");
             Naming.rebind("Server", skeleton);
         }
         catch (MalformedURLException e) {
