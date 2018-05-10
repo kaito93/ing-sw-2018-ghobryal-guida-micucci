@@ -14,15 +14,12 @@ public class ConnectionServerSocket extends ConnectionServer {
     ObjectInputStream input;
     String username;
 
-    public ConnectionServerSocket(Socket client, RequestConnection obj){
+    public ConnectionServerSocket(Socket client, RequestConnection obj,ObjectOutputStream out, ObjectInputStream inp){
         this.client=client;
         this.username=obj.getUser();
-        try {
-                input= new ObjectInputStream(this.client.getInputStream());
-                output = new ObjectOutputStream(this.client.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        input= inp;
+        output = out;
+
 
 
     }

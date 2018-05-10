@@ -13,7 +13,7 @@ public class Lobby extends Thread {
 
     public Lobby(){
 
-
+        // TO DO: inizializzazione della lobby
     }
 
     public void start(){

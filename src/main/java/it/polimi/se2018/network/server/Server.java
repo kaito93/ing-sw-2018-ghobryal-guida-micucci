@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Server implements ServerRMI{
@@ -28,6 +29,7 @@ public class Server implements ServerRMI{
     ServerRMI skeleton;
     ArrayList<ConnectionServer> clients = new ArrayList<ConnectionServer>();
     boolean active = false;
+    Timer timer = new Timer();
 
     public Server(int port, int timer) {
 
@@ -42,8 +44,9 @@ public class Server implements ServerRMI{
         active = true;
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
-            System.out.println("server socket avviato. In attesa di giocatori");
+            System.out.println("server socket avviato.");
             while (active) {
+                System.out.println("In attesa di giocatori");
                 Socket socket = socketServer.accept();  // rimani in attesa fino a quando si connette un giocatore
                 System.out.println("Ho ricevuto una richiesta");
 
@@ -52,9 +55,16 @@ public class Server implements ServerRMI{
                 Object obj=inputSocket.readObject();
                 if (obj instanceof RequestConnection) {
                     System.out.println("Richiesta di connessione da parte di un giocatore");
-                    ConnectionServer conness = new ConnectionServerSocket(socket,(RequestConnection)obj);
-                    clients.add(conness);
-
+                    if (clients.isEmpty()) {
+                        ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
+                        clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+                        TimerCount count = new TimerCount(); //inizializza il timer
+                        this.timer.schedule(count, 0, timer / 20); // fa partire il timer}
+                    }
+                    else{
+                        ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
+                        clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+                    }
 
                 }
 
@@ -97,8 +107,8 @@ public class Server implements ServerRMI{
         int counter;
         int counterMax;
 
-        public TimerCount(int timer) {
-            counterMax=timer;
+        public TimerCount() {
+
         }
 
         @Override
@@ -110,13 +120,15 @@ public class Server implements ServerRMI{
                 new Lobby().start();
                 System.out.print("Sono presenti 4 giocatori. Il gioco si sta avviando");
                 clients=new ArrayList<ConnectionServer>();
+                System.out.print("Il server è pronto per accettare richieste per un'altra partita");
             }
             else{
-                if (counter==counterMax) { // se si esaurisce il tempo di attesa
+                if (counter==20) { // se si esaurisce il tempo di attesa
                     this.cancel();
                     new Lobby().start();
                     System.out.print("Timer scaduto. Il gioco si sta avviando");
                     clients=new ArrayList<ConnectionServer>();
+                    System.out.print("Il server è pronto per accettare richieste per un'altra partita");
                 }
 
                 if (clients.size()>1)
@@ -139,7 +151,7 @@ public class Server implements ServerRMI{
 
     public static void main (String[] args) {
         int porta=9736;
-        int timer=100;
+        int timer=10000;
         // To Do: Caricamento da file di configurazione partita di porta e timer
 
         new Server(porta,timer);
