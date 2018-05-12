@@ -12,7 +12,6 @@ public class Dice {
     Color color;
     
     /**class constructor
-     * @param no parameters
      */
     public Dice(){
         value = 1;
@@ -20,7 +19,6 @@ public class Dice {
     }
     
     /** throw the dice
-     * @param no parameters
      * @return an integer between 1 and 6
      */
     public void throwDice(){
@@ -29,7 +27,6 @@ public class Dice {
     }
     
     /** get the value of the dice
-     * @param no parameters
      * @return an integer between 1 and 6 that is the value of the dice during the match
      */
     public int getValue(){
@@ -37,7 +34,6 @@ public class Dice {
     }
 
     /** get the color of the dice
-     * @param no parameters
      * @return one of the color presented in the color enumerations Color assigned to the dice
      */
     public Color getColor() {

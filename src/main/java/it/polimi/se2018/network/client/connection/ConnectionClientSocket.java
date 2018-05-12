@@ -4,7 +4,6 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.SocketMassage;
 import it.polimi.se2018.network.server.message.MessageCV;
-import sun.plugin2.message.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

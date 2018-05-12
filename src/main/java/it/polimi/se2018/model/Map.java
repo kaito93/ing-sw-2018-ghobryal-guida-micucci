@@ -24,7 +24,6 @@ public class Map {
     }
     
     /** method that return the difficulty level of the match
-     * @param no parameters
      * @return an integer between 3 and 6
      */
     public int getDifficultyLevel(){
@@ -32,7 +31,6 @@ public class Map {
     }
 
     /** method that return the number of column of the matrix that represent the glasswindow
-     * @param no parameters
      * @return an integer between 0 and n
      */
     public int numColumn(){
@@ -40,7 +38,6 @@ public class Map {
     }
     
     /** method that return the number of row in the matrix that represent the glasswindow
-     * @param no parameters
      * @return an integer between 0 and n
      */ 
     public int numRow(){
@@ -57,7 +54,6 @@ public class Map {
     }
     
     /** method that return the name of the map (that represent the glasswindow)
-     * @param no parameters
      * @return a string that represent the name of the glasswindow
      */
     public String getName(){
