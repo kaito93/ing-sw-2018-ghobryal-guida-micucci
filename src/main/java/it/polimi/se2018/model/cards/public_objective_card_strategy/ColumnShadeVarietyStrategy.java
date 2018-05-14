@@ -1,4 +1,4 @@
-package it.polimi.se2018.model.cards.strategy;
+package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
 

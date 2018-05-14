@@ -1,13 +1,13 @@
-package it.polimi.se2018.model.cards.strategy;
+package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
 
 /**
- * Row Shade Variety Public Objective Card
+ * Row Color Variety Public Objective Card
  * @author Anton Ghobryal
  */
 
-public class RowShadeVarietyStrategy extends ObjectiveCardStrategy{
+public class RowColorVarietyStrategy extends ObjectiveCardStrategy{
 
     /**
      * Read description of this card for further information
@@ -20,12 +20,12 @@ public class RowShadeVarietyStrategy extends ObjectiveCardStrategy{
     public int search(Map map, int score) {
         int counter=0;  //counts how many times the player achieves this card
         boolean colorBool=false;    //indicates if there isn't 2 dices with the same color on the same row
-        int colorCounter=1;    //counts how many consecutive dices with different colors
-        for(int i=0; i<map.numRow(); i++){  //iterates on rows
-            for(int j=0; j<map.numColumn()-1; j++){ //iterates on column
-                for(int k=j+1; k<map.numColumn(); k++){ //iterates on the next column
-                    if(map.getCell(i,j).getDice()!=null&&map.getCell(i,k).getDice()!=null){ //controls if there is a dice or not
-                        if(map.getCell(i,j).getDice().getValue()==map.getCell(i,k).getDice().getValue()){   //controls if there is two consecutive dices with the same color
+        int colorCounter=1; //counts how many consecutive dices with different colors
+        for(int i=0; i<map.numRow(); i++){    //iterates on rows
+            for(int j=0; j<map.numColumn()-1; j++){    //iterates on column
+                for(int k=j+1; k<map.numColumn(); k++){    //iterates on the next column
+                    if(map.getCell(i,j).getDice()!=null&&map.getCell(i,k).getDice()!=null){    //controls if there is a dice or not
+                        if(map.getCell(i,j).getDice().getColor().equals(map.getCell(i,k).getDice().getColor())){    //controls if there is two consecutive dices with the same color
                             colorBool = false;
                             break;
                         }else colorBool = true;

@@ -1,7 +1,7 @@
 package it.polimi.se2018.model.cards;
 
 import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.cards.strategy.ObjectiveCardStrategy;
+import it.polimi.se2018.model.cards.public_objective_card_strategy.ObjectiveCardStrategy;
 
 /**
  * a generic public objective card

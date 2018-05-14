@@ -24,7 +24,7 @@ public enum Color {
      * @return a boolean that indicates whether the equivalence is true or false
      */
 
-    public boolean equals(Color color){
+    public boolean equalsColor(Color color){
         return this.toString().equals(color.toString());
     }
 
