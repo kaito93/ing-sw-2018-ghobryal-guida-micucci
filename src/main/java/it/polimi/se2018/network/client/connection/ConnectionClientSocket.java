@@ -2,7 +2,7 @@ package it.polimi.se2018.network.client.connection;
 
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
-import it.polimi.se2018.network.client.message.SocketMassage;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.message.MessageCV;
 
 import java.io.IOException;
@@ -71,12 +71,12 @@ public class ConnectionClientSocket extends ConnectionClient {
         @Override
         public void run() {
 
-            SocketMassage message; // crea una variabile per contenere il messaggio ricevuto
+            Message message; // crea una variabile per contenere il messaggio ricevuto
 
             while(true){
 
                 try{
-                     message= (SocketMassage)input.readObject(); // leggi il messaggio
+                     message= (Message)input.readObject(); // leggi il messaggio
                     if (message.getType()==CVEvent){// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV)message.getEvent(); // casta il messaggio
                         messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni

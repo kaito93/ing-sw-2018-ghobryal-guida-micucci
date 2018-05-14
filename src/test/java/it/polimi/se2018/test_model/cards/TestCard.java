@@ -2,7 +2,8 @@ package it.polimi.se2018.test_model.cards;
 
 import it.polimi.se2018.model.cards.Card;
 import junit.framework.TestCase;
-import org.testng.annotations.Test;
+import org.junit.Test;
+
 
 public class TestCard extends TestCase {
 

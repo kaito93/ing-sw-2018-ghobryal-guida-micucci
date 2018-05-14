@@ -12,11 +12,11 @@ public class ConnectionServerSocket extends ConnectionServer {
     Socket client;
     ObjectOutputStream output;
     ObjectInputStream input;
-    String username;
+
 
     public ConnectionServerSocket(Socket client, RequestConnection obj,ObjectOutputStream out, ObjectInputStream inp){
         this.client=client;
-        this.username=obj.getUser();
+        this.setUsername(obj.getUser());
         input= inp;
         output = out;
 
@@ -29,9 +29,13 @@ public class ConnectionServerSocket extends ConnectionServer {
 
     }
 
-    public void send(Object message) throws IOException {
-        this.output.writeObject(message);
-
+    public void send(Object message) {
+        try {
+            this.output.writeObject(message);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 }

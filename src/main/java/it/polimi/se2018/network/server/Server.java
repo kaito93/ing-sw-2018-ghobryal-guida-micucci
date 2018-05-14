@@ -116,7 +116,7 @@ public class Server implements ServerRMI{
             if (clients.size()==4){ // se si raggiunge il numero massimo di giocatori per una partita...
 
                 this.cancel();
-                new Lobby().start();
+                new Lobby(clients).start();
                 System.out.print("Sono presenti 4 giocatori. Il gioco si sta avviando");
                 clients=new ArrayList<ConnectionServer>();
                 System.out.print("Il server è pronto per accettare richieste per un'altra partita");
@@ -124,7 +124,7 @@ public class Server implements ServerRMI{
             else{
                 if (counter==20) { // se si esaurisce il tempo di attesa
                     this.cancel();
-                    new Lobby().start();
+                    new Lobby(clients).start();
                     System.out.print("Timer scaduto. Il gioco si sta avviando");
                     clients=new ArrayList<ConnectionServer>();
                     System.out.print("Il server è pronto per accettare richieste per un'altra partita");

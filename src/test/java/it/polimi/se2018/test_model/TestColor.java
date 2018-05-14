@@ -3,7 +3,7 @@ package it.polimi.se2018.test_model;
 
 import it.polimi.se2018.model.Color;
 import junit.framework.TestCase;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class TestColor extends TestCase {
 

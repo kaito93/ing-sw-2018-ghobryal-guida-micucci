@@ -30,7 +30,11 @@ public class Player {
         privateObj = priv;
         score = 0;
     }
-    
+
+    public Player (String user){
+        this.name=user;
+    }
+
     /** method that return the card private with the private goal
      * @return privateObject card, that is the card with the private goal
      */
