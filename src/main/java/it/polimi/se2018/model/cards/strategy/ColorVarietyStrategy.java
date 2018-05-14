@@ -2,6 +2,9 @@ package it.polimi.se2018.model.cards.strategy;
 
 import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.notValidCellException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Color Variety Public Objective Card
@@ -14,6 +17,7 @@ public class ColorVarietyStrategy extends ObjectiveCardStrategy{
      * Read description of this card for further information
      * @param map player's map
      * @param score the score the player achieves out of this card
+     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
      * @return how many times the player achieves this card multiplied to its score
      */
 
@@ -28,17 +32,21 @@ public class ColorVarietyStrategy extends ObjectiveCardStrategy{
         //counts how many dices of each color
         for(int i=0; i<map.numRow(); i++){
             for(int j=0; j<map.numColumn(); j++){
-                if(map.getCell(i,j).getDice()!=null){
-                    if(map.getCell(i,j).getDice().getColor().equals(Color.BLUE))
-                        counterBlue++;
-                    else if(map.getCell(i,j).getDice().getColor().equals(Color.GREEN))
-                        counterGreen++;
-                    else if(map.getCell(i,j).getDice().getColor().equals(Color.YELLOW))
-                        counterYellow++;
-                    else if(map.getCell(i,j).getDice().getColor().equals(Color.RED))
-                        counterRed++;
-                    else if(map.getCell(i,j).getDice().getColor().equals(Color.PURPLE))
-                        counterPurble++;
+                try {
+                    if(map.getCell(i,j).getDice()!=null){
+                        if(map.getCell(i,j).getDice().getColor().equals(Color.BLUE))
+                            counterBlue++;
+                        else if(map.getCell(i,j).getDice().getColor().equals(Color.GREEN))
+                            counterGreen++;
+                        else if(map.getCell(i,j).getDice().getColor().equals(Color.YELLOW))
+                            counterYellow++;
+                        else if(map.getCell(i,j).getDice().getColor().equals(Color.RED))
+                            counterRed++;
+                        else if(map.getCell(i,j).getDice().getColor().equals(Color.PURPLE))
+                            counterPurble++;
+                    }
+                } catch (notValidCellException ex) {
+                    System.out.println("colorVarietyStrategy");
                 }
             }
         }
