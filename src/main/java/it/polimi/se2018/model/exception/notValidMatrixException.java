@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.se2018.model;
+package it.polimi.se2018.model.exception;
+
+import it.polimi.se2018.model.Map;
 
 /**
  *
  * @author Andrea
  */
-public class notValidCellException extends Exception {
+public class notValidMatrixException extends Exception {
 
-    public notValidCellException() {
+    public notValidMatrixException(Map aThis) {
         super();
     }
     

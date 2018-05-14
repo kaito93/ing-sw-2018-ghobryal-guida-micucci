@@ -4,8 +4,8 @@ package it.polimi.se2018.model;
  * contains all method to change the status of data of the player
  * @author Andrea Micucci, Anton Ghobryal
  */
-import it.polimi.se2018.model.cards.Card;
-import it.polimi.se2018.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.model.cards.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -83,12 +83,6 @@ public class Player {
                 return false;
     }
     
-    /** method that initialize the number of favour using the difficulty level of the matrix
-     * @param glassWindow: the matrix represent the map of the player
-     */
-    public void initFavor(Map glassWindow){
-        favorSig = glassWindow.getDifficultyLevel();
-    }
     
     /** method that activate the tool card taken by the player
      * @param toolCard: the card that the player has choice

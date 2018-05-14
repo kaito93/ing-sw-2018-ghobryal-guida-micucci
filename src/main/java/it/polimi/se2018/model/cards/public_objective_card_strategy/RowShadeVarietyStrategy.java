@@ -1,7 +1,7 @@
 package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.notValidCellException;
+import it.polimi.se2018.model.exception.notValidCellException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.se2018.model;
+package it.polimi.se2018.model.exception;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Dice;
 
 /**
