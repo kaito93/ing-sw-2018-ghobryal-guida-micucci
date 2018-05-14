@@ -69,9 +69,10 @@ public class Player {
      * @param dice: that player want to position on the matrix
      * @param row: row of the cell where the dice has to be positioned
      * @param column: column of the cell where the dice has to be positioned
+     * @throws notValidCellException: when the indexes of the cell are not valid and not indicate a cell in the matrix
      * @return: a boolean that is "true" if the dice had been positioned
      */
-    public boolean posDice(Dice dice, int row, int column){
+    public boolean posDice(Dice dice, int row, int column) throws notValidCellException{
         if(this.map.validPosition(row, column, dice) == true)
                 {
                     map.getCell(row, column).setDice(dice);

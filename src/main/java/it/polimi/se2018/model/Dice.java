@@ -20,10 +20,14 @@ public class Dice {
     
     /** throw the dice
      * @return an integer between 1 and 6
+     * @throws NumberNotValidException: when the number is not in the interval 1-6
      */
-    public void throwDice(){
+    public void throwDice() throws NumberNotValidException{
         Random x = new Random();
         value = x.nextInt(6)+1;
+        if ((value > 6) || (value < 0))
+            throw new NumberNotValidException(this);
+        
     }
     
     /** get the value of the dice
