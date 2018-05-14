@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Model {
 
-    Player player;
-    static ArrayList<Dice> diceBag=new ArrayList <Dice>();
-    static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <PublicObjectiveCard>();
-    RoundSchemeCell[] roundSchemeMap = new RoundSchemeCell[10];
+    private Player player;
+    private static ArrayList<Dice> diceBag;
+    private static ArrayList<PublicObjectiveCard> publicObjCard;
+    private static RoundSchemeCell[] roundSchemeMap;
 
 }

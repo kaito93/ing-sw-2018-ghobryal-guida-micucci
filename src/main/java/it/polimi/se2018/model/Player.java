@@ -4,27 +4,29 @@ package it.polimi.se2018.model;
  * contains all method to change the status of data of the player
  * @author Andrea Micucci, Anton Ghobryal
  */
-import it.polimi.se2018.model.cards.*;
-import it.polimi.se2018.model.cell.Cell;
+import it.polimi.se2018.model.cards.Card;
+import it.polimi.se2018.model.cards.PrivateObjectiveCard;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class Player {
 
-    String name;
-    Map map;
-    int favorSig;
-    PrivateObjectiveCard privateObj;
-    int score;
+    private String name;
+    private Map map;
+    private int favorSig;
+    private PrivateObjectiveCard privateObj;
+    private int score;
     
     /** class constructor
-     * @param id_Player_interface: integer of the player who is connected
      * @param name_player: string of the name of the player connected
      * @param glassWindow: schema of the glasswindow
      * @param priv: single private goal's card
      */
-    public Player(Long id_Player_interface, String name_player, Map glassWindow, PrivateObjectiveCard priv){
+    public Player(String name_player, Map glassWindow, PrivateObjectiveCard priv){
         name = name_player;
         map = glassWindow;
-        favorSig = 0;
+        favorSig = glassWindow.getDifficultyLevel();
         privateObj = priv;
         score = 0;
     }
@@ -69,10 +71,9 @@ public class Player {
      * @param dice: that player want to position on the matrix
      * @param row: row of the cell where the dice has to be positioned
      * @param column: column of the cell where the dice has to be positioned
-     * @throws notValidCellException: when the indexes of the cell are not valid and not indicate a cell in the matrix
      * @return: a boolean that is "true" if the dice had been positioned
      */
-    public boolean posDice(Dice dice, int row, int column) throws notValidCellException{
+    public boolean posDice(Dice dice, int row, int column) throws notValidCellException {
         if(this.map.validPosition(row, column, dice) == true)
                 {
                     map.getCell(row, column).setDice(dice);
@@ -97,4 +98,8 @@ public class Player {
        return toolCard.handle(this);
     }*/
 
+
+    public Optional<Dice> chooseDice(ArrayList<Dice> stock, int value, int color){
+        return stock.stream().filter((Dice d) -> (d.getValue()==value&&d.getColor().equals(color))).findFirst();
+    }
 }

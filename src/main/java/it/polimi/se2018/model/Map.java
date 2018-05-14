@@ -7,9 +7,9 @@ import it.polimi.se2018.model.cell.*;
 
 public class Map {
 
-    String name;
-    int difficultyLevel;
-    Cell cell[][];
+    private String name;
+    private int difficultyLevel;
+    private Cell cell[][];
     
     /**
      * /** class constructor: initialize the object Map type
@@ -17,14 +17,11 @@ public class Map {
      * @param difficulty: level of difficulty of the matrix
      * @param row: number of row of the matrix
      * @param column: number of column of the matrix
-     * @throws difficultNotValidException: when the value of difficult do not respect the interval
      * @throws notValidMatrixException: when the values of row and column are not valid to construct the matrix
      */
-    public Map(String glassWindowName, int difficulty, int row, int column) throws difficultNotValidException, notValidMatrixException{
+    public Map(String glassWindowName, int difficulty, int row, int column) throws notValidMatrixException{
         name = glassWindowName;
         difficultyLevel = difficulty;
-        if (difficultyLevel <= 0)
-            throw new difficultNotValidException(this);
         cell = new Cell[row][column];
         if ((row < 0) || (column < 0))
             throw new notValidMatrixException(this);
@@ -83,8 +80,6 @@ public class Map {
         {
             if((this.getCell(index, column).getColor() == color) || (this.getCell(index, column).getValue() == value))
                 return true;
-            else 
-                continue;
         }
         return false;
     }

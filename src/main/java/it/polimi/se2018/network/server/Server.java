@@ -6,7 +6,6 @@ import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
-import sun.misc.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

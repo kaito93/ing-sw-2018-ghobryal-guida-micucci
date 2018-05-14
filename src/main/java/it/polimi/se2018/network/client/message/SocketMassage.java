@@ -1,7 +1,5 @@
 package it.polimi.se2018.network.client.message;
 
-import org.omg.CORBA.Object;
-
 import java.io.Serializable;
 
 public class SocketMassage implements Serializable {

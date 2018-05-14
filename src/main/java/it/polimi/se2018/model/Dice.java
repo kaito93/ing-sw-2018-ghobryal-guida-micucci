@@ -8,13 +8,13 @@ import java.util.Random;
 
 public class Dice {
 
-    int value;
-    Color color;
+    private int value;
+    private Color color;
     
     /**class constructor
      */
     public Dice(){
-        value = 1;
+        throwDice();
         color = null;
     }
     
@@ -22,12 +22,9 @@ public class Dice {
      * @return an integer between 1 and 6
      * @throws NumberNotValidException: when the number is not in the interval 1-6
      */
-    public void throwDice() throws NumberNotValidException{
+    public void throwDice(){
         Random x = new Random();
         value = x.nextInt(6)+1;
-        if ((value > 6) || (value < 0))
-            throw new NumberNotValidException(this);
-        
     }
     
     /** get the value of the dice
@@ -42,5 +39,9 @@ public class Dice {
      */
     public Color getColor() {
         return color;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
