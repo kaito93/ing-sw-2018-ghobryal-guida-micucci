@@ -44,4 +44,8 @@ public class Dice {
     public void setValue(int value) {
         this.value = value;
     }
+    
+    public void setColorDice(Color colour){
+        this.color = colour;
+    }
 }
