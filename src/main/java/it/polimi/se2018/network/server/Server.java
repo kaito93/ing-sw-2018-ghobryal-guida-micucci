@@ -61,11 +61,19 @@ public class Server implements ServerRMI{
                         this.timer.schedule(count, 0, timer / 20); // fa partire il timer}
                     }
                     else{
-                        ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
-                        clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+                        if (checkUsername(((RequestConnection) obj).getUser())==true) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
+                            ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
+                            clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+                        }
+                        else{
+                            // TO DO: USERNAME GIA' REGISTRATO DA UN ALTRO GIOCATORE
+                        }
+
                     }
 
                 }
+                else
+                    System.out.println("Tipo di messaggio ricevuto sconosciuto");
 
 
                 if (!active)
@@ -91,6 +99,17 @@ public class Server implements ServerRMI{
         catch (MalformedURLException e) {
             System.out.print("Impossibile avviare il server RMI");
         }
+
+    }
+
+    public boolean checkUsername(String userNewPlayer){
+
+        for (int i=0; i<this.clients.size();i++) // Per ogni client già registrato
+        {
+            if (userNewPlayer==this.clients.get(i).getUsername()) // controlla se l'username scelto dal nuovo giocatore è già
+                return false;                                     // preso da un altro giocatore. In questo caso torna false
+        }
+        return true; // Se dopo aver controllato tutti i giocatori non è stato trovato l'username scelto, allora l'username è disponibile
 
     }
 
