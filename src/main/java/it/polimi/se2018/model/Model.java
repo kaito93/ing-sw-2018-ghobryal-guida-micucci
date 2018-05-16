@@ -6,15 +6,15 @@ import java.util.Random;
 
 public class Model {
 
-
+    final int maxRound = 10;
 
     static ArrayList<Dice> diceBag=new ArrayList <Dice>();
 
     static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <PublicObjectiveCard>();
 
-    RoundSchemeCell roundSchemeMap;
+    RoundSchemeCell roundSchemeMap[];
 
-    final int maxRound = 10;
+
 
 
 
@@ -40,7 +40,7 @@ public class Model {
 
         }
 
-        // TO DO: Creazione del tracciato dei round
+        this.roundSchemeMap= new RoundSchemeCell[maxRound]; // Crea il tracciato dei round
 
 
 

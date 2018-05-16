@@ -29,6 +29,10 @@ public class ConnectionServerSocket extends ConnectionServer {
 
     }
 
+    public ObjectInputStream getInput(){
+        return this.input;
+    }
+
     public void send(Object message) {
         try {
             this.output.writeObject(message);

@@ -2,6 +2,8 @@ package it.polimi.se2018.network.server.connection;
 
 import it.polimi.se2018.network.server.message.MessageCV;
 
+import java.io.ObjectInputStream;
+
 public abstract class ConnectionServer {
 
     String username;
@@ -15,4 +17,6 @@ public abstract class ConnectionServer {
     public String getUsername() {
         return username;
     }
+
+    public abstract ObjectInputStream getInput();
 }

@@ -14,12 +14,11 @@ public class Lobby extends Thread {
 
     public Lobby(ArrayList<ConnectionServer> connections){
 
-        this.controller= new Controller(); //creo il controller
         this.playerConnection=connections; // salvo le connessioni dei giocatori
         this.view= new VirtualView(); // crea la virtual view per interfacciarsi con i giocatori
-        this.view.setClients(connections);
-        this.view.start();
-        this.controller = new Controller();
+        this.view.setClients(connections); // setta i giocatori
+        this.view.startServer(); // avvia la view
+        this.controller = new Controller(view);
     }
 
     public void start(){
