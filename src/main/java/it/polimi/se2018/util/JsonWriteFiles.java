@@ -32,6 +32,7 @@ public class JsonWriteFiles {
         String stringSon4;
         String stringSon5;
         PrintWriter writer = null;
+        /*
         try{
             writer = new PrintWriter("src/main/java/it/polimi/se2018/JsonFiles/Dices.json");
         } catch (FileNotFoundException e){
@@ -61,7 +62,7 @@ public class JsonWriteFiles {
             writer.print("\r\n");
         }
         writer.close();
-        System.out.println("successo");
+        System.out.println("successo");*/
     }
     
  /*   public static void main(String[] args) throws FileNotFoundException {

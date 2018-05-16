@@ -2,8 +2,10 @@ package it.polimi.se2018.network.server.VirtualView;
 
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
+import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.MessageMV;
 import it.polimi.se2018.network.server.message.MessageStart;
@@ -34,20 +36,22 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
     public VirtualView (){
-        this.RMIview = new RMIVirtualView(); // creo la virtual view per le connessioni socket
-        this.socketView= new SocketVirtualView(); // creo la virtual view per le connessioni RMI
+        //this.RMIview = new RMIVirtualView(); // creo la virtual view per le connessioni socket
+       // this.socketView= new SocketVirtualView(); // creo la virtual view per le connessioni RMI
     }
 
     public void setClients(ArrayList<ConnectionServer> connect){
-        for (int i=0; i<connect.size(); i++){
-            PlayerPlay player = new PlayerPlay(connect.get(i));
-            playersActive.add(new Player(connect.get(i).getUsername()));
+        for (int i=0; i<connect.size(); i++){ // per ogni connessione creata
+            PlayerPlay player = new PlayerPlay(connect.get(i));// crea un thread per il giocatore
+            playersPlay.add(player); // aggiungi il thread all'elenco
+            playersActive.add(new Player(connect.get(i).getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
 
         }
+        this.connections=connect;
 
     }
 
-    public void start(){
+    public void start() {
 
         // TO DO MIK: Carica carte schema
         ArrayList<Map> maps = new ArrayList<Map>();
@@ -59,7 +63,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                 message.addMap(m); // aggiunge la mappa estratta al messaggio da inviare
             }
 
-            Message mess= new Message(CVEvent,(Object) message);
+            Message mess= new Message(CVEvent, message);
             connections.get(i).send(mess); // viene inviato il messaggio al giocatore per scegliere la carta
         }
 
@@ -69,7 +73,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     public void startServer(){
         for (int i=0; i<this.playersPlay.size();i++)
-            this.playersPlay.get(i).run(); // avvia i thread ascoltatori dei giocatori
+            this.playersPlay.get(i).start(); // avvia i thread ascoltatori dei giocatori
     }
 
     public Map randomMap(ArrayList<Map> ma){
@@ -80,8 +84,23 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         return val; // ritorna la mappa estratta
     }
 
-    public ArrayList<Map> loadMaps(){
-        return new ArrayList<Map>(); // SOLO PER NON DARE ERRORE
+    public ArrayList<Map> loadMaps() {
+        // TO DO MIK: Carica le carte schema da file qui
+
+        // CODICE PER TEST
+
+        ArrayList<Map> maps = new ArrayList<Map>();
+        for (int i=0; i<8; i++){
+            try {Map map = new Map("ciao",1,1,1);
+                maps.add(map);
+            }
+            catch (notValidMatrixException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return maps; // SOLO PER NON DARE ERRORE
     }
 
 
@@ -106,6 +125,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             while (connect){
                 try{
                     MessageVC message = (MessageVC) client.getInput().readObject();
+                    notifyObservers(message);
                 } catch (IOException e) {
                     connect=false;
                     System.out.println("Il player si è disconnesso. Non ho ricevuto nulla");
@@ -133,6 +153,32 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                 // Fake message di tipo risposta mossa.
             }
 
+            // GESTIONE DELLA RICONNESSIONE [Ipotesi]
+
+            boolean reconnect=false;
+            while (!reconnect){ // fin quando il giocatore non si è riconnesso
+                try{
+                    MessageVC reconn = (MessageVC) client.getInput().readObject();
+                    if (reconn instanceof RequestReconnect)
+                        reconnect=true;
+                    else
+                        reconnect=false;
+                } catch (IOException e) {
+                    System.out.println("Il player è ancora disconnesso. Non ho ricevuto nulla");
+                } catch (ClassNotFoundException e) {
+
+                    System.out.println("Il player è disconnesso. Non manda dati corretti");
+                }
+
+            }
+            int ind2= playerNotPlay.indexOf(this);
+            playersPlay.add(this); // aggiungi il thread del giocatore tra quelli attivi
+            playerNotPlay.remove(this); // rimuovi il thread del giocatore tra quelli sospesi
+            playersActive.add(playersSuspend.get(ind2)); // aggiungi il giocatore all'elenco dei giocatori in gioco
+            playersSuspend.remove(ind2); // rimuovi il giocatore riconnesso tra quelli in sospeso
+            connections.add(connectionsSuspend.get(ind2)); //aggiungi la connessione del giocatore tra quelle attive
+            connectionsSuspend.remove(ind2); // rimuovi la connessione del giocatore da quelle sospese
+            this.run();// riavvio l'ascolto della view
 
 
         }

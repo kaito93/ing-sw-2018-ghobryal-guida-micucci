@@ -4,12 +4,14 @@ import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.model.cell.*;
 
+import java.io.Serializable;
+
 /** class Map
  * contains all the method to interact with the map
  * @author Andrea Micucci
  */
 
-public class Map {
+public class Map implements Serializable {
 
     private String name;
     private int difficultyLevel;

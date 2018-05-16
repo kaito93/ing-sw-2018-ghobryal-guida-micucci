@@ -1,5 +1,6 @@
 package it.polimi.se2018.network.server;
 
+import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.controller.Controller;

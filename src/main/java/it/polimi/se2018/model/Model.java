@@ -1,6 +1,8 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.model.cards.*;
+import it.polimi.se2018.model.cards.public_objective_card_strategy.MediumShadesStrategy;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -64,7 +66,14 @@ public class Model {
 
         // TO DO MIK: CARICA LE CARTE OBIETTIVO PUBBLICO DA FILE JSON E RITORNALE
 
-        return new ArrayList<PublicObjectiveCard>();
+        // CODICE SOLO PER TEST.
+        MediumShadesStrategy cards = new MediumShadesStrategy();
+        ArrayList<PublicObjectiveCard> arr = new ArrayList<PublicObjectiveCard>();
+        for (int i=0; i<3;i++) {
+            PublicObjectiveCard card = new PublicObjectiveCard("1", "1", 1, cards);
+            arr.add(card);
+        }
+        return arr;
 
     }
 

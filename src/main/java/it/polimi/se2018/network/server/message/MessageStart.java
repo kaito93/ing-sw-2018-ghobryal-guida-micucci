@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MessageStart implements MessageCV {
 
-    ArrayList<Map> maps;
+    ArrayList<Map> maps = new ArrayList<Map>();
 
     @Override
     public void accept(ConnectionClientSocket socket) {

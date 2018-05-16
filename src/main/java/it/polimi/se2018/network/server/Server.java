@@ -6,6 +6,7 @@ import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
+import it.polimi.se2018.network.server.message.MessageNewUsername;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -53,20 +54,20 @@ public class Server implements ServerRMI{
                 ObjectInputStream inputSocket = new ObjectInputStream(socket.getInputStream()); // crea un oggetto che legga la richiesta socket
                 Object obj=inputSocket.readObject();
                 if (obj instanceof RequestConnection) {
-                    System.out.println("Richiesta di connessione da parte di un giocatore");
+                    System.out.println("Richiesta di connessione da parte di un giocatore. Username richiesto: "+((RequestConnection) obj).getUser());
+                    ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
                     if (clients.isEmpty()) {
-                        ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
                         clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         TimerCount count = new TimerCount(); //inizializza il timer
                         this.timer.schedule(count, 0, timer / 20); // fa partire il timer}
                     }
                     else{
                         if (checkUsername(((RequestConnection) obj).getUser())==true) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
-                            ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
                             clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         }
-                        else{
-                            // TO DO: USERNAME GIA' REGISTRATO DA UN ALTRO GIOCATORE
+                        else{// se l'username è già preso
+                            MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
+                            conness.send(message); //invia il messaggio. [nota bene: non si salva conness nell'array]
                         }
 
                     }
@@ -106,8 +107,10 @@ public class Server implements ServerRMI{
 
         for (int i=0; i<this.clients.size();i++) // Per ogni client già registrato
         {
-            if (userNewPlayer==this.clients.get(i).getUsername()) // controlla se l'username scelto dal nuovo giocatore è già
-                return false;                                     // preso da un altro giocatore. In questo caso torna false
+            if (this.clients.get(i).getUsername().equalsIgnoreCase(userNewPlayer)) // controlla se l'username scelto dal nuovo giocatore è già
+                {
+                    System.out.println("L'username scelto dal giocatore è già stato richiesto");
+                    return false;}                                     // preso da un altro giocatore. In questo caso torna false
         }
         return true; // Se dopo aver controllato tutti i giocatori non è stato trovato l'username scelto, allora l'username è disponibile
 
