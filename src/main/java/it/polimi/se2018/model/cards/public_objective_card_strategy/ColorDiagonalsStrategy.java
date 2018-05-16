@@ -1,9 +1,10 @@
 package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.model.exception.notValidCellException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import java.util.ArrayList;
 
 /**
  * Color Diagonals Public Objective Card
@@ -12,52 +13,121 @@ import java.util.logging.Logger;
 
 public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
 
+    private ArrayList<Cell> temp = new ArrayList<>();
+
     /**
      * Read description of this card for further information
      * @param map player's map
-     * @param score the score the player achieves out of this card
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
-     * @return how many times the player achieves this card multiplied to its score
+     * @param score n.a.
+     * @return the number of dices with the same color on diagonals
      */
 
     @Override
-    public int search(Map map, int score){ //kill score
-        int counter=0;
+    public int search(Map map, int score) { //kill score
+        int counter=0; //controls the number of visited dices
 
-        //inspection Left->Right
-        for(int i=0; i<map.numRow()-1; i++){ //no control last column
-            for(int j=0; j<map.numColumn()-1; j++){ try {
-                //no control last row
-                if(map.getCell(i,j).getDice()!=null&&map.getCell(i+1,j+1).getDice()!=null){
-                    if(map.getCell(i,j).getDice().getColor().equals(map.getCell(i+1,j+1).getDice().getColor())){
-                        if(counter==0)
-                            counter = 2; //2 dices is the min number
-                        else counter++;
-                    }
-                }
-                } catch (notValidCellException ex) {
-                    System.out.println("colorDiagonalStrategy");
-                }
-            }
+        try {
+            for(int row = 0; row<map.numRow(); row++)
+                for(int column = 0; column<map.numColumn(); column++)
+                    visitor(map, row, column);
+            counter = temp.size();
+        } catch (notValidCellException e) {
+            System.err.println("Color Diagonals Strategy");
         }
-
-        //inspection Right->Left
-        for(int i=map.numRow()-1; i>0; i--){
-            for(int j=0; j<map.numColumn()-1; j++){
-                try {
-                    if(map.getCell(i,j).getDice()!=null&&map.getCell(i-1,j+1).getDice()!=null){
-                        if(map.getCell(i,j).getDice().getColor().equals(map.getCell(i-1,j+1).getDice().getColor())){
-                            if(counter==0)
-                                counter = 2; //2 dices is the min number
-                            else counter++;
-                        }
-                    }
-                } catch (notValidCellException ex) {
-                    System.out.println("colorDiagonalStrategy");
-                }
-            }
-        }
-
         return counter;
+    }
+
+    /**
+     * visits the map's diagonals if they
+     * @param map player's map
+     * @param row row's coordinate on the map
+     * @param column column's coordinate on the map
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
+     */
+
+    private void visitor(Map map, int row, int column) throws notValidCellException {
+        if(map.getCell(row, column).getDice()!=null)
+            if (row < 1 && column < 1 && map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())
+                    && !temp.contains(map.getCell(row + 1, column + 1))) { //up left control
+                visitor(map, row + 1, column + 1);
+                temp.add(map.getCell(row, column));
+            } else if (row > map.numRow() - 2 && column < 1 && map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column + 1).getDice().getColor())
+                    && !temp.contains(map.getCell(row - 1, column + 1))) { //down left control
+                visitor(map, row - 1, column + 1);
+                temp.add(map.getCell(row, column));
+            } else if (row > 0 && row <= map.numRow() - 2 && column < 1) { //centre left control
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column + 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row - 1, column + 1))) {
+                    visitor(map, row - 1, column + 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row + 1, column + 1))) {
+                    visitor(map, row + 1, column + 1);
+                    temp.add(map.getCell(row, column));
+                }
+            } else if (row < 1 && column > map.numColumn() - 2 && map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column - 1).getDice().getColor())
+                    && !temp.contains(map.getCell(row + 1, column - 1))) { //up right control
+                visitor(map, row + 1, column - 1);
+                temp.add(map.getCell(row, column));
+            } else if (row > map.numRow() - 2 && column > map.numColumn() - 2 && map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column - 1).getDice().getColor())
+                    && !temp.contains(map.getCell(row - 1, column - 1))) { //down right control
+                visitor(map, row - 1, column - 1);
+                temp.add(map.getCell(row, column));
+            } else if (row > 0 && row <= map.numRow() - 2 && column > map.numColumn() - 2) { //centre right control
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column - 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row - 1, column - 1))) {
+                    visitor(map, row - 1, column - 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column - 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row + 1, column - 1))) {
+                    visitor(map, row + 1, column - 1);
+                    temp.add(map.getCell(row, column));
+                }
+            } else if (row < 1 && column > 0 && column <= map.numColumn() - 2) { //centre up control
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column - 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row + 1, column - 1))) {
+                    visitor(map, row + 1, column - 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row + 1, column + 1))) {
+                    visitor(map, row + 1, column + 1);
+                    temp.add(map.getCell(row, column));
+                }
+            } else if (row > map.numRow() - 2 && column > 0 && column <= map.numColumn() - 2) { //centre down control
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column - 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row - 1, column - 1))) {
+                    visitor(map, row - 1, column - 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column + 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row - 1, column + 1))) {
+                    visitor(map, row - 1, column + 1);
+                    temp.add(map.getCell(row, column));
+                }
+            } else if (row > 0 && row < map.numRow() - 1 && column > 0 && column < map.numColumn() - 1) { //centre control
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column - 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row - 1, column - 1))) {
+                    visitor(map, row - 1, column - 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column + 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row - 1, column + 1))) {
+                    visitor(map, row - 1, column + 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column - 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row + 1, column - 1))) {
+                    visitor(map, row + 1, column - 1);
+                    temp.add(map.getCell(row, column));
+                }
+                if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())
+                        && !temp.contains(map.getCell(row + 1, column + 1))) {
+                    visitor(map, row + 1, column + 1);
+                    temp.add(map.getCell(row, column));
+                }
+            }
     }
 }

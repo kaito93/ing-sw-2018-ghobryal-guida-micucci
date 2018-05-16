@@ -1,25 +1,26 @@
 package it.polimi.se2018.model;
+
+import it.polimi.se2018.model.exception.notValidMatrixException;
+import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.model.cell.*;
+
 /** class Map
  * contains all the method to interact with the map
  * @author Andrea Micucci
  */
-import it.polimi.se2018.model.exception.notValidMatrixException;
-import it.polimi.se2018.model.exception.notValidCellException;
-import it.polimi.se2018.model.cell.*;
 
 public class Map {
 
     private String name;
     private int difficultyLevel;
-    private Cell cell[][];
+    private Cell[][] cell;
     
-    /**
-     * /** class constructor: initialize the object Map type
-     * @param glassWindowName: name of the matrix, refers to the corrispondent card
-     * @param difficulty: level of difficulty of the matrix
-     * @param row: number of row of the matrix
-     * @param column: number of column of the matrix
-     * @throws notValidMatrixException: when the values of row and column are not valid to construct the matrix
+    /** class constructor initialize the object Map type
+     * @param glassWindowName name of the matrix, refers to the corrispondent card
+     * @param difficulty level of difficulty of the matrix
+     * @param row number of row of the matrix
+     * @param column number of column of the matrix
+     * @throws notValidMatrixException when the values of row and column are not valid to construct the matrix
      */
     public Map(String glassWindowName, int difficulty, int row, int column) throws notValidMatrixException{
         name = glassWindowName;
@@ -51,8 +52,8 @@ public class Map {
     }
     
     /** method that return a single cell of a matrix that represent the glasswindow
-     * @param row: where you want to search
-     * @param column: where you want to search
+     * @param row where you want to search
+     * @param column where you want to search
      * @return an object Cell
      * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
      */
@@ -70,13 +71,13 @@ public class Map {
     }
     
     /** method that verify if a number or a color exist already in a coloumn of the matrix
-     * @param column: of the matrix where you want to search the number
-     * @param color: that you are searching
-     * @param value: that you are searching
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
+     * @param column of the matrix where you want to search the number
+     * @param color that you are searching
+     * @param value that you are searching
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if the value already exist in the column of matrix, else false
      */
-    public boolean AlreadyExistInColumn(int column, Color color, int value) throws notValidCellException{
+    public boolean alreadyExistInColumn(int column, Color color, int value) throws notValidCellException{
         int index;
         for(index = 0; index < this.numRow(); index++)
         {
@@ -87,32 +88,30 @@ public class Map {
     }
     
     /** method that verify if a number or a color exist already in a row of the matrix
-     * @param row: of the matrix where you want to search the number
-     * @param color: that you are searching
-     * @param value: that you are searching
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
+     * @param row of the matrix where you want to search the number
+     * @param color that you are searching
+     * @param value that you are searching
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if the value already exist in the row of matrix, else false
      */
-    public boolean AlreadyExistInRow(int row, Color color, int value) throws notValidCellException{
+    public boolean alreadyExistInRow(int row, Color color, int value) throws notValidCellException{
         int index;
         for(index = 0; index < this.numRow(); index++)
         {
             if((this.getCell(row, index).getColor() == color) || (this.getCell(row, index).getValue() == value))
                 return true;
-            else 
-                continue;
         }
         return false;
     }
     /** a method that set all the values of the cell
-     * @param d: the dice you want to set in the cell of the matrix
-     * @param row: the row in which you want to set the dice
-     * @param column: the column in which you want to set the dice
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
-     * @return a boolean that is "true", if the dice is setted in the cell
+     * @param d the dice you want to set in the cell of the matrix
+     * @param row the row in which you want to set the dice
+     * @param column the column in which you want to set the dice
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
+     * @return a boolean that is "true", if the dice is set in the cell
      */
     public boolean setCell(Dice d, int row, int column) throws notValidCellException{
-        if (validPosition(row, column, d) == false)
+        if (!validPosition(row, column, d))
             return false;
         else
         {
@@ -122,10 +121,10 @@ public class Map {
     }
     
     /** a method that verify is a position is right to put a dice inside it
-     * @param row: the row you want to verify
-     * @param column: the column you want to verify
-     * @param dice: the dice you want to put in the cell, with its value and color
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
+     * @param row the row you want to verify
+     * @param column the column you want to verify
+     * @param dice the dice you want to put in the cell, with its value and color
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is "true" if it is possible to put a dice in it
      */
     public boolean validPosition(int row, int column, Dice dice) throws notValidCellException{
@@ -133,8 +132,8 @@ public class Map {
             return false;
         else if ((this.getCell(row, column).getDice() == null) && (this.getCell(row, column).getDice().getValue() == dice.getValue()) && (this.getCell(row, column).getDice().getColor() == dice.getColor()))
         {
-            if(((this.AlreadyExistInColumn(column, dice.getColor(), dice.getValue())) == true) && (this.AlreadyExistInRow(row, dice.getColor(), dice.getValue()) == true))
-                return false;
+            if(this.alreadyExistInColumn(column, dice.getColor(), dice.getValue()) && this.alreadyExistInRow(row, dice.getColor(), dice.getValue()))
+            return false;
         }
         return true;
             

@@ -13,14 +13,12 @@ public class ToolCard extends Card {
     private int id;
     private Color color;
     private boolean used;
-    private ToolCardStrategy strategy;
 
-    public ToolCard(String title, String description,int id1, Color color1, boolean used1, ToolCardStrategy strategy1){
+    public ToolCard(String title, String description,int id1, Color color1, boolean used1){
         super(title, description);
         id = id1;
         color = color1;
         used = used1;
-        strategy = strategy1;
     }
 
     public boolean isUsed(){

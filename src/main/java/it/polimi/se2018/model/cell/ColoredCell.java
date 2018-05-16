@@ -7,7 +7,7 @@ package it.polimi.se2018.model.cell;
 import it.polimi.se2018.model.Color;
 
 public class ColoredCell extends Cell {
-    Color color;
+    private Color color;
 
     /** class constructor
      *  @return a cell with a particoular color

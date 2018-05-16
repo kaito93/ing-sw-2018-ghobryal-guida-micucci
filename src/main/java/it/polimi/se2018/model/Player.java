@@ -1,15 +1,15 @@
 package it.polimi.se2018.model;
 
-/** class Player
- * contains all method to change the status of data of the player
- * @author Andrea Micucci, Anton Ghobryal
- */
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.model.cards.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+/** class Player
+ * contains all method to change the status of data of the player
+ * @author Andrea Micucci, Anton Ghobryal
+ */
 public class Player {
 
     private String name;
@@ -19,9 +19,9 @@ public class Player {
     private int score;
     
     /** class constructor
-     * @param name_player: string of the name of the player connected
-     * @param glassWindow: schema of the glasswindow
-     * @param priv: single private goal's card
+     * @param name_player string of the name of the player connected
+     * @param glassWindow schema of the glasswindow
+     * @param priv single private goal's card
      */
     public Player(String name_player, Map glassWindow, PrivateObjectiveCard priv){
         name = name_player;
@@ -58,7 +58,7 @@ public class Player {
     }
     
     /** method that return the map of the player
-     * @return: a map object that is the martix of the player's glasswindow 
+     * @return a map object that is the martix of the player's glasswindow
      */
     public Map getMap(){
         return map;
@@ -75,10 +75,10 @@ public class Player {
      * @param dice: that player want to position on the matrix
      * @param row: row of the cell where the dice has to be positioned
      * @param column: column of the cell where the dice has to be positioned
-     * @return: a boolean that is "true" if the dice had been positioned
+     * @return a boolean that is "true" if the dice had been positioned
      */
     public boolean posDice(Dice dice, int row, int column) throws notValidCellException {
-        if(this.map.validPosition(row, column, dice) == true)
+        if(map.validPosition(row, column, dice))
                 {
                     map.getCell(row, column).setDice(dice);
                     return true;
@@ -89,15 +89,21 @@ public class Player {
     
     
     /** method that activate the tool card taken by the player
-     * @param toolCard: the card that the player has choice
+     * @param toolCard the card that the player has choice
      * @return a boolean that is true if the card has been activated, else "false"
      */
   /*  public boolean useTool(ToolCard toolCard){
        return toolCard.handle(this);
     }*/
 
-
-    public Optional<Dice> chooseDice(ArrayList<Dice> stock, int value, int color){
+    /**
+     * choose a dice from the passed stock
+     * @param stock round stock
+     * @param value dice's value
+     * @param color dice's color
+     * @return the chosen dice
+     */
+    public Optional<Dice> chooseDice(ArrayList<Dice> stock, int value, Color color){
         return stock.stream().filter((Dice d) -> (d.getValue()==value&&d.getColor().equals(color))).findFirst();
     }
 }

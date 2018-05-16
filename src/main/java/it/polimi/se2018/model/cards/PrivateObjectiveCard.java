@@ -28,7 +28,7 @@ public class PrivateObjectiveCard extends Card {
 
     /**
      * searches the values of all positioned dices of a specified color
-     * @param map
+     * @param map player's map
      * @return the sum of these values
      */
 

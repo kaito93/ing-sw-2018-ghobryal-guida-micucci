@@ -2,7 +2,7 @@ package it.polimi.se2018.model;
 
 /**
  * Color Enumeration
- * @author Anton Ghobryal, Andrea Micucci
+ * @author Anton Ghobryal
  */
 
 public enum Color {

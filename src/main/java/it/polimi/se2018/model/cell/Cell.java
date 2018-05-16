@@ -10,7 +10,7 @@ import it.polimi.se2018.model.Dice;
 
 public abstract class Cell {
 
-    Dice dice;
+    private Dice dice;
     
     /** class constructor
      *  @return a cell object with no dice inside

@@ -20,7 +20,6 @@ public class Dice {
     
     /** throw the dice
      * @return an integer between 1 and 6
-     * @throws NumberNotValidException: when the number is not in the interval 1-6
      */
     public void throwDice(){
         Random x = new Random();
@@ -41,11 +40,11 @@ public class Dice {
         return color;
     }
 
+    /** changes the dice's value
+     * @param value dice's wanted value
+     */
     public void setValue(int value) {
         this.value = value;
     }
-    
-    public void setColorDice(Color colour){
-        this.color = colour;
-    }
+
 }

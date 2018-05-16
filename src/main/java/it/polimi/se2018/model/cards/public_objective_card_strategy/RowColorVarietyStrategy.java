@@ -16,7 +16,7 @@ public class RowColorVarietyStrategy extends ObjectiveCardStrategy{
      * Read description of this card for further information
      * @param map player's map
      * @param score the score the player achieves out of this card
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return how many times the player achieves this card multiplied to its score
      */
 
