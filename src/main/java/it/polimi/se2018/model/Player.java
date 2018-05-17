@@ -17,11 +17,15 @@ public class Player {
     private int favorSig;
     private PrivateObjectiveCard privateObj;
     private int score;
+    private boolean firstTurn;
+    private boolean secondTurn;
     
     /** class constructor
      * @param name_player string of the name of the player connected
      * @param glassWindow schema of the glasswindow
      * @param priv single private goal's card
+     * @param firstTurn indicate if the first action of the turn was made
+     * @param secondTurn indicate if the second action of the turn was made
      */
     public Player(String name_player, Map glassWindow, PrivateObjectiveCard priv){
         name = name_player;
@@ -29,6 +33,8 @@ public class Player {
         favorSig = glassWindow.getDifficultyLevel();
         privateObj = priv;
         score = 0;
+        firstTurn = false;
+        secondTurn = false;
     }
 
     public Player (String user){
@@ -55,6 +61,33 @@ public class Player {
     public int getFavSig()
     {
         return favorSig;
+    }
+    
+    /** method that set the value of the boolean firstAction as boolval
+     * @param boolval a boolean that can be true-false
+     */
+    public void SetFirstTurn(boolean boolval){
+        this.firstTurn = boolval;
+    }
+    /** method that set the value of the boolean secondAction as boolval
+     * @param boolval a boolean that can be true-false
+     */    
+    public void SetSecondTurn(boolean boolval){
+        this.secondTurn = boolval;
+    }
+    
+    /** method that return the value of the boolean firstTurn
+     * @return the value of the boolean firstTurn
+     */
+    public boolean GetFirstTurn(){
+        return this.firstTurn;
+    }
+
+     /** method that return the value of the boolean firstTurn
+     * @return the value of the boolean firstTurn
+     */
+    public boolean GetSecondTurn(){
+        return this.secondTurn;
     }
     
     /** method that return the map of the player

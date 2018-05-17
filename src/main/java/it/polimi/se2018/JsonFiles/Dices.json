@@ -1,90 +1,362 @@
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
-{"value":2,"color":"BLUE"}
-{"value":2,"color":"GREEN"}
-{"value":2,"color":"PURPLE"}
-{"value":2,"color":"RED"}
-{"value":2,"color":"YELLOW"}
+[
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    },
+    {
+        "value": 2,
+        "color": "BLUE"
+    },
+    {
+        "value": 2,
+        "color": "GREEN"
+    },
+    {
+        "value": 2,
+        "color": "PURPLE"
+    },
+    {
+        "value": 2,
+        "color": "RED"
+    },
+    {
+        "value": 2,
+        "color": "YELLOW"
+    }
+]
