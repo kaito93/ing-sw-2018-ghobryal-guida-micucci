@@ -4,6 +4,8 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.message.MessageCV;
+import it.polimi.se2018.network.server.message.MessageSystem;
+import it.polimi.se2018.view.View;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,16 +18,18 @@ public class ConnectionClientSocket extends ConnectionClient {
     ObjectOutputStream output;
     Socket socket;
     String user;
+    View view;
 
     public static final int MVEvent=0;
     public static final int CVEvent=1;
     public static final int SystemMessage=2;
 
-    public ConnectionClientSocket(int port, String ip,String user){
+    public ConnectionClientSocket(int port, String ip, View view){
 
         this.ip=ip;
         this.port=port;
-        this.user=user;
+        this.view = view;
+        this.user= view.request("Quale sarà il tuo username?");
 
     }
 
@@ -33,6 +37,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void run() {
 
         try {
+
             System.setProperty("java.net.preferIPv4Stack" , "true"); //setta preferenze di protocollo IP V4
             this.socket = new Socket(ip, port);
             System.out.println("Connessione col server stabilita");
@@ -43,6 +48,7 @@ public class ConnectionClientSocket extends ConnectionClient {
             sendRequestConnection(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
             Listen list = new Listen(); // creo un oggetto ascoltatore
             list.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
+
 
 
         } catch (IOException e) {
@@ -56,7 +62,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
         try {
             this.output.writeObject(message);
-            System.out.print("Mando la richiesta per iscrivermi al gioco");
+            System.out.println("Mando la richiesta per iscrivermi al gioco");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -82,6 +88,11 @@ public class ConnectionClientSocket extends ConnectionClient {
                         messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
                     }
 
+                    if (message.getType()==SystemMessage){ // se il tipo di messaggio è di Sistema
+                        MessageSystem mess = (MessageSystem) message.getEvent();
+                        mess.accept(ConnectionClientSocket.this);
+                    }
+
                     //TO DO: Continua con gli altri tipi
 
                 }
@@ -101,5 +112,10 @@ public class ConnectionClientSocket extends ConnectionClient {
     @Override
     public void update(MessageVC event) {
 
+    }
+
+    public void requestNewUsername(){
+        ConnectionClientSocket newClient= new ConnectionClientSocket(this.port,this.ip,this.view);
+        newClient.run();
     }
 }

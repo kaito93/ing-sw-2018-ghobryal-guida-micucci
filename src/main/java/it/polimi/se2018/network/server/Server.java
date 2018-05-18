@@ -2,6 +2,7 @@ package it.polimi.se2018.network.server;
 
 
 
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
@@ -30,6 +31,10 @@ public class Server implements ServerRMI{
     ArrayList<ConnectionServer> clients = new ArrayList<ConnectionServer>();
     boolean active = false;
     Timer timer = new Timer();
+
+    public static final int MVEvent=0;
+    public static final int CVEvent=1;
+    public static final int SystemMessage=2;
 
     public Server(int port, int timer) {
 
@@ -67,7 +72,8 @@ public class Server implements ServerRMI{
                         }
                         else{// se l'username è già preso
                             MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
-                            conness.send(message); //invia il messaggio. [nota bene: non si salva conness nell'array]
+                            Message mess = new Message(SystemMessage,message); // creo un messaggio di sistema
+                            conness.send(mess); //invia il messaggio. [nota bene: non si salva conness nell'array]
                         }
 
                     }
