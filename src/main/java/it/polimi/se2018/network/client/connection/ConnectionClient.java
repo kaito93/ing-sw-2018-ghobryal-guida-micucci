@@ -25,4 +25,7 @@ public abstract class ConnectionClient extends it.polimi.se2018.util.Observable<
 
     public abstract void sendMessage(Object message);
 
+    public abstract void update(MessageVC event);
+
+
 }

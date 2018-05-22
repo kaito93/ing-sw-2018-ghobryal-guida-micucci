@@ -20,6 +20,8 @@ public class ConnectionClientSocket extends ConnectionClient {
     ObjectOutputStream output;
     Socket socket;
     String user;
+    Listen listener;
+
 
     public static final int MVEvent=0;
     public static final int CVEvent=1;
@@ -49,6 +51,11 @@ public class ConnectionClientSocket extends ConnectionClient {
             sendMessage(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
             Listen list = new Listen(); // creo un oggetto ascoltatore
             list.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
+
+            sendMessage(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
+            this.listener = new Listen(); // creo un oggetto ascoltatore
+            listener.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
+
 
 
 

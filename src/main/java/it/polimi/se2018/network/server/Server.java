@@ -30,14 +30,21 @@ public class Server implements ServerRMI{
     ServerRMI skeleton;
     ArrayList<ConnectionServer> clients = new ArrayList<ConnectionServer>();
     boolean active = false;
+    int port;
+    int time;
     Timer timer = new Timer();
+    ArrayList<Lobby> lobbies = new ArrayList<Lobby>();
 
     public static final int MVEvent=0;
     public static final int CVEvent=1;
     public static final int SystemMessage=2;
 
     public Server(int port, int timer) {
+        this.time = timer;
+        this.port = port;
+    }
 
+    public void start(){
         try{
             startRMI(); // prova ad avviare il server RMI
 
@@ -64,7 +71,7 @@ public class Server implements ServerRMI{
                     if (clients.isEmpty()) {
                         clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         TimerCount count = new TimerCount(); //inizializza il timer
-                        this.timer.schedule(count, 0, timer / 20); // fa partire il timer}
+                        this.timer.schedule(count, 0, time / 20); // fa partire il timer}
                     }
                     else{
                         if (checkUsername(((RequestConnection) obj).getUser())==true) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
@@ -122,8 +129,8 @@ public class Server implements ServerRMI{
 
     }
 
-    @Override
-    public void Connetti(Remote client) {
+
+    public void connect(Remote client) {
         ConnectionServer connection = new ConnectionServerRMI();
 
     }
@@ -152,7 +159,9 @@ public class Server implements ServerRMI{
             else{
                 if (counter==20) { // se si esaurisce il tempo di attesa
                     this.cancel();
-                    new Lobby(clients).start();
+                    Lobby newLobby = new Lobby(clients);
+                    lobbies.add(newLobby);
+                    newLobby.start();
                     System.out.print("Timer scaduto. Il gioco si sta avviando");
                     clients=new ArrayList<ConnectionServer>();
                     System.out.print("Il server è pronto per accettare richieste per un'altra partita");
@@ -179,9 +188,11 @@ public class Server implements ServerRMI{
     public static void main (String[] args) {
         int porta=9736;
         int timer=10000;
+        Server server;
         // To Do: Caricamento da file di configurazione partita di porta e timer
 
-        new Server(porta,timer);
+        server=new Server(porta,timer);
+        server.start();
 
     }
 }
