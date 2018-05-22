@@ -71,13 +71,13 @@ public class Map implements Serializable {
     public String getName(){
         return name;
     }
-    
-    /** method that verify if a number or a color exist already in a coloumn of the matrix
+
+    /** method that verify if a number or a color exist already in a column of the matrix
      * @param column of the matrix where you want to search the number
-     * @param color that you are searching
-     * @param value that you are searching
+     * @param color that you are searching for
+     * @param value that you are searching for
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
-     * @return a boolean that is true if the value already exist in the column of matrix, else false
+     * @return a boolean that is true if value or color already exist in the column of matrix, else false
      */
     public boolean alreadyExistInColumn(int column, Color color, int value) throws notValidCellException{
         int index;
