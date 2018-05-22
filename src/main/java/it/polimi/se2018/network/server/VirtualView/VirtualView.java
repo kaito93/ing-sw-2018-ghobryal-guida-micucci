@@ -8,10 +8,9 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.MessageMV;
-import it.polimi.se2018.network.server.message.MessageStart;
+import it.polimi.se2018.network.server.message.MessageChooseMap;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
-import org.omg.CORBA.Object;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         ArrayList<Map> maps = new ArrayList<Map>();
         maps = loadMaps();
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            MessageStart message = new MessageStart(); // prepara un messaggio da inviare per scegliere la carta schema
+            MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
             for (int j=0; j<2;j++){ // sceglie 2 carte schema
                 Map m = randomMap(maps);
                 message.addMap(m); // aggiunge la mappa estratta al messaggio da inviare
@@ -65,6 +64,8 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
             Message mess= new Message(CVEvent, message);
             connections.get(i).send(mess); // viene inviato il messaggio al giocatore per scegliere la carta
+
+
         }
 
 

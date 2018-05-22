@@ -1,5 +1,6 @@
 package it.polimi.se2018.network.client.connection;
 
+import it.polimi.se2018.model.Map;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.Message;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ConnectionClientSocket extends ConnectionClient {
 
@@ -18,7 +20,6 @@ public class ConnectionClientSocket extends ConnectionClient {
     ObjectOutputStream output;
     Socket socket;
     String user;
-    View view;
 
     public static final int MVEvent=0;
     public static final int CVEvent=1;
@@ -45,7 +46,7 @@ public class ConnectionClientSocket extends ConnectionClient {
             output.flush();
             this.input= new ObjectInputStream(socket.getInputStream()); // inizializza la variabile input e output
 
-            sendRequestConnection(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
+            sendMessage(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
             Listen list = new Listen(); // creo un oggetto ascoltatore
             list.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
@@ -57,20 +58,6 @@ public class ConnectionClientSocket extends ConnectionClient {
 
 
     }
-
-    public void sendRequestConnection(RequestConnection message){
-
-        try {
-            this.output.writeObject(message);
-            System.out.println("Mando la richiesta per iscrivermi al gioco");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
 
     class Listen extends Thread{
 
@@ -117,5 +104,14 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void requestNewUsername(){
         ConnectionClientSocket newClient= new ConnectionClientSocket(this.port,this.ip,this.view);
         newClient.run();
+    }
+
+    @Override
+    public void sendMessage(Object message) {
+        try {
+            this.output.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
