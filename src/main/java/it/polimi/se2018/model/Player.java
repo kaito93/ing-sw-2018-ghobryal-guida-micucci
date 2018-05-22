@@ -24,8 +24,6 @@ public class Player {
      * @param name_player string of the name of the player connected
      * @param glassWindow schema of the glasswindow
      * @param priv single private goal's card
-     * @param firstTurn indicate if the first action of the turn was made
-     * @param secondTurn indicate if the second action of the turn was made
      */
     public Player(String name_player, Map glassWindow, PrivateObjectiveCard priv){
         name = name_player;
@@ -138,5 +136,13 @@ public class Player {
      */
     public Optional<Dice> chooseDice(ArrayList<Dice> stock, int value, Color color){
         return stock.stream().filter((Dice d) -> (d.getValue()==value&&d.getColor().equals(color))).findFirst();
+    }
+
+    /**
+     * return the oobject map
+     * @param map that is used by the player
+     */
+    public void setMap(Map map) {
+        this.map = map;
     }
 }
