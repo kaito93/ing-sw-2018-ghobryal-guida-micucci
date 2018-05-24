@@ -1,36 +1,42 @@
-package it.polimi.se2018.model.cards.tool_card;
+package it.polimi.se2018.model.cards.tool_card_strategy;
 
-import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.Dice;
+import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.RoundSchemeCell;
+import it.polimi.se2018.model.exception.notValidCellException;
+
+import java.util.ArrayList;
 
 /**
  * Grozing Pliers Tool Card
  * @author Anton Ghobryal
  */
 
-public class GrozingPliers extends ToolCard{
+public class GrozingPliers extends ToolCardStrategy {
 
     private int firstValue; //+1
     private int secondValue; //-1
 
-    /**
-     * class constructor
-     * @param title the title of this card
-     * @param description the description of the card rules
-     * @param id1 card's number
-     * @param color1 color associated to the card
-     */
-
-    public GrozingPliers(String title, String description, int id1, Color color1) {
-        super(title, description, id1, color1);
-    }
 
     /**
      * Read description of this card for further information
+     * @param player n.a.
+     * @param dice the chosen dice
      * @param value dice's value that is needed to be increased or decreased
+     * @param a n.a.
+     * @param stock n.a.
+     * @param posDice n.a.
+     * @param t1 n.a.
+     * @param t2 n.a.
+     * @param t3 n.a.
+     * @param t4 n.a.
+     * @param t5 n.a.
+     * @param t6 n.a.
+     * @return true :D
      */
 
-    public void useTool(int value){
+    public boolean useTool(Player player, Dice dice, int value, int a, ArrayList<Dice> stock
+            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6) throws notValidCellException {
         if(value>1 && value < 6){
             firstValue = value + 1;
             secondValue = value - 1;
@@ -41,6 +47,7 @@ public class GrozingPliers extends ToolCard{
             firstValue = 0;
             secondValue = value - 1;
         }
+        return true;
     }
 
     /**

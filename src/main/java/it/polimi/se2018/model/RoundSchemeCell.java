@@ -38,10 +38,10 @@ public class RoundSchemeCell {
      */
     public Dice getDice(int value, Color color){
         for (Dice aRestOfStock : restOfStock) {
-            if (!((aRestOfStock.getColor() != color) || (aRestOfStock.getValue() > value)))
+            if (aRestOfStock.getColor().equalsColor(color) && aRestOfStock.getValue()==value)
                 return aRestOfStock;
-        }
-    return null;
+            }
+        return null;
     }
 
     /**

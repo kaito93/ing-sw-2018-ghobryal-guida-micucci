@@ -1,46 +1,45 @@
-package it.polimi.se2018.model.cards.tool_card;
+package it.polimi.se2018.model.cards.tool_card_strategy;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.cell.ColoredCell;
 import it.polimi.se2018.model.exception.notValidCellException;
+
+import java.util.ArrayList;
 
 /**
  * Copper Foil Burnisher Tool Card
  * @author Anton Ghobryal
  */
 
-public class CopperFoilBurnisher extends ToolCard{
+public class CopperFoilBurnisher extends ToolCardStrategy {
 
-    /**
-     * class constructor
-     * @param title       the title of this card
-     * @param description the description of the card rules
-     * @param id1         card's number
-     * @param color1      color associated to the card
-     */
-    public CopperFoilBurnisher(String title, String description, int id1, Color color1) {
-        super(title, description, id1, color1);
-    }
 
     /**
      * Read description of this card for further information
+     * @param player player on turn
      * @param dice dice needed to be repositioned
-     * @param map player's map
      * @param row row's coordinate on the map where the chosen dice to be positioned
      * @param column column's coordinate on the map where the chosen dice to be positioned
+     * @param stock n.a.
+     * @param a n.a.
+     * @param t1 n.a.
+     * @param t2 n.a.
+     * @param t3 n.a.
+     * @param t4 n.a.
+     * @param t5 n.a.
+     * @param t6 n.a.
      * @return a boolean that verifies if the player can use the card or not
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
-    public boolean useTool(Dice dice, Map map, int row, int column) throws notValidCellException {
+    public boolean useTool(Player player, Dice dice, int row, int column, ArrayList<Dice> stock
+            , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6) throws notValidCellException {
         int i=0, j=0;
-        if(mapContainsDice(map, dice, i, j))
-            if(validPosition(dice, map, row, column)) {
-                map.getCell(row, column).setDice(dice);
-                map.getCell(i, j).setDice(null);
+        if(mapContainsDice(player.getMap(), dice, i, j))
+            if(validPosition(dice, player.getMap(), row, column)) {
+                player.getMap().getCell(row, column).setDice(dice);
+                player.getMap().getCell(i, j).setDice(null);
             }
-        return mapContainsDice(map, dice, i, j) && validPosition(dice, map, row, column);
+        return mapContainsDice(player.getMap(), dice, i, j) && validPosition(dice, player.getMap(), row, column);
     }
 
 

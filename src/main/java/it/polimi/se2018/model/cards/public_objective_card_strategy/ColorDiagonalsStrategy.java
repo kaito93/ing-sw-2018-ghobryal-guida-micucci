@@ -34,6 +34,7 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
         } catch (notValidCellException e) {
             System.err.println("Color Diagonals Strategy");
         }
+        temp = null;
         return counter;
     }
 

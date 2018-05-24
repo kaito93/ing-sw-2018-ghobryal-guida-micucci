@@ -3,7 +3,7 @@ it.polimi.se2018.controller
 it.polimi.se2018.model
 it.polimi.se2018.model.cards
 it.polimi.se2018.model.cards.public_objective_card_strategy
-it.polimi.se2018.model.cards.tool_card
+it.polimi.se2018.model.cards.tool_card_strategy
 it.polimi.se2018.model.cell
 it.polimi.se2018.model.events
 it.polimi.se2018.model.exception
