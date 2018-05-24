@@ -33,6 +33,18 @@ public class ConnectionServerSocket extends ConnectionServer {
         return this.input;
     }
 
+    public Object readInput(){
+        Object inp=new Object();
+        try {
+            inp=this.input.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return inp;
+    }
+
     public void send(Object message) {
         try {
             this.output.writeObject(message);

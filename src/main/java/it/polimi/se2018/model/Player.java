@@ -3,6 +3,7 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.model.cards.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
  * contains all method to change the status of data of the player
  * @author Andrea Micucci, Anton Ghobryal
  */
-public class Player {
+public class Player implements Serializable {
 
     private String name;
     private Map map;

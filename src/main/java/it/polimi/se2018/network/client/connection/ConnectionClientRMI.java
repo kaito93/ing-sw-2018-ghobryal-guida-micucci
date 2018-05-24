@@ -17,10 +17,6 @@ public class ConnectionClientRMI extends ConnectionClient {
 
     }
 
-    @Override
-    public void chooseMap(ArrayList<Map> maps) {
-
-    }
 
     @Override
     public void sendMessage(Object message) {

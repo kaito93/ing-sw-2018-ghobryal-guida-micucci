@@ -6,6 +6,7 @@ import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
+import it.polimi.se2018.network.client.message.ResponseMap;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.MessageMV;
 import it.polimi.se2018.network.server.message.MessageChooseMap;
@@ -39,7 +40,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
        // this.socketView= new SocketVirtualView(); // creo la virtual view per le connessioni RMI
     }
 
-    public void setClients(ArrayList<ConnectionServer> connect){
+    public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect){
         for (int i=0; i<connect.size(); i++){ // per ogni connessione creata
             PlayerPlay player = new PlayerPlay(connect.get(i));// crea un thread per il giocatore
             playersPlay.add(player); // aggiungi il thread all'elenco
@@ -47,10 +48,11 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
         }
         this.connections=connect;
+        return playersActive;
 
     }
 
-    public void start() {
+    public void start()  {
 
         // TO DO MIK: Carica carte schema
         ArrayList<Map> maps = new ArrayList<Map>();
@@ -60,6 +62,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             for (int j=0; j<2;j++){ // sceglie 2 carte schema
                 Map m = randomMap(maps);
                 message.addMap(m); // aggiunge la mappa estratta al messaggio da inviare
+                message.setPlayer(playersActive.get(i)); // invio alla view il giocatore proprietario
             }
 
             Message mess= new Message(CVEvent, message);
@@ -67,7 +70,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
         }
-
+        System.out.println("Tutto è pronto! Si cominciaaaaaaaa");
 
 
     }

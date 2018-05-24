@@ -50,7 +50,7 @@ public class Server implements ServerRMI{
 
         }
         catch (RemoteException e) {
-            System.out.print("Errore oggetto remoto RMI"); // se non ce la fa, segnalalo
+            System.out.println("Errore oggetto remoto RMI"); // se non ce la fa, segnalalo
 
         }
         active = true;
@@ -96,7 +96,7 @@ public class Server implements ServerRMI{
 
         } catch (IOException e) {
 
-            System.out.print("Errore I/O Socket");
+            System.out.println("Errore I/O Socket");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -111,7 +111,7 @@ public class Server implements ServerRMI{
             Naming.rebind("Server", skeleton);
         }
         catch (MalformedURLException e) {
-            System.out.print("Impossibile avviare il server RMI");
+            System.out.println("Impossibile avviare il server RMI");
         }
 
     }
@@ -152,9 +152,9 @@ public class Server implements ServerRMI{
 
                 this.cancel();
                 new Lobby(clients).start();
-                System.out.print("Sono presenti 4 giocatori. Il gioco si sta avviando");
+                System.out.println("Sono presenti 4 giocatori. Il gioco si sta avviando");
                 clients=new ArrayList<ConnectionServer>();
-                System.out.print("Il server è pronto per accettare richieste per un'altra partita");
+                System.out.println("Il server è pronto per accettare richieste per un'altra partita");
             }
             else{
                 if (counter==20) { // se si esaurisce il tempo di attesa
@@ -162,9 +162,9 @@ public class Server implements ServerRMI{
                     Lobby newLobby = new Lobby(clients);
                     lobbies.add(newLobby);
                     newLobby.start();
-                    System.out.print("Timer scaduto. Il gioco si sta avviando");
+                    System.out.println("Timer scaduto. Il gioco si sta avviando");
                     clients=new ArrayList<ConnectionServer>();
-                    System.out.print("Il server è pronto per accettare richieste per un'altra partita");
+                    System.out.println("Il server è pronto per accettare richieste per un'altra partita");
                 }
 
                 if (clients.size()>1)

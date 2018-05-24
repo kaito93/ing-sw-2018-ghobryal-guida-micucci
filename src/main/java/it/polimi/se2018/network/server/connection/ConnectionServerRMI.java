@@ -13,4 +13,9 @@ public class ConnectionServerRMI extends ConnectionServer {
     public ObjectInputStream getInput() {
         return null;
     }
+
+    @Override
+    public Object readInput() {
+        return null;
+    }
 }

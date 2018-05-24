@@ -19,4 +19,6 @@ public abstract class ConnectionServer {
     }
 
     public abstract ObjectInputStream getInput();
+
+    public abstract Object readInput();
 }

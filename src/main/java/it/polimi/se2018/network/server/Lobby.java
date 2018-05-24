@@ -1,5 +1,6 @@
 package it.polimi.se2018.network.server;
 
+import it.polimi.se2018.model.Player;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.controller.Controller;
@@ -11,14 +12,15 @@ public class Lobby extends Thread {
     Controller controller;
     static ArrayList<ConnectionServer> playerConnection =new ArrayList <ConnectionServer>();
     VirtualView view;
+    ArrayList<Player> players;
 
     public Lobby(ArrayList<ConnectionServer> connections){
 
         this.playerConnection=connections; // salvo le connessioni dei giocatori
         this.view= new VirtualView(); // crea la virtual view per interfacciarsi con i giocatori
-        this.view.setClients(connections); // setta i giocatori
+        players=this.view.setClients(connections); // setta i giocatori
         this.view.startServer(); // avvia la view
-        this.controller = new Controller(view);
+        this.controller = new Controller(view,players);
     }
 
     public void start(){
