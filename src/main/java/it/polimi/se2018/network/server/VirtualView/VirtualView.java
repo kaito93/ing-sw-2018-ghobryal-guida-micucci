@@ -1,15 +1,16 @@
 package it.polimi.se2018.network.server.VirtualView;
 
+import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
-import it.polimi.se2018.network.client.message.ResponseMap;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.MessageMV;
 import it.polimi.se2018.network.server.message.MessageChooseMap;
+import it.polimi.se2018.network.server.message.MessageStart;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
 
@@ -21,6 +22,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     SocketVirtualView socketView;
     RMIVirtualView RMIview;
+    Controller controller;
     ArrayList<ConnectionServer> connections;
     ArrayList<Player> playersActive = new ArrayList<Player>();
     ArrayList<PlayerPlay> playersPlay = new ArrayList<PlayerPlay>();
@@ -36,8 +38,8 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
     public VirtualView (){
-        //this.RMIview = new RMIVirtualView(); // creo la virtual view per le connessioni socket
-       // this.socketView= new SocketVirtualView(); // creo la virtual view per le connessioni RMI
+        //this.RMIview = new RMIVirtualView(controller); // creo la virtual view per le connessioni socket
+       // this.socketView= new SocketVirtualView(controller); // creo la virtual view per le connessioni RMI
     }
 
     public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect){
@@ -78,6 +80,17 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void startServer(){
         for (int i=0; i<this.playersPlay.size();i++)
             this.playersPlay.get(i).start(); // avvia i thread ascoltatori dei giocatori
+    }
+
+    public void startGame(){
+        for (int i=0; i<playersActive.size();i++){ // per ogni giocatore
+            MessageStart message = new MessageStart(); //crea un nuovo messaggio
+            Message mex = new Message(Message.cvEvent,message);
+            message.setCard(playersActive.get(i).getCardPrivateObj());
+            message.setMap(playersActive.get(i).getMap());
+            message.setFavor(playersActive.get(i).getFavSig());
+            connections.get(i).send(mex);// mando il messaggio
+        }
     }
 
     public Map randomMap(ArrayList<Map> ma){
@@ -142,6 +155,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
             int index = connections.indexOf(this.client); // ricerca l'indice del giocatore
             playersSuspend.add(playersActive.get(index)); // aggiungi il giocatore all'elenco di giocatori sospesi
+            controller.updatePlayers(playersActive.get(index));
             playersActive.remove(index); // rimuovi il giocatore sospeso dai giocatori attivi
             connectionsSuspend.add(this.client); // aggiungi la connessione nell array delle connessioni sospese
             connections.remove(index); // rimuovi la connessione dalle connessioni attive
@@ -194,9 +208,13 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         }
 
     }
-    class SocketVirtualView extends VirtualView{}
+    class SocketVirtualView extends VirtualView{
 
-    class RMIVirtualView extends VirtualView{}
+    }
+
+    class RMIVirtualView extends VirtualView{
+
+    }
 
 
     @Override
@@ -204,5 +222,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     }
 
-
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 }

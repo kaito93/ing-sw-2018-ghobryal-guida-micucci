@@ -2,6 +2,7 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.model.cards.*;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.MediumShadesStrategy;
+import it.polimi.se2018.model.cards.tool_card_strategy.FluxBrush;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,6 +16,8 @@ public class Model {
     static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <PublicObjectiveCard>();
 
     RoundSchemeCell roundSchemeMap[];
+
+    static ArrayList<ToolCard> toolCards = new ArrayList<ToolCard>();
 
 
 
@@ -44,8 +47,32 @@ public class Model {
 
         this.roundSchemeMap= new RoundSchemeCell[maxRound]; // Crea il tracciato dei round
 
+        ArrayList<ToolCard> tools = loadToolCards(); // carica le carte utensili
+
+        for (int k=0; k<3; k++) { // per 3 volte
+
+            Random random = new Random();
+
+             int j = random.nextInt(tools.size()); // scegli un numero a caso
+
+            toolCards.add(tools.get(j)); // inserisci la carta nell'array.
+
+            tools.remove(j);
+
+        }
 
 
+    }
+
+    public ArrayList<ToolCard> loadToolCards(){
+        // TO DO MIK: Carica tutte le carte tools qui e ritornale
+
+        // codice solo per test
+        ArrayList<ToolCard> cards = new ArrayList<ToolCard>();
+        for (int i=0; i<3; i++){
+            cards.add(new ToolCard("ciao","ciao",1,Color.BLUE,new FluxBrush()));
+        }
+        return cards;
     }
 
 
@@ -77,6 +104,49 @@ public class Model {
 
     }
 
+    public int getMaxRound() {
+        return maxRound;
+    }
 
+    public static ArrayList<Dice> getDiceBag() {
+        return diceBag;
+    }
 
+    public static ArrayList<PublicObjectiveCard> getPublicObjCard() {
+        return publicObjCard;
+    }
+
+    public RoundSchemeCell[] getRoundSchemeMap() {
+        return roundSchemeMap;
+    }
+
+    public void setPrivateObjectiveCard(ArrayList<Player> players){
+
+        ArrayList<PrivateObjectiveCard> cards = loadPrivateObjectiveCard();
+        for (int i=0; i<players.size();i++) // estrae n numeri casuali e inserisce le rispettive carte private dentro ai giocatori
+
+        {
+
+            Random random = new Random();
+
+            int j = random.nextInt(cards.size());
+
+            players.get(i).setPrivateObjectiveCard(cards.get(j));
+
+            cards.remove(j);
+
+        }
+
+    }
+
+    public ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard (){
+        // TO DO MIK: CARICA QUI LE CARTE OBIETTIVO PRIVATO E RITORNALE
+
+        // codice solo per test
+        ArrayList<PrivateObjectiveCard> array = new ArrayList<PrivateObjectiveCard>();
+        for (int i=0; i<5;i++){
+            array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
+        }
+        return array;
+    }
 }

@@ -43,7 +43,7 @@ public class Player implements Serializable {
     /** method that return the card private with the private goal
      * @return privateObject card, that is the card with the private goal
      */
-    public Card getCardPrivateObj(){
+    public PrivateObjectiveCard getCardPrivateObj(){
         return privateObj;
     }
     

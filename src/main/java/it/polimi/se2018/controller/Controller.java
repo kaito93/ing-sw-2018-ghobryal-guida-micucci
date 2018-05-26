@@ -3,9 +3,11 @@ package it.polimi.se2018.controller;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.exception.notValidMatrixException;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.ResponseMap;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
+import it.polimi.se2018.network.server.message.MessageStart;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,16 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
                 return i;
         }
         return -1;
+    }
+
+    public void startGame(){
+        model.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
+        view.startGame();
+
+    }
+
+    public void updatePlayers(Player players){
+        // TO DO: SE IL GIOCATORE SI DISCONNETTE BISOGNA MODIFICARE TUTTI I CONTATORI DEI GIOCATORI IN GIOCO
     }
 
 

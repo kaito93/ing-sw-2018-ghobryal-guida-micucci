@@ -1,7 +1,7 @@
 package it.polimi.se2018.util;
 
 import com.google.gson.Gson;
-import it.polimi.se2018.JsonFiles.*;
+//import it.polimi.se2018.JsonFiles.*;
 import it.polimi.se2018.model.Dice;
 
 import java.io.BufferedReader;
