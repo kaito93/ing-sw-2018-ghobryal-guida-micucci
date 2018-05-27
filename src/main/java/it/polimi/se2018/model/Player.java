@@ -147,6 +147,14 @@ public class Player implements Serializable {
         this.map = map;
     }
 
+    public void setFavorSig(int newFavor){
+        this.favorSig = newFavor;
+    }
+
+    public void modifyFavorSig(int number){
+        this.favorSig = this.favorSig + number;
+    }
+
     /**
      * set a new private objective card for the player
      * @param newCard the new card that has to be setted
