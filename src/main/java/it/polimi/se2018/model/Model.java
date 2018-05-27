@@ -9,15 +9,17 @@ import java.util.Random;
 
 public class Model {
 
-    final int maxRound = 10;
+    public static final int MAXROUND = 10;
 
-    static ArrayList<Dice> diceBag=new ArrayList <Dice>();
+    static ArrayList<Dice> diceBag=new ArrayList<>();
 
-    static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <PublicObjectiveCard>();
+    static ArrayList<Dice> stock = new ArrayList<>();
+
+    static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <>();
 
     RoundSchemeCell roundSchemeMap[];
 
-    static ArrayList<ToolCard> toolCards = new ArrayList<ToolCard>();
+    static ArrayList<ToolCard> toolCards = new ArrayList<>();
 
 
 
@@ -45,7 +47,7 @@ public class Model {
 
         }
 
-        this.roundSchemeMap= new RoundSchemeCell[maxRound]; // Crea il tracciato dei round
+        this.roundSchemeMap= new RoundSchemeCell[MAXROUND]; // Crea il tracciato dei round
 
         ArrayList<ToolCard> tools = loadToolCards(); // carica le carte utensili
 
@@ -62,6 +64,10 @@ public class Model {
         }
 
 
+    }
+
+    public ArrayList<ToolCard> getToolCards() {
+        return toolCards;
     }
 
     public ArrayList<ToolCard> loadToolCards(){
@@ -105,14 +111,14 @@ public class Model {
     }
 
     public int getMaxRound() {
-        return maxRound;
+        return MAXROUND;
     }
 
-    public static ArrayList<Dice> getDiceBag() {
+    public ArrayList<Dice> getDiceBag() {
         return diceBag;
     }
 
-    public static ArrayList<PublicObjectiveCard> getPublicObjCard() {
+    public ArrayList<PublicObjectiveCard> getPublicObjCard() {
         return publicObjCard;
     }
 
@@ -148,5 +154,9 @@ public class Model {
             array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
         }
         return array;
+    }
+
+    public ArrayList<Dice> getStock() {
+        return stock;
     }
 }

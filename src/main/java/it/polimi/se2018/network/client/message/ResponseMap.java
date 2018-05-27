@@ -2,7 +2,6 @@ package it.polimi.se2018.network.client.message;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.Player;
 
 public class ResponseMap implements MessageVC {
     Map mapChoose;

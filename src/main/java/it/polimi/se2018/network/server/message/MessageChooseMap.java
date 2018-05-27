@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MessageChooseMap implements MessageCV {
 
-    ArrayList<Map> maps = new ArrayList<Map>();
+    ArrayList<Map> maps = new ArrayList<>();
     Player player;
 
     @Override

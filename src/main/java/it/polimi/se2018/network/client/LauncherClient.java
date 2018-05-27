@@ -13,7 +13,6 @@ public class LauncherClient {
         int port = 9736;
         String ip = "127.0.0.1";
         String choiceConnection = "socket";
-        String username;
         View view=new View(); // crea la view
         view.startView(); // visualizza la view
 

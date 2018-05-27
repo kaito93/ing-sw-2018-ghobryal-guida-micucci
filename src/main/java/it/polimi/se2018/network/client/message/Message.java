@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
 
-    public static final int mvEvent=0;
-    public static final int cvEvent=1;
-    public static final int systemMessage=2;
+    public static final int MVEVENT=0;
+    public static final int CVEVENT=1;
+    public static final int SYSTEMEVENT=2;
 
     int type;
     Object event;
