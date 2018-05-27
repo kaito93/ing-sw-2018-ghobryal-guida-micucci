@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Grozing Pliers",
+    "description": "substract or add 1 to the value of a dice",
+    "id": 1,
+    "strategy": "GrozingPliers"
+  },
+  {
+    "title": "Eglomise Brush",
+    "description": "put a dice on your map without using the colour",
+    "id": 2,
+    "strategy": "EglomiseBrush"
+  },
+  {
+    "title": "Copper Foil Burnisher",
+    "description": "put a dice on your map without using the value",
+    "id": 3,
+    "strategy": "CopperFoilBurnisher"
+  },
+  {
+    "title": "Lathekin",
+    "description": "move two dices",
+    "id": 4,
+    "strategy": "Lathekin"
+  },
+  {
+    "title": "Tap Wheel",
+    "description": "change a dice with another dice that is in the round scheme",
+    "id": 5,
+    "strategy": "TapWheel"
+  },
+  {
+    "title": "Flux Brush",
+    "description": "choose a dice, throw it, if you can't put it on your map, put it in the reserve of dices",
+    "id": 6,
+    "strategy": "FluxBrush"
+  },
+  {
+    "title": "Glazing Hammer",
+    "description": "throw all the dices in the reserve, you can do it only on your second turn before taking the second dice",
+    "id": 7 ,
+    "strategy": "GlazingHammer"
+  },
+  {
+    "title": "Grozing Pliers",
+    "description": "choose another dice in your first turn, you cannot make your second turn",
+    "id": 8,
+    "strategy": "Grozing Pliers"
+  },
+  {
+    "title": "Corkbacked Straightedge",
+    "description": "choose a dice and put it in a cell that is not near the other dice",
+    "id": 9,
+    "strategy": "CorkbackedStraightedge"
+  },
+  {
+    "title": "Grozing Pliers",
+    "description": "change the face of a dice",
+    "id": 10,
+    "strategy": "Grozing Pliers"
+  },
+  {
+    "title": "Grozing Pliers",
+    "description": "choose a dice, put it in the box and take another dice from the box",
+    "id": 11,
+    "strategy": "Grozing Pliers"
+  },
+  {
+    "title": "Grozing Pliers",
+    "description": "move until two dice of one colour in the round scheme",
+    "id": 12,
+    "strategy": "Grozing Pliers"
+  },
+  {
+    "title": "Strip Cutter",
+    "description": "take one dice from any other player, give them a dice of matching colour and value, they may place it ignoring the restriction it may be only used before round 7",
+    "id": 13,
+    "strategy": "StripCutter"
+  }
+]

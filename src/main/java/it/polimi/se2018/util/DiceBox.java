@@ -45,4 +45,15 @@ public class DiceBox {
     public ArrayList<Dice> getBox(){
         return this.box;
     }
+
+    /**
+     * method that erase all the dice until a choosen index
+     * @param index number of dice that has to been deleted
+     */
+    public void eraseDices(int index){
+        int i=0;
+        while (i<index)
+            box.remove(i);
+        i++;
+    }
 }
