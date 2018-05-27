@@ -1,6 +1,5 @@
 package it.polimi.se2018.network.client.connection;
 
-import it.polimi.se2018.model.Map;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.Message;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class ConnectionClientSocket extends ConnectionClient {
 
@@ -23,9 +21,9 @@ public class ConnectionClientSocket extends ConnectionClient {
     Listen listener;
 
 
-    public static final int MVEvent=0;
-    public static final int CVEvent=1;
-    public static final int SystemMessage=2;
+    public static final int MVEVENT=0;
+    public static final int CVEVENT=1;
+    public static final int SYSTEMMESSAGE=2;
 
     public ConnectionClientSocket(int port, String ip, View view){
 
@@ -50,11 +48,11 @@ public class ConnectionClientSocket extends ConnectionClient {
 
             sendMessage(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
             Listen list = new Listen(); // creo un oggetto ascoltatore
-            list.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
+            list.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
             sendMessage(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
             this.listener = new Listen(); // creo un oggetto ascoltatore
-            listener.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
+            listener.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
 
 
@@ -72,17 +70,17 @@ public class ConnectionClientSocket extends ConnectionClient {
         public void run() {
 
             Message message; // crea una variabile per contenere il messaggio ricevuto
-
-            while(true){
+            boolean condition=true;
+            while(condition){
 
                 try{
                      message= (Message)input.readObject(); // leggi il messaggio
-                    if (message.getType()==CVEvent){// se il tipo di messaggio viene dal controller
+                    if (message.getType()==CVEVENT){// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV)message.getEvent(); // casta il messaggio
                         messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
                     }
 
-                    if (message.getType()==SystemMessage){ // se il tipo di messaggio è di Sistema
+                    if (message.getType()==SYSTEMMESSAGE){ // se il tipo di messaggio è di Sistema
                         MessageSystem mess = (MessageSystem) message.getEvent();
                         mess.accept(ConnectionClientSocket.this);
                     }
@@ -90,9 +88,8 @@ public class ConnectionClientSocket extends ConnectionClient {
                     //TO DO: Continua con gli altri tipi
 
                 }
-                catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                catch (IOException|ClassNotFoundException e) {
+                    condition=false;
                     e.printStackTrace();
                 }
 

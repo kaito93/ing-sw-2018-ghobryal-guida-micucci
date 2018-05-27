@@ -2,7 +2,6 @@ package it.polimi.se2018.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public abstract class Observable<T> {
 

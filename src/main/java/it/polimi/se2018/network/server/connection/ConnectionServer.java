@@ -1,6 +1,5 @@
 package it.polimi.se2018.network.server.connection;
 
-import it.polimi.se2018.network.server.message.MessageCV;
 
 import java.io.ObjectInputStream;
 
@@ -20,5 +19,4 @@ public abstract class ConnectionServer {
 
     public abstract ObjectInputStream getInput();
 
-    public abstract Object readInput();
 }

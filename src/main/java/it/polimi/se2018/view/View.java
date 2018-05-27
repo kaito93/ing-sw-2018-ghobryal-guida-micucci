@@ -17,8 +17,7 @@ public class View {
 
     public String request(String message){
         System.out.println(message);
-        String username = new Scanner(System.in).nextLine();
-        return username;
+        return new Scanner(System.in).nextLine();
     }
 
     public Map chooseMap(ArrayList<Map> maps){

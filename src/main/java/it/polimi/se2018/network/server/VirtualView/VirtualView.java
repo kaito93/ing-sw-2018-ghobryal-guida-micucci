@@ -3,6 +3,8 @@ package it.polimi.se2018.network.server.VirtualView;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.cards.PublicObjectiveCard;
+import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
@@ -10,6 +12,7 @@ import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.MessageMV;
 import it.polimi.se2018.network.server.message.MessageChooseMap;
+import it.polimi.se2018.network.server.message.MessagePublicInformation;
 import it.polimi.se2018.network.server.message.MessageStart;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
@@ -24,17 +27,15 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     RMIVirtualView RMIview;
     Controller controller;
     ArrayList<ConnectionServer> connections;
-    ArrayList<Player> playersActive = new ArrayList<Player>();
-    ArrayList<PlayerPlay> playersPlay = new ArrayList<PlayerPlay>();
+    ArrayList<Player> playersActive = new ArrayList<>();
+    ArrayList<PlayerPlay> playersPlay = new ArrayList<>();
     PlayerPlay currentPlayer;
 
-    ArrayList <Player> playersSuspend = new ArrayList<Player>();
-    ArrayList <ConnectionServer> connectionsSuspend = new ArrayList<ConnectionServer>();
-    ArrayList<PlayerPlay> playerNotPlay = new ArrayList<PlayerPlay>();
+    ArrayList <Player> playersSuspend = new ArrayList<>();
+    ArrayList <ConnectionServer> connectionsSuspend = new ArrayList<>();
+    ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
 
-    public static final int MVEvent=0;
-    public static final int CVEvent=1;
-    public static final int SystemMessage=2;
+
 
 
     public VirtualView (){
@@ -57,7 +58,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void start()  {
 
         // TO DO MIK: Carica carte schema
-        ArrayList<Map> maps = new ArrayList<Map>();
+        ArrayList<Map> maps;
         maps = loadMaps();
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
             MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
@@ -67,7 +68,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                 message.setPlayer(playersActive.get(i)); // invio alla view il giocatore proprietario
             }
 
-            Message mess= new Message(CVEvent, message);
+            Message mess= new Message(Message.CVEVENT, message);
             connections.get(i).send(mess); // viene inviato il messaggio al giocatore per scegliere la carta
 
 
@@ -83,14 +84,28 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     }
 
     public void startGame(){
+        // invia le informazioni al singolo giocatore delle SUE caratteristiche
         for (int i=0; i<playersActive.size();i++){ // per ogni giocatore
             MessageStart message = new MessageStart(); //crea un nuovo messaggio
-            Message mex = new Message(Message.cvEvent,message);
+            Message mex = new Message(Message.CVEVENT,message);
             message.setCard(playersActive.get(i).getCardPrivateObj());
             message.setMap(playersActive.get(i).getMap());
             message.setFavor(playersActive.get(i).getFavSig());
             connections.get(i).send(mex);// mando il messaggio
         }
+
+
+
+
+    }
+
+    public void publicInformation(ArrayList<PublicObjectiveCard> publicCards, ArrayList<ToolCard> tools){
+        // invia le informazioni a tutti i giocatori delle informazioni GENERALI della partita.
+        MessagePublicInformation messag = new MessagePublicInformation();
+        Message mex= new Message(Message.CVEVENT,messag);
+        messag.setPublicObjective(publicCards);
+        messag.setToolCards(tools);
+        sendBroadcast(mex);
     }
 
     public Map randomMap(ArrayList<Map> ma){
@@ -106,7 +121,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
         // CODICE PER TEST
 
-        ArrayList<Map> maps = new ArrayList<Map>();
+        ArrayList<Map> maps = new ArrayList<>();
         for (int i=0; i<8; i++){
             try {Map map = new Map("ciao",1,1,1);
                 maps.add(map);
@@ -145,10 +160,10 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                     notifyObservers(message);
                 } catch (IOException e) {
                     connect=false;
-                    System.out.println("Il player si è disconnesso. Non ho ricevuto nulla");
+                    System.err.println("Il player si è disconnesso. Non ho ricevuto nulla");
                 } catch (ClassNotFoundException e) {
                     connect=false;
-                    System.out.println("Il player si è disconnesso. Non manda dati corretti");
+                    System.err.println("Il player si è disconnesso. Non manda dati corretti");
                 }
             }
             this.connected=false; // il giocatore non è connesso
@@ -163,7 +178,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             playersPlay.remove(this); // rimuovi questo thread all'elenco di thread riferiti a giocatori attivi
 
             String text= "Il giocatore "+client.getUsername()+ " si è disconnesso. Il giocatore è stato sospeso.";
-            Message message = new Message(SystemMessage, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
+            Message message = new Message(Message.SYSTEMEVENT, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
             sendBroadcast(message);// spedisci il messaggio in broadcast
 
             if (currentPlayer==this){ // se toccava al giocatore sospeso
@@ -182,10 +197,10 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                     else
                         reconnect=false;
                 } catch (IOException e) {
-                    System.out.println("Il player è ancora disconnesso. Non ho ricevuto nulla");
+                    System.err.println("Il player è ancora disconnesso. Non ho ricevuto nulla");
                 } catch (ClassNotFoundException e) {
 
-                    System.out.println("Il player è disconnesso. Non manda dati corretti");
+                    System.err.println("Il player è disconnesso. Non manda dati corretti");
                 }
 
             }

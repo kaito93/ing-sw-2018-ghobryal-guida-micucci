@@ -8,8 +8,7 @@ import it.polimi.se2018.network.server.message.MessageMV;
 import it.polimi.se2018.view.View;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+
 
 public abstract class ConnectionClient extends it.polimi.se2018.util.Observable<MessageMV> implements it.polimi.se2018.util.Observer<MessageVC> {
 
@@ -28,7 +27,6 @@ public abstract class ConnectionClient extends it.polimi.se2018.util.Observable<
 
     public abstract void sendMessage(Object message);
 
-    public abstract void update(MessageVC event);
 
 
 }

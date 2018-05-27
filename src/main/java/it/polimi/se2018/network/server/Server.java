@@ -28,16 +28,16 @@ public class Server implements ServerRMI{
 
     ServerSocket socketServer;
     ServerRMI skeleton;
-    ArrayList<ConnectionServer> clients = new ArrayList<ConnectionServer>();
+    ArrayList<ConnectionServer> clients = new ArrayList<>();
     boolean active = false;
     int port;
     int time;
     Timer timer = new Timer();
-    ArrayList<Lobby> lobbies = new ArrayList<Lobby>();
+    ArrayList<Lobby> lobbies = new ArrayList<>();
 
-    public static final int MVEvent=0;
-    public static final int CVEvent=1;
-    public static final int SystemMessage=2;
+    public static final int MVEVENT=0;
+    public static final int CVEVENT=1;
+    public static final int SYSTEMMESSAGE=2;
 
     public Server(int port, int timer) {
         this.time = timer;
@@ -50,13 +50,14 @@ public class Server implements ServerRMI{
 
         }
         catch (RemoteException e) {
-            System.out.println("Errore oggetto remoto RMI"); // se non ce la fa, segnalalo
+            System.err.println("Errore oggetto remoto RMI"); // se non ce la fa, segnalalo
 
         }
-        active = true;
+
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
             System.out.println("server socket avviato.");
+            active=true;
             while (active) {
                 System.out.println("In attesa di giocatori");
                 Socket socket = socketServer.accept();  // rimani in attesa fino a quando si connette un giocatore
@@ -71,15 +72,16 @@ public class Server implements ServerRMI{
                     if (clients.isEmpty()) {
                         clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         TimerCount count = new TimerCount(); //inizializza il timer
-                        this.timer.schedule(count, 0, time / 20); // fa partire il timer}
+                        this.timer.schedule(count, 0, time / 20); // fa partire il timer
                     }
                     else{
-                        if (checkUsername(((RequestConnection) obj).getUser())==true) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
+                        boolean a=true;
+                        if (checkUsername(((RequestConnection) obj).getUser())==a) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
                             clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         }
                         else{// se l'username è già preso
                             MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
-                            Message mess = new Message(SystemMessage,message); // creo un messaggio di sistema
+                            Message mess = new Message(SYSTEMMESSAGE,message); // creo un messaggio di sistema
                             conness.send(mess); //invia il messaggio. [nota bene: non si salva conness nell'array]
                         }
 
@@ -87,7 +89,7 @@ public class Server implements ServerRMI{
 
                 }
                 else
-                    System.out.println("Tipo di messaggio ricevuto sconosciuto");
+                    System.err.println("Tipo di messaggio ricevuto sconosciuto");
 
 
                 if (!active)
@@ -96,7 +98,7 @@ public class Server implements ServerRMI{
 
         } catch (IOException e) {
 
-            System.out.println("Errore I/O Socket");
+            System.err.println("Errore I/O Socket");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -111,7 +113,7 @@ public class Server implements ServerRMI{
             Naming.rebind("Server", skeleton);
         }
         catch (MalformedURLException e) {
-            System.out.println("Impossibile avviare il server RMI");
+            System.err.println("Impossibile avviare il server RMI");
         }
 
     }

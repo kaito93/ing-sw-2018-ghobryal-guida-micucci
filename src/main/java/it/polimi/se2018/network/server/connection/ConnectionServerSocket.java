@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+
 public class ConnectionServerSocket extends ConnectionServer {
 
     Socket client;
@@ -37,11 +38,9 @@ public class ConnectionServerSocket extends ConnectionServer {
         Object inp=new Object();
         try {
             inp=this.input.readObject();
-        } catch (IOException e) {
+        } catch (IOException  | ClassNotFoundException e ) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        } 
         return inp;
     }
 

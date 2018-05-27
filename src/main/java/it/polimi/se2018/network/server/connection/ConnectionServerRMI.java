@@ -14,8 +14,5 @@ public class ConnectionServerRMI extends ConnectionServer {
         return null;
     }
 
-    @Override
-    public Object readInput() {
-        return null;
-    }
+
 }
