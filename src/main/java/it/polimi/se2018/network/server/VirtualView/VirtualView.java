@@ -10,10 +10,7 @@ import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
-import it.polimi.se2018.network.server.message.MessageMV;
-import it.polimi.se2018.network.server.message.MessageChooseMap;
-import it.polimi.se2018.network.server.message.MessagePublicInformation;
-import it.polimi.se2018.network.server.message.MessageStart;
+import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
 
@@ -217,7 +214,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         }
     }
 
-    private synchronized void sendBroadcast(Message message){
+    public synchronized void sendBroadcast(Message message){
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
             this.connections.get(i).send(message); // spedisci il messaggio
         }
@@ -235,6 +232,24 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     @Override
     public void update(MessageMV event) {
 
+    }
+
+    // metodo che invia un messaggio al giocatore
+    public void sendToPlayer(String user, MessageCV message){
+        connections.get(searchUser(user)).send(message);
+    }
+
+    // metodo che cerca l'username nelle connessioni
+    public int searchUser(String user){
+        boolean trovato=false;
+        int i=0;
+        while (!trovato){
+            if (connections.get(i).getUsername().equalsIgnoreCase(user))
+                break;
+            else
+                i++;
+        }
+        return i;
     }
 
     public void setController(Controller controller) {
