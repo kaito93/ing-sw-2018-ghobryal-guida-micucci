@@ -1,7 +1,6 @@
 package it.polimi.se2018.model;
 
-import it.polimi.se2018.model.exception.notValidCellException;
-import it.polimi.se2018.model.cards.*;
+import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -102,31 +101,7 @@ public class Player implements Serializable {
     public String getName(){
         return name;
     }
-    
-    /** method that set the dice in an position of the matrix of the glasswindow
-     * @param dice: that player want to position on the matrix
-     * @param row: row of the cell where the dice has to be positioned
-     * @param column: column of the cell where the dice has to be positioned
-     * @return a boolean that is "true" if the dice had been positioned
-     */
-    public boolean posDice(Dice dice, int row, int column) throws notValidCellException {
-        if(map.validPosition(row, column, dice))
-                {
-                    map.getCell(row, column).setDice(dice);
-                    return true;
-                }
-              else
-                return false;
-    }
-    
-    
-    /** method that activate the tool card taken by the player
-     * @param toolCard the card that the player has choice
-     * @return a boolean that is true if the card has been activated, else "false"
-     */
-  /*  public boolean useTool(ToolCard toolCard){
-       return toolCard.handle(this);
-    }*/
+
 
     /**
      * choose a dice from the passed stock
@@ -147,12 +122,24 @@ public class Player implements Serializable {
         this.map = map;
     }
 
-    public void setFavorSig(int newFavor){
-        this.favorSig = newFavor;
+    /**
+     * assigns the favor signs to the player
+     */
+    public void setFavorSig(){
+        favorSig = map.getDifficultyLevel();
     }
 
-    public void modifyFavorSig(int number){
-        this.favorSig = this.favorSig + number;
+    /**
+     * modifies favor signals on request
+     * @param num the number of signals is taken from the player
+     * @return a boolean if the player has enough favor signals to be taken or not
+     */
+    public boolean modifyFavorSig(int num){
+        if(favorSig>0){
+            favorSig -= num;
+            return favorSig>=0;
+        }
+        return false;
     }
 
     /**
