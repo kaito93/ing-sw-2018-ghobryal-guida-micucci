@@ -305,11 +305,11 @@ public class Map implements Serializable {
      */
 
     public boolean posDice(Dice dice, int row, int column, String errorMessage) throws notValidCellException {
-        if(isBorderEmpty() && (row>0 || column>0 || row>0 || row<numRow()-1 || column<numColumn()-1)) {
+        if(isBorderEmpty() && (column>0 || row>0 || row<numRow()-1 || column<numColumn()-1)) {
             errorMessage = "Player has to position the dice on the border for beginning";
             return false;
         }
-        else if(isBorderEmpty() && !(row>0 || column>0 || row>0 || row<numRow()-1 || column<numColumn()-1)){
+        else if(isBorderEmpty() && !(column>0 || row>0 || row<numRow()-1 || column<numColumn()-1)){
             cell[row][column].setDice(dice);
             return true;
         }

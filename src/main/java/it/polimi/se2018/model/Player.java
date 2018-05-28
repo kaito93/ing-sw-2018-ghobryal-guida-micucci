@@ -139,7 +139,6 @@ public class Player implements Serializable {
     /**
      * set a new private objective card for the player
      * @param newCard the new card that has to be setted
-     *
      */
     public void setPrivateObjectiveCard(PrivateObjectiveCard newCard){
         this.privateObj = newCard;

@@ -2,12 +2,14 @@ package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
 
+import java.io.Serializable;
+
 /**
  * a generic objective card implementation
  * @author Anton Ghobryal
  */
 
-public abstract class ObjectiveCardStrategy {
+public abstract class ObjectiveCardStrategy implements Serializable {
 
     /**
      * implements the card's description

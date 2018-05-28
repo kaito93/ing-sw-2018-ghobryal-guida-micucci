@@ -34,7 +34,7 @@ public class TapWheel extends ToolCardStrategy {
             int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, ArrayList<Player> t3, int posDice, String errorMessage) throws notValidCellException {
         int b=0, c=0, f=0, g=0;
         boolean d, e;
-        String temp = null;
+        String temp = "";
         errorMessage = "";
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
             if(dicesToMove.size()==1){
@@ -44,9 +44,10 @@ public class TapWheel extends ToolCardStrategy {
                         player.getMap().posDice(null, b, c, errorMessage);
                     return d;
                 }
-            }else if(dicesToMove.size()==2){
-                if(roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor()) && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)
-                    && mapContainsDice(player.getMap(), dicesToMove.get(1), f, g) && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())){
+            }else if(dicesToMove.size()==2 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())
+                && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)
+                && mapContainsDice(player.getMap(), dicesToMove.get(1), f, g)
+                && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())){
                     d = player.getMap().posDice(dicesToMove.get(0), row1, column1, temp);
                     if(temp!=null) errorMessage = errorMessage.concat("\n"+temp);
                     e = player.getMap().posDice(dicesToMove.get(1), row2, column2, temp);
@@ -60,7 +61,6 @@ public class TapWheel extends ToolCardStrategy {
                         if(temp!=null) errorMessage = errorMessage.concat("\n"+temp);
                     }
                     return d && e;
-                }
             }
         }
         errorMessage = "the round scheme doesn't contain the chosen dice from the round scheme";

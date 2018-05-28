@@ -34,19 +34,15 @@ public class ShadeVarietyStrategy extends ObjectiveCardStrategy{
                             counter1++;
                         else if(map.getCell(i,j).getDice().getValue()==2)
                             counter2++;
-                        else try {
-                            if(map.getCell(i,j).getDice().getValue()==3)
+                        else if(map.getCell(i,j).getDice().getValue()==3)
                                 counter3++;
-                            else if(map.getCell(i,j).getDice().getValue()==4)
-                                counter4++;
-                            else if(map.getCell(i,j).getDice().getValue()==5)
-                                counter5++;
-                            else if(map.getCell(i,j).getDice().getValue()==6)
-                                counter6++;
-                        } catch (notValidCellException ex) {
-                            System.out.println("ShadeVarietyStrategy");
+                        else if(map.getCell(i,j).getDice().getValue()==4)
+                            counter4++;
+                        else if(map.getCell(i,j).getDice().getValue()==5)
+                            counter5++;
+                        else if(map.getCell(i,j).getDice().getValue()==6)
+                            counter6++;
                         }
-                    }
                 } catch (notValidCellException ex) {
                     System.out.println("ShadeVarietyStrategy");
                 }

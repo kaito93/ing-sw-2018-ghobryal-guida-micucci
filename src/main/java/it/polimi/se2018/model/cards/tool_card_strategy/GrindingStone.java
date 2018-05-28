@@ -57,6 +57,8 @@ public class GrindingStone extends ToolCardStrategy {
             case 6:
                 dice.setValue(1);
                 break;
+            default:
+                return false;
         }
         return true;
     }

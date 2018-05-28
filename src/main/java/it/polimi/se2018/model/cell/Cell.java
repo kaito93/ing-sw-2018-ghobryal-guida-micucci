@@ -3,12 +3,14 @@ package it.polimi.se2018.model.cell;
 import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.Dice;
 
+import java.io.Serializable;
+
 /** abstract class Cell
  *  contains methods and datas about the cell of the matrix
  *  @author Andrea Micucci, Anton Ghobryal
  */
 
-public abstract class Cell {
+public abstract class Cell implements Serializable {
 
     private Dice dice;
     

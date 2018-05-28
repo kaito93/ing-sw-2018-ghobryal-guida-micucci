@@ -34,9 +34,9 @@ public class PrivateObjectiveCard extends Card {
         for(int i=0; i<map.numRow(); i++){  //iterates on rows
             for (int j=0; j<map.numColumn(); j++){  try {
                 //iterates on columns
-                if(map.getCell(i, j).getDice()!=null)   //there has to be a Dice
-                    if(map.getCell(i, j).getDice().getColor().equals(color))    //the card's color should match the Dice's color
-                        score += map.getCell(i, j).getDice().getValue();    //sums the Dice's value
+                if(map.getCell(i, j).getDice()!=null   //there has to be a Dice
+                        && map.getCell(i, j).getDice().getColor().equals(color))   //the card's color should match the Dice's color
+                    score += map.getCell(i, j).getDice().getValue();    //sums the Dice's value
                 } catch (notValidCellException ex) {
                     System.out.println("PrivateObjectiveCards");
                 }

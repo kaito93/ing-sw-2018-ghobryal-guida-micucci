@@ -75,13 +75,17 @@ public class ToolCard extends Card{
             , ArrayList<Player> turns, int posDice1, String errorMessage) throws notValidCellException{
         boolean a;
         if(!isUsed() && player.getFavSig()>0){
-            if(a = strategy.useTool(player, dice, row1, column1, stock,
-                    posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1, errorMessage))
-                return a && player.modifyFavorSig(1);
+            a = strategy.useTool(player, dice, row1, column1, stock,
+                    posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1, errorMessage);
+            if(a) {
+                used = true;
+                return player.modifyFavorSig(1);
+            }
         }else if(isUsed() && player.getFavSig()>1){
-            if(a = strategy.useTool(player, dice, row1, column1, stock,
-                    posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1, errorMessage))
-                return a && player.modifyFavorSig(2);
+            a = strategy.useTool(player, dice, row1, column1, stock,
+                    posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1, errorMessage);
+            if(a)
+                return player.modifyFavorSig(2);
         }
         return false;
     }
