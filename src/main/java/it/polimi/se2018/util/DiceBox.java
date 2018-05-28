@@ -17,10 +17,10 @@ import java.util.ArrayList;
  */
 public class DiceBox {
 
-    Gson gson = new Gson();
-    File json;
-    BufferedReader br = null;
-    ArrayList<Dice> box;
+    private Gson gson = new Gson();
+    private File json;
+    private BufferedReader br = null;
+    private ArrayList<Dice> box;
 
     /**
      * class constructor

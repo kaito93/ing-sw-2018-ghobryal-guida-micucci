@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * class that create a deck of all the public objective cards from a file json
  */
 public class DeckOfPublicCards {
-    Gson gson = new Gson();
-    File json;
-    BufferedReader br;
-    ArrayList<PublicObjectiveCard> publCards;
+    private Gson gson = new Gson();
+    private File json;
+    private BufferedReader br;
+    private ArrayList<PublicObjectiveCard> publCards;
 
     /**
      * class constructor, create an arraylist of public cards

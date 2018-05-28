@@ -16,10 +16,10 @@ import java.util.ArrayList;
  * class that create the deck of all the tool cards from json file
  */
 public class DeckToolCards {
-    Gson gson = new Gson();
-    File json;
-    BufferedReader br;
-    ArrayList<ToolCard> toolCards;
+    private Gson gson = new Gson();
+    private File json;
+    private BufferedReader br;
+    private ArrayList<ToolCard> toolCards;
 
     /**
      * class constructor: generate a deck of toolcards from json file

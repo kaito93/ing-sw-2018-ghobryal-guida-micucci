@@ -16,10 +16,10 @@ import java.util.ArrayList;
  */
 public class DeckOfPrivateCards {
 
-    Gson gson = new Gson();
-    File json;
-    BufferedReader br;
-    ArrayList<PrivateObjectiveCard> privCards;
+    private Gson gson = new Gson();
+    private File json;
+    private BufferedReader br;
+    private ArrayList<PrivateObjectiveCard> privCards;
 
     /**
      * class constructor: create a deck of all the private cards
