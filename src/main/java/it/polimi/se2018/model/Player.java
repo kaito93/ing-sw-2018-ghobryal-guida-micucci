@@ -17,23 +17,11 @@ public class Player implements Serializable {
     private int favorSig;
     private PrivateObjectiveCard privateObj;
     private int score;
-    private boolean firstTurn;
-    private boolean secondTurn;
+    private boolean setDice;
+    private boolean useTools;
     
-    /** class constructor
-     * @param name_player string of the name of the player connected
-     * @param glassWindow schema of the glasswindow
-     * @param priv single private goal's card
-     */
-    public Player(String name_player, Map glassWindow, PrivateObjectiveCard priv){
-        name = name_player;
-        map = glassWindow;
-        favorSig = glassWindow.getDifficultyLevel();
-        privateObj = priv;
-        score = 0;
-        firstTurn = false;
-        secondTurn = false;
-    }
+
+
 
     public Player (String user){
         this.name=user;
@@ -52,7 +40,11 @@ public class Player implements Serializable {
     public int getScore(){
         return score;
     }
-    
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     /** method that return the number of favor sig of a player
      * @return an integer indicate the number of favor sig, between 0 and the difficulty level of the map
      */
@@ -64,28 +56,28 @@ public class Player implements Serializable {
     /** method that set the value of the boolean firstAction as boolval
      * @param boolval a boolean that can be true-false
      */
-    public void SetFirstTurn(boolean boolval){
-        this.firstTurn = boolval;
+    public void setUseTools(boolean boolval){
+        this.useTools = boolval;
     }
     /** method that set the value of the boolean secondAction as boolval
      * @param boolval a boolean that can be true-false
      */    
-    public void SetSecondTurn(boolean boolval){
-        this.secondTurn = boolval;
+    public void setSetDice(boolean boolval){
+        this.setDice = boolval;
     }
     
     /** method that return the value of the boolean firstTurn
      * @return the value of the boolean firstTurn
      */
-    public boolean GetFirstTurn(){
-        return this.firstTurn;
+    public boolean getSetDice(){
+        return this.setDice;
     }
 
      /** method that return the value of the boolean firstTurn
      * @return the value of the boolean firstTurn
      */
-    public boolean GetSecondTurn(){
-        return this.secondTurn;
+    public boolean getUseTools(){
+        return this.useTools;
     }
     
     /** method that return the map of the player
@@ -101,6 +93,8 @@ public class Player implements Serializable {
     public String getName(){
         return name;
     }
+
+    public int calcPrivateScore() {return privateObj.search(this.map);}
 
 
     /**
