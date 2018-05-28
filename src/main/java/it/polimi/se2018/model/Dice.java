@@ -1,10 +1,11 @@
 package it.polimi.se2018.model;
 
-/**Class Dice
-* contains all method to make usable the Dice
-* @author Andrea Micucci
-*/
 import java.util.Random;
+
+/**Class Dice
+ * contains all method to make usable the Dice
+ * @author Andrea Micucci
+ */
 
 public class Dice {
 
@@ -18,8 +19,7 @@ public class Dice {
         color = null;
     }
     
-    /** throw the dice
-     * @return an integer between 1 and 6
+    /** throw the dice with a value between 1 and 6
      */
     public void throwDice(){
         Random x = new Random();

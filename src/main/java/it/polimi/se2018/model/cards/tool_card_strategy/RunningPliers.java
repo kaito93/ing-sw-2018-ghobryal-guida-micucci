@@ -28,14 +28,15 @@ public class RunningPliers extends ToolCardStrategy {
      * @param t4 n.a.
      * @param t5 n.a.
      * @param turns players in order
+     * @param errorMessage an error message that indicates the cause of return false
      * @return a boolean that is "true" if it is possible to put a dice in it and if this card can be used
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
     public boolean useTool(Player playerCurr, Dice dice, int turn, int t1, ArrayList<Dice> stock, boolean t2
-            , int row, int column, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> turns, int t5) throws notValidCellException {
+            , int row, int column, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> turns, int t5, String errorMessage) throws notValidCellException {
         boolean a = false;
         if(turns.indexOf(playerCurr)==0 && stock.contains(dice) && turn==1){
-            a = playerCurr.getMap().setCell(dice, row, column);
+            a = playerCurr.getMap().posDice(dice, row, column, errorMessage);
             turns.remove(0);
             if(a)
                 stock.remove(dice);

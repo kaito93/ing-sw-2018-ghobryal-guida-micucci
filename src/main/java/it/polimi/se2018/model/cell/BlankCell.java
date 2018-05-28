@@ -5,12 +5,12 @@
  */
 package it.polimi.se2018.model.cell;
 
+import it.polimi.se2018.model.Color;
+
 /** class BlankCell
  *  contains all methods and datas about a cell not coloured and with no value
  *  @author Andrea
  */
-import it.polimi.se2018.model.Color;
-
 
 public class BlankCell extends Cell{
 

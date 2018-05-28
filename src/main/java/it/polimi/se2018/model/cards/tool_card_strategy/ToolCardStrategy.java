@@ -41,5 +41,5 @@ public abstract class ToolCardStrategy{
 
     public abstract boolean useTool(Player player, Dice dice, int row1, int column1, ArrayList<Dice> stock
         , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
-        , ArrayList<Player> turns, int posDice1) throws notValidCellException;
+        , ArrayList<Player> turns, int posDice1, String errorMessage) throws notValidCellException;
 }

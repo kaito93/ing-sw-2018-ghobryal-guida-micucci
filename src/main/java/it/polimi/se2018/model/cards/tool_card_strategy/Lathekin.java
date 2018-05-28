@@ -28,28 +28,31 @@ public class Lathekin extends ToolCardStrategy {
      * @param t4 n.a.
      * @param t5 n.a.
      * @param t6 n.a.
+     * @param errorMessage an error message that indicates the cause of return false
      * @return a boolean that is "true" if it is possible to put the dices in the player's map
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
     public boolean useTool(Player player, Dice dice, int row1, int column1, ArrayList<Dice> dicesToMove,
-            boolean temp, int row2, int column2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6) throws notValidCellException {
+            boolean temp, int row2, int column2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6, String errorMessage) throws notValidCellException {
         int row3=0, column3=0, row4=0, column4=0;
+        errorMessage = "";
         boolean a, b, c, d;
         if(mapContainsDice(player.getMap(), dicesToMove.get(0), row3, column3)
             && mapContainsDice(player.getMap(), dicesToMove.get(1), row4, column4)
                 && dicesToMove.size()==2){
-            a = player.posDice(dicesToMove.get(0), row1, column1);
-            b = player.posDice(null, row3, column3);
-            c = player.posDice(dicesToMove.get(1), row2, column2);
-            d = player.posDice(null, row4, column4);
+            a = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
+            b = player.getMap().posDice(null, row3, column3, errorMessage);
+            c = player.getMap().posDice(dicesToMove.get(1), row2, column2, errorMessage);
+            d = player.getMap().posDice(null, row4, column4, errorMessage);
             if(!(a&&b)){
-                System.out.println("first dice not valid");
+                errorMessage = errorMessage.concat("\nfirst dice not valid");
             }
             if(!(c&&d)){
-                System.out.println("second dice not valid");
+                errorMessage = errorMessage.concat("\nsecond dice not valid");
             }
             return a && b && c && d;
         }
+        errorMessage = errorMessage.concat("\nMap may not contains a passed dice");
         return false;
     }
 }

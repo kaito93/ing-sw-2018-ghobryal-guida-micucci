@@ -3,9 +3,6 @@ package it.polimi.se2018.model.cards;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Color;
-import  it.polimi.se2018.model.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * a generic private objective card
