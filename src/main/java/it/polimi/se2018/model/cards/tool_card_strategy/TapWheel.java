@@ -34,7 +34,6 @@ public class TapWheel extends ToolCardStrategy {
             int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, ArrayList<Player> t3, int posDice, String errorMessage) throws notValidCellException {
         int b=0, c=0, f=0, g=0;
         boolean d, e;
-        String temp = "";
         errorMessage = "";
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
             if(dicesToMove.size()==1){
@@ -48,17 +47,17 @@ public class TapWheel extends ToolCardStrategy {
                 && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)
                 && mapContainsDice(player.getMap(), dicesToMove.get(1), f, g)
                 && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())){
-                    d = player.getMap().posDice(dicesToMove.get(0), row1, column1, temp);
-                    if(temp!=null) errorMessage = errorMessage.concat("\n"+temp);
-                    e = player.getMap().posDice(dicesToMove.get(1), row2, column2, temp);
-                    if(temp!=null) errorMessage = errorMessage.concat("\n"+temp);
+                    d = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
+                    if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
+                    e = player.getMap().posDice(dicesToMove.get(1), row2, column2, errorMessage);
+                    if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
                     if(d) {
-                        player.getMap().posDice(null, b, c, temp);
-                        if(temp!=null) errorMessage = errorMessage.concat("\n"+temp);
+                        player.getMap().posDice(null, b, c, errorMessage);
+                        if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
                     }
                     if(e) {
-                        player.getMap().posDice(null, f, g, temp);
-                        if(temp!=null) errorMessage = errorMessage.concat("\n"+temp);
+                        player.getMap().posDice(null, f, g, errorMessage);
+                        if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
                     }
                     return d && e;
             }
@@ -67,3 +66,9 @@ public class TapWheel extends ToolCardStrategy {
         return false;
     }
 }
+
+
+
+//Sistemare tutti gli errorMessage
+
+

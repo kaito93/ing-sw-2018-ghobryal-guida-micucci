@@ -28,8 +28,7 @@ public abstract class ToolCardStrategy implements Serializable {
     protected boolean mapContainsDice(Map map, Dice dice, int row, int column) throws notValidCellException {
         for(int i=0; i<map.numRow(); i++)
             for(int j=0; j<map.numColumn(); j++)
-                if(map.getCell(i, j).getDice()!=null)
-                    if(map.getCell(i, j).getDice().getValue()==dice.getValue()
+                if(map.getCell(i, j).getDice()!=null && map.getCell(i, j).getDice().getValue()==dice.getValue()
                             && map.getCell(i, j).getDice().getColor().equalsColor(dice.getColor())) {
                         row = i;
                         column = j;

@@ -13,7 +13,7 @@ import it.polimi.se2018.model.Map;
  */
 public class notValidMatrixException extends Exception {
 
-    public notValidMatrixException(Map aThis) {
+    public notValidMatrixException() {
         super();
     }
     

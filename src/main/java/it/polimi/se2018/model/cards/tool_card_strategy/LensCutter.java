@@ -50,4 +50,12 @@ public class LensCutter extends ToolCardStrategy {
         errorMessage = "Invalid Passed Parameters";
         return false;
     }
+
+    /**
+     * the round scheme chosen dice
+     * @return the chosen dice
+     */
+    public Dice getDice() {
+        return dice;
+    }
 }
