@@ -59,4 +59,21 @@ public class DiceBox {
             box.remove(i);
         i++;
     }
+
+    /**
+     * method that extract dices from the DiceBox to another arraylist
+     * @param dicesNumber number of dices that need to be extract
+     * @return arraylist of dices that contain all the dices extracted
+     */
+    public ArrayList<Dice> extractDice(int dicesNumber){
+        ArrayList<Dice> toBeReturned = new ArrayList<>();
+        for(int i = 0; i < dicesNumber; i++)
+        {
+            toBeReturned.add(this.getBox().get(i));
+            this.box.remove(i);
+        }
+
+        return toBeReturned;
+    }
+
 }
