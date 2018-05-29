@@ -50,9 +50,6 @@ public class ConnectionClientSocket extends ConnectionClient {
             Listen list = new Listen(); // creo un oggetto ascoltatore
             list.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
-            sendMessage(new RequestConnection(user)); //chiamo il metodo per inviare la richiesta
-            this.listener = new Listen(); // creo un oggetto ascoltatore
-            listener.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
 
 
@@ -114,6 +111,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void sendMessage(Object message) {
         try {
             this.output.writeObject(message);
+            this.output.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

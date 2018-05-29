@@ -236,7 +236,8 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     // metodo che invia un messaggio al giocatore
     public void sendToPlayer(String user, MessageCV message){
-        connections.get(searchUser(user)).send(message);
+        Message messa = new Message(Message.CVEVENT,message);
+        connections.get(searchUser(user)).send(messa);
     }
 
     // metodo che cerca l'username nelle connessioni

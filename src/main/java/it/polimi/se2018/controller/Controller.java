@@ -10,17 +10,21 @@ import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.network.server.message.MessageFinalScore;
 import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.network.server.message.MessageYourTurn;
+import it.polimi.se2018.util.Observer;
 
 
 import java.util.ArrayList;
 
-public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
+public class Controller implements Observer<MessageVC> {
 
+    private static final boolean A=true;
     Model model;
     VirtualView view;
     ArrayList<Player> players;
     boolean setDice = false;
     boolean useTools = false;
+    int turno;
+    ArrayList<Player> playersInRound = new ArrayList<>();
 
 
     public void update(MessageVC message) {
@@ -34,7 +38,7 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
         this.players=players;
         view.addObservers(this);
         view.start();
-        game();
+
     }
 
     public void visit(ResponseMap message){
@@ -60,7 +64,7 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
         model.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
         view.startGame();
         view.publicInformation(model.getPublicObjCard(),model.getToolCards());
-
+        game();
     }
 
     public Model getModel() {
@@ -73,9 +77,10 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
 
     public void game(){
 
-        ArrayList<Player> playersInRound = new ArrayList<>();
+
         setPlayersInRound(playersInRound);
         Message mex;
+
 
 
         // CICLO CHE GESTISCE I ROUND
@@ -85,7 +90,7 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
 
             // CICLO CHE GESTISCE I TURNI INTERNI AL ROUND...
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
-            for (int turno=0; turno<playersInRound.size(); turno++){
+            for ( turno=0; turno<playersInRound.size(); turno++){
 
                 // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
                 MessageUpdate message= new MessageUpdate();
@@ -101,30 +106,14 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
                 playersInRound.get(turno).setSetDice(false);
                 playersInRound.get(turno).setUseTools(false);
 
-                sendMessageTurn(playersInRound,turno);
+                // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
+                for (int move=0; move<2;move++){
+                    sendMessageTurn(playersInRound,turno);
 
-
-                // finchè qualcuno non viene notificata la mossa del giocatore attendi.
-                while(playersInRound.get(turno).getSetDice()==false && playersInRound.get(turno).getUseTools()==false) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    waitMove();
+                    System.out.println("Termine mossa "+ String.valueOf(move) + " del giocatore "+ playersInRound.get(turno).getName());
                 }
 
-
-
-                // SECONDA MOSSA
-                sendMessageTurn(playersInRound,turno);
-                // finchè una delle due è falsa vuol dire che manca ancora una azione.
-                while(playersInRound.get(turno).getSetDice()==false || playersInRound.get(turno).getUseTools()==false) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
 
             // PIAZZA I DADI RIMANENTI NEL TRACCIATO DEI ROUND.
@@ -149,6 +138,25 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
 
     }
 
+    synchronized public void waitMove(){
+        try {
+            System.out.println("Attendo che il giocatore "+ this.playersInRound.get(turno).getName()+ " effettui la sua mossa");
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    synchronized public void setTools(){
+        this.playersInRound.get(turno).setUseTools(A);
+        notifyAll();
+    }
+
+    synchronized public void setPos(){
+        this.playersInRound.get(turno).setSetDice(A);
+        notifyAll();
+    }
+
     public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
         MessageYourTurn mes = new MessageYourTurn();
         mes.setPosDice(playersInRound.get(turno).getSetDice());
@@ -162,7 +170,7 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
             players.add(this.players.get(i));
         // inizializza la seconda metà dell'array
         for (int i=this.players.size();i>0;i--)
-            players.add(this.players.get(i));
+            players.add(this.players.get(i-1));
     }
 
     public void updatePlayersInRound(ArrayList<Player> players){
@@ -187,8 +195,7 @@ public class Controller implements it.polimi.se2018.util.Observer <MessageVC> {
             // calcola il punteggio ottenuto tramite i segnalini favore rimasti
             players.get(i).setScore(players.get(i).getScore()+players.get(i).getFavSig());
             // calcola il punteggio ottenuto sottraendo gli spazi liberi nella mappa
-
-            //players.get(i).setScore(players.get(i).getScore()+ players.get(i).getMap().CALCOLA);
+            players.get(i).setScore(players.get(i).getScore()- players.get(i).getMap().emptyCells());
         }
     }
 
