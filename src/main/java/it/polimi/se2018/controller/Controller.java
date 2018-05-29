@@ -10,12 +10,16 @@ import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.network.server.message.MessageFinalScore;
 import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.network.server.message.MessageYourTurn;
+import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observer;
 
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class Controller implements Observer<MessageVC> {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private static final boolean A=true;
     Boolean b=false;
@@ -50,7 +54,7 @@ public class Controller implements Observer<MessageVC> {
             this.players.get(index).setFavorSig();
         }
         else
-            System.err.println("E' stato passato un giocatore errato");
+            LOGGER.log(Level.WARNING, "E' stato passato un giocatore errato");
     }
 
     public int searchUser(String user){
@@ -112,7 +116,8 @@ public class Controller implements Observer<MessageVC> {
                     sendMessageTurn(playersInRound,turno);
                     b=false;
                     waitMove();
-                    System.out.println("Termine mossa "+ String.valueOf(move) + " del giocatore "+ playersInRound.get(turno).getName());
+                    LOGGER.log(Level.INFO,"Termine mossa "+ String.valueOf(move) + " del giocatore "+ playersInRound.get(turno).getName());
+
                 }
 
             }
@@ -141,7 +146,7 @@ public class Controller implements Observer<MessageVC> {
 
     synchronized public void waitMove(){
         try {
-            System.out.println("Attendo che il giocatore "+ this.playersInRound.get(turno).getName()+ " effettui la sua mossa");
+            normale: LOGGER.log(Level.INFO,"Attendo che il giocatore "+ this.playersInRound.get(turno).getName()+ " effettui la sua mossa" );
 
             while(!b){
                 this.wait();

@@ -11,14 +11,18 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.*;
+import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class VirtualView extends Observable<MessageVC> implements Observer<MessageMV> {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     SocketVirtualView socketView;
     RMIVirtualView RMIview;
@@ -70,7 +74,9 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
         }
-        System.out.println("Tutto è pronto! Si cominciaaaaaaaa");
+        LOGGER.log(Level.INFO,"Tutto è pronto! Si cominciaaaaaaaa");
+
+
 
 
     }
@@ -124,7 +130,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                 maps.add(map);
             }
             catch (notValidMatrixException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
 
 
@@ -157,10 +163,12 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                     notifyObservers(message);
                 } catch (IOException e) {
                     connect=false;
-                    System.err.println("Il player si è disconnesso. Non ho ricevuto nulla");
+                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" si è disconnesso. Non ho ricevuto nulla", e);
+
                 } catch (ClassNotFoundException e) {
                     connect=false;
-                    System.err.println("Il player si è disconnesso. Non manda dati corretti");
+                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" si è disconnesso. Non manda dati corretti", e);
+
                 }
             }
             this.connected=false; // il giocatore non è connesso
@@ -194,10 +202,11 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
                     else
                         reconnect=false;
                 } catch (IOException e) {
-                    System.err.println("Il player è ancora disconnesso. Non ho ricevuto nulla");
-                } catch (ClassNotFoundException e) {
+                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" è ancora disconnesso. Non ho ricevuto nulla", e);
 
-                    System.err.println("Il player è disconnesso. Non manda dati corretti");
+                } catch (ClassNotFoundException e) {
+                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" è disconnesso. Non manda dati corretti", e);
+
                 }
 
             }

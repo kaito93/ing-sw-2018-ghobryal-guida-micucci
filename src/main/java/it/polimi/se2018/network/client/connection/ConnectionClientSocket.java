@@ -5,14 +5,18 @@ import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.message.MessageCV;
 import it.polimi.se2018.network.server.message.MessageSystem;
+import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.view.View;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class ConnectionClientSocket extends ConnectionClient {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     ObjectInputStream input;
     ObjectOutputStream output;
@@ -41,7 +45,9 @@ public class ConnectionClientSocket extends ConnectionClient {
 
             System.setProperty("java.net.preferIPv4Stack" , "true"); //setta preferenze di protocollo IP V4
             this.socket = new Socket(ip, port);
-            System.out.println("Connessione col server stabilita");
+            LOGGER.log(Level.INFO,"Connessione col server stabilita");
+
+
             this.output= new ObjectOutputStream(socket.getOutputStream());
             output.flush();
             this.input= new ObjectInputStream(socket.getInputStream()); // inizializza la variabile input e output
@@ -55,7 +61,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
 
