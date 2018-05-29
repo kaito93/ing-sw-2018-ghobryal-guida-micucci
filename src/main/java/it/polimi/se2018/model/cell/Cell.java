@@ -1,19 +1,21 @@
 package it.polimi.se2018.model.cell;
 
+import it.polimi.se2018.model.Color;
+import it.polimi.se2018.model.Dice;
+
+import java.io.Serializable;
+
 /** abstract class Cell
  *  contains methods and datas about the cell of the matrix
  *  @author Andrea Micucci, Anton Ghobryal
  */
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Dice;
-
-public abstract class Cell {
+public abstract class Cell implements Serializable {
 
     private Dice dice;
     
     /** class constructor
-     *  @return a cell object with no dice inside
+     *  return a cell object with no dice inside
      */
     public Cell(){
         dice = null;
@@ -27,7 +29,7 @@ public abstract class Cell {
     }
     
     /** method that return the dice inside cell
-     * @return: the dice object inside the cell, null if dice isn't in it
+     * @return the dice object inside the cell, null if dice isn't in it
      */
     public Dice getDice(){
         return dice;

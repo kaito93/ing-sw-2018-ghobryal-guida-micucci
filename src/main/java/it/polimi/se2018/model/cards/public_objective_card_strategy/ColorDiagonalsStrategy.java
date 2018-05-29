@@ -43,11 +43,10 @@ public class ColorDiagonalsStrategy implements ObjectiveCardStrategy{
      * @param map player's map
      * @param row row's coordinate on the map
      * @param column column's coordinate on the map
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
 
     private void visitor(Map map, int row, int column) throws notValidCellException {
-        if(map.getCell(row, column).getDice()!=null)
+        if(!map.isEmptyCell(row, column))
             if (row < 1 && column < 1 && map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())
                     && !temp.contains(map.getCell(row + 1, column + 1))) { //up left control
                 visitor(map, row + 1, column + 1);

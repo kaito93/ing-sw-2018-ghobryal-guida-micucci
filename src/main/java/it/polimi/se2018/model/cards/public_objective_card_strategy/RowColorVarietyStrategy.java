@@ -2,8 +2,6 @@ package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.exception.notValidCellException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Row Color Variety Public Objective Card
@@ -16,7 +14,6 @@ public class RowColorVarietyStrategy implements ObjectiveCardStrategy{
      * Read description of this card for further information
      * @param map player's map
      * @param score the score the player achieves out of this card
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return how many times the player achieves this card multiplied to its score
      */
 
@@ -29,7 +26,7 @@ public class RowColorVarietyStrategy implements ObjectiveCardStrategy{
             for(int j=0; j<map.numColumn()-1; j++){    //iterates on column
                 for(int k=j+1; k<map.numColumn(); k++){    try {
                     //iterates on the next column
-                    if(map.getCell(i,j).getDice()!=null&&map.getCell(i,k).getDice()!=null){    //controls if there is a dice or not
+                    if((!map.isEmptyCell(i, j))&&(!map.isEmptyCell(i, k))){    //controls if there is a dice or not
                         if(map.getCell(i,j).getDice().getColor().equals(map.getCell(i,k).getDice().getColor())){    //controls if there is two consecutive dices with the same color
                             colorBool = false;
                             break;

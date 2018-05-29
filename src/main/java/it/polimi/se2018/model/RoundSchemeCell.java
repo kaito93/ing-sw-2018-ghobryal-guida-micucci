@@ -14,7 +14,7 @@ public class RoundSchemeCell {
      * return an object formed by an arraylist of dice
      */
     public RoundSchemeCell(){
-        restOfStock = new ArrayList<Dice>();
+        restOfStock = new ArrayList<>();
     }
     
     /** method that return the dices stored in one cell

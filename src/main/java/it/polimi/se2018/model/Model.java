@@ -9,17 +9,17 @@ import java.util.Random;
 
 public class Model {
 
-    public static final int MAXROUND = 10;
+    private static final int MAXROUND = 10;
 
-    static ArrayList<Dice> diceBag=new ArrayList<>();
+    private static ArrayList<Dice> diceBag=new ArrayList<>();
 
-    static ArrayList<Dice> stock = new ArrayList<>();
+    private static ArrayList<Dice> stock = new ArrayList<>();
 
-    static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <>();
+    private static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <>();
 
-    RoundSchemeCell roundSchemeMap[];
+    private RoundSchemeCell roundSchemeMap[];
 
-    static ArrayList<ToolCard> toolCards = new ArrayList<>();
+    private static ArrayList<ToolCard> toolCards = new ArrayList<>();
 
 
 
@@ -70,11 +70,11 @@ public class Model {
         return toolCards;
     }
 
-    public ArrayList<ToolCard> loadToolCards(){
+    private ArrayList<ToolCard> loadToolCards(){
         // TO DO MIK: Carica tutte le carte tools qui e ritornale
 
         // codice solo per test
-        ArrayList<ToolCard> cards = new ArrayList<ToolCard>();
+        ArrayList<ToolCard> cards = new ArrayList<>();
         for (int i=0; i<3; i++){
             cards.add(new ToolCard("ciao","ciao",1,Color.BLUE,new FluxBrush()));
         }
@@ -83,11 +83,12 @@ public class Model {
 
 
 
-    public ArrayList<Dice> loadDiceBag(){
+    private ArrayList<Dice> loadDiceBag(){
 
-        // TO DO MIK: CARICA I 90 DADI DA FILE JSON E RITORNALI
+        // TO DO MIK: CARICA I 90 DADI DA FILE JSON E FA UN SHUFFLE E THROWDICE PER OGNI DADO
+        // COSì ESCONO DADI COMPLETAMENTE CASUALI E POI RITORNALI
 
-        return new ArrayList<Dice>(); // solo per non dare errore
+        return new ArrayList<>(); // solo per non dare errore
 
 
 
@@ -95,13 +96,13 @@ public class Model {
 
 
 
-    public ArrayList<PublicObjectiveCard> loadPublicObjCard(){
+    private ArrayList<PublicObjectiveCard> loadPublicObjCard(){
 
         // TO DO MIK: CARICA LE CARTE OBIETTIVO PUBBLICO DA FILE JSON E RITORNALE
 
         // CODICE SOLO PER TEST.
         MediumShadesStrategy cards = new MediumShadesStrategy();
-        ArrayList<PublicObjectiveCard> arr = new ArrayList<PublicObjectiveCard>();
+        ArrayList<PublicObjectiveCard> arr = new ArrayList<>();
         for (int i=0; i<3;i++) {
             PublicObjectiveCard card = new PublicObjectiveCard("1", "1", 1, cards);
             arr.add(card);
@@ -129,15 +130,13 @@ public class Model {
     public void setPrivateObjectiveCard(ArrayList<Player> players){
 
         ArrayList<PrivateObjectiveCard> cards = loadPrivateObjectiveCard();
-        for (int i=0; i<players.size();i++) // estrae n numeri casuali e inserisce le rispettive carte private dentro ai giocatori
-
-        {
+        for (Player player : players) {
 
             Random random = new Random();
 
             int j = random.nextInt(cards.size());
 
-            players.get(i).setPrivateObjectiveCard(cards.get(j));
+            player.setPrivateObjectiveCard(cards.get(j));
 
             cards.remove(j);
 
@@ -145,11 +144,11 @@ public class Model {
 
     }
 
-    public ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard (){
+    private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
         // TO DO MIK: CARICA QUI LE CARTE OBIETTIVO PRIVATO E RITORNALE
 
         // codice solo per test
-        ArrayList<PrivateObjectiveCard> array = new ArrayList<PrivateObjectiveCard>();
+        ArrayList<PrivateObjectiveCard> array = new ArrayList<>();
         for (int i=0; i<5;i++){
             array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
         }

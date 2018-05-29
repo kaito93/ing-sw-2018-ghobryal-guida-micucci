@@ -29,12 +29,13 @@ public class LensCutter extends ToolCardStrategy {
      * @param t6 n.a.
      * @param roundSchemeDice a chosen dice from the Round Scheme
      * @param roundSchemeMap the Round Scheme
+     * @param errorMessage an error message that indicates the cause of return false
      * @return a boolean that verifies if the chosen dice from the Round Scheme
      */
 
     //non ho posizionato il dado
     public boolean useTool(Player player, Dice stockDice, int posDice, int t1, ArrayList<Dice> stock, boolean t2
-            , int t3, int t4, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, ArrayList<Player> t5, int t6) throws notValidCellException {
+            , int t3, int t4, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, ArrayList<Player> t5, int t6, String errorMessage) throws notValidCellException {
         ArrayList<Dice> temp = new ArrayList<>();
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stockDice!=null
                 && roundSchemeDice!=null && stock.contains(stockDice)){
@@ -46,6 +47,7 @@ public class LensCutter extends ToolCardStrategy {
             return true;
         }
         dice = null;
+        errorMessage = "Invalid Passed Parameters";
         return false;
     }
 }

@@ -6,6 +6,7 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.notValidCellException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @author Anton Ghobryal
  */
 
-public abstract class ToolCardStrategy{
+public abstract class ToolCardStrategy implements Serializable {
 
     /**
      * controls if the dice that the player chose is really on the map or not
@@ -41,5 +42,5 @@ public abstract class ToolCardStrategy{
 
     public abstract boolean useTool(Player player, Dice dice, int row1, int column1, ArrayList<Dice> stock
         , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
-        , ArrayList<Player> turns, int posDice1) throws notValidCellException;
+        , ArrayList<Player> turns, int posDice1, String errorMessage) throws notValidCellException;
 }
