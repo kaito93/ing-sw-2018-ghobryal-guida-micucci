@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * @author Anton Ghobryal
  */
 
-public class ColorVarietyStrategy extends ObjectiveCardStrategy{
+public class ColorVarietyStrategy implements ObjectiveCardStrategy{
 
     /**
      * Read description of this card for further information

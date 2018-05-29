@@ -7,7 +7,7 @@ import it.polimi.se2018.model.Map;
  * @author Anton Ghobryal
  */
 
-public abstract class ObjectiveCardStrategy {
+public interface ObjectiveCardStrategy {
 
     /**
      * implements the card's description
@@ -16,5 +16,5 @@ public abstract class ObjectiveCardStrategy {
      * @return how many times the player achieves this card multiplied to its score
      */
 
-    public abstract int search(Map map, int score);
+    public int search(Map map, int score);
 }

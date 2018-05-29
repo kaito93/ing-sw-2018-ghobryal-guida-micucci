@@ -35,6 +35,9 @@ public class DeckOfPublicCards {
         Type listPublCards = new TypeToken<ArrayList<PublicObjectiveCard>>() {
         }.getType();
         publCards = gson.fromJson(br, listPublCards);       //non ancora completamente funzionante, c'è un campo di troppo nel file json
+
+        System.out.println(publCards.get(1).getTitle());
+        System.out.println(publCards.get(2).getTitle());
     }
 
     /**
@@ -59,4 +62,15 @@ public class DeckOfPublicCards {
             i++;
         }
     }
+
+   /* public static void main(String[] args) {
+        try {
+            DeckOfPublicCards publicas = new DeckOfPublicCards();
+        } catch (FileNotFoundException e) {
+            System.out.println("non sono riuscito a aprirlo");
+        }
+    }*/
+
+
+
 }

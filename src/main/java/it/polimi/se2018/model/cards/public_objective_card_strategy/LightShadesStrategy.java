@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author Anton Ghobryal
  */
 
-public class LightShadesStrategy extends ObjectiveCardStrategy{
+public class LightShadesStrategy implements ObjectiveCardStrategy{
 
     /**
      * Read description of this card for further information

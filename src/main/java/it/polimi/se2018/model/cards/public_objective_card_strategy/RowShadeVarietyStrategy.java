@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author Anton Ghobryal
  */
 
-public class RowShadeVarietyStrategy extends ObjectiveCardStrategy{
+public class RowShadeVarietyStrategy implements ObjectiveCardStrategy{
 
     /**
      * Read description of this card for further information

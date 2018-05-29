@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author Anton Ghobryal
  */
 
-public class MediumShadesStrategy extends ObjectiveCardStrategy {
+public class MediumShadesStrategy implements ObjectiveCardStrategy {
 
     /**
      * Read description of this card for further information

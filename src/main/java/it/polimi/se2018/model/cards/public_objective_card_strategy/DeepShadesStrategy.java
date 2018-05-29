@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author Anton Ghobryal
  */
 
-public class DeepShadesStrategy extends ObjectiveCardStrategy {
+public class DeepShadesStrategy implements ObjectiveCardStrategy {
 
     /**
      * Read description of this card for further information
