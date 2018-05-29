@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Lobby extends Thread {
 
     Controller controller;
-    static ArrayList<ConnectionServer> playerConnection =new ArrayList <>();
+    ArrayList<ConnectionServer> playerConnection;
     VirtualView view;
     ArrayList<Player> players;
 

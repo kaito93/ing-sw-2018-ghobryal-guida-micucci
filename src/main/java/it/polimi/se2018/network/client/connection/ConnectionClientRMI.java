@@ -1,7 +1,7 @@
 package it.polimi.se2018.network.client.connection;
 
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.network.client.message.MessageVC;
+
+import it.polimi.se2018.network.server.message.MessageCV;
 
 
 public class ConnectionClientRMI extends ConnectionClient {
@@ -12,7 +12,7 @@ public class ConnectionClientRMI extends ConnectionClient {
     }
 
     @Override
-    public void update(MessageVC event) {
+    public void update(MessageCV event) {
 
     }
 

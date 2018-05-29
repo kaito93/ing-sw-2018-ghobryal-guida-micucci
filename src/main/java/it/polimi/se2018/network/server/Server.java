@@ -8,6 +8,7 @@ import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
 import it.polimi.se2018.network.server.message.MessageNewUsername;
+import it.polimi.se2018.util.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,8 +24,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
 
 public class Server implements ServerRMI{
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     ServerSocket socketServer;
     ServerRMI skeleton;
@@ -56,7 +61,7 @@ public class Server implements ServerRMI{
 
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
-            System.out.println("server socket avviato.");
+            LOGGER.log(Level.OFF,"Server socket avviato");
             active=true;
             while (active) {
                 System.out.println("In attesa di giocatori");
@@ -67,7 +72,8 @@ public class Server implements ServerRMI{
                 ObjectInputStream inputSocket = new ObjectInputStream(socket.getInputStream()); // crea un oggetto che legga la richiesta socket
                 Object obj=inputSocket.readObject();
                 if (obj instanceof RequestConnection) {
-                    System.out.println("Richiesta di connessione da parte di un giocatore. Username richiesto: "+((RequestConnection) obj).getUser());
+                    LOGGER.log(Level.FINE,"Richiesta di connessione da parte di un giocatore. Username richiesto: "+((RequestConnection) obj).getUser());
+
                     ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
                     if (clients.isEmpty()) {
                         clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
@@ -143,9 +149,6 @@ public class Server implements ServerRMI{
         int counter;
         int counterMax;
 
-        public TimerCount() {
-
-        }
 
         @Override
         public void run() {

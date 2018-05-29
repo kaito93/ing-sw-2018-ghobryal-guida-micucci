@@ -2,15 +2,17 @@ package it.polimi.se2018.network.client.connection;
 
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
-import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.ResponseMap;
+import it.polimi.se2018.network.server.message.MessageCV;
 import it.polimi.se2018.network.server.message.MessageMV;
+import it.polimi.se2018.util.Observable;
+import it.polimi.se2018.util.Observer;
 import it.polimi.se2018.view.View;
 
 import java.util.ArrayList;
 
 
-public abstract class ConnectionClient extends it.polimi.se2018.util.Observable<MessageMV> implements it.polimi.se2018.util.Observer<MessageVC> {
+public abstract class ConnectionClient extends Observable<MessageMV> implements Observer<MessageCV> {
 
     String ip;
     int port;

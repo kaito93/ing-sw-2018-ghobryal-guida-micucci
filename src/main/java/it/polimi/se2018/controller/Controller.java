@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class Controller implements Observer<MessageVC> {
 
     private static final boolean A=true;
+    Boolean b=false;
     Model model;
     VirtualView view;
     ArrayList<Player> players;
@@ -109,7 +110,7 @@ public class Controller implements Observer<MessageVC> {
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 for (int move=0; move<2;move++){
                     sendMessageTurn(playersInRound,turno);
-
+                    b=false;
                     waitMove();
                     System.out.println("Termine mossa "+ String.valueOf(move) + " del giocatore "+ playersInRound.get(turno).getName());
                 }
@@ -141,9 +142,13 @@ public class Controller implements Observer<MessageVC> {
     synchronized public void waitMove(){
         try {
             System.out.println("Attendo che il giocatore "+ this.playersInRound.get(turno).getName()+ " effettui la sua mossa");
-            this.wait();
+
+            while(!b){
+                this.wait();
+                b=true;
+            }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -241,12 +246,10 @@ public class Controller implements Observer<MessageVC> {
                                 }
                                 else{
                                     // se anche i segnalini favore rimasti sono uguali
-                                    if (players.get(i).getFavSig()==playersFinal.get(j).getFavSig()){
+                                    if (players.get(i).getFavSig()==playersFinal.get(j).getFavSig() && (playersInLastRound.indexOf(players.get(i))<playersInLastRound.indexOf(playersFinal.get(j)))){
                                         // se il giocatore preso in considerazione ha giocato prima del giocatore preso in considerazione nell'ultimo round
-                                        if (playersInLastRound.indexOf(players.get(i))<playersInLastRound.indexOf(playersFinal.get(j))) {
-                                            playersFinal.add(j, players.get(i));
-                                            set=true;
-                                        }
+                                        playersFinal.add(j, players.get(i));
+                                        set=true;
                                     }
                                 }
 

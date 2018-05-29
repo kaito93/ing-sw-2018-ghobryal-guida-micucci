@@ -74,7 +74,7 @@ public class ConnectionClientSocket extends ConnectionClient {
                      message= (Message)input.readObject(); // leggi il messaggio
                     if (message.getType()==CVEVENT){// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV)message.getEvent(); // casta il messaggio
-                        messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
+                        update(messag);
                     }
 
                     if (message.getType()==SYSTEMMESSAGE){ // se il tipo di messaggio è di Sistema
@@ -98,8 +98,8 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     @Override
-    public void update(MessageVC event) {
-
+    public void update(MessageCV event) {
+        event.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
     }
 
     public void requestNewUsername(){

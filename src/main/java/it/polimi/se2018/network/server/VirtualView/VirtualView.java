@@ -246,7 +246,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         int i=0;
         while (!trovato){
             if (connections.get(i).getUsername().equalsIgnoreCase(user))
-                break;
+                trovato=true;
             else
                 i++;
         }
