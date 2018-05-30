@@ -348,4 +348,11 @@ public class Map implements Serializable {
                     counter++;
         return counter;
     }
+
+    /** method that return the matrix of the map (that represent the glasswindow)
+     * @return a matrix that represent the matrix of the glasswindow
+     */
+    public Cell[][] getCell() {
+        return cell;
+    }
 }

@@ -68,7 +68,7 @@ public class Controller implements Observer<MessageVC> {
     public void startGame(){
         model.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
         view.startGame();
-        view.publicInformation(model.getPublicObjCard(),model.getToolCards());
+        view.publicInformation(model.getPublicObjCard());
         game();
     }
 
@@ -104,6 +104,8 @@ public class Controller implements Observer<MessageVC> {
                     message.addMaps(players.get(i).getMap());
                     message.addUsers(players.get(i).getName());
                 }
+                for (int i=0; i<model.getToolCards().size();i++)
+                    message.addUseTools(model.getToolCards().get(i).isUsed());
                 mex = new Message(Message.CVEVENT,message);
                 view.sendBroadcast(mex);
 
@@ -169,6 +171,7 @@ public class Controller implements Observer<MessageVC> {
 
     public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
         MessageYourTurn mes = new MessageYourTurn();
+        mes.setFavor(playersInRound.get(turno).getFavSig());
         mes.setPosDice(playersInRound.get(turno).getSetDice());
         mes.setUseTools(playersInRound.get(turno).getUseTools());
         view.sendToPlayer(playersInRound.get(turno).getName(),mes);

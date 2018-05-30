@@ -1,18 +1,23 @@
 package it.polimi.se2018.view;
 
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.cards.ToolCard;
+import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.util.Logger;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-public class View {
+public abstract class View {
+
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    String myUsername;
+    GameView gameStatus;
 
 
     public View(){
-        // inizializza la view
+        gameStatus= new GameView();
     }
 
     public void startView(){
@@ -25,8 +30,42 @@ public class View {
         return new Scanner(System.in).nextLine();
     }
 
-    public Map chooseMap(ArrayList<Map> maps){
-        // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
-        return (maps.get(0));
+    public abstract Cell[][] chooseMap(ArrayList<Cell[][]> maps);
+
+
+    public void setPublicInformation(ArrayList<String> titlePublic, ArrayList<String> descriptionPublic, ArrayList<String> titleTools,
+                                     ArrayList<String> descriptionTools){
+        gameStatus.setTitlePublicObjective(titlePublic);
+        gameStatus.setDescriptionPublicObjective(descriptionPublic);
+        gameStatus.setTitleTools(titleTools);
+        gameStatus.setDescriptionTools(descriptionTools);
+        addLog("Ho aggiornato le informazioni relative alle carte obiettivo pubbliche");
+
     }
+
+    public void setPrivateInformation (String titlePrivate, String descriptionPrivate){
+        gameStatus.setTitlePrivateObjective(titlePrivate);
+        gameStatus.setDescriptionPrivateObjective(descriptionPrivate);
+        addLog("Ho aggiornato le informazioni relative alla tua carta obiettivo privata");
+    }
+
+    public void updateUsers(ArrayList<String> users, ArrayList<Cell[][]> cells, ArrayList<Boolean> useTools ){
+        gameStatus.setUsers(users);
+        gameStatus.setCells(cells);
+        gameStatus.setUseTools(useTools);
+        addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
+    }
+
+    public void updateFavor (int favor){
+        if (gameStatus.getFavor()!=favor){
+            gameStatus.setFavor(favor);
+            addLog("Ho aggiornato le informazioni relative ai tuoi punti favore rimanenti");
+        }
+
+    }
+
+    public abstract void addLog(String message);
+
+    public abstract void myTurn(boolean posDice, boolean useTools);
+
 }

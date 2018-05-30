@@ -2,9 +2,9 @@ package it.polimi.se2018.network.client.connection;
 
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
+import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.ResponseMap;
-import it.polimi.se2018.network.server.message.MessageCV;
-import it.polimi.se2018.network.server.message.MessageMV;
+import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
 import it.polimi.se2018.view.View;
@@ -12,22 +12,26 @@ import it.polimi.se2018.view.View;
 import java.util.ArrayList;
 
 
-public abstract class ConnectionClient extends Observable<MessageMV> implements Observer<MessageCV> {
+public abstract class ConnectionClient extends Observable<MessageMV> implements Observer<MessageVC> {
 
     String ip;
     int port;
     View view;
-    Player thisPlayer;
+    String username;
 
     public abstract void run();
 
-    public void chooseMap(ArrayList<Map> maps, Player player) {
-        this.thisPlayer=player; // setto il giocatore proprietario di questa connessione
-        Map mapPlayer = view.chooseMap(maps); // invoco la view per scegliere la mappa
-        sendMessage(new ResponseMap(mapPlayer,thisPlayer.getName())); // invio la risposta al server
-    }
+    public abstract void visit (MessageChooseMap message);
 
-    public abstract void sendMessage(Object message);
+    public abstract void visit (MessagePublicInformation message);
+
+    public abstract void visit (MessageStart message);
+
+    public abstract void visit (MessageUpdate message);
+
+    public abstract void visit (MessageYourTurn message);
+
+
 
 
 

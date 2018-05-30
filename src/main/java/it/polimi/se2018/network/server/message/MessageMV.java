@@ -4,3 +4,4 @@ import java.io.Serializable;
 
 public interface MessageMV extends Serializable {
 }
+

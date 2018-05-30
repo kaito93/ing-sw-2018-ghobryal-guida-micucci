@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 public interface MessageCV extends Serializable {
 
-    public void accept(ConnectionClient client);
+    void accept(ConnectionClient client);
 
 }

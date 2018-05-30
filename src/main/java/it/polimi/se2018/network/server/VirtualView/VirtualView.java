@@ -92,8 +92,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             MessageStart message = new MessageStart(); //crea un nuovo messaggio
             Message mex = new Message(Message.CVEVENT,message);
             message.setCard(playersActive.get(i).getCardPrivateObj());
-            message.setMap(playersActive.get(i).getMap());
-            message.setFavor(playersActive.get(i).getFavSig());
+
             connections.get(i).send(mex);// mando il messaggio
         }
 
@@ -102,12 +101,12 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     }
 
-    public void publicInformation(ArrayList<PublicObjectiveCard> publicCards, ArrayList<ToolCard> tools){
+    public void publicInformation(ArrayList<PublicObjectiveCard> publicCards){
         // invia le informazioni a tutti i giocatori delle informazioni GENERALI della partita.
         MessagePublicInformation messag = new MessagePublicInformation();
         Message mex= new Message(Message.CVEVENT,messag);
         messag.setPublicObjective(publicCards);
-        messag.setToolCards(tools);
+        messag.setToolCards(controller.getModel().getToolCards());
         sendBroadcast(mex);
     }
 

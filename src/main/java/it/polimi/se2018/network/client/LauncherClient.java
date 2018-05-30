@@ -4,16 +4,24 @@ import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientRMI;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 import it.polimi.se2018.view.View;
+import it.polimi.se2018.view.ViewCli;
+import it.polimi.se2018.view.ViewGui;
 
 
 public class LauncherClient {
 
     public static void main(String[] args) {
         ConnectionClient client;
+        View view;
         int port = 9736;
         String ip = "127.0.0.1";
         String choiceConnection = "socket";
-        View view=new View(); // crea la view
+        String choiceView = "cli";
+        if ("cli".equalsIgnoreCase(choiceView))
+             view = new ViewCli();
+        else
+             view = new ViewGui();
+
         view.startView(); // visualizza la view
 
         // To Do: Caricamento da interfaccia grafica di porta e ip

@@ -6,10 +6,19 @@ public class MessageYourTurn implements MessageCV {
 
     boolean posDice;
     boolean useTools;
+    int favor;
 
     @Override
     public void accept(ConnectionClient client) {
+        client.visit(this);
+    }
 
+    public void setFavor(int favor) {
+        this.favor = favor;
+    }
+
+    public int getFavor() {
+        return favor;
     }
 
     public void setUseTools(boolean useTools) {
