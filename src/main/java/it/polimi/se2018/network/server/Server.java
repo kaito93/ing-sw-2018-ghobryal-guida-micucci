@@ -55,18 +55,19 @@ public class Server implements ServerRMI{
 
         }
         catch (RemoteException e) {
-            System.err.println("Errore oggetto remoto RMI"); // se non ce la fa, segnalalo
+            LOGGER.log(Level.SEVERE, "Errore oggetto remoto RMI", e);
 
         }
 
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
-            LOGGER.log(Level.OFF,"Server socket avviato");
+            LOGGER.log(Level.INFO,"Server socket avviato");
             active=true;
             while (active) {
-                System.out.println("In attesa di giocatori");
+                LOGGER.log(Level.INFO,"In attesa di giocatori");
+
                 Socket socket = socketServer.accept();  // rimani in attesa fino a quando si connette un giocatore
-                System.out.println("Ho ricevuto una richiesta");
+                LOGGER.log(Level.INFO,"Ho ricevuto una richiesta");
 
                 ObjectOutputStream outputSocket = new ObjectOutputStream(socket.getOutputStream()); // crea un oggetto che legga la richiesta socket
                 ObjectInputStream inputSocket = new ObjectInputStream(socket.getInputStream()); // crea un oggetto che legga la richiesta socket
@@ -95,7 +96,9 @@ public class Server implements ServerRMI{
 
                 }
                 else
-                    System.err.println("Tipo di messaggio ricevuto sconosciuto");
+                    LOGGER.log(Level.WARNING,"Tipo di messaggio ricevuto sconosciuto");
+
+
 
 
                 if (!active)
@@ -103,10 +106,9 @@ public class Server implements ServerRMI{
                 }
 
         } catch (IOException e) {
-
-            System.err.println("Errore I/O Socket");
+            LOGGER.log(Level.SEVERE, "Errore I/O Socket", e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
     }
@@ -119,7 +121,7 @@ public class Server implements ServerRMI{
             Naming.rebind("Server", skeleton);
         }
         catch (MalformedURLException e) {
-            System.err.println("Impossibile avviare il server RMI");
+            LOGGER.log(Level.SEVERE, "Impossibile avviare il server RMI", e);
         }
 
     }
@@ -130,7 +132,8 @@ public class Server implements ServerRMI{
         {
             if (this.clients.get(i).getUsername().equalsIgnoreCase(userNewPlayer)) // controlla se l'username scelto dal nuovo giocatore è già
                 {
-                    System.out.println("L'username scelto dal giocatore è già stato richiesto");
+                    LOGGER.log(Level.WARNING,"L'username scelto dal giocatore è già stato richiesto");
+
                     return false;}                                     // preso da un altro giocatore. In questo caso torna false
         }
         return true; // Se dopo aver controllato tutti i giocatori non è stato trovato l'username scelto, allora l'username è disponibile
@@ -157,9 +160,10 @@ public class Server implements ServerRMI{
 
                 this.cancel();
                 new Lobby(clients).start();
-                System.out.println("Sono presenti 4 giocatori. Il gioco si sta avviando");
+                LOGGER.log(Level.INFO,"Sono presenti 4 giocatori. Il gioco si sta avviando");
+
                 clients=new ArrayList<ConnectionServer>();
-                System.out.println("Il server è pronto per accettare richieste per un'altra partita");
+                LOGGER.log(Level.INFO,"Il server è pronto per accettare richieste per un'altra partita");
             }
             else{
                 if (counter==20) { // se si esaurisce il tempo di attesa
@@ -167,9 +171,12 @@ public class Server implements ServerRMI{
                     Lobby newLobby = new Lobby(clients);
                     lobbies.add(newLobby);
                     newLobby.start();
-                    System.out.println("Timer scaduto. Il gioco si sta avviando");
+                    LOGGER.log(Level.WARNING,"Timer scaduto. Il gioco si sta avviando");
+
                     clients=new ArrayList<ConnectionServer>();
-                    System.out.println("Il server è pronto per accettare richieste per un'altra partita");
+                    LOGGER.log(Level.INFO,"Il server è pronto per accettare richieste per un'altra partita");
+
+
                 }
 
                 if (clients.size()>1)

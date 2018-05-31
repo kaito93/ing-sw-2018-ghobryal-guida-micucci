@@ -28,8 +28,8 @@ public class Map implements Serializable {
         name = glassWindowName;
         difficultyLevel = difficulty;
         cell = new Cell[row][column];
-        if ((row < 0) || (column < 0))
-            throw new notValidMatrixException();
+      /*  if ((row < 0) || (column < 0))
+            throw new notValidMatrixException(this);*/
     }
     
     /** method that return the difficulty level of the match
@@ -347,5 +347,12 @@ public class Map implements Serializable {
                 if(isEmptyCell(i, j))
                     counter++;
         return counter;
+    }
+
+    /** method that return the matrix of the map (that represent the glasswindow)
+     * @return a matrix that represent the matrix of the glasswindow
+     */
+    public Cell[][] getCell() {
+        return cell;
     }
 }

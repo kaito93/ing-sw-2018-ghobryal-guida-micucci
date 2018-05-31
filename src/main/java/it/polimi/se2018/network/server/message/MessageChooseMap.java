@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class MessageChooseMap implements MessageCV {
 
     ArrayList<Map> maps = new ArrayList<>();
-    Player player;
+    String username;
 
     @Override
     public void accept(ConnectionClient socket) {
-        socket.chooseMap(maps,player);
+        socket.visit(this);
     }
 
     public void addMap(Map map){
@@ -21,6 +21,15 @@ public class MessageChooseMap implements MessageCV {
     }
 
     public void setPlayer(Player player) {
-        this.player = player;
+        this.username = player.getName();
     }
+
+    public ArrayList<Map> getMaps() {
+        return maps;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
 }

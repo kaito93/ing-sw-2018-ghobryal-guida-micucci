@@ -1,14 +1,18 @@
 package it.polimi.se2018.network.server.connection;
 
 import it.polimi.se2018.network.client.message.RequestConnection;
+import it.polimi.se2018.util.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
 
 
 public class ConnectionServerSocket extends ConnectionServer {
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     Socket client;
     ObjectOutputStream output;
@@ -40,7 +44,7 @@ public class ConnectionServerSocket extends ConnectionServer {
             this.output.flush();
         }
         catch (IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
