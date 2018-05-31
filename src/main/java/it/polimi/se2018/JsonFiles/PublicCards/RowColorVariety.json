@@ -1,0 +1,6 @@
+{
+  "title": "Different Colour row",
+  "description": "row without the same colour two times",
+  "score": 6,
+  "strategy":"RowColorVarietyStrategy"
+}

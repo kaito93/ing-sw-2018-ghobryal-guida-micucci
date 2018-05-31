@@ -29,7 +29,7 @@ public class Map implements Serializable {
         difficultyLevel = difficulty;
         cell = new Cell[row][column];
         if ((row < 0) || (column < 0))
-            throw new notValidMatrixException(this);
+            throw new notValidMatrixException();
     }
     
     /** method that return the difficulty level of the match

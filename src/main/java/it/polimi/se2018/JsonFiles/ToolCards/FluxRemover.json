@@ -1,0 +1,6 @@
+{
+  "title": "Flux Remover",
+  "description": "After drafting, return the die to the Dice Bag and pull one die from the bag. Choose a value and place the new die, obeying all placement restrictions, or return it to the Draft Pool",
+  "id": 11,
+  "strategy": "FluxRemover"
+}

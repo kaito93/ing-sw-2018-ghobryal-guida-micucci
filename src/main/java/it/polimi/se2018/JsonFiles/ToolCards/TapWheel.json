@@ -1,0 +1,6 @@
+{
+  "title": "Tap Wheel",
+  "description": "Move up to two dice of the same color that match the color of a die on the Round Track. You must obey all placement restrictions",
+  "id": 12,
+  "strategy": "TapWheel"
+}

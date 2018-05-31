@@ -1,0 +1,6 @@
+{
+  "title": "Different Shades",
+  "description": "set of dices with all the values on the map",
+  "score": 5,
+  "strategy":"ShadeVarietyStrategy"
+}

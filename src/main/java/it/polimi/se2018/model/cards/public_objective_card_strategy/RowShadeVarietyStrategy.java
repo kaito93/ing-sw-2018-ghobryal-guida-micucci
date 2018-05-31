@@ -8,7 +8,7 @@ import it.polimi.se2018.model.exception.notValidCellException;
  * @author Anton Ghobryal
  */
 
-public class RowShadeVarietyStrategy implements ObjectiveCardStrategy{
+public class RowShadeVarietyStrategy extends ObjectiveCardStrategy{
 
     /**
      * Read description of this card for further information

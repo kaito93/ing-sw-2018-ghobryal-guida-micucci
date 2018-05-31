@@ -9,7 +9,7 @@ import it.polimi.se2018.model.exception.notValidCellException;
  * @author Anton Ghobryal
  */
 
-public class ColorVarietyStrategy implements ObjectiveCardStrategy{
+public class ColorVarietyStrategy extends ObjectiveCardStrategy{
 
     /**
      * Read description of this card for further information
