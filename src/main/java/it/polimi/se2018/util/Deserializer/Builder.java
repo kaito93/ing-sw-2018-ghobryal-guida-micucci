@@ -5,11 +5,12 @@ import it.polimi.se2018.model.cards.public_objective_card_strategy.ObjectiveCard
 import it.polimi.se2018.util.PublicCardsTransfer;
 import it.polimi.se2018.util.jsonTransiction;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Builder implements Observer{
-    private PublicObjectiveCard poc;
+    private ArrayList<PublicObjectiveCard> poc;
     private ObjectiveCardStrategy strategy;
     private String toBeCompared;
     private PublicCardsTransfer jT = null;
@@ -24,8 +25,8 @@ public class Builder implements Observer{
         System.out.println(this.toBeCompared);
         System.out.println(jT.getStrategy());
        if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
-           poc = new PublicObjectiveCard(jT.getTitle(), jT.getDescription(), jT.getScores(), strategy);
-           System.out.println(poc.getTitle());
+           poc.add(new PublicObjectiveCard(jT.getTitle(), jT.getDescription(), jT.getScores(), strategy));
+           System.out.println(poc.get(1).getTitle());
        }
        else
            System.out.println("sono fuori dall'IF");
@@ -39,12 +40,8 @@ public class Builder implements Observer{
         return strategy;
     }
 
-    public PublicObjectiveCard getPoc() {
+    public ArrayList<PublicObjectiveCard> getPoc() {
         return poc;
-    }
-
-    public void setPoc(PublicObjectiveCard poc) {
-        this.poc = poc;
     }
 
     public void setStrategy(ObjectiveCardStrategy strategy) {
