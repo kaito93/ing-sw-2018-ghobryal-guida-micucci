@@ -357,4 +357,11 @@ public class Map implements Serializable {
                     counter++;
         return counter;
     }
+
+    /**
+     * @return a matrix of cells
+     */
+    public Cell[][] getCell() {
+        return cell;
+    }
 }
