@@ -1,0 +1,6 @@
+{
+  "title": "Deep Shades",
+  "description": "Map only with fives and sixs dices",
+  "score": 2,
+  "strategy":"DeepShadesStrategy"
+}

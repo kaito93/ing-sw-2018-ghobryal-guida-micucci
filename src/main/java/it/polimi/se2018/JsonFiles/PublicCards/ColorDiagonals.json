@@ -1,0 +1,6 @@
+{
+  "title": "Coloured diagonals",
+  "description": "diagonals of the same colour",
+  "score": 1,
+  "strategy": "ColorDiagonalsStrategy"
+}

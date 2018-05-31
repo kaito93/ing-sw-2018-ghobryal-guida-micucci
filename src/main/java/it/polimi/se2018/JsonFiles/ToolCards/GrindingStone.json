@@ -1,0 +1,6 @@
+{
+  "title": "Grinding Stone",
+  "description": "After drafting, flip the die to its opposite side",
+  "id": 10,
+  "strategy": "GrindingStone"
+}

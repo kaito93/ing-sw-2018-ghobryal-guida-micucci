@@ -9,8 +9,11 @@ import java.io.Serializable;
  * @author Anton Ghobryal
  */
 
-public interface ObjectiveCardStrategy extends Serializable {
+public class ObjectiveCardStrategy implements Serializable {
 
+    public ObjectiveCardStrategy(){
+
+    }
     /**
      * implements the card's description
      * @param map player's map
@@ -18,5 +21,8 @@ public interface ObjectiveCardStrategy extends Serializable {
      * @return how many times the player achieves this card multiplied to its score
      */
 
-    public int search(Map map, int score);
+    public int search(Map map, int score){
+        return 0;
+    }
+
 }

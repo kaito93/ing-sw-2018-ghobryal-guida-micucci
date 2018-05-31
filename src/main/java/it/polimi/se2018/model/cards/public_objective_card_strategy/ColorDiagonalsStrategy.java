@@ -11,9 +11,13 @@ import java.util.ArrayList;
  * @author Anton Ghobryal
  */
 
-public class ColorDiagonalsStrategy implements ObjectiveCardStrategy{
+public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
 
     private ArrayList<Cell> temp = new ArrayList<>();
+
+    public ColorDiagonalsStrategy(){
+
+    }
 
     /**
      * Read description of this card for further information

@@ -1,6 +1,7 @@
 package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.exception.notValidCellException;
 
 /**
@@ -8,7 +9,7 @@ import it.polimi.se2018.model.exception.notValidCellException;
  * @author Anton Ghobryal
  */
 
-public class DeepShadesStrategy implements ObjectiveCardStrategy {
+public class DeepShadesStrategy extends ObjectiveCardStrategy {
 
     /**
      * Read description of this card for further information

@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /** class DiceBox
  * contains all method to generate the DiceBox from the Json file
@@ -55,9 +57,11 @@ public class DiceBox {
      */
     public void eraseDices(int index){
         int i=0;
-        while (i<index)
+        while (i<index){
             box.remove(i);
-        i++;
+            i++;
+        }
+
     }
 
     /**
@@ -74,6 +78,10 @@ public class DiceBox {
         }
 
         return toBeReturned;
+    }
+
+    public void initDiceBox(){
+        Collections.shuffle(box);
     }
 
 }

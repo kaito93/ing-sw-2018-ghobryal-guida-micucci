@@ -8,29 +8,54 @@ import java.util.ArrayList;
 
 public class MessagePublicInformation implements MessageCV{
 
-    ArrayList<PublicObjectiveCard> publicObjective = new ArrayList<>();
-    ArrayList<ToolCard> toolCards = new ArrayList<>();
+    ArrayList<String> titlePublicObjective = new ArrayList<>();
+    ArrayList<String> descriptionPublicObjective = new ArrayList<>();
+
+    ArrayList<String> titleTools = new ArrayList<>();
+    ArrayList<String> descriptionTools = new ArrayList<>();
+
+
 
 
 
     @Override
     public void accept(ConnectionClient client) {
-
+        client.visit(this);
     }
 
     public void setPublicObjective(ArrayList<PublicObjectiveCard> publicObjective) {
-        this.publicObjective = publicObjective;
-    }
-
-    public ArrayList<PublicObjectiveCard> getPublicObjective() {
-        return publicObjective;
-    }
-
-    public ArrayList<ToolCard> getToolCards() {
-        return toolCards;
+        for (int i=0; i<publicObjective.size();i++){
+            titlePublicObjective.add(publicObjective.get(i).getTitle());
+            descriptionPublicObjective.add(publicObjective.get(i).getDescription());
+        }
     }
 
     public void setToolCards(ArrayList<ToolCard> toolCards) {
-        this.toolCards = toolCards;
+        for (int i=0; i<toolCards.size();i++){
+            titleTools.add(toolCards.get(i).getTitle());
+            descriptionTools.add(toolCards.get(i).getDescription());
+        }
     }
+    public ArrayList<String> getTitleTools() {
+        return titleTools;
+    }
+
+    public ArrayList<String> getDescriptionTools() {
+        return descriptionTools;
+    }
+
+
+    public ArrayList<String> getDescriptionPublicObjective() {
+        return descriptionPublicObjective;
+    }
+
+
+
+    public ArrayList<String> getTitlePublicObjective() {
+        return titlePublicObjective;
+    }
+
+
+
+
 }

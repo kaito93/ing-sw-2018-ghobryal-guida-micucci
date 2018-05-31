@@ -1,0 +1,6 @@
+{
+  "title": "Different Shades row",
+  "description": "row without the same shades two times",
+  "score": 5,
+  "strategy":"RowShadeVarietyStrategy"
+}

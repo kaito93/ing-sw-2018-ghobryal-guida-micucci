@@ -1,0 +1,6 @@
+{
+  "title": "Corkbacked Straightedge",
+  "description": "After drafting, place the die in a spot that is not adjacent to another die. You must obey all other placement restrictions",
+  "id": 9,
+  "strategy": "CorkbackedStraightedge"
+}
