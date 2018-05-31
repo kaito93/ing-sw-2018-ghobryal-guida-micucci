@@ -31,6 +31,7 @@ public class LauncherClient {
         } else {
             client = new ConnectionClientRMI();
         }
+        view.setClient(client);
         client.run();
 
 

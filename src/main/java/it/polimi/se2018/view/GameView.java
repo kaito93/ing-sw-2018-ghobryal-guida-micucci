@@ -1,10 +1,15 @@
 package it.polimi.se2018.view;
 
+import it.polimi.se2018.model.Dice;
+import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cell.Cell;
 
 import java.util.ArrayList;
 
 public class GameView {
+
+    private String myUsername;
+    private int yourIndex;
 
     private ArrayList<String> users;
     private ArrayList<Cell[][]> cells = new ArrayList<>();
@@ -19,7 +24,26 @@ public class GameView {
     private String titlePrivateObjective;
     private String descriptionPrivateObjective;
 
+    private RoundSchemeCell roundSchemeMap[];
+    private ArrayList<Dice> stock;
+
     private int favor;
+
+    public ArrayList<Dice> getStock() {
+        return stock;
+    }
+
+    public RoundSchemeCell[] getRoundSchemeMap() {
+        return roundSchemeMap;
+    }
+
+    public void setStock(ArrayList<Dice> stock) {
+        this.stock = stock;
+    }
+
+    public void setRoundSchemeMap(RoundSchemeCell[] roundSchemeMap) {
+        this.roundSchemeMap = roundSchemeMap;
+    }
 
     public ArrayList<String> getTitleTools() {
         return titleTools;
@@ -51,6 +75,15 @@ public class GameView {
 
     public void setUsers(ArrayList<String> users) {
         this.users = users;
+        setYourIndex(users.indexOf(getMyUsername()));
+    }
+
+    public String getMyUsername() {
+        return myUsername;
+    }
+
+    public void setMyUsername(String myUsername) {
+        this.myUsername = myUsername;
     }
 
     public void setDescriptionPrivateObjective(String descriptionPrivateObjective) {
@@ -99,5 +132,13 @@ public class GameView {
 
     public ArrayList<Boolean> getUseTools() {
         return useTools;
+    }
+
+    public void setYourIndex(int yourIndex) {
+        this.yourIndex = yourIndex;
+    }
+
+    public int getYourIndex() {
+        return yourIndex;
     }
 }

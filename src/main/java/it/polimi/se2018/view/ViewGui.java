@@ -16,8 +16,9 @@ public class ViewGui extends View {
 
     }
 
-    public Cell[][] chooseMap(ArrayList<Cell[][]> maps){
+    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username){
         // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
+        gameStatus.setMyUsername(username);
         return (maps.get(0));
     }
 }

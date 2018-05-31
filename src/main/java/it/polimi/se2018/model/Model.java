@@ -3,15 +3,22 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.model.cards.*;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.MediumShadesStrategy;
 import it.polimi.se2018.model.cards.tool_card_strategy.FluxBrush;
+import it.polimi.se2018.network.client.message.Message;
+import it.polimi.se2018.util.DiceBox;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class Model {
 
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
+
+
     private static final int MAXROUND = 10;
 
-    private static ArrayList<Dice> diceBag=new ArrayList<>();
+    private static DiceBox diceBag;
 
     private static ArrayList<Dice> stock = new ArrayList<>();
 
@@ -28,8 +35,11 @@ public class Model {
     public Model(){
 
 
-
-        diceBag=loadDiceBag(); // carica i dadi dal file json
+        try {
+            diceBag=new DiceBox(); // carica i dadi dal file json
+        } catch (FileNotFoundException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
 
         ArrayList<PublicObjectiveCard> cards = loadPublicObjCard(); // carica tutte le carte obiettivo pubblico
 
@@ -115,7 +125,7 @@ public class Model {
         return MAXROUND;
     }
 
-    public ArrayList<Dice> getDiceBag() {
+    public DiceBox getDiceBag() {
         return diceBag;
     }
 
@@ -157,5 +167,9 @@ public class Model {
 
     public ArrayList<Dice> getStock() {
         return stock;
+    }
+
+    public void setStock(ArrayList<Dice> stocks) {
+        stock = stocks;
     }
 }

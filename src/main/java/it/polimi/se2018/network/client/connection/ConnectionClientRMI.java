@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.client.connection;
 
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.message.*;
 
@@ -33,12 +34,17 @@ public class ConnectionClientRMI extends ConnectionClient {
     }
 
     @Override
-    public void visit(MessageUpdate message) {
+    public void visit(MessageYourTurn message) {
 
     }
 
     @Override
-    public void visit(MessageYourTurn message) {
+    public void sendPosDice(Dice dice, int column, int row) {
+
+    }
+
+    @Override
+    public void sendUseTool(String titleCardTool) {
 
     }
 }

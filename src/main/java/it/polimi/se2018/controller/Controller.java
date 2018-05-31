@@ -92,30 +92,23 @@ public class Controller implements Observer<MessageVC> {
         for (int round=0; round<model.getMaxRound();round++){
 
             // ESTRAI I DADI DAL SACCHETTO E METTILI NELLA RISERVA. #DADI ESTRATTI = (2*giocatori)+1
+            model.setStock(model.getDiceBag().extractDice(playersInRound.size()+1));
 
             // CICLO CHE GESTISCE I TURNI INTERNI AL ROUND...
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
             for ( turno=0; turno<playersInRound.size(); turno++){
 
-                // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
-                MessageUpdate message= new MessageUpdate();
-                message.setMessage("E' il turno di "+playersInRound.get(turno).getName());
-                for (int i=0; i<this.players.size();i++){
-                    message.addMaps(players.get(i).getMap());
-                    message.addUsers(players.get(i).getName());
-                }
-                for (int i=0; i<model.getToolCards().size();i++)
-                    message.addUseTools(model.getToolCards().get(i).isUsed());
-                mex = new Message(Message.CVEVENT,message);
-                view.sendBroadcast(mex);
-
-                // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
                 playersInRound.get(turno).setSetDice(false);
                 playersInRound.get(turno).setUseTools(false);
 
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 for (int move=0; move<2;move++){
+                    // Invia a tutti i giocatori le informazioni generali del turno
+                    sendMessageUpdate(turno);
+
+                    // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
                     sendMessageTurn(playersInRound,turno);
+
                     b=false;
                     waitMove();
                     LOGGER.log(Level.INFO,"Termine mossa "+ String.valueOf(move) + " del giocatore "+ playersInRound.get(turno).getName());
@@ -167,6 +160,22 @@ public class Controller implements Observer<MessageVC> {
     synchronized public void setPos(){
         this.playersInRound.get(turno).setSetDice(A);
         notifyAll();
+    }
+
+    public void sendMessageUpdate (int turno){
+        // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
+        MessageUpdate message= new MessageUpdate();
+        message.setMessage("E' il turno di "+playersInRound.get(turno).getName());
+        for (int i=0; i<this.players.size();i++){
+            message.addMaps(players.get(i).getMap());
+            message.addUsers(players.get(i).getName());
+        }
+        for (int i=0; i<model.getToolCards().size();i++)
+            message.addUseTools(model.getToolCards().get(i).isUsed());
+        message.setRoundSchemeMap(model.getRoundSchemeMap());
+        message.setStock(model.getStock());
+        Message mex = new Message(Message.MVEVENT,message);
+        view.sendBroadcast(mex);
     }
 
     public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
@@ -284,6 +293,18 @@ public class Controller implements Observer<MessageVC> {
 
 
         return playersFinal;
+    }
+
+    public void useTools(String titleCard){
+        boolean find=false;
+        int i=0;
+        while (!find || i<model.getToolCards().size()){
+            if (model.getToolCards().get(i).getTitle().equalsIgnoreCase(titleCard))
+                find=true;
+            else
+                i++;
+        }
+     //   model.getToolCards().get(i).useTool(playersInRound.get(turno),)
     }
 
     public void setSetDice(boolean setDice) {

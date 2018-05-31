@@ -1,5 +1,6 @@
 package it.polimi.se2018.network.client.connection;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.network.client.message.MessageVC;
@@ -27,9 +28,11 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
 
     public abstract void visit (MessageStart message);
 
-    public abstract void visit (MessageUpdate message);
-
     public abstract void visit (MessageYourTurn message);
+
+    public abstract void sendPosDice (Dice dice, int column, int row);
+
+    public abstract void sendUseTool(String titleCardTool);
 
 
 

@@ -1,8 +1,12 @@
 package it.polimi.se2018.view;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.cell.Cell;
+import it.polimi.se2018.network.client.connection.ConnectionClient;
+import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.util.Logger;
 
 import java.util.ArrayList;
@@ -12,8 +16,8 @@ import java.util.logging.Level;
 public abstract class View {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    String myUsername;
     GameView gameStatus;
+    ConnectionClient client;
 
 
     public View(){
@@ -30,7 +34,7 @@ public abstract class View {
         return new Scanner(System.in).nextLine();
     }
 
-    public abstract Cell[][] chooseMap(ArrayList<Cell[][]> maps);
+    public abstract Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username);
 
 
     public void setPublicInformation(ArrayList<String> titlePublic, ArrayList<String> descriptionPublic, ArrayList<String> titleTools,
@@ -39,6 +43,7 @@ public abstract class View {
         gameStatus.setDescriptionPublicObjective(descriptionPublic);
         gameStatus.setTitleTools(titleTools);
         gameStatus.setDescriptionTools(descriptionTools);
+
         addLog("Ho aggiornato le informazioni relative alle carte obiettivo pubbliche");
 
     }
@@ -49,10 +54,13 @@ public abstract class View {
         addLog("Ho aggiornato le informazioni relative alla tua carta obiettivo privata");
     }
 
-    public void updateUsers(ArrayList<String> users, ArrayList<Cell[][]> cells, ArrayList<Boolean> useTools ){
+    public void updateUsers(ArrayList<String> users, ArrayList<Cell[][]> cells, ArrayList<Boolean> useTools,
+                            RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock ){
         gameStatus.setUsers(users);
         gameStatus.setCells(cells);
         gameStatus.setUseTools(useTools);
+        gameStatus.setRoundSchemeMap(roundSchemeMap);
+        gameStatus.setStock(stock);
         addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
     }
 
@@ -64,8 +72,17 @@ public abstract class View {
 
     }
 
+    public void setClient(ConnectionClient client) {
+        this.client = client;
+    }
+
     public abstract void addLog(String message);
 
     public abstract void myTurn(boolean posDice, boolean useTools);
+
+    public void accept(MessageUpdate message) {
+        updateUsers(message.getUsers(),message.getCells(), message.getUseTools(),message.getRoundSchemeMap(), message.getStock());
+        addLog(message.getMessage());
+    }
 
 }

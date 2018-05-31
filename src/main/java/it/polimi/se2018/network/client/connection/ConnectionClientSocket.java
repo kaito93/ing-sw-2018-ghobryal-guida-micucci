@@ -1,11 +1,10 @@
 package it.polimi.se2018.network.client.connection;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cell.Cell;
-import it.polimi.se2018.network.client.message.MessageVC;
-import it.polimi.se2018.network.client.message.RequestConnection;
-import it.polimi.se2018.network.client.message.Message;
-import it.polimi.se2018.network.client.message.ResponseMap;
+import it.polimi.se2018.network.client.message.*;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.view.View;
@@ -55,8 +54,8 @@ public class ConnectionClientSocket extends ConnectionClient {
             this.input= new ObjectInputStream(socket.getInputStream()); // inizializza la variabile input e output
 
             update(new RequestConnection(username)); //chiamo il metodo per inviare la richiesta
-            Listen list = new Listen(); // creo un oggetto ascoltatore
-            list.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
+            listener = new Listen(); // creo un oggetto ascoltatore
+            listener.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
 
 
@@ -90,8 +89,12 @@ public class ConnectionClientSocket extends ConnectionClient {
                         MessageSystem mess = (MessageSystem) message.getEvent();
                         mess.accept(ConnectionClientSocket.this);
                     }
+                    if (message.getType()==Message.MVEVENT){ // se il tipo di messaggio è di Sistema
+                        MessageMV mess = (MessageMV) message.getEvent();
+                        mess.accept(view);
+                    }
 
-                    //TO DO: Continua con gli altri tipi
+
 
                 }
                 catch (IOException|ClassNotFoundException e) {
@@ -127,7 +130,7 @@ public class ConnectionClientSocket extends ConnectionClient {
         ArrayList<Cell[][]> cells = new ArrayList<>();
         for (int i=0; i<message.getMaps().size();i++)
             cells.add(message.getMaps().get(i).getCell());
-        Cell[][] mapPlayer = view.chooseMap(cells); // invoco la view per scegliere la mappa
+        Cell[][] mapPlayer = view.chooseMap(cells,username); // invoco la view per scegliere la mappa
         int i= cells.indexOf(mapPlayer);
         update(new ResponseMap(message.getMaps().get(i),username)); // invio la risposta al server
     }
@@ -143,15 +146,25 @@ public class ConnectionClientSocket extends ConnectionClient {
         view.setPrivateInformation(message.getTitlePrivateCard(),message.getDescriptionPrivateCard());
     }
 
-    @Override
-    public void visit(MessageUpdate message) {
-        view.updateUsers(message.getUsers(),message.getCells(), message.getUseTools());
-        view.addLog(message.getMessage());
-    }
 
     @Override
     public void visit(MessageYourTurn message) {
         view.updateFavor(message.getFavor());
         view.myTurn(message.isPosDice(),message.isUseTools());
+    }
+
+    public void sendPosDice(Dice dice, int column, int row){
+        MessagePosDice message= new MessagePosDice();
+        message.setDiceChoosed(dice);
+        message.setColumn(column);
+        message.setRow(row);
+        update(message);
+    }
+
+    @Override
+    public void sendUseTool(String titleCardTool) {
+        MessageUseTool message = new MessageUseTool();
+        message.setTitleCardChoosed(titleCardTool);
+        update(message);
     }
 }
