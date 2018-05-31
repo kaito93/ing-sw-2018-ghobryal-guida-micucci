@@ -28,8 +28,21 @@ public class Map implements Serializable {
         name = glassWindowName;
         difficultyLevel = difficulty;
         cell = new Cell[row][column];
+        for (int i=0; i<numRow(); i++)
+            for (int j=0; j<numColumn(); j++)
+                cell[i][j] = new Cell() {
+                    @Override
+                    public Color getColor() {
+                        return null;
+                    }
+
+                    @Override
+                    public int getValue() {
+                        return 0;
+                    }
+                };
         if ((row < 0) || (column < 0))
-            throw new notValidMatrixException(this);
+            throw new notValidMatrixException();
     }
     
     /** method that return the difficulty level of the match
@@ -60,7 +73,7 @@ public class Map implements Serializable {
      * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
      */
     public Cell getCell(int row, int column) throws notValidCellException{
-        if ((row <= 0) || (column <= 0) || (row > 6) || (column > 6))
+        if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1))
             throw new notValidCellException();
         return cell[row][column];
     }
@@ -81,7 +94,7 @@ public class Map implements Serializable {
     public boolean valueAlreadyExistInColumn(int column, int value) throws notValidCellException{
         int index;
         for(index = 0; index < numRow(); index++)
-            if(getCell(index, column).getValue() == value)
+            if(!isEmptyCell(index, column) && getCell(index, column).getDice().getValue() == value)
                 return true;
         return false;
     }
@@ -95,7 +108,7 @@ public class Map implements Serializable {
     public boolean colorAlreadyExistInColumn(int column, Color color) throws notValidCellException{
         int index;
         for(index = 0; index < numRow(); index++)
-            if(getCell(index, column).getColor().equalsColor(color))
+            if(!isEmptyCell(index, column) && getCell(index, column).getDice().getColor().equalsColor(color))
                 return true;
         return false;
     }
@@ -109,10 +122,8 @@ public class Map implements Serializable {
     public boolean valueAlreadyExistInRow(int row, int value) throws notValidCellException{
         int index;
         for(index = 0; index < numRow(); index++)
-        {
-            if(getCell(row, index).getValue() == value)
+            if(!isEmptyCell(row, index) && getCell(row, index).getDice().getValue() == value)
                 return true;
-        }
         return false;
     }
 
@@ -125,10 +136,8 @@ public class Map implements Serializable {
     public boolean colorAlreadyExistInRow(int row, Color color) throws notValidCellException{
         int index;
         for(index = 0; index < numRow(); index++)
-        {
-            if(getCell(row, index).getColor().equalsColor(color))
+            if(!isEmptyCell(row, index) && getCell(row, index).getDice().getColor().equalsColor(color))
                 return true;
-        }
         return false;
     }
 
