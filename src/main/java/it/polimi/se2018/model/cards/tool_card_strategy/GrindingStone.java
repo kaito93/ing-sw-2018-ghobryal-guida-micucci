@@ -40,7 +40,7 @@ public class GrindingStone extends ToolCardStrategy {
             errorMessage = "There's no passed dice";
             return false;
         }
-        try {
+
             switch (dice.getValue()) {
                 case 1:
                     dice.setValue(6);
@@ -63,9 +63,7 @@ public class GrindingStone extends ToolCardStrategy {
                 default:
                     return false;
             }
-        }catch (InvalidValueException e){
-            System.err.println("Invalid Value Exception on Grinding Stone");
-        }
+
         return true;
     }
 

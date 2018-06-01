@@ -96,12 +96,10 @@ public class GrozingPliers extends ToolCardStrategy {
     }
 
     public void setChosenValue(Dice dice, int value1){
-        try {
+
             if (value1 != 0)
                 dice.setValue(value1);
-        } catch (InvalidValueException e){
-            System.err.println("Invalid Value Exception on Grinding Stone");
-        }
+
     }
 
     @Override

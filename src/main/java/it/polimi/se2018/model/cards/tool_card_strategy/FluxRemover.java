@@ -40,11 +40,7 @@ public class FluxRemover extends ToolCardStrategy {
         Collections.shuffle(bag);
         Dice temp = bag.get(1);
         bag.remove(temp);
-        try {
-            temp.setValue(value);
-        } catch (InvalidValueException e) {
-            System.err.println("Invalid Value Exception on Flux Remover");
-        }
+        temp.setValue(value);
         return true;
     }
 
