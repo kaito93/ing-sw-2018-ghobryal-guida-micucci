@@ -3,6 +3,7 @@ package it.polimi.se2018.model.cards.tool_card_strategy;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
+import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
 
 import java.util.ArrayList;
@@ -38,7 +39,11 @@ public class FluxRemover extends ToolCardStrategy {
         Collections.shuffle(bag);
         Dice temp = bag.get(1);
         bag.remove(temp);
-        temp.setValue(value);
+        try {
+            temp.setValue(value);
+        } catch (InvalidValueException e) {
+            System.err.println("Invalid Value Exception on Flux Remover");
+        }
         return true;
     }
 }

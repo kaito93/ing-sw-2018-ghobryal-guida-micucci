@@ -3,6 +3,7 @@ package it.polimi.se2018.model.cards.tool_card_strategy;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
+import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class GrozingPliers extends ToolCardStrategy {
         } else if(value==1){
             firstValue = value + 1;
             secondValue = 0;
-        } else if(value==6){
+        } else{
             firstValue = 0;
             secondValue = value - 1;
         }
@@ -78,9 +79,8 @@ public class GrozingPliers extends ToolCardStrategy {
      */
 
     public boolean setFirstValue(Dice dice){
-        if(firstValue!=0)
-            dice.setValue(firstValue);
-        return firstValue!=0;
+        setChosenValue(dice, firstValue);
+        return firstValue != 0;
     }
 
     /**
@@ -90,8 +90,16 @@ public class GrozingPliers extends ToolCardStrategy {
      */
 
     public boolean setSecondValue(Dice dice){
-        if(secondValue!=0)
-            dice.setValue(secondValue);
-        return secondValue!=0;
+       setChosenValue(dice, secondValue);
+        return secondValue != 0;
+    }
+
+    public void setChosenValue(Dice dice, int value1){
+        try {
+            if (value1 != 0)
+                dice.setValue(value1);
+        } catch (InvalidValueException e){
+            System.err.println("Invalid Value Exception on Grinding Stone");
+        }
     }
 }
