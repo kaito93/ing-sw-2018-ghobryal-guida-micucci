@@ -1,7 +1,9 @@
 package it.polimi.se2018.network.server.connection;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
@@ -40,5 +42,36 @@ public class ConnectionServerRMI extends ConnectionServer {
     @Override
     public void sendLostConnection(String text) {
         // METODO PER INVIARE UNA STRINGA DI COMUNICAZIONE AI CLIENT CHE UN GIOCATORE SI E' DISCONNESSO.
+    }
+
+    @Override
+    public void tryReconnect() {
+        // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
+    }
+
+    @Override
+    public void sendFinalPlayers(ArrayList<Player> players) {
+        // METODO CHE INVIA TUTTI I GIOCATORI A TUTTI I GIOCATORE
+    }
+
+    @Override
+    public void sendIsYourTurn(int fav, boolean dice, boolean tool) {
+        // METODO CHE INVIA ALL'UTENTE IL NUMERO DI SEGNALINI FAVORE, ED I BOOLEANI SE PUO' FARE O MENO UNA DETERMINATA
+        // MOSSA. INOLTRE IL GIOCATORE COMINCIA A GESTIRE IL PROPRIO TURNO
+    }
+
+    @Override
+    public void sendErrorUser() {
+        // METODO CHE INFORMA IL GIOCATORE CHE IL SUO USERNAME ERA GIA' STATO SCELTO IN PRECEDENZA... DEVE SCEGLIERNE
+        // UN ALTRO
+    }
+
+
+    @Override
+    public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String message, ArrayList<Boolean> tools,
+                           RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock) {
+        // METODO CHE INVIA LE MATRICI DEI GIOCATORI, LA LISTA DEI GIOCATORI AGGIORNATA [Vedesi disconnessioni]
+        // IL MESSAGGIO DA MOSTRARE A SCHERMO DI CHI TOCCA, ARRAYLIST DI BOOLEANI CHE SI RIFERISCONO ALLE CARTE TOOL,
+        // LO SCHEMA DEI ROUND E LA RISERVA
     }
 }

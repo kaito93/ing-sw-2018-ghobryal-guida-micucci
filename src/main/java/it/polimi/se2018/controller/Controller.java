@@ -20,13 +20,13 @@ public class Controller implements Observer<MessageVC> {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private static final boolean A=true;
-    Boolean b=false;
+    Boolean b;
     Game game;
     int move=0;
     VirtualView view;
     ArrayList<Player> players;
-    boolean setDice = false;
-    boolean useTools = false;
+    boolean setDice;
+    boolean useTools;
     int turno;
     ArrayList<Player> playersInRound = new ArrayList<>();
 
@@ -130,11 +130,8 @@ public class Controller implements Observer<MessageVC> {
         ArrayList<Player> finalPlayers = vsScore(playersInRound);
 
         // INVIA AI GIOCATORI I PUNTEGGI FINALI + MAPPE FINALI + OBIETTIVI PRIVATI DI TUTTI I GIOCATORI
-        MessageFinalScore messag = new MessageFinalScore();
-        messag.setPlayersFinal(finalPlayers);
-        mex = new Message(Message.CVEVENT,messag);
-        view.sendBroadcast(mex);
 
+        view.sendScorePlayers(finalPlayers);
 
     }
 

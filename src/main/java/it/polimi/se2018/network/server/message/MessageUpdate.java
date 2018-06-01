@@ -73,4 +73,17 @@ public class MessageUpdate implements MessageMV {
     public void accept(View view) {
         view.accept(this);
     }
+
+    public void setUseTools(ArrayList<Boolean> useTools) {
+        this.useTools = useTools;
+    }
+
+    public void setUsers(ArrayList<String> users) {
+        this.users = users;
+    }
+
+    public void setCells(ArrayList<Map> maps) {
+        for (int i=0; i<maps.size();i++)
+            cells.add(maps.get(i).getCell());
+    }
 }

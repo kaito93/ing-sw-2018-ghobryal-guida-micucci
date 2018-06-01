@@ -18,15 +18,12 @@ import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
 
 public class VirtualView extends Observable<MessageVC> implements Observer<MessageMV> {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    SocketVirtualView socketView;
-    RMIVirtualView RMIview;
     Controller controller;
     ArrayList<ConnectionServer> connections;
     ArrayList<Player> playersActive = new ArrayList<>();
@@ -41,8 +38,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
     public VirtualView (){
-        //this.RMIview = new RMIVirtualView(controller); // creo la virtual view per le connessioni socket
-       // this.socketView= new SocketVirtualView(controller); // creo la virtual view per le connessioni RMI
+
     }
 
     public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect){
@@ -115,7 +111,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     class PlayerPlay extends Thread{
 
         ConnectionServer client;
-        boolean connected=false;
+        boolean connected;
 
         public PlayerPlay (ConnectionServer player) {
             this.client=player;
@@ -158,23 +154,8 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
             // GESTIONE DELLA RICONNESSIONE [Ipotesi]
 
-            boolean reconnect=false;
-            while (!reconnect){ // fin quando il giocatore non si è riconnesso
-                try{
-                    MessageVC reconn = (MessageVC) client.getInput().readObject();
-                    if (reconn instanceof RequestReconnect)
-                        reconnect=true;
-                    else
-                        reconnect=false;
-                } catch (IOException e) {
-                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" è ancora disconnesso. Non ho ricevuto nulla", e);
+            this.client.tryReconnect();
 
-                } catch (ClassNotFoundException e) {
-                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" è disconnesso. Non manda dati corretti", e);
-
-                }
-
-            }
             int ind2= playerNotPlay.indexOf(this);
             playersPlay.add(this); // aggiungi il thread del giocatore tra quelli attivi
             playerNotPlay.remove(this); // rimuovi il thread del giocatore tra quelli sospesi
@@ -200,26 +181,18 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             playerNotPlay.add(this); // aggiungi questo thread all'elenco di thread riferiti a giocatori sospesi
             playersPlay.remove(this); // rimuovi questo thread all'elenco di thread riferiti a giocatori attivi
 
-
-
         }
     }
 
 
 
-    public synchronized void sendBroadcast(Message message){
+   /* public synchronized void sendBroadcast(Message message){
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
             this.connections.get(i).send(message); // spedisci il messaggio
         }
 
-    }
-    class SocketVirtualView extends VirtualView{
+    }*/
 
-    }
-
-    class RMIVirtualView extends VirtualView{
-
-    }
 
 
     @Override
@@ -245,28 +218,28 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     }
 
     public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
-        MessageYourTurn mes = new MessageYourTurn();
-        mes.setFavor(playersInRound.get(turno).getFavSig());
-        mes.setPosDice(playersInRound.get(turno).getSetDice());
-        mes.setUseTools(playersInRound.get(turno).getUseTools());
-        Message messa = new Message(Message.CVEVENT,mes);
-        connections.get(searchUser(playersInRound.get(turno).getName())).send(messa);
+        connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(playersInRound.get(turno).getFavSig(),
+                playersInRound.get(turno).getSetDice(),playersInRound.get(turno).getUseTools());
     }
 
     public void sendMessageUpdate (int turno, Game model, String name){
         // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
-        MessageUpdate message= new MessageUpdate();
-        message.setMessage("E' il turno di "+name);
+        ArrayList<Map> maps = new ArrayList<>();
+        ArrayList<String> users = new ArrayList<>();
+        ArrayList<Boolean> tools = new ArrayList<>();
+        String message = "E' il turno di "+name;
+
+
         for (int i=0; i<playersActive.size();i++){
-            message.addMaps(playersActive.get(i).getMap());
-            message.addUsers(playersActive.get(i).getName());
+            maps.add(playersActive.get(i).getMap());
+            users.add(playersActive.get(i).getName());
         }
         for (int i=0; i<model.getToolCards().size();i++)
-            message.addUseTools(model.getToolCards().get(i).isUsed());
-        message.setRoundSchemeMap(model.getRoundSchemeMap());
-        message.setStock(model.getStock());
-        Message mex = new Message(Message.MVEVENT,message);
-        sendBroadcast(mex);
+            tools.add(model.getToolCards().get(i).isUsed());
+
+        for (int i=0; i<playersActive.size(); i++)
+            connections.get(i).sendUpdate(maps,users,message,tools,model.getRoundSchemeMap(),model.getStock());
+
     }
 
     public void createMessageCopper(){}
@@ -281,4 +254,9 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void createMessageLens(){}
     public void createMessageRunning(){}
     public void createMessageTap(){}
+
+    public void sendScorePlayers(ArrayList<Player> players){
+        for (int i=0; i<playersActive.size();i++)
+            connections.get(i).sendFinalPlayers(players);
+    }
 }

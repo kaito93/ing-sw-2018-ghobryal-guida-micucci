@@ -1,15 +1,17 @@
 package it.polimi.se2018.network.server.connection;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.network.client.message.Message;
+import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
-import it.polimi.se2018.network.server.message.MessageChooseMap;
-import it.polimi.se2018.network.server.message.MessagePublicInformation;
-import it.polimi.se2018.network.server.message.MessageStart;
+import it.polimi.se2018.network.client.message.RequestReconnect;
+import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
 
 import java.io.IOException;
@@ -90,5 +92,64 @@ public class ConnectionServerSocket extends ConnectionServer {
     public void sendLostConnection(String text) {
         Message message = new Message(Message.SYSTEMEVENT, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
         send(message);
+    }
+
+    @Override
+    public void tryReconnect() {
+        boolean reconnect=false;
+        while (!reconnect){ // fin quando il giocatore non si è riconnesso
+            try{
+                MessageVC reconn = (MessageVC) getInput().readObject();
+                if (reconn instanceof RequestReconnect)
+                    reconnect=false;
+                else
+                    reconnect=true;
+            } catch (IOException e) {
+                LOGGER.log(Level.OFF, "Il player " + getUsername()+" è ancora disconnesso. Non ho ricevuto nulla", e);
+
+            } catch (ClassNotFoundException e) {
+                LOGGER.log(Level.OFF, "Il player " + getUsername()+" è disconnesso. Non manda dati corretti", e);
+
+            }
+
+        }
+    }
+
+    @Override
+    public void sendFinalPlayers(ArrayList<Player> players) {
+        MessageFinalScore messag = new MessageFinalScore();
+        messag.setPlayersFinal(players);
+        Message mex = new Message(Message.CVEVENT,messag);
+        send(mex);
+    }
+
+    @Override
+    public void sendIsYourTurn(int fav, boolean dice, boolean tool) {
+        MessageYourTurn mes = new MessageYourTurn();
+        mes.setFavor(fav);
+        mes.setPosDice(dice);
+        mes.setUseTools(tool);
+        Message messa = new Message(Message.CVEVENT,mes);
+        send(messa);
+    }
+
+    @Override
+    public void sendErrorUser() {
+        MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
+        Message mess = new Message(SYSTEMMESSAGE,message); // creo un messaggio di sistema
+        send(mess); //invia il messaggio. [nota bene: non si salva conness nell'array]
+    }
+
+    @Override
+    public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String messa, ArrayList<Boolean> tools, RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock) {
+        MessageUpdate message= new MessageUpdate();
+        message.setMessage(messa);
+        message.setCells(maps);
+        message.setStock(stock);
+        message.setUseTools(tools);
+        message.setUsers(users);
+        message.setRoundSchemeMap(roundSchemeMap);
+        Message mex = new Message(Message.MVEVENT,message);
+        send(mex);
     }
 }

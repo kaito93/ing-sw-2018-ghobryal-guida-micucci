@@ -87,9 +87,7 @@ public class Server implements ServerRMI{
                             clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         }
                         else{// se l'username è già preso
-                            MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
-                            Message mess = new Message(SYSTEMMESSAGE,message); // creo un messaggio di sistema
-                            conness.send(mess); //invia il messaggio. [nota bene: non si salva conness nell'array]
+                            conness.sendErrorUser();
                         }
 
                     }
