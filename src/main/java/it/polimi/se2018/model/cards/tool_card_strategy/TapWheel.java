@@ -2,6 +2,7 @@ package it.polimi.se2018.model.cards.tool_card_strategy;
 
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
 
@@ -64,6 +65,11 @@ public class TapWheel extends ToolCardStrategy {
         }
         errorMessage = "the round scheme doesn't contain the chosen dice from the round scheme";
         return false;
+    }
+
+    @Override
+    public void requestMessage(VirtualView view) {
+        view.createMessageTap();
     }
 }
 

@@ -6,16 +6,12 @@ public class MessageUseTool implements MessageVC {
 
     String titleCardChoosed;
 
-    public String getTitleCardChoosed() {
-        return titleCardChoosed;
-    }
-
     public void setTitleCardChoosed(String titleCardChoosed) {
         this.titleCardChoosed = titleCardChoosed;
     }
 
     @Override
     public void accept(Controller controller) {
-
+        controller.useTools(titleCardChoosed);
     }
 }

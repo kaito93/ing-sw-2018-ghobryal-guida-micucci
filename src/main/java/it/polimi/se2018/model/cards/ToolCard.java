@@ -89,4 +89,8 @@ public class ToolCard extends Card{
         }
         return false;
     }
+
+    public ToolCardStrategy getStrategy() {
+        return strategy;
+    }
 }

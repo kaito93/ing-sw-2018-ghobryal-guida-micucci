@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,4 +43,7 @@ public abstract class ToolCardStrategy implements Serializable {
     public abstract boolean useTool(Player player, Dice dice, int row1, int column1, ArrayList<Dice> stock
         , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
         , ArrayList<Player> turns, int posDice1, String errorMessage) throws notValidCellException;
+
+    public abstract void requestMessage(VirtualView view);
+
 }

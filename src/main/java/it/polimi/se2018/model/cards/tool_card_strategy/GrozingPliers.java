@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
 
@@ -101,5 +102,10 @@ public class GrozingPliers extends ToolCardStrategy {
         } catch (InvalidValueException e){
             System.err.println("Invalid Value Exception on Grinding Stone");
         }
+    }
+
+    @Override
+    public void requestMessage(VirtualView view) {
+        view.createMessageGrozing();
     }
 }

@@ -104,10 +104,10 @@ public class Controller implements Observer<MessageVC> {
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 for (int move=0; move<2;move++){
                     // Invia a tutti i giocatori le informazioni generali del turno
-                    sendMessageUpdate(turno);
+                    view.sendMessageUpdate(turno,getModel(),playersInRound.get(turno).getName());
 
                     // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                    sendMessageTurn(playersInRound,turno);
+                    view.sendMessageTurn(playersInRound,turno);
 
                     b=false;
                     waitMove();
@@ -162,29 +162,9 @@ public class Controller implements Observer<MessageVC> {
         notifyAll();
     }
 
-    public void sendMessageUpdate (int turno){
-        // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
-        MessageUpdate message= new MessageUpdate();
-        message.setMessage("E' il turno di "+playersInRound.get(turno).getName());
-        for (int i=0; i<this.players.size();i++){
-            message.addMaps(players.get(i).getMap());
-            message.addUsers(players.get(i).getName());
-        }
-        for (int i=0; i<model.getToolCards().size();i++)
-            message.addUseTools(model.getToolCards().get(i).isUsed());
-        message.setRoundSchemeMap(model.getRoundSchemeMap());
-        message.setStock(model.getStock());
-        Message mex = new Message(Message.MVEVENT,message);
-        view.sendBroadcast(mex);
-    }
 
-    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
-        MessageYourTurn mes = new MessageYourTurn();
-        mes.setFavor(playersInRound.get(turno).getFavSig());
-        mes.setPosDice(playersInRound.get(turno).getSetDice());
-        mes.setUseTools(playersInRound.get(turno).getUseTools());
-        view.sendToPlayer(playersInRound.get(turno).getName(),mes);
-    }
+
+
 
     public void setPlayersInRound(ArrayList <Player> players){
         // inizializza la prima metà dell'array
@@ -304,7 +284,7 @@ public class Controller implements Observer<MessageVC> {
             else
                 i++;
         }
-     //   model.getToolCards().get(i).useTool(playersInRound.get(turno),)
+        model.getToolCards().get(i).getStrategy().requestMessage(view);
     }
 
     public void setSetDice(boolean setDice) {

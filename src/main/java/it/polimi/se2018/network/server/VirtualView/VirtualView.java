@@ -2,6 +2,7 @@ package it.polimi.se2018.network.server.VirtualView;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.Model;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
@@ -125,7 +126,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
         ArrayList<Map> maps = new ArrayList<>();
         for (int i=0; i<8; i++){
-            try {Map map = new Map("ciao",1,1,1);
+            try {Map map = new Map("ciao",1,3,3);
                 maps.add(map);
             }
             catch (notValidMatrixException e) {
@@ -242,12 +243,6 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     }
 
-    // metodo che invia un messaggio al giocatore
-    public void sendToPlayer(String user, MessageCV message){
-        Message messa = new Message(Message.CVEVENT,message);
-        connections.get(searchUser(user)).send(messa);
-    }
-
     // metodo che cerca l'username nelle connessioni
     public int searchUser(String user){
         boolean trovato=false;
@@ -264,4 +259,42 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void setController(Controller controller) {
         this.controller = controller;
     }
+
+    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
+        MessageYourTurn mes = new MessageYourTurn();
+        mes.setFavor(playersInRound.get(turno).getFavSig());
+        mes.setPosDice(playersInRound.get(turno).getSetDice());
+        mes.setUseTools(playersInRound.get(turno).getUseTools());
+        Message messa = new Message(Message.CVEVENT,mes);
+        connections.get(searchUser(playersInRound.get(turno).getName())).send(messa);
+    }
+
+    public void sendMessageUpdate (int turno, Model model, String name){
+        // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
+        MessageUpdate message= new MessageUpdate();
+        message.setMessage("E' il turno di "+name);
+        for (int i=0; i<playersActive.size();i++){
+            message.addMaps(playersActive.get(i).getMap());
+            message.addUsers(playersActive.get(i).getName());
+        }
+        for (int i=0; i<model.getToolCards().size();i++)
+            message.addUseTools(model.getToolCards().get(i).isUsed());
+        message.setRoundSchemeMap(model.getRoundSchemeMap());
+        message.setStock(model.getStock());
+        Message mex = new Message(Message.MVEVENT,message);
+        sendBroadcast(mex);
+    }
+
+    public void createMessageCopper(){}
+    public void createMessageCork(){}
+    public void createMessageEglomise(){}
+    public void createMessageFluxBrush(){}
+    public void createMessageFluxRemover(){}
+    public void createMessageGlazing(){}
+    public void createMessageGrinding(){}
+    public void createMessageGrozing(){}
+    public void createMessageLathekin(){}
+    public void createMessageLens(){}
+    public void createMessageRunning(){}
+    public void createMessageTap(){}
 }

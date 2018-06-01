@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,5 +46,10 @@ public class FluxRemover extends ToolCardStrategy {
             System.err.println("Invalid Value Exception on Flux Remover");
         }
         return true;
+    }
+
+    @Override
+    public void requestMessage(VirtualView view) {
+        view.createMessageFluxRemover();
     }
 }

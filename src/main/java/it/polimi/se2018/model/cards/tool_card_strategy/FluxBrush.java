@@ -4,6 +4,7 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
 
@@ -42,5 +43,10 @@ public class FluxBrush extends ToolCardStrategy {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void requestMessage(VirtualView view) {
+        view.createMessageFluxBrush();
     }
 }
