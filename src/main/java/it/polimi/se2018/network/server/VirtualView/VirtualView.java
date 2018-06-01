@@ -153,9 +153,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             }
 
             if (currentPlayer==this){ // se toccava al giocatore sospeso
-                // TO DO: bisognerà generare un fake-message vuoto per gli osservatori
-                // Fake message di tipo risposta mossa.
-
+                controller.fakemove();
             }
 
             // GESTIONE DELLA RICONNESSIONE [Ipotesi]

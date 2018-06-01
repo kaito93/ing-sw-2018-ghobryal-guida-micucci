@@ -5,9 +5,11 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Grinding Stone Tool Card
@@ -15,6 +17,8 @@ import java.util.ArrayList;
  */
 
 public class GrindingStone extends ToolCardStrategy {
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
+
 
 
     /**
@@ -40,30 +44,33 @@ public class GrindingStone extends ToolCardStrategy {
             errorMessage = "There's no passed dice";
             return false;
         }
-
-            switch (dice.getValue()) {
-                case 1:
-                    dice.setValue(6);
-                    break;
-                case 2:
-                    dice.setValue(5);
-                    break;
-                case 3:
-                    dice.setValue(4);
-                    break;
-                case 4:
-                    dice.setValue(3);
-                    break;
-                case 5:
-                    dice.setValue(2);
-                    break;
-                case 6:
-                    dice.setValue(1);
-                    break;
-                default:
-                    return false;
-            }
-
+    try {
+        switch (dice.getValue()) {
+            case 1:
+                dice.setValue(6);
+                break;
+            case 2:
+                dice.setValue(5);
+                break;
+            case 3:
+                dice.setValue(4);
+                break;
+            case 4:
+                dice.setValue(3);
+                break;
+            case 5:
+                dice.setValue(2);
+                break;
+            case 6:
+                dice.setValue(1);
+                break;
+            default:
+                return false;
+        }
+    }
+    catch (InvalidValueException e){
+        LOGGER.log(Level.SEVERE, e.toString(), e);
+    }
         return true;
     }
 

@@ -293,4 +293,11 @@ public class Controller implements Observer<MessageVC> {
     public void setUseTools(boolean useTools) {
         this.useTools = useTools;
     }
+
+    public void fakemove(){
+        setSetDice(true);
+        setUseTools(true);
+        move++;
+        notifyAll();
+    }
 }

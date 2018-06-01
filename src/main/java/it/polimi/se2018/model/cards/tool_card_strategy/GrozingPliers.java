@@ -5,9 +5,11 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Grozing Pliers Tool Card
@@ -15,6 +17,8 @@ import java.util.ArrayList;
  */
 
 public class GrozingPliers extends ToolCardStrategy {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
     private int firstValue; //+1
     private int secondValue; //-1
@@ -97,8 +101,13 @@ public class GrozingPliers extends ToolCardStrategy {
 
     public void setChosenValue(Dice dice, int value1){
 
-            if (value1 != 0)
-                dice.setValue(value1);
+            if (value1 != 0) {
+                try {
+                    dice.setValue(value1);
+                } catch (InvalidValueException e) {
+                    LOGGER.log(Level.SEVERE, e.toString(), e);
+                }
+            }
 
     }
 

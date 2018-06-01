@@ -5,10 +5,12 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
 
 /**
  * Flux Remover Tool Card
@@ -16,6 +18,8 @@ import java.util.Collections;
  */
 
 public class FluxRemover extends ToolCardStrategy {
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
+
 
     /**
      * Read description of this card for further information
@@ -40,7 +44,11 @@ public class FluxRemover extends ToolCardStrategy {
         Collections.shuffle(bag);
         Dice temp = bag.get(1);
         bag.remove(temp);
-        temp.setValue(value);
+        try {
+            temp.setValue(value);
+        } catch (InvalidValueException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
         return true;
     }
 
