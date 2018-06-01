@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 
-public class Model {
+public class Game {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
@@ -32,7 +32,7 @@ public class Model {
 
 
 
-    public Model(){
+    public Game(){
 
 
         try {
