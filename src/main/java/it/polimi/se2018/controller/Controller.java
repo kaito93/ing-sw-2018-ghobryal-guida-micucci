@@ -226,14 +226,14 @@ public class Controller implements Observer<MessageVC> {
                     if (players.get(i).getScore()==playersFinal.get(j).getScore()){
                         // se il punteggio del giocatore preso in considerazione è uguale a quello confrontato
                         // confronta i punteggi ottenuti dalle carte obiettivo privato
-                        if (players.get(i).calcPrivateScore()>playersFinal.get(j).calcPrivateScore()){
+                        if (players.get(i).getCardPrivateObj().search(players.get(i).getMap())>playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())){
                             // se il punteggio ottenuto dall'obiettivo privato del giocatore è più alto aggiungilo prima di quello confrontato
                             playersFinal.add(j,players.get(i));
                             set=true;
                         }
                         else{ // altrimenti
                             // se anche i punteggi privati sono uguali
-                            if (players.get(i).calcPrivateScore()==playersFinal.get(j).calcPrivateScore()){
+                            if (players.get(i).getCardPrivateObj().search(players.get(i).getMap())==playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())){
                                 // confronta il numero di segnalini favore rimasti
                                 if (players.get(i).getFavSig()>playersFinal.get(j).getFavSig()) {
                                     // se al giocatore sono rimasti più segnalini favore rispetto a quello confrontato allora aggiungilo prima di quello confrontato
