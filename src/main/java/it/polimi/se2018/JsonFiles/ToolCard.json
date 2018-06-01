@@ -3,66 +3,77 @@
     "title": "Copper Foil Burnisher",
     "description": "Move any one die in your window ignoring the shade restrictions. You must obey the other placement restrictions",
     "id": 3,
+    "color":"red",
     "strategy": "CopperFoilBurnisher"
   },
   {
     "title": "Corkbacked Straightedge",
     "description": "After drafting, place the die in a spot that is not adjacent to another die. You must obey all other placement restrictions",
     "id": 9,
+    "color": "yellow",
     "strategy": "CorkbackedStraightedge"
   },
   {
     "title": "Eglomise Brush",
     "description": "Move any one die in your window ignoring the color restrictions. You must obey the other placement restrictions",
     "id": 2,
+    "color": "blue",
     "strategy": "EglomiseBrush"
   },
   {
     "title": "Flux Brush",
     "description": "After drafting, re-roll the drafted die. If it cannot be placed. return it to the Draft Pool",
     "id": 6,
+    "color": "pink",
     "strategy": "FluxBrush"
   },
   {
     "title": "Flux Remover",
     "description": "After drafting, return the die to the Dice Bag and pull one die from the bag. Choose a value and place the new die, obeying all placement restrictions, or return it to the Draft Pool",
     "id": 11,
+    "color": "pink",
     "strategy": "FluxRemover"
   },
   {
     "title": "Glazing Hammer",
     "description": "Re-roll all dice in Draft Pool. This may only be used on your second turn before drafting",
     "id": 7 ,
+    "color": "blue",
     "strategy": "GlazingHammer"
   },
   {
     "title": "Grinding Stone",
     "description": "After drafting, flip the die to its opposite side",
     "id": 10,
+    "color": "pink",
     "strategy": "GrindingStone"
   },
   {
     "title": "Grozing Pliers",
     "description": "After drafting, increase or decrease the value of the drafted die by 1",
     "id": 1,
+    "color": "pink",
     "strategy": "GrozingPliers"
   },
   {
     "title": "Lathekin",
     "description": "move exactly two dices, obeying all placement restrictions",
     "id": 4,
+    "color": "yellow",
     "strategy": "Lathekin"
   },
   {
     "title": "Lens Cutter",
     "description": "After drafting, swap the drafted die wit a die from the Round Track",
     "id": 5,
+    "color": "green",
     "strategy": "LensCutter"
   },
   {
     "title": "Running Pliers",
     "description": "After your first turn, immediately draft a die. Skip your next turn this round",
     "id": 8,
+    "color": "red",
     "strategy": "RunningPliers"
   },
   {

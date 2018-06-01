@@ -51,4 +51,14 @@ public class Builder implements Observer{
     public void setToBeCompared(String toBeCompared) {
         this.toBeCompared = toBeCompared;
     }
+
+    public void setDeck(ArrayList deck){
+        int i;
+        for(i=0; i<=poc.size(); i++){
+            if (poc == null)
+                break;
+            else
+            deck.add(poc.get(i));
+        }
+    }
 }

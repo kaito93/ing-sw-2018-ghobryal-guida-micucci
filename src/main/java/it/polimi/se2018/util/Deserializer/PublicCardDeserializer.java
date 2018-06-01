@@ -54,4 +54,18 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
         Type trans = new TypeToken<ArrayList<jsonTransiction>>(){}.getType();
         jsontrans = this.getGson().fromJson(this.getBr(), trans);
     }
+
+    public void SetUpDeck(){
+        cdsBuilder.setDeck(this.publicObjectivetransfer);
+        cvsBuilder.setDeck(this.publicObjectivetransfer);
+        ccvsBuilder.setDeck(this.publicObjectivetransfer);
+        csvsBuilder.setDeck(this.publicObjectivetransfer);
+        dssBuilder.setDeck(this.publicObjectivetransfer);
+        dssBuilder.setDeck(this.publicObjectivetransfer);
+        lssBuilder.setDeck(this.publicObjectivetransfer);
+        mssBuilder.setDeck(this.publicObjectivetransfer);
+        rcvsBuilder.setDeck(this.publicObjectivetransfer);
+        rsvsBuilder.setDeck(this.publicObjectivetransfer);
+        svsBuilder.setDeck(this.publicObjectivetransfer);
+    }
 }
