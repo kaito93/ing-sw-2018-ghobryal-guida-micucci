@@ -19,10 +19,12 @@ public class Player implements Serializable {
     private int score;
     private boolean setDice;
     private boolean useTools;
-    
 
 
-
+    /**
+     * Class Constructor
+     * @param user username
+     */
     public Player (String user){
         this.name=user;
     }
@@ -30,6 +32,7 @@ public class Player implements Serializable {
     /** method that return the card private with the private goal
      * @return privateObject card, that is the card with the private goal
      */
+    //tested
     public PrivateObjectiveCard getCardPrivateObj(){
         return privateObj;
     }
@@ -37,10 +40,16 @@ public class Player implements Serializable {
     /** method that return the score of the player
      * @return an integer that indicate the points of the player
      */
+    //tested
     public int getScore(){
         return score;
     }
 
+    /**
+     * sets the player's final score
+     * @param score the calculated final score
+     */
+    //tested
     public void setScore(int score) {
         this.score = score;
     }
@@ -48,6 +57,7 @@ public class Player implements Serializable {
     /** method that return the number of favor sig of a player
      * @return an integer indicate the number of favor sig, between 0 and the difficulty level of the map
      */
+    //tested
     public int getFavSig()
     {
         return favorSig;
@@ -56,12 +66,14 @@ public class Player implements Serializable {
     /** method that set the value of the boolean firstAction as boolval
      * @param boolval a boolean that can be true-false
      */
+    //tested
     public void setUseTools(boolean boolval){
         this.useTools = boolval;
     }
     /** method that set the value of the boolean secondAction as boolval
      * @param boolval a boolean that can be true-false
-     */    
+     */
+    //tested
     public void setSetDice(boolean boolval){
         this.setDice = boolval;
     }
@@ -69,6 +81,7 @@ public class Player implements Serializable {
     /** method that return the value of the boolean firstTurn
      * @return the value of the boolean firstTurn
      */
+    //tested
     public boolean getSetDice(){
         return this.setDice;
     }
@@ -76,6 +89,7 @@ public class Player implements Serializable {
      /** method that return the value of the boolean firstTurn
      * @return the value of the boolean firstTurn
      */
+     //tested
     public boolean getUseTools(){
         return this.useTools;
     }
@@ -83,6 +97,7 @@ public class Player implements Serializable {
     /** method that return the map of the player
      * @return a map object that is the martix of the player's glasswindow
      */
+    //tested
     public Map getMap(){
         return map;
     }
@@ -90,12 +105,10 @@ public class Player implements Serializable {
     /** method that return the name of the player
      * @return a string with the name of the player
      */
+    //tested
     public String getName(){
         return name;
     }
-
-    public int calcPrivateScore() {return privateObj.search(this.map);}
-
 
     /**
      * choose a dice from the passed stock
@@ -104,6 +117,7 @@ public class Player implements Serializable {
      * @param color dice's color
      * @return the chosen dice
      */
+    @Deprecated
     public Optional<Dice> chooseDice(ArrayList<Dice> stock, int value, Color color){
         return stock.stream().filter((Dice d) -> (d.getValue()==value&&d.getColor().equals(color))).findFirst();
     }
@@ -112,6 +126,7 @@ public class Player implements Serializable {
      * return the oobject map
      * @param map that is used by the player
      */
+    //tested
     public void setMap(Map map) {
         this.map = map;
     }

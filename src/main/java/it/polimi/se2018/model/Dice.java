@@ -1,6 +1,9 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.model.exception.InvalidValueException;
+
 import java.io.Serializable;
+import java.security.InvalidParameterException;
 import java.util.Random;
 
 /**Class Dice
@@ -44,8 +47,16 @@ public class Dice implements Serializable {
     /** changes the dice's value
      * @param value dice's wanted value
      */
-    public void setValue(int value) {
-        this.value = value;
+    public void setValue(int value) throws InvalidValueException {
+        if (value<1 || value>6) throw new InvalidValueException();
+        else this.value = value;
     }
 
+    /**
+     * sets the dice's color
+     * @param color
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }
