@@ -1,6 +1,6 @@
 package it.polimi.se2018.controller;
 
-import it.polimi.se2018.model.Model;
+import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 
 import it.polimi.se2018.network.client.message.Message;
@@ -8,8 +8,6 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.ResponseMap;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.network.server.message.MessageFinalScore;
-import it.polimi.se2018.network.server.message.MessageUpdate;
-import it.polimi.se2018.network.server.message.MessageYourTurn;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observer;
 
@@ -23,7 +21,8 @@ public class Controller implements Observer<MessageVC> {
 
     private static final boolean A=true;
     Boolean b=false;
-    Model model;
+    Game game;
+    int move=0;
     VirtualView view;
     ArrayList<Player> players;
     boolean setDice = false;
@@ -38,7 +37,7 @@ public class Controller implements Observer<MessageVC> {
     }
 
     public Controller (VirtualView view, ArrayList<Player> players)  {
-        this.model=new Model();
+        this.game =new Game();
         this.view=view;
         this.players=players;
         view.addObservers(this);
@@ -66,14 +65,14 @@ public class Controller implements Observer<MessageVC> {
     }
 
     public void startGame(){
-        model.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
+        game.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
         view.startGame();
-        view.publicInformation(model.getPublicObjCard());
+        view.publicInformation(game.getPublicObjCard());
         game();
     }
 
-    public Model getModel() {
-        return model;
+    public Game getGame() {
+        return game;
     }
 
     public void updatePlayers(Player players){
@@ -89,10 +88,10 @@ public class Controller implements Observer<MessageVC> {
 
 
         // CICLO CHE GESTISCE I ROUND
-        for (int round=0; round<model.getMaxRound();round++){
+        for (int round = 0; round< game.getMaxRound(); round++){
 
             // ESTRAI I DADI DAL SACCHETTO E METTILI NELLA RISERVA. #DADI ESTRATTI = (2*giocatori)+1
-            model.setStock(model.getDiceBag().extractDice(playersInRound.size()+1));
+            game.setStock(game.getDiceBag().extractDice(playersInRound.size()+1));
 
             // CICLO CHE GESTISCE I TURNI INTERNI AL ROUND...
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
@@ -102,9 +101,9 @@ public class Controller implements Observer<MessageVC> {
                 playersInRound.get(turno).setUseTools(false);
 
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
-                for (int move=0; move<2;move++){
+                for (move=0; move<2;move++){
                     // Invia a tutti i giocatori le informazioni generali del turno
-                    view.sendMessageUpdate(turno,getModel(),playersInRound.get(turno).getName());
+                    view.sendMessageUpdate(turno, getGame(),playersInRound.get(turno).getName());
 
                     // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
                     view.sendMessageTurn(playersInRound,turno);
@@ -118,7 +117,7 @@ public class Controller implements Observer<MessageVC> {
             }
 
             // PIAZZA I DADI RIMANENTI NEL TRACCIATO DEI ROUND.
-            model.getRoundSchemeMap()[round].setDices(model.getStock());
+            game.getRoundSchemeMap()[round].setDices(game.getStock());
 
             // aggiorna l'arraylist per i turni dentro al round. quello che era primo diventa ultimo
             updatePlayersInRound(playersInRound);
@@ -188,12 +187,12 @@ public class Controller implements Observer<MessageVC> {
         // cicla i giocatori
         for (int i=0;i<this.players.size();i++){
              // cicla le carte obiettivo pubbliche
-            for (int j=0; j<model.getPublicObjCard().size();j++){
+            for (int j = 0; j< game.getPublicObjCard().size(); j++){
                // calcola il punteggio ottenuto tramite la carta obiettivo pubblica
-                players.get(i).setScore(players.get(i).getScore()+model.getPublicObjCard().get(j).search(players.get(i).getMap()));
+                players.get(i).setScore(players.get(i).getScore()+ game.getPublicObjCard().get(j).search(players.get(i).getMap()));
             }
             // calcola il punteggio ottenuto tramite la carta obiettivo privata
-            players.get(i).setScore(players.get(i).getScore()+players.get(i).calcPrivateScore());
+            players.get(i).setScore(players.get(i).getScore()+players.get(i).getCardPrivateObj().search(players.get(i).getMap()));
             // calcola il punteggio ottenuto tramite i segnalini favore rimasti
             players.get(i).setScore(players.get(i).getScore()+players.get(i).getFavSig());
             // calcola il punteggio ottenuto sottraendo gli spazi liberi nella mappa
@@ -278,13 +277,13 @@ public class Controller implements Observer<MessageVC> {
     public void useTools(String titleCard){
         boolean find=false;
         int i=0;
-        while (!find || i<model.getToolCards().size()){
-            if (model.getToolCards().get(i).getTitle().equalsIgnoreCase(titleCard))
+        while (!find || i< game.getToolCards().size()){
+            if (game.getToolCards().get(i).getTitle().equalsIgnoreCase(titleCard))
                 find=true;
             else
                 i++;
         }
-        model.getToolCards().get(i).getStrategy().requestMessage(view);
+        game.getToolCards().get(i).getStrategy().requestMessage(view);
     }
 
     public void setSetDice(boolean setDice) {

@@ -35,6 +35,6 @@ public class MessagePosDice implements MessageVC {
 
     @Override
     public void accept(Controller controller) {
-
+        controller.setPos();
     }
 }

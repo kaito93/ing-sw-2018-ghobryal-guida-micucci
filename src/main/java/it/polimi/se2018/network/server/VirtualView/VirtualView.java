@@ -2,7 +2,7 @@ package it.polimi.se2018.network.server.VirtualView;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.Model;
+import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
@@ -62,24 +62,11 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         // TO DO MIK: Carica carte schema
         ArrayList<Map> maps;
         maps = loadMaps();
+
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
-            for (int j=0; j<2;j++){ // sceglie 2 carte schema
-                Map m = randomMap(maps);
-                message.addMap(m); // aggiunge la mappa estratta al messaggio da inviare
-                message.setPlayer(playersActive.get(i)); // invio alla view il giocatore proprietario
-            }
-
-            Message mess= new Message(Message.CVEVENT, message);
-            connections.get(i).send(mess); // viene inviato il messaggio al giocatore per scegliere la carta
-
-
+            connections.get(i).sendMap(maps,playersActive.get(i));
         }
         LOGGER.log(Level.INFO,"Tutto è pronto! Si cominciaaaaaaaa");
-
-
-
-
     }
 
     public void startServer(){
@@ -90,34 +77,20 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void startGame(){
         // invia le informazioni al singolo giocatore delle SUE caratteristiche
         for (int i=0; i<playersActive.size();i++){ // per ogni giocatore
-            MessageStart message = new MessageStart(); //crea un nuovo messaggio
-            Message mex = new Message(Message.CVEVENT,message);
-            message.setCard(playersActive.get(i).getCardPrivateObj());
-
-            connections.get(i).send(mex);// mando il messaggio
+            connections.get(i).sendPrivateInformation(playersActive.get(i).getCardPrivateObj());
         }
-
-
-
-
     }
 
     public void publicInformation(ArrayList<PublicObjectiveCard> publicCards){
         // invia le informazioni a tutti i giocatori delle informazioni GENERALI della partita.
-        MessagePublicInformation messag = new MessagePublicInformation();
-        Message mex= new Message(Message.CVEVENT,messag);
-        messag.setPublicObjective(publicCards);
-        messag.setToolCards(controller.getModel().getToolCards());
-        sendBroadcast(mex);
+
+        ArrayList<ToolCard> tools = controller.getGame().getToolCards();
+        for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
+            connections.get(i).sendPublicInformation(publicCards,tools);
+        }
     }
 
-    public Map randomMap(ArrayList<Map> ma){
-        Random random = new Random();
-        int j = random.nextInt(ma.size()); // estrai un numero casuale tra tutte le mappe disponibili
-        Map val= ma.get(j); // salvati la mappa
-        ma.remove(j); // rimuovi la mappa dall array di mappe
-        return val; // ritorna la mappa estratta
-    }
+
 
     public ArrayList<Map> loadMaps() {
         // TO DO MIK: Carica le carte schema da file qui
@@ -171,24 +144,18 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
                 }
             }
-            this.connected=false; // il giocatore non è connesso
 
-            int index = connections.indexOf(this.client); // ricerca l'indice del giocatore
-            playersSuspend.add(playersActive.get(index)); // aggiungi il giocatore all'elenco di giocatori sospesi
-            controller.updatePlayers(playersActive.get(index));
-            playersActive.remove(index); // rimuovi il giocatore sospeso dai giocatori attivi
-            connectionsSuspend.add(this.client); // aggiungi la connessione nell array delle connessioni sospese
-            connections.remove(index); // rimuovi la connessione dalle connessioni attive
-            playerNotPlay.add(this); // aggiungi questo thread all'elenco di thread riferiti a giocatori sospesi
-            playersPlay.remove(this); // rimuovi questo thread all'elenco di thread riferiti a giocatori attivi
-
+            connectionLost();
             String text= "Il giocatore "+client.getUsername()+ " si è disconnesso. Il giocatore è stato sospeso.";
-            Message message = new Message(Message.SYSTEMEVENT, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
-            sendBroadcast(message);// spedisci il messaggio in broadcast
+
+            for (int i=0; i<connections.size();i++){ // per ogni giocatore
+              connections.get(i).sendLostConnection(text);
+            }
 
             if (currentPlayer==this){ // se toccava al giocatore sospeso
                 // TO DO: bisognerà generare un fake-message vuoto per gli osservatori
                 // Fake message di tipo risposta mossa.
+
             }
 
             // GESTIONE DELLA RICONNESSIONE [Ipotesi]
@@ -221,7 +188,26 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
         }
+
+        public void connectionLost(){
+
+            this.connected=false; // il giocatore non è connesso
+
+            int index = connections.indexOf(this.client); // ricerca l'indice del giocatore
+            playersSuspend.add(playersActive.get(index)); // aggiungi il giocatore all'elenco di giocatori sospesi
+            controller.updatePlayers(playersActive.get(index));
+            playersActive.remove(index); // rimuovi il giocatore sospeso dai giocatori attivi
+            connectionsSuspend.add(this.client); // aggiungi la connessione nell array delle connessioni sospese
+            connections.remove(index); // rimuovi la connessione dalle connessioni attive
+            playerNotPlay.add(this); // aggiungi questo thread all'elenco di thread riferiti a giocatori sospesi
+            playersPlay.remove(this); // rimuovi questo thread all'elenco di thread riferiti a giocatori attivi
+
+
+
+        }
     }
+
+
 
     public synchronized void sendBroadcast(Message message){
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
@@ -269,7 +255,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         connections.get(searchUser(playersInRound.get(turno).getName())).send(messa);
     }
 
-    public void sendMessageUpdate (int turno, Model model, String name){
+    public void sendMessageUpdate (int turno, Game model, String name){
         // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
         MessageUpdate message= new MessageUpdate();
         message.setMessage("E' il turno di "+name);
