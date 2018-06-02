@@ -25,7 +25,7 @@ public class DeckOfPrivateCards {
      * class constructor: create a deck of all the private cards
      * @throws FileNotFoundException if the json file with all the info about the private cards is not found
      */
-    public DeckOfPrivateCards() throws FileNotFoundException{
+    public DeckOfPrivateCards(){
         json = new File("src/main/java/it/polimi/se2018/JsonFiles/PrivateObjectiveCards.json");
         try {
             br = new BufferedReader(new FileReader(json));
@@ -58,4 +58,5 @@ public class DeckOfPrivateCards {
     public ArrayList<PrivateObjectiveCard> getPrivCards() {
         return privCards;
     }
+
 }
