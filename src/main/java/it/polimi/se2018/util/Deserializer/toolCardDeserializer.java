@@ -94,4 +94,12 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
         return deck;
     }
 
+    public void TotalDeserializing(){
+        this.Deserializing();
+        this.SetUpObserver();
+        for(int index=0; index<jsontrans.size(); index++)
+            this.StartBuilding(jsontrans.get(index));
+        this.MountDeck();
+    }
+
 }

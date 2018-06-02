@@ -67,4 +67,12 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
     public ArrayList<PublicObjectiveCard> getPublicObjectivetransfer() {
         return publicObjectivetransfer;
     }
+
+    public void TotalDeserializing(){
+        this.Deserializing();
+        this.SetUpObserver();
+        for(int index=0; index<jsontrans.size();index++)
+            this.StartBuilding(this.getSingleTransiction(index));
+        this.SetUpDeck();
+    }
 }
