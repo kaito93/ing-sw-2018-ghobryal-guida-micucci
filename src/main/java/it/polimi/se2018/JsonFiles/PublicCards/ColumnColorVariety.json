@@ -1,6 +1,0 @@
-{
-  "title": "Different Colour Column",
-  "description": "column without the same colour two times",
-  "score": 5,
-  "strategy":"ColumnColorVarietyStrategy"
-}

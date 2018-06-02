@@ -1,10 +1,9 @@
 package it.polimi.se2018.util.Deserializer;
 
-import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
+import it.polimi.se2018.util.Deserializer.PublicCards.*;
 import it.polimi.se2018.util.jsonTransiction;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class PublicCardDeserializer extends StrategyCardDeserializer {
@@ -50,10 +49,6 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
         this.addObserver(svsBuilder);
     }
 
-    public void Deserializing(){
-        Type trans = new TypeToken<ArrayList<jsonTransiction>>(){}.getType();
-        jsontrans = this.getGson().fromJson(this.getBr(), trans);
-    }
 
     public void SetUpDeck(){
         cdsBuilder.setDeck(this.publicObjectivetransfer);
@@ -67,5 +62,9 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
         rcvsBuilder.setDeck(this.publicObjectivetransfer);
         rsvsBuilder.setDeck(this.publicObjectivetransfer);
         svsBuilder.setDeck(this.publicObjectivetransfer);
+    }
+
+    public ArrayList<PublicObjectiveCard> getPublicObjectivetransfer() {
+        return publicObjectivetransfer;
     }
 }

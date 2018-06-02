@@ -1,6 +1,0 @@
-{
-  "title": "Different Shades column",
-  "description": "column without the same shades two times",
-  "score": 4,
-  "strategy":"ColumnShadeVarietyStrategy"
-}

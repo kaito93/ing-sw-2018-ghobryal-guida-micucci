@@ -1,6 +1,0 @@
-{
-  "title": "Lathekin",
-  "description": "move exactly two dices, obeying all placement restrictions",
-  "id": 4,
-  "strategy": "Lathekin"
-}

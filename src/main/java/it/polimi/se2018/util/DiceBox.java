@@ -80,6 +80,9 @@ public class DiceBox {
         return toBeReturned;
     }
 
+    /**
+     * method that shuffle all the dice in the arraylist
+     */
     public void initDiceBox(){
         Collections.shuffle(box);
     }

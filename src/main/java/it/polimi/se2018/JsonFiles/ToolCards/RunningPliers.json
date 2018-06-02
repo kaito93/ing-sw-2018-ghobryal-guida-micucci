@@ -1,6 +1,0 @@
-{
-  "title": "Running Pliers",
-  "description": "After your first turn, immediately draft a die. Skip your next turn this round",
-  "id": 8,
-  "strategy": "RunningPliers"
-}

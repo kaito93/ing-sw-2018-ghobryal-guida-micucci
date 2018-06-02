@@ -15,6 +15,9 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * abstract class that will use to make the deserializer of the cards
+ */
 public abstract class StrategyCardDeserializer extends Observable{
         private Gson gson = new Gson();
         private File json;
@@ -22,12 +25,12 @@ public abstract class StrategyCardDeserializer extends Observable{
         ArrayList<jsonTransiction>jsontrans;
 
 
-        /**
-         * class constructor, deserialize all public objective card from
-         * a json file
-         * @throws FileNotFoundException if the json file doesn't exist
-         */
-        public StrategyCardDeserializer(String pathname) {
+    /**
+     * class constructor that inizialize the reading of the json file
+     * @param pathname path of the json file
+     * @throws FileNotFoundException when  the file doesn't exist
+     */
+    public StrategyCardDeserializer(String pathname) {
             json = new File(pathname);
 
             try {
@@ -37,27 +40,59 @@ public abstract class StrategyCardDeserializer extends Observable{
             }
         }
 
+    /**
+     * method that deserialize the json file to an json transiction data structure, that is used to create the card objects
+     */
+    public void Deserializing(){
+        Type trans = new TypeToken<ArrayList<jsonTransiction>>(){}.getType();
+        jsontrans = this.getGson().fromJson(this.getBr(), trans);
+    }
 
+
+    /**
+     * getter method to return the arraylist of json transiction data structure
+     * @return
+     */
     public ArrayList<jsonTransiction> getJsontrans() {
         return jsontrans;
     }
 
 
+    /**
+     * method that extract a cell from the arraylist of jsontransiction
+     * @param index of cell that need to be extract
+     * @return the cell of the arraylist
+     */
     public jsonTransiction getSingleTransiction(int index){
             return jsontrans.get(index);
         }
 
-        public abstract void SetUpObserver();
+    /**
+     * abstract method to set-up the observers of this class
+     */
+    public abstract void SetUpObserver();
 
-        public void StartBuilding(jsonTransiction publCardsingle){
+    /**
+     * method to notify to all the observers that a cell of arraylist is readen, and need to create the cards
+     * @param publCardsingle single cell of json transiction arraylist
+     */
+    public void StartBuilding(jsonTransiction publCardsingle){
             setChanged();
             notifyObservers(publCardsingle);
         }
 
+    /**
+     * getter method that return json deserializer from file
+     * @return gson deserializer
+     */
     public Gson getGson() {
         return gson;
     }
 
+    /**
+     * getter method of the bufferedreader
+     * @return the bufferedreader of the file
+     */
     public BufferedReader getBr() {
         return br;
     }

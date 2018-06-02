@@ -1,0 +1,3049 @@
+[
+  {
+    "title": "virtus",
+    "level": 4,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 4,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 5,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 9,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 13,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 17,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "via lux",
+    "level": 4,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "bellesguard",
+    "level": 3,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "kaleidoscopic dream",
+    "level": 4,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 6,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "aurorae magnificus",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 6,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "green",
+        "value": 6
+      },
+      {
+        "numbercell": 14,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "title": "sun catcher",
+    "level": 3,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 8,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "shadow thief",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 7,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      }
+    ]
+  },
+  {
+    "title": "aurora sagradis",
+    "level": 4,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 7,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 9,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "firmitas",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 7,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 13,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 19,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "title": "batllo",
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "blue",
+        "value": 6
+      },
+      {
+        "numbercell": 9,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "green",
+        "value": 4
+      },
+      {
+        "numbercell": 18,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      }
+    ]
+  },
+  {
+    "title": "industria",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "Symphony of light",
+    "level": 6,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 6,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "firelight",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 2,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 4,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "color",
+        "color": "yellow",
+        "value": 1
+      },
+      {
+        "numbercell": 19,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      }
+    ]
+  },
+  {
+    "title": "lux astram",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "color",
+        "color": "pink",
+        "value": 5
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 7,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 9,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 15,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "gravitas",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 4,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "title": "luz celestial",
+    "level": 3,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 8,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "chromatic splendor",
+    "level": 4,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "green",
+        "value": 2
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 7,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 9,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "red",
+        "value": 3
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 14,
+        "type": "coloe",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 17,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "title": "fractal drops",
+    "level": 3,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "color",
+        "color": "yellow",
+        "value": 5
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 6,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 16,
+        "type": "color",
+        "color": "blue",
+        "value": 5
+      },
+      {
+        "numbercell": 17,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "water of life",
+    "level": 6,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 18,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "sun's glory",
+    "level": 6,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "yellow",
+        "value": 1
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 6,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 11,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 20,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "title": "ripple's of light",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "color",
+        "color": "pink",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 16,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 18,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 20,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "comitas",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 8,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 9,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 17,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 18,
+        "type": "color",
+        "color": "yellow",
+        "value": 0
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "fulgor del cielo",
+    "level": 5,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 7,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 9,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 11,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 13,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 14,
+        "type": "color",
+        "color": "red",
+        "value": 6
+      },
+      {
+        "numbercell": 15,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 16,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 17,
+        "type": "color",
+        "color": "red",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 19,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "title": "lux mundi",
+    "level": 6,
+    "maps":
+    [
+      {
+        "numbercell": 1,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 2,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 3,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 4,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 5,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 6,
+        "type": "value",
+        "color": "blank",
+        "value": 1
+      },
+      {
+        "numbercell": 7,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 8,
+        "type": "value",
+        "color": "blank",
+        "value": 3
+      },
+      {
+        "numbercell": 9,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 10,
+        "type": "value",
+        "color": "blank",
+        "value": 2
+      },
+      {
+        "numbercell": 11,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 12,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 13,
+        "type": "value",
+        "color": "blank",
+        "value": 4
+      },
+      {
+        "numbercell": 14,
+        "type": "value",
+        "color": "blank",
+        "value": 6
+      },
+      {
+        "numbercell": 15,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 16,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      },
+      {
+        "numbercell": 17,
+        "type": "color",
+        "color": "blue",
+        "value": 0
+      },
+      {
+        "numbercell": 18,
+        "type": "value",
+        "color": "blank",
+        "value": 5
+      },
+      {
+        "numbercell": 19,
+        "type": "color",
+        "color": "green",
+        "value": 0
+      },
+      {
+        "numbercell": 20,
+        "type": "blank",
+        "color": "blank",
+        "value": 0
+      }
+    ]
+  }
+]
