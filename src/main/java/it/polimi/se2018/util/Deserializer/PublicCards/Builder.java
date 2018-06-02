@@ -32,7 +32,7 @@ public class Builder implements Observer{
      * created, if the type is the same
      */
     public void update(Observable o, Object arg) {
-        jT = (PublicCardsTransfer) arg;;
+        jT = (PublicCardsTransfer) arg;
        if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
            poc.add(new PublicObjectiveCard(jT.getTitle(), jT.getDescription(), jT.getScores(), strategy));
            System.out.println(poc.get(1).getTitle());

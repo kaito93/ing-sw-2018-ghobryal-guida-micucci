@@ -27,4 +27,20 @@ public class Maps {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getNumberCell() {
+        return numberCell;
+    }
 }

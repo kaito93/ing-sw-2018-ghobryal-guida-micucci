@@ -13,6 +13,7 @@ import java.io.Serializable;
 public abstract class Cell implements Serializable {
 
     private Dice dice;
+    private int numberCell;
     
     /** class constructor
      *  return a cell object with no dice inside
@@ -42,4 +43,12 @@ public abstract class Cell implements Serializable {
     /** method that return the value of the dice inside the cell
      */
     public abstract int getValue();
+
+    public void setNumberCell(int numberCell) {
+        this.numberCell = numberCell;
+    }
+
+    public int getNumberCell() {
+        return numberCell;
+    }
 }

@@ -32,4 +32,8 @@ public class ColoredCell extends Cell {
     public int getValue() {
         return 0;
     }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }

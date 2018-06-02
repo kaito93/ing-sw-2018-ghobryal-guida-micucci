@@ -24,4 +24,16 @@ public class TransitionForMaps {
     public void setMapName(String mapName) {
         this.mapName = mapName;
     }
+
+    public ArrayList<Maps> getMap() {
+        return map;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public String getMapName() {
+        return mapName;
+    }
 }

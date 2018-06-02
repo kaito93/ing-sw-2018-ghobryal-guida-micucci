@@ -34,4 +34,9 @@ public class ValueCell extends Cell {
         return null;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+
 }
