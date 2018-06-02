@@ -51,7 +51,7 @@ public class MapsDeserializer extends Observable{
         notifyObservers(element);
     }
 
-    public void SetUpArraylistMatrix(int index){        //parametro che indica la mappa di riferimento
+    public void SetUpArraylistMatrix(){        //parametro che indica la mappa di riferimento
         int vi = 0;     //value index
         int bi = 0;     // blank index
         int ci = 0;     // coloured index
@@ -73,5 +73,13 @@ public class MapsDeserializer extends Observable{
 
     public ArrayList<entireMap> getDefinitive() {
         return definitive;
+    }
+
+    public void totalDeserialize(){
+        this.Deserializing();
+        this.SetUpObservers();
+        for(int index=0; index < mapsJsonJava.size(); index++)
+            this.StartMapBuilding(this.ExtractTransition(index));
+        this.SetUpArraylistMatrix();
     }
 }
