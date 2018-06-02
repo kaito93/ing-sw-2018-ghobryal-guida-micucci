@@ -68,8 +68,8 @@ public class TapWheel extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageTap();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageTap(title,player);
     }
 }
 

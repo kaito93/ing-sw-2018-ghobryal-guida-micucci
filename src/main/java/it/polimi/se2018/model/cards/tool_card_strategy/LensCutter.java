@@ -61,7 +61,7 @@ public class LensCutter extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageLens();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageLens(title,player);
     }
 }

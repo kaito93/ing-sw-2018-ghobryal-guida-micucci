@@ -58,7 +58,7 @@ public class Lathekin extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageLathekin();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageLathekin(title,player);
     }
 }

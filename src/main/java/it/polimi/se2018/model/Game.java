@@ -4,7 +4,9 @@ import it.polimi.se2018.model.cards.*;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.MediumShadesStrategy;
 import it.polimi.se2018.model.cards.tool_card_strategy.FluxBrush;
 import it.polimi.se2018.network.client.message.Message;
+import it.polimi.se2018.util.DeckOfPrivateCards;
 import it.polimi.se2018.util.DiceBox;
+import it.polimi.se2018.util.Deserializer.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class Game {
     private RoundSchemeCell roundSchemeMap[];
 
     private static ArrayList<ToolCard> toolCards = new ArrayList<>();
+
+
 
 
 
@@ -83,34 +87,26 @@ public class Game {
     private ArrayList<ToolCard> loadToolCards(){
         // TO DO MIK: Carica tutte le carte tools qui e ritornale
 
-        // codice solo per test
+        toolCardDeserializer tool= new toolCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/ToolCards.json");
+        tool.TotalDeserializing();
+        return tool.getDeck();
+        /* codice solo per test
         ArrayList<ToolCard> cards = new ArrayList<>();
         for (int i=0; i<3; i++){
             cards.add(new ToolCard("ciao","ciao",1,Color.BLUE,new FluxBrush()));
         }
-        return cards;
+        return cards;*/
     }
-
-
-
-    private ArrayList<Dice> loadDiceBag(){
-
-        // TO DO MIK: CARICA I 90 DADI DA FILE JSON E FA UN SHUFFLE E THROWDICE PER OGNI DADO
-        // COSì ESCONO DADI COMPLETAMENTE CASUALI E POI RITORNALI
-
-        return new ArrayList<>(); // solo per non dare errore
-
-
-
-    }
-
 
 
     private ArrayList<PublicObjectiveCard> loadPublicObjCard(){
 
         // TO DO MIK: CARICA LE CARTE OBIETTIVO PUBBLICO DA FILE JSON E RITORNALE
 
-        // CODICE SOLO PER TEST.
+        PublicCardDeserializer cards =  new PublicCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/PublicCards.json");
+        cards.TotalDeserializing();
+        return cards.getPublicObjectivetransfer();
+        /* CODICE SOLO PER TEST.
         MediumShadesStrategy cards = new MediumShadesStrategy();
         ArrayList<PublicObjectiveCard> arr = new ArrayList<>();
         for (int i=0; i<3;i++) {
@@ -118,7 +114,21 @@ public class Game {
             arr.add(card);
         }
         return arr;
-
+*/
+    }
+    public ToolCard searchToolCard(String title) {
+        boolean find=false;
+        int i=0;
+        while (!find && i < toolCards.size()) {
+            if (toolCards.get(i).getTitle().equalsIgnoreCase(title))
+                find = true;
+            else
+                i++;
+        }
+        if (find)
+            return toolCards.get(i);
+        else
+            return null;
     }
 
     public int getMaxRound() {
@@ -157,12 +167,16 @@ public class Game {
     private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
         // TO DO MIK: CARICA QUI LE CARTE OBIETTIVO PRIVATO E RITORNALE
 
+        DeckOfPrivateCards cards = new DeckOfPrivateCards();
+        return cards.getPrivCards();
+/*
         // codice solo per test
         ArrayList<PrivateObjectiveCard> array = new ArrayList<>();
         for (int i=0; i<5;i++){
             array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
         }
         return array;
+        */
     }
 
     public ArrayList<Dice> getStock() {

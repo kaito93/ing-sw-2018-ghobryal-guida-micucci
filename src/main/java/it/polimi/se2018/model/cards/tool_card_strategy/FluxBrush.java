@@ -46,7 +46,7 @@ public class FluxBrush extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageFluxBrush();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageFluxBrush(title, player);
     }
 }

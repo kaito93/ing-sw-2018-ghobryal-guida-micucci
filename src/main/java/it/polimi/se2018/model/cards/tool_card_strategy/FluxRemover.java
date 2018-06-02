@@ -53,7 +53,7 @@ public class FluxRemover extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageFluxRemover();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageFluxRemover(title,player);
     }
 }

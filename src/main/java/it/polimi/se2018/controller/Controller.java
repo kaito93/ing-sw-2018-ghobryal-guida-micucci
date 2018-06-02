@@ -19,10 +19,10 @@ public class Controller implements Observer<MessageVC> {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private static final boolean A=true;
+    private static final boolean A = true;
     Boolean b;
     Game game;
-    int move=0;
+    int move = 0;
     VirtualView view;
     ArrayList<Player> players;
     boolean setDice;
@@ -31,40 +31,46 @@ public class Controller implements Observer<MessageVC> {
     ArrayList<Player> playersInRound = new ArrayList<>();
 
 
+    public ArrayList<Player> getPlayersInRound() {
+        return playersInRound;
+    }
+
+    public int getTurno() {
+        return turno;
+    }
+
     public void update(MessageVC message) {
         message.accept(this);
 
     }
 
-    public Controller (VirtualView view, ArrayList<Player> players)  {
-        this.game =new Game();
-        this.view=view;
-        this.players=players;
+    public Controller(VirtualView view, ArrayList<Player> players) {
+        this.game = new Game();
+        this.view = view;
+        this.players = players;
         view.addObservers(this);
         view.start();
 
     }
 
-    public void visit(ResponseMap message){
-        int index=searchUser(message.getUsername());
-        if (index>=0)
-        {
+    public void visit(ResponseMap message) {
+        int index = searchUser(message.getUsername());
+        if (index >= 0) {
             this.players.get(index).setMap(message.getMapChoose());
             this.players.get(index).setFavorSig();
-        }
-        else
+        } else
             LOGGER.log(Level.WARNING, "E' stato passato un giocatore errato");
     }
 
-    public int searchUser(String user){
-        for (int i=0; i<this.players.size();i++){
+    public int searchUser(String user) {
+        for (int i = 0; i < this.players.size(); i++) {
             if (players.get(i).getName().equalsIgnoreCase(user))
                 return i;
         }
         return -1;
     }
 
-    public void startGame(){
+    public void startGame() {
         game.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
         view.startGame();
         view.publicInformation(game.getPublicObjCard());
@@ -75,42 +81,41 @@ public class Controller implements Observer<MessageVC> {
         return game;
     }
 
-    public void updatePlayers(Player players){
+    public void updatePlayers(Player players) {
         // TO DO: SE IL GIOCATORE SI DISCONNETTE BISOGNA MODIFICARE TUTTI I CONTATORI DEI GIOCATORI IN GIOCO
     }
 
-    public void game(){
+    public void game() {
 
 
         setPlayersInRound(playersInRound);
         Message mex;
 
 
-
         // CICLO CHE GESTISCE I ROUND
-        for (int round = 0; round< game.getMaxRound(); round++){
+        for (int round = 0; round < game.getMaxRound(); round++) {
 
             // ESTRAI I DADI DAL SACCHETTO E METTILI NELLA RISERVA. #DADI ESTRATTI = (2*giocatori)+1
-            game.setStock(game.getDiceBag().extractDice(playersInRound.size()+1));
+            game.setStock(game.getDiceBag().extractDice(playersInRound.size() + 1));
 
             // CICLO CHE GESTISCE I TURNI INTERNI AL ROUND...
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
-            for ( turno=0; turno<playersInRound.size(); turno++){
+            for (turno = 0; turno < playersInRound.size(); turno++) {
 
                 playersInRound.get(turno).setSetDice(false);
                 playersInRound.get(turno).setUseTools(false);
 
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
-                for (move=0; move<2;move++){
+                for (move = 0; move < 2; move++) {
                     // Invia a tutti i giocatori le informazioni generali del turno
-                    view.sendMessageUpdate(turno, getGame(),playersInRound.get(turno).getName());
+                    view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
 
                     // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                    view.sendMessageTurn(playersInRound,turno);
+                    view.sendMessageTurn(playersInRound, turno);
 
-                    b=false;
+                    b = false;
                     waitMove();
-                    LOGGER.log(Level.INFO,"Termine mossa "+ String.valueOf(move) + " del giocatore "+ playersInRound.get(turno).getName());
+                    LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore " + playersInRound.get(turno).getName());
 
                 }
 
@@ -135,114 +140,108 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
-    synchronized public void waitMove(){
+    synchronized public void waitMove() {
         try {
-            normale: LOGGER.log(Level.INFO,"Attendo che il giocatore "+ this.playersInRound.get(turno).getName()+ " effettui la sua mossa" );
+            normale:
+            LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turno).getName() + " effettui la sua mossa");
 
-            while(!b){
+            while (!b) {
                 this.wait();
-                b=true;
+                b = true;
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
-    synchronized public void setTools(){
+    synchronized public void setTools() {
         this.playersInRound.get(turno).setUseTools(A);
         notifyAll();
     }
 
-    synchronized public void setPos(){
+    synchronized public void setPos() {
         this.playersInRound.get(turno).setSetDice(A);
         notifyAll();
     }
 
 
-
-
-
-    public void setPlayersInRound(ArrayList <Player> players){
+    public void setPlayersInRound(ArrayList<Player> players) {
         // inizializza la prima metà dell'array
-        for (int i=0;i<this.players.size();i++)
+        for (int i = 0; i < this.players.size(); i++)
             players.add(this.players.get(i));
         // inizializza la seconda metà dell'array
-        for (int i=this.players.size();i>0;i--)
-            players.add(this.players.get(i-1));
+        for (int i = this.players.size(); i > 0; i--)
+            players.add(this.players.get(i - 1));
     }
 
-    public void updatePlayersInRound(ArrayList<Player> players){
-        Player exFirst= players.get(0); // salvo il giocatore da spostare
-        players.remove(players.size()-1); // elimino il giocatore che si trova in fondo
+    public void updatePlayersInRound(ArrayList<Player> players) {
+        Player exFirst = players.get(0); // salvo il giocatore da spostare
+        players.remove(players.size() - 1); // elimino il giocatore che si trova in fondo
         players.remove(0); // elimino il giocatore che si trova in prima posizione
-        players.add(this.players.size()-1,exFirst); // aggiungi il primo turno del giocatore
-        players.add(this.players.size(),exFirst); // aggiungi il secondo turno del giocatore
+        players.add(this.players.size() - 1, exFirst); // aggiungi il primo turno del giocatore
+        players.add(this.players.size(), exFirst); // aggiungi il secondo turno del giocatore
     }
 
     // metodo per calcolare i punteggi dei giocatori
-    public void calcScore(){
+    public void calcScore() {
         // cicla i giocatori
-        for (int i=0;i<this.players.size();i++){
-             // cicla le carte obiettivo pubbliche
-            for (int j = 0; j< game.getPublicObjCard().size(); j++){
-               // calcola il punteggio ottenuto tramite la carta obiettivo pubblica
-                players.get(i).setScore(players.get(i).getScore()+ game.getPublicObjCard().get(j).search(players.get(i).getMap()));
+        for (int i = 0; i < this.players.size(); i++) {
+            // cicla le carte obiettivo pubbliche
+            for (int j = 0; j < game.getPublicObjCard().size(); j++) {
+                // calcola il punteggio ottenuto tramite la carta obiettivo pubblica
+                players.get(i).setScore(players.get(i).getScore() + game.getPublicObjCard().get(j).search(players.get(i).getMap()));
             }
             // calcola il punteggio ottenuto tramite la carta obiettivo privata
-            players.get(i).setScore(players.get(i).getScore()+players.get(i).getCardPrivateObj().search(players.get(i).getMap()));
+            players.get(i).setScore(players.get(i).getScore() + players.get(i).getCardPrivateObj().search(players.get(i).getMap()));
             // calcola il punteggio ottenuto tramite i segnalini favore rimasti
-            players.get(i).setScore(players.get(i).getScore()+players.get(i).getFavSig());
+            players.get(i).setScore(players.get(i).getScore() + players.get(i).getFavSig());
             // calcola il punteggio ottenuto sottraendo gli spazi liberi nella mappa
-            players.get(i).setScore(players.get(i).getScore()- players.get(i).getMap().emptyCells());
+            players.get(i).setScore(players.get(i).getScore() - players.get(i).getMap().emptyCells());
         }
     }
 
     // Metodo che ritorna un elenco ordinato dei player per punteggio
-    public ArrayList<Player> vsScore(ArrayList<Player> playersInLastRound){
+    public ArrayList<Player> vsScore(ArrayList<Player> playersInLastRound) {
         boolean set;
         int j;
-        ArrayList <Player> playersFinal = new ArrayList<>();
+        ArrayList<Player> playersFinal = new ArrayList<>();
         // metti il primo giocatore nell'array.
         playersFinal.add(players.get(0));
 
         // cicla i giocatori
 
-        for (int i=1; i<players.size();i++){
+        for (int i = 1; i < players.size(); i++) {
             // cicla i giocatori già calcolati
-            set=false;
-            j=0;
-            while(!set && j<playersFinal.size()){
+            set = false;
+            j = 0;
+            while (!set && j < playersFinal.size()) {
                 // confronta i punteggi
-                if (players.get(i).getScore()>playersFinal.get(j).getScore()) {
+                if (players.get(i).getScore() > playersFinal.get(j).getScore()) {
                     // se il punteggio del giocatore preso in considerazione è più alto, aggiungilo prima di quello confrontato
                     playersFinal.add(j, players.get(i));
-                    set=true;
-                }
-                else
-                { // altrimenti
-                    if (players.get(i).getScore()==playersFinal.get(j).getScore()){
+                    set = true;
+                } else { // altrimenti
+                    if (players.get(i).getScore() == playersFinal.get(j).getScore()) {
                         // se il punteggio del giocatore preso in considerazione è uguale a quello confrontato
                         // confronta i punteggi ottenuti dalle carte obiettivo privato
-                        if (players.get(i).getCardPrivateObj().search(players.get(i).getMap())>playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())){
+                        if (players.get(i).getCardPrivateObj().search(players.get(i).getMap()) > playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())) {
                             // se il punteggio ottenuto dall'obiettivo privato del giocatore è più alto aggiungilo prima di quello confrontato
-                            playersFinal.add(j,players.get(i));
-                            set=true;
-                        }
-                        else{ // altrimenti
+                            playersFinal.add(j, players.get(i));
+                            set = true;
+                        } else { // altrimenti
                             // se anche i punteggi privati sono uguali
-                            if (players.get(i).getCardPrivateObj().search(players.get(i).getMap())==playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())){
+                            if (players.get(i).getCardPrivateObj().search(players.get(i).getMap()) == playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())) {
                                 // confronta il numero di segnalini favore rimasti
-                                if (players.get(i).getFavSig()>playersFinal.get(j).getFavSig()) {
+                                if (players.get(i).getFavSig() > playersFinal.get(j).getFavSig()) {
                                     // se al giocatore sono rimasti più segnalini favore rispetto a quello confrontato allora aggiungilo prima di quello confrontato
                                     playersFinal.add(j, players.get(i));
-                                    set=true;
-                                }
-                                else{
+                                    set = true;
+                                } else {
                                     // se anche i segnalini favore rimasti sono uguali
-                                    if (players.get(i).getFavSig()==playersFinal.get(j).getFavSig() && (playersInLastRound.indexOf(players.get(i))<playersInLastRound.indexOf(playersFinal.get(j)))){
+                                    if (players.get(i).getFavSig() == playersFinal.get(j).getFavSig() && (playersInLastRound.indexOf(players.get(i)) < playersInLastRound.indexOf(playersFinal.get(j)))) {
                                         // se il giocatore preso in considerazione ha giocato prima del giocatore preso in considerazione nell'ultimo round
                                         playersFinal.add(j, players.get(i));
-                                        set=true;
+                                        set = true;
                                     }
                                 }
 
@@ -254,12 +253,11 @@ public class Controller implements Observer<MessageVC> {
                     }
                 }
                 // se sei arrivato alla fine dei giocatori da confrontare
-                if (j+1==playersFinal.size()){
+                if (j + 1 == playersFinal.size()) {
                     // piazza il giocatore in fondo all'array.
                     playersFinal.add(players.get(i));
-                    set=true;
-                }
-                else
+                    set = true;
+                } else
                     // altrimenti aumenta j per proseguire il confronto
                     j++;
             }
@@ -267,20 +265,11 @@ public class Controller implements Observer<MessageVC> {
         }
 
 
-
         return playersFinal;
     }
 
-    public void useTools(String titleCard){
-        boolean find=false;
-        int i=0;
-        while (!find || i< game.getToolCards().size()){
-            if (game.getToolCards().get(i).getTitle().equalsIgnoreCase(titleCard))
-                find=true;
-            else
-                i++;
-        }
-        game.getToolCards().get(i).getStrategy().requestMessage(view);
+    public void useTools(String titleCard) {
+        game.searchToolCard(titleCard).getStrategy().requestMessage(view, titleCard, players.indexOf(playersInRound.get(turno)));
     }
 
     public void setSetDice(boolean setDice) {
@@ -291,10 +280,17 @@ public class Controller implements Observer<MessageVC> {
         this.useTools = useTools;
     }
 
-    public void fakemove(){
+    public void fakemove() {
         setSetDice(true);
         setUseTools(true);
         move++;
         notifyAll();
+    }
+
+    public int firstOrSecond() {
+        if ((turno+1) < (players.size()))
+            return 1;
+        else
+            return 2;
     }
 }

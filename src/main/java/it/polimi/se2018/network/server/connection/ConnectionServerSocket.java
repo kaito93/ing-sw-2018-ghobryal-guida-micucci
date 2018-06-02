@@ -8,6 +8,7 @@ import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.network.client.message.Message;
+import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.RequestReconnect;
@@ -25,7 +26,7 @@ import java.util.logging.Level;
 public class ConnectionServerSocket extends ConnectionServer {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-
+    Message mex;
     Socket client;
     ObjectOutputStream output;
     ObjectInputStream input;
@@ -66,15 +67,15 @@ public class ConnectionServerSocket extends ConnectionServer {
             message.setPlayer(player); // invio alla view il giocatore proprietario
         }
 
-        Message mess= new Message(Message.CVEVENT, message);
-        send(mess); // viene inviato il messaggio al giocatore per scegliere la carta
+        mex= new Message(Message.CVEVENT, message);
+        send(mex); // viene inviato il messaggio al giocatore per scegliere la carta
 
     }
 
     @Override
     public void sendPrivateInformation(PrivateObjectiveCard card) {
         MessageStart message = new MessageStart(); //crea un nuovo messaggio
-        Message mex = new Message(Message.CVEVENT,message);
+        mex = new Message(Message.CVEVENT,message);
         message.setCard(card);
         send(mex);
     }
@@ -82,7 +83,7 @@ public class ConnectionServerSocket extends ConnectionServer {
     @Override
     public void sendPublicInformation(ArrayList<PublicObjectiveCard> cards, ArrayList<ToolCard> tools) {
         MessagePublicInformation messag = new MessagePublicInformation();
-        Message mex= new Message(Message.CVEVENT,messag);
+        mex= new Message(Message.CVEVENT,messag);
         messag.setPublicObjective(cards);
         messag.setToolCards(tools);
         send(mex);
@@ -90,8 +91,8 @@ public class ConnectionServerSocket extends ConnectionServer {
 
     @Override
     public void sendLostConnection(String text) {
-        Message message = new Message(Message.SYSTEMEVENT, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
-        send(message);
+        mex = new Message(Message.SYSTEMEVENT, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
+        send(mex);
     }
 
     @Override
@@ -129,15 +130,15 @@ public class ConnectionServerSocket extends ConnectionServer {
         mes.setFavor(fav);
         mes.setPosDice(dice);
         mes.setUseTools(tool);
-        Message messa = new Message(Message.CVEVENT,mes);
-        send(messa);
+        mex = new Message(Message.CVEVENT,mes);
+        send(mex);
     }
 
     @Override
     public void sendErrorUser() {
         MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
-        Message mess = new Message(SYSTEMMESSAGE,message); // creo un messaggio di sistema
-        send(mess); //invia il messaggio. [nota bene: non si salva conness nell'array]
+        mex= new Message(SYSTEMMESSAGE,message); // creo un messaggio di sistema
+        send(mex); //invia il messaggio. [nota bene: non si salva conness nell'array]
     }
 
     @Override
@@ -149,7 +150,105 @@ public class ConnectionServerSocket extends ConnectionServer {
         message.setUseTools(tools);
         message.setUsers(users);
         message.setRoundSchemeMap(roundSchemeMap);
-        Message mex = new Message(Message.MVEVENT,message);
+        mex = new Message(Message.MVEVENT,message);
+        send(mex);
+    }
+
+    // METODI PER LA GESTIONE DELLE CARTE UTENSILI
+
+    @Override
+    public void manageTap(String title) {
+        MessageTapWheel message = new MessageTapWheel();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+    }
+
+    @Override
+    public void manageRunning(String title) {
+        MessageRunningPliers message = new MessageRunningPliers();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+    }
+
+    @Override
+    public void manageLens(String title) {
+        MessageLensCutter message= new MessageLensCutter();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageLathekin(String title) {
+        MessageLathekin message= new MessageLathekin();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageGrozing(String title) {
+        MessageGrozingPliers message = new MessageGrozingPliers();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageGrinding(String title) {
+        MessageGrindingStone message = new MessageGrindingStone();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageFluxRemover(String title) {
+        MessageFluxRemover message = new MessageFluxRemover();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageFluxBrush(String title) {
+        MessageFluxBrush message= new MessageFluxBrush();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageEglomise(String title) {
+        MessageEglomiseBrush message = new MessageEglomiseBrush();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageCork(String title) {
+        MessageCorkBackedStraightedge message = new MessageCorkBackedStraightedge();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+
+    }
+
+    @Override
+    public void manageCopper(String title) {
+        MessageCopperFoilBurnisher message = new MessageCopperFoilBurnisher();
+        message.setTitle(title);
+        mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
 }

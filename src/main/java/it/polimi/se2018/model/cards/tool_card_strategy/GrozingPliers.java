@@ -112,7 +112,7 @@ public class GrozingPliers extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageGrozing();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageGrozing(title,player);
     }
 }

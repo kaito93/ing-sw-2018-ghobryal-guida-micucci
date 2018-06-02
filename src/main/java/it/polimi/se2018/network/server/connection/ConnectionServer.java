@@ -61,4 +61,16 @@ public abstract class ConnectionServer {
     public abstract void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String message, ArrayList<Boolean> tools,
                                     RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock);
 
+    public abstract void manageCopper(String title);
+    public abstract void manageCork(String title);
+    public abstract void manageEglomise(String title);
+    public abstract void manageFluxBrush(String title);
+    public abstract void manageFluxRemover(String title);
+    public abstract void manageGrinding(String title);
+    public abstract void manageGrozing(String title);
+    public abstract void manageLathekin(String title);
+    public abstract void manageLens(String title);
+    public abstract void manageRunning(String title);
+    public abstract void manageTap(String title);
+
 }

@@ -46,7 +46,7 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageCork();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageCork(title, player);
     }
 }

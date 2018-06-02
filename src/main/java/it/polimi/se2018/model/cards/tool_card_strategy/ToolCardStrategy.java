@@ -44,6 +44,6 @@ public abstract class ToolCardStrategy implements Serializable {
         , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
         , ArrayList<Player> turns, int posDice1, String errorMessage) throws notValidCellException;
 
-    public abstract void requestMessage(VirtualView view);
+    public abstract void requestMessage(VirtualView view, String title, int player);
 
 }

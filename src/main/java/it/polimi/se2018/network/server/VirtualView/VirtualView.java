@@ -6,12 +6,14 @@ import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
+import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.*;
+import it.polimi.se2018.util.Deserializer.MapsDeserializer;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
@@ -90,6 +92,10 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     public ArrayList<Map> loadMaps() {
         // TO DO MIK: Carica le carte schema da file qui
+
+       /* MapsDeserializer maps = new MapsDeserializer();
+        maps.totalDeserialize();
+        // richiama l'arraylist*/
 
         // CODICE PER TEST
 
@@ -242,18 +248,53 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     }
 
-    public void createMessageCopper(){}
-    public void createMessageCork(){}
-    public void createMessageEglomise(){}
-    public void createMessageFluxBrush(){}
-    public void createMessageFluxRemover(){}
-    public void createMessageGlazing(){}
-    public void createMessageGrinding(){}
-    public void createMessageGrozing(){}
-    public void createMessageLathekin(){}
-    public void createMessageLens(){}
-    public void createMessageRunning(){}
-    public void createMessageTap(){}
+    public void createMessageCopper(String title, int player){
+        connections.get(player).manageCopper(title);
+    }
+    public void createMessageCork(String title, int player){
+        connections.get(player).manageCork(title);
+            }
+    public void createMessageEglomise(String title, int player){
+        connections.get(player).manageEglomise(title);
+    }
+    public void createMessageFluxBrush(String title, int player){
+        connections.get(player).manageFluxBrush(title);
+    }
+    public void createMessageFluxRemover(String title, int player){
+        connections.get(player).manageFluxRemover(title);
+    }
+
+    public void createMessageGlazing(String title){
+        String error="ciao";
+        try {
+            controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),
+                    null,controller.firstOrSecond(),0,controller.getGame().getStock(),
+                    controller.getPlayersInRound().get(controller.getTurno()).getSetDice(),0,0,null,
+                    null,null,0,error);
+        } catch (notValidCellException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+
+    }
+    public void createMessageGrinding(String title, int player){
+        connections.get(player).manageGrinding(title);
+    }
+    public void createMessageGrozing(String title, int player){
+        connections.get(player).manageGrozing(title);
+    }
+    public void createMessageLathekin(String title, int player){
+        connections.get(player).manageLathekin(title);
+    }
+    public void createMessageLens(String title, int player){
+        connections.get(player).manageLens(title);
+    }
+    public void createMessageRunning(String title, int player){
+        connections.get(player).manageRunning(title);
+    }
+    public void createMessageTap(String title, int player){
+        connections.get(player).manageTap(title);
+    }
 
     public void sendScorePlayers(ArrayList<Player> players){
         for (int i=0; i<playersActive.size();i++)

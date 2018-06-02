@@ -75,7 +75,7 @@ public class GrindingStone extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageGrinding();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageGrinding(title,player);
     }
 }

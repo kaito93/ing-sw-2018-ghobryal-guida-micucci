@@ -55,7 +55,7 @@ public class CopperFoilBurnisher extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageCopper();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageCopper(title, player);
     }
 }

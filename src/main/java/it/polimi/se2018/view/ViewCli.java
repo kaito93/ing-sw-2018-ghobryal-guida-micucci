@@ -164,19 +164,18 @@ public class ViewCli extends View {
             System.out.println("");
             for (int j=0; j<cells[i].length; j++){
                 // scrivo il numero della colonna
-                System.out.print("|       " + i);
+                System.out.print("|       " + j);
             }
             for (int j=0; j<cells[i].length; j++){
-                try {
                     if (cells[i][j].getDice() != null) {
                         // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
                         System.out.print(" | Colore: " + cells[i][j].getDice().getColor() + ", Valore:" + cells[i][j].getDice().getValue());
                     }
-                }
-                catch (NullPointerException e) {
-                    // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
-                    System.out.print(" | Colore: " + cells[i][j].getColor().toString() + ", Valore:" + cells[i][j].getValue());
-                }
+                    else{
+                        // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
+                        System.out.print(" | Colore: " + cells[i][j].getColor().toString() + ", Valore:" + cells[i][j].getValue());
+                    }
+
             }
             // mostra il numero di riga
             System.out.println(i);

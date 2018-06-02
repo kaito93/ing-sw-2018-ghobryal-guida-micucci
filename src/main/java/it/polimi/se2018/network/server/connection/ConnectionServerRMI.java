@@ -74,4 +74,61 @@ public class ConnectionServerRMI extends ConnectionServer {
         // IL MESSAGGIO DA MOSTRARE A SCHERMO DI CHI TOCCA, ARRAYLIST DI BOOLEANI CHE SI RIFERISCONO ALLE CARTE TOOL,
         // LO SCHEMA DEI ROUND E LA RISERVA
     }
+
+    // METODI PER LA GESTIONE DELLE CARTE UTENSILI
+
+    @Override
+    public void manageCopper(String title) {
+
+    }
+
+    @Override
+    public void manageCork(String title) {
+
+    }
+
+    @Override
+    public void manageEglomise(String title) {
+
+    }
+
+    @Override
+    public void manageFluxBrush(String title) {
+
+    }
+
+    @Override
+    public void manageFluxRemover(String title) {
+
+    }
+
+    @Override
+    public void manageGrinding(String title) {
+
+    }
+
+    @Override
+    public void manageGrozing(String title) {
+
+    }
+
+    @Override
+    public void manageLathekin(String title) {
+
+    }
+
+    @Override
+    public void manageLens(String title) {
+
+    }
+
+    @Override
+    public void manageRunning(String title) {
+
+    }
+
+    @Override
+    public void manageTap(String title) {
+
+    }
 }

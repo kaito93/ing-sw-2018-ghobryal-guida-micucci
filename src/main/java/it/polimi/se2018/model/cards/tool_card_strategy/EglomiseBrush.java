@@ -54,7 +54,7 @@ public class EglomiseBrush extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageEglomise();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageEglomise(title, player);
     }
 }

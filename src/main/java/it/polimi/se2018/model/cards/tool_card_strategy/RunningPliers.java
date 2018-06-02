@@ -46,7 +46,7 @@ public class RunningPliers extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageRunning();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageRunning(title,player);
     }
 }

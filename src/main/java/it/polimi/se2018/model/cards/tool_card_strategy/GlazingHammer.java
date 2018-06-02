@@ -45,7 +45,7 @@ public class GlazingHammer extends ToolCardStrategy {
     }
 
     @Override
-    public void requestMessage(VirtualView view) {
-        view.createMessageGlazing();
+    public void requestMessage(VirtualView view, String title, int player) {
+        view.createMessageGlazing(title);
     }
 }
