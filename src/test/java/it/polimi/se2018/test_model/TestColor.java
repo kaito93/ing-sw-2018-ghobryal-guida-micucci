@@ -3,33 +3,49 @@ package it.polimi.se2018.test_model;
 
 import it.polimi.se2018.model.Color;
 import junit.framework.TestCase;
-import org.junit.Test;
+
+/**
+ * @author Anton Ghobryal
+ */
 
 public class TestColor extends TestCase {
 
+    /**
+     * class Constructor
+     * @param name test method name
+     */
     public TestColor(String name){
         super(name);
     }
 
+    /**
+     * setting up the test data
+     * @throws Exception setup general exception
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    @Test
+    /**
+     * test equalsColor method in Color Enumeration
+     */
     public void testEqualsColor(){
         assertTrue(Color.BLUE.equalsColor(Color.BLUE));
         assertFalse(Color.BLUE.equalsColor(Color.GREEN));
     }
 
-    @Test
+    /**
+     * test parseInput method in Color Enumeration
+     */
     public void testParseInput(){
-        assertTrue(Color.parseInput("blue") instanceof Color);
         assertEquals(Color.parseInput("blue"), Color.BLUE);
         assertNotSame(Color.parseInput("blue"), Color.GREEN);
     }
 
-    @Test
+    /**
+     * test toString method in Color Enumeration
+     */
     public void testToString(){
         assertEquals(Color.BLUE.toString(), "blue");
         assertNotSame(Color.BLUE.toString(), Color.BLUE);
@@ -37,6 +53,10 @@ public class TestColor extends TestCase {
         assertNotSame(Color.BLUE.toString(), "BLUE");
     }
 
+    /**
+     * tearing down the test data
+     * @throws Exception teardown general exception
+     */
     @Override
     protected void tearDown() throws Exception {
         System.gc();

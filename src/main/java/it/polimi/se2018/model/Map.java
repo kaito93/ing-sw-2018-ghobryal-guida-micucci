@@ -28,19 +28,6 @@ public class Map implements Serializable {
         name = glassWindowName;
         difficultyLevel = difficulty;
         cell = new Cell[row][column];
-        for (int i=0; i<numRow(); i++)
-            for (int j=0; j<numColumn(); j++)
-                cell[i][j] = new Cell() {
-                    @Override
-                    public Color getColor() {
-                        return null;
-                    }
-
-                    @Override
-                    public int getValue() {
-                        return 0;
-                    }
-                };
         if ((row < 0) || (column < 0))
             throw new notValidMatrixException();
     }
@@ -48,6 +35,7 @@ public class Map implements Serializable {
     /** method that return the difficulty level of the match
      * @return an integer between 3 and 6
      */
+    //tested
     public int getDifficultyLevel(){
         return difficultyLevel;
     }
@@ -55,13 +43,15 @@ public class Map implements Serializable {
     /** method that return the number of column of the matrix that represent the glasswindow
      * @return an integer between 0 and n
      */
+    //tested
     public int numColumn(){
         return cell[0].length;
     }
     
     /** method that return the number of row in the matrix that represent the glasswindow
      * @return an integer between 0 and n
-     */ 
+     */
+    //tested
     public int numRow(){
         return cell.length;
     }
@@ -72,6 +62,7 @@ public class Map implements Serializable {
      * @return an object Cell
      * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
      */
+    //tested
     public Cell getCell(int row, int column) throws notValidCellException{
         if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1))
             throw new notValidCellException();
@@ -81,6 +72,7 @@ public class Map implements Serializable {
     /** method that return the name of the map (that represent the glasswindow)
      * @return a string that represent the name of the glasswindow
      */
+    //tested
     public String getName(){
         return name;
     }
@@ -291,7 +283,7 @@ public class Map implements Serializable {
      * @param errorMessage an error message that indicates the cause of return false
      * @return a boolean, if the dice respects the cell restriction else false
      */
-
+    //da modificare
     public boolean isCellValid(Dice dice, int row, int column, String errorMessage) throws notValidCellException {
         if(!isEmptyCell(row, column)){
             errorMessage = "There's a dice on the same cell";
@@ -314,11 +306,12 @@ public class Map implements Serializable {
      */
 
     public boolean posDice(Dice dice, int row, int column, String errorMessage) throws notValidCellException {
-        if(isBorderEmpty() && (column>0 || row>0 || row<numRow()-1 || column<numColumn()-1)) {
+        if(isBorderEmpty() && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))) {
             errorMessage = "Player has to position the dice on the border for beginning";
             return false;
         }
-        else if(isBorderEmpty() && !(column>0 || row>0 || row<numRow()-1 || column<numColumn()-1)){
+        else if(isCellValid(dice, row, column, errorMessage) && isBorderEmpty()
+                && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))){
             cell[row][column].setDice(dice);
             return true;
         }
@@ -363,5 +356,17 @@ public class Map implements Serializable {
      */
     public Cell[][] getCell() {
         return cell;
+    }
+
+    /**
+     * destroys map
+     */
+    @Override
+    @SuppressWarnings("Deprecated")
+    public void finalize(){
+        name = null;
+        difficultyLevel = 0;
+        cell = null;
+        System.gc();
     }
 }

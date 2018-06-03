@@ -110,7 +110,7 @@ public class Player implements Serializable {
         return name;
     }
 
-    /**
+    /**@deprecated
      * choose a dice from the passed stock
      * @param stock round stock
      * @param value dice's value
@@ -123,7 +123,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * return the oobject map
+     * return the object map
      * @param map that is used by the player
      */
     //tested
@@ -134,6 +134,7 @@ public class Player implements Serializable {
     /**
      * assigns the favor signs to the player
      */
+    //tested
     public void setFavorSig(){
         favorSig = map.getDifficultyLevel();
     }
@@ -143,18 +144,22 @@ public class Player implements Serializable {
      * @param num the number of signals is taken from the player
      * @return a boolean if the player has enough favor signals to be taken or not
      */
+    //tested
     public boolean modifyFavorSig(int num){
-        if(favorSig>0){
+        int a = getFavSig();
+        if(favorSig>=2 && num<=2 && num>0)
             favorSig -= num;
-            return favorSig>=0;
+        else if(favorSig==1 && num==1){
+            favorSig=0;
         }
-        return false;
+        return ((num==2 || num==1) && ((a>=2) || (a==1 && num==1)));
     }
 
     /**
      * set a new private objective card for the player
      * @param newCard the new card that has to be setted
      */
+    //tested
     public void setPrivateObjectiveCard(PrivateObjectiveCard newCard){
         this.privateObj = newCard;
     }

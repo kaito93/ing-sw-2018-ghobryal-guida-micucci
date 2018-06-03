@@ -11,7 +11,7 @@ public class ColoredCell extends Cell {
     private Color color;
 
     /** class constructor
-     *  return a cell with a particoular color
+     *  return a cell with a particular color
      */
     public ColoredCell(){
         super();
@@ -33,6 +33,10 @@ public class ColoredCell extends Cell {
         return 0;
     }
 
+    /**
+     * sets cell's color
+     * @param color a Color type to color the cell
+     */
     public void setColor(Color color) {
         this.color = color;
     }
