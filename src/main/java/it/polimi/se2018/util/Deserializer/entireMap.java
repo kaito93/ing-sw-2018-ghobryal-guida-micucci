@@ -23,6 +23,10 @@ public class entireMap {
         return this;
     }
 
+    public Cell getCellOfMatrix(int index){
+        return this.getMatrix().get(index);
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -39,4 +43,7 @@ public class entireMap {
         return level;
     }
 
+    public ArrayList<Cell> getMatrix() {
+        return matrix;
+    }
 }

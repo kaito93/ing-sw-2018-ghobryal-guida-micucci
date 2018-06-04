@@ -2,6 +2,7 @@ package it.polimi.se2018.util.Deserializer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.se2018.model.cell.Cell;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -81,5 +82,22 @@ public class MapsDeserializer extends Observable{
         for(int index=0; index < mapsJsonJava.size(); index++)
             this.StartMapBuilding(this.ExtractTransition(index));
         this.SetUpArraylistMatrix();
+    }
+
+    public Cell[][] setUpMatrix(int numberOfMap, Cell[][] matrix){
+       int indexOfMatrix;
+        int sizeOfColumn = matrix[0].length -1;
+        int indexOfColumn;
+        int indexOfLine = 0;
+       int indexOfArrayList = definitive.get(numberOfMap).getMatrix().size();
+       for(indexOfMatrix = 0; indexOfMatrix <= indexOfArrayList; indexOfMatrix++){
+           indexOfColumn = 0;
+           do{
+               matrix[indexOfColumn][indexOfLine] = definitive.get(numberOfMap).getCellOfMatrix(indexOfMatrix);
+               indexOfColumn++;
+               indexOfMatrix++;
+           } while (indexOfColumn%sizeOfColumn != 0);
+       }
+       return matrix;
     }
 }
