@@ -24,7 +24,7 @@ public class ToolBuilder implements Observer {
     /**
      * class constructor: create an arraylist and a json transiction data structure
      */
-    public ToolBuilder(){
+    public ToolBuilder() {
         jT = new toolCardTransfer();
         toolCardStrategic = new ArrayList<>();
     }
@@ -38,12 +38,12 @@ public class ToolBuilder implements Observer {
         if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
             toolCardStrategic.add(new ToolCard(jT.getTitle(), jT.getDescription(), jT.getId(), (Color) jT.getColor(), strategy));
         }
-        else
-            System.out.println("sono fuori dall'IF");
+
     }
 
     /**
      * setter method to set the tool card transiction data structure
+     *
      * @param jT to be setted
      */
     public void setjT(toolCardTransfer jT) {
@@ -52,6 +52,7 @@ public class ToolBuilder implements Observer {
 
     /**
      * getter method to get the json transiction object
+     *
      * @return json transiction object
      */
     public jsonTransiction getjT() {
@@ -60,6 +61,7 @@ public class ToolBuilder implements Observer {
 
     /**
      * method to set the string that has to be compared (used in the constructor of derived class)
+     *
      * @param toBeCompared string that has to be setted
      */
     public void setToBeCompared(String toBeCompared) {
@@ -68,6 +70,7 @@ public class ToolBuilder implements Observer {
 
     /**
      * setter method to set the strategy
+     *
      * @param strategy to be setted
      */
     public void setStrategy(ToolCardStrategy strategy) {
@@ -76,15 +79,15 @@ public class ToolBuilder implements Observer {
 
     /**
      * method to create the deck of all the created cards
+     *
      * @param deck that has to be created
      */
-    public void setDeck(ArrayList deck){
+    public void setDeck(ArrayList deck) {
         int i;
-        for(i=0; i<=toolCardStrategic.size(); i++){
-            if (toolCardStrategic == null)
-                break;
-            else
-                deck.add(toolCardStrategic.get(i));
+        for (i = 0; i < toolCardStrategic.size(); i++) {
+
+            deck.add(toolCardStrategic.get(i));
+
         }
     }
 }
