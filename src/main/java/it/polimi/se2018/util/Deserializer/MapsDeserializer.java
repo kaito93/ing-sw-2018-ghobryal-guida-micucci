@@ -97,6 +97,7 @@ public class MapsDeserializer extends Observable{
                indexOfColumn++;
                indexOfMatrix++;
            } while (indexOfColumn%sizeOfColumn != 0);
+           indexOfLine++;
        }
        return matrix;
     }
