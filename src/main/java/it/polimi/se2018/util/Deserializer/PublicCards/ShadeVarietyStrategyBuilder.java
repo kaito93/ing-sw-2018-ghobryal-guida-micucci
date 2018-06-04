@@ -15,6 +15,7 @@ public class ShadeVarietyStrategyBuilder extends Builder {
      */
     public ShadeVarietyStrategyBuilder(){
         super();
+        svs = new ShadeVarietyStrategy();
         this.setStrategy(svs);
         this.setToBeCompared("ShadeVarietyStrategy");
     }

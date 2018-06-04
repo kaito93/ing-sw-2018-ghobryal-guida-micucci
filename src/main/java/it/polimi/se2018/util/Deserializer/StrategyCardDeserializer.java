@@ -22,7 +22,6 @@ public abstract class StrategyCardDeserializer extends Observable{
         private Gson gson = new Gson();
         private File json;
         private BufferedReader br;
-        ArrayList<jsonTransiction>jsontrans;
 
 
     /**
@@ -43,19 +42,13 @@ public abstract class StrategyCardDeserializer extends Observable{
     /**
      * method that deserialize the json file to an json transiction data structure, that is used to create the card objects
      */
-    public void Deserializing(){
-        Type trans = new TypeToken<ArrayList<jsonTransiction>>(){}.getType();
-        jsontrans = this.getGson().fromJson(this.getBr(), trans);
-    }
+    public abstract void Deserializing();
 
 
     /**
      * getter method to return the arraylist of json transiction data structure
      * @return
      */
-    public ArrayList<jsonTransiction> getJsontrans() {
-        return jsontrans;
-    }
 
 
     /**
@@ -63,9 +56,7 @@ public abstract class StrategyCardDeserializer extends Observable{
      * @param index of cell that need to be extract
      * @return the cell of the arraylist
      */
-    public jsonTransiction getSingleTransiction(int index){
-            return jsontrans.get(index);
-        }
+    public abstract jsonTransiction getSingleTransiction(int index);
 
     /**
      * abstract method to set-up the observers of this class
@@ -76,10 +67,6 @@ public abstract class StrategyCardDeserializer extends Observable{
      * method to notify to all the observers that a cell of arraylist is readen, and need to create the cards
      * @param publCardsingle single cell of json transiction arraylist
      */
-    public void StartBuilding(jsonTransiction publCardsingle){
-            setChanged();
-            notifyObservers(publCardsingle);
-        }
 
     /**
      * getter method that return json deserializer from file

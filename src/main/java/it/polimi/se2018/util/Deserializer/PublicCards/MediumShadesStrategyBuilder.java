@@ -14,6 +14,7 @@ public class MediumShadesStrategyBuilder extends Builder{
      */
     public MediumShadesStrategyBuilder(){
         super();
+        mss = new MediumShadesStrategy();
         this.setStrategy(mss);
         this.setToBeCompared("MediumShadesStrategy");
     }

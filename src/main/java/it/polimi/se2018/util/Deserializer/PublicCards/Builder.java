@@ -24,6 +24,7 @@ public class Builder implements Observer{
      */
     public Builder(){
         jT = new PublicCardsTransfer();
+        poc = new ArrayList<>();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class Builder implements Observer{
         jT = (PublicCardsTransfer) arg;
        if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
            poc.add(new PublicObjectiveCard(jT.getTitle(), jT.getDescription(), jT.getScores(), strategy));
-           System.out.println(poc.get(1).getTitle());
+           System.out.println(poc.get(0).getTitle());
        }
        else
            System.out.println("sono fuori dall'IF");
@@ -87,10 +88,10 @@ public class Builder implements Observer{
      */
     public void setDeck(ArrayList deck){
         int i;
-        for(i=0; i<=poc.size(); i++){
-            if (poc == null)
-                break;
-            else
+        for(i=0; i<poc.size(); i++){
+         //   if (poc.size() == 0)
+            //    break;
+            //else
             deck.add(poc.get(i));
         }
     }

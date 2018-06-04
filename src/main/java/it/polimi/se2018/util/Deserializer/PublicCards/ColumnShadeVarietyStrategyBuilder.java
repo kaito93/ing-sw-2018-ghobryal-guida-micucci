@@ -14,6 +14,7 @@ public class ColumnShadeVarietyStrategyBuilder extends Builder{
      */
     public ColumnShadeVarietyStrategyBuilder(){
         super();
+        csvs = new ColumnShadeVarietyStrategy();
         this.setStrategy(csvs);
         this.setToBeCompared("ColumnShadeVarietyStrategy");
     }

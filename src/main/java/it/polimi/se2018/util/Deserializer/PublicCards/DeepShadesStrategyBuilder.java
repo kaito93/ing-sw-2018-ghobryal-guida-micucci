@@ -14,6 +14,7 @@ public class DeepShadesStrategyBuilder extends Builder{
      */
     public DeepShadesStrategyBuilder(){
         super();
+        dss = new DeepShadesStrategy();
         this.setStrategy(dss);
         this.setToBeCompared("DeepShadesStrategy");
     }

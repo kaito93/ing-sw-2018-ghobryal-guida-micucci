@@ -15,6 +15,7 @@ public class RowShadeVarietyStrategyBuilder extends Builder {
      */
     public RowShadeVarietyStrategyBuilder(){
         super();
+        rsvs = new RowShadeVarietyStrategy();
         this.setStrategy(rsvs);
         this.setToBeCompared("RowShadeVarietyStrategy");
     }

@@ -14,6 +14,7 @@ public class LensCutterBuilder extends ToolBuilder {
      */
     public LensCutterBuilder(){
         super();
+        lc = new LensCutter();
         this.setStrategy(lc);
         this.setToBeCompared("LensCutter");
     }

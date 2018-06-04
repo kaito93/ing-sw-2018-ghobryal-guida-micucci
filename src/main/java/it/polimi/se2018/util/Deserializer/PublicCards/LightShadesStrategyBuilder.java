@@ -14,6 +14,7 @@ public class LightShadesStrategyBuilder extends Builder{
      */
     public LightShadesStrategyBuilder(){
         super();
+        lss = new LightShadesStrategy();
         this.setStrategy(lss);
         this.setToBeCompared("LightShadesStrategy");
     }

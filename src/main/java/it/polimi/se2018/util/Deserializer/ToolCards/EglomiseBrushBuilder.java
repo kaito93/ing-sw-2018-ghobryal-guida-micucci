@@ -14,6 +14,7 @@ public class EglomiseBrushBuilder extends ToolBuilder {
      */
     public EglomiseBrushBuilder(){
         super();
+        eb = new EglomiseBrush();
         this.setToBeCompared("EglomiseBrush");
         this.setStrategy(eb);
     }

@@ -15,6 +15,7 @@ public class RowColorVarietyStrategyBuilder extends Builder {
      */
     public RowColorVarietyStrategyBuilder(){
         super();
+        rcvs = new RowColorVarietyStrategy();
         this.setStrategy(rcvs);
         this.setToBeCompared("RowColorVarietyStrategy");
     }

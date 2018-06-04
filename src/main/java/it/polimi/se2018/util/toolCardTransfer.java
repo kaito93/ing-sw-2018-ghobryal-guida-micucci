@@ -9,16 +9,16 @@ import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
  */
 public class toolCardTransfer extends jsonTransiction {
 
-    private String strategic;
+    private String strategy;
     private Color color;
-    private int id;
+    private String id;
 
     /**
      * getter method to obtain the strategy
      * @return a string that represent the strategy
      */
     public String getStrategy() {
-        return strategic;
+        return strategy;
     }
 
     /**
@@ -26,7 +26,7 @@ public class toolCardTransfer extends jsonTransiction {
      * @return an integer that is the id of the card
      */
     public int getId() {
-        return id;
+        return Integer.decode(id);
     }
 
     /**

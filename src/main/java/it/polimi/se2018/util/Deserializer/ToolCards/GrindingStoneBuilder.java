@@ -14,6 +14,7 @@ public class GrindingStoneBuilder extends ToolBuilder {
      */
     public GrindingStoneBuilder(){
         super();
+        gs = new GrindingStone();
         this.setStrategy(gs);
         this.setToBeCompared("GrindingStone");
     }

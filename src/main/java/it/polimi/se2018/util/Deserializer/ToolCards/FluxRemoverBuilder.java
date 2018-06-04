@@ -14,6 +14,7 @@ public class FluxRemoverBuilder extends ToolBuilder {
      */
     public FluxRemoverBuilder(){
         super();
+        fr = new FluxRemover();
         this.setToBeCompared("FluxRemover");
         this.setStrategy(fr);
     }

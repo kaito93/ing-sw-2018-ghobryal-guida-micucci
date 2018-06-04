@@ -93,12 +93,13 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public ArrayList<Map> loadMaps() {
         // TO DO MIK: Carica le carte schema da file qui
 
-       /* MapsDeserializer maps = new MapsDeserializer();
+        MapsDeserializer maps = new MapsDeserializer();
         maps.totalDeserialize();
-        // richiama l'arraylist*/
+        // richiama l'arraylist
+
 
         // CODICE PER TEST
-
+/*
         ArrayList<Map> maps = new ArrayList<>();
         for (int i=0; i<8; i++){
             try {Map map = new Map("ciao",1,3,3);
@@ -109,8 +110,8 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             }
 
 
-        }
-        return maps; // SOLO PER NON DARE ERRORE
+        }*/
+        return maps.totalDeserialize();
     }
 
 

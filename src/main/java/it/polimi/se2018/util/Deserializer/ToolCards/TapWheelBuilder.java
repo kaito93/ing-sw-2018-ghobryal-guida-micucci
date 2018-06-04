@@ -14,6 +14,7 @@ public class TapWheelBuilder extends ToolBuilder {
      */
     public TapWheelBuilder(){
         super();
+        tw = new TapWheel();
         this.setStrategy(tw);
         this.setToBeCompared("TapWheel");
     }
