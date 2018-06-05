@@ -1,6 +1,30 @@
 [
   {
-    "type": "",
+    "type": "dice",
     "pathname": "src/main/java/it/polimi/se2018/JsonFiles/Dices.json"
+  },
+  {
+    "type": "private",
+    "pathname": "src/main/java/it/polimi/se2018/JsonFiles/PrivateObjectiveCards.json"
+  },
+  {
+    "type": "client",
+    "pathname": "src/main/java/it/polimi/se2018/JsonFiles/Client.json"
+  },
+  {
+    "type": "server",
+    "pathname": "src/main/java/it/polimi/se2018/JsonFiles/Server.json"
+  },
+  {
+    "type": "maps",
+    "pathname": "src/main/java/it/polimi/se2018/JsonFiles/Maps.json"
+  },
+  {
+    "type": "public",
+    "pathname": "src/main/java/it/polimi/se2018/JsonFiles/PublicCards.json"
+  },
+  {
+    "type": "tool",
+    "pathname": "src/main/java/it/polimi/se2018/JsonFiles/ToolCards.json"
   }
 ]
