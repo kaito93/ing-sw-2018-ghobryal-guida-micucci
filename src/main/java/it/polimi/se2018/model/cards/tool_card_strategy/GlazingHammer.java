@@ -3,10 +3,9 @@ package it.polimi.se2018.model.cards.tool_card_strategy;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
-import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Glazing Hammer Tool Card
@@ -29,19 +28,21 @@ public class GlazingHammer extends ToolCardStrategy {
      * @param t4 n.a.
      * @param t5 n.a.
      * @param t6 n.a.
-     * @param errorMessage an error message that indicates the cause of return false
-     * @return a boolean that verifies if the player can use the card or not
      */
 
     //posDice ok!
-    public boolean useTool(Player player, Dice dice1, int turn, int a, ArrayList<Dice> stock
-            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6, String errorMessage) throws notValidCellException {
+    public void useTool(Player player, Dice dice1, int turn, int a, List<Dice> stock
+            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(turn==2 && !posDice)
             for (Dice dice : stock)
                 dice.throwDice();
-        else
-            errorMessage = "Player doesn't respect card restrictions";
-        return turn==2 && !posDice;
+        else{
+            errorBoolTool.setErrorMessage("Player doesn't respect color restrictions");
+            errorBoolTool.setErrBool(true);
+            return;
+        }
+        errorBoolTool.setErrorMessage(null);
+        errorBoolTool.setErrBool(false);
     }
 
     @Override

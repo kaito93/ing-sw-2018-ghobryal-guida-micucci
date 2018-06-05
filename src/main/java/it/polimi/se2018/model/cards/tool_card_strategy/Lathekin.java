@@ -6,7 +6,8 @@ import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Lathekin Tool Card
@@ -29,32 +30,41 @@ public class Lathekin extends ToolCardStrategy {
      * @param t4 n.a.
      * @param t5 n.a.
      * @param t6 n.a.
-     * @param errorMessage an error message that indicates the cause of return false
-     * @return a boolean that is "true" if it is possible to put the dices in the player's map
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
-    public boolean useTool(Player player, Dice dice, int row1, int column1, ArrayList<Dice> dicesToMove,
-            boolean temp, int row2, int column2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6, String errorMessage) throws notValidCellException {
-        int row3=0, column3=0, row4=0, column4=0;
-        errorMessage = "";
-        boolean a, b, c, d;
-        if(mapContainsDice(player.getMap(), dicesToMove.get(0), row3, column3)
-            && mapContainsDice(player.getMap(), dicesToMove.get(1), row4, column4)
-                && dicesToMove.size()==2){
-            a = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
-            b = player.getMap().posDice(null, row3, column3, errorMessage);
-            c = player.getMap().posDice(dicesToMove.get(1), row2, column2, errorMessage);
-            d = player.getMap().posDice(null, row4, column4, errorMessage);
-            if(!(a&&b)){
-                errorMessage = errorMessage.concat("\nfirst dice not valid");
+    public void useTool(Player player, Dice dice, int row1, int column1, List<Dice> dicesToMove,
+            boolean temp, int row2, int column2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+        int row3=0;
+        int column3=0;
+        int row4=0;
+        int column4=0;
+        boolean a;
+        boolean b;
+        String errorMessage="";
+        try {
+            if(mapContainsDice(player.getMap(), dicesToMove.get(0), row3, column3)
+                && mapContainsDice(player.getMap(), dicesToMove.get(1), row4, column4)
+                    && dicesToMove.size()==2){
+                a = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
+                if (!a) {
+                    errorBoolTool.setErrorMessage(errorMessage+"\nfirst dice not valid");
+                    return;
+                }
+                player.getMap().posDice(null, row3, column3, errorMessage);
+                b = player.getMap().posDice(dicesToMove.get(1), row2, column2, errorMessage);
+                if (!b) {
+                    player.getMap().posDice(dicesToMove.get(0), row3, column3, errorMessage);
+                    player.getMap().posDice(null, row1, column1, errorMessage);
+                    errorBoolTool.setErrorMessage(errorMessage+"\nsecond dice not valid");
+                    return;
+                }
+                player.getMap().posDice(null, row4, column4, errorMessage);
+            } else {
+                errorBoolTool.setErrorMessage("Map may not contains a passed dice");
+                errorBoolTool.setErrBool(true);
             }
-            if(!(c&&d)){
-                errorMessage = errorMessage.concat("\nsecond dice not valid");
-            }
-            return a && b && c && d;
+        } catch (notValidCellException e) {
+            LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in Lathekin tool card", e);
         }
-        errorMessage = errorMessage.concat("\nMap may not contains a passed dice");
-        return false;
     }
 
     @Override

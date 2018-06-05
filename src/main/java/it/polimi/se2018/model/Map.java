@@ -284,7 +284,7 @@ public class Map implements Serializable {
      * @return a boolean, if the dice respects the cell restriction else false
      */
     //da modificare
-    public boolean isCellValid(Dice dice, int row, int column, String errorMessage) throws notValidCellException {
+    public boolean isCellValid(Dice dice, int row, int column, String errorMessage){
         if(!isEmptyCell(row, column)){
             errorMessage = "There's a dice on the same cell";
         }
@@ -313,6 +313,7 @@ public class Map implements Serializable {
         else if(isCellValid(dice, row, column, errorMessage) && isBorderEmpty()
                 && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))){
             cell[row][column].setDice(dice);
+            errorMessage= null;
             return true;
         }
         else if(!isBorderEmpty() && isAdjacentDice(row, column))
@@ -320,6 +321,7 @@ public class Map implements Serializable {
                     && !colorAlreadyExistInRow(row, dice.getColor()) && !valueAlreadyExistInColumn(column, dice.getValue())
                     && !valueAlreadyExistInRow(row, dice.getValue())) {
                 cell[row][column].setDice(dice);
+                errorMessage=null;
                 return true;
             }
          errorMessage = "Player doesn't respect the positioning rules";

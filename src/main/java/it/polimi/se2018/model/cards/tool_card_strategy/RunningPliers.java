@@ -6,7 +6,8 @@ import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Glazing Hammer Tool Card
@@ -29,20 +30,28 @@ public class RunningPliers extends ToolCardStrategy {
      * @param t4 n.a.
      * @param t5 n.a.
      * @param turns players in order
-     * @param errorMessage an error message that indicates the cause of return false
-     * @return a boolean that is "true" if it is possible to put a dice in it and if this card can be used
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
-    public boolean useTool(Player playerCurr, Dice dice, int turn, int t1, ArrayList<Dice> stock, boolean t2
-            , int row, int column, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> turns, int t5, String errorMessage) throws notValidCellException {
+    public void useTool(Player playerCurr, Dice dice, int turn, int t1, List<Dice> stock, boolean t2
+            , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
         boolean a = false;
+        String errorMessage="";
         if(turns.indexOf(playerCurr)==0 && stock.contains(dice) && turn==1){
-            a = playerCurr.getMap().posDice(dice, row, column, errorMessage);
+            try {
+                a = playerCurr.getMap().posDice(dice, row, column, errorMessage);
+            } catch (notValidCellException e) {
+                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in RunningPliers tool card", e);
+            }
             turns.remove(0);
-            if(a)
+            if(a) {
                 stock.remove(dice);
+                errorBoolTool.setErrorMessage(null);
+                errorBoolTool.setErrBool(false);
+            }
+            else {
+                errorBoolTool.setErrorMessage(errorMessage);
+                errorBoolTool.setErrBool(true);
+            }
         }
-        return a;
     }
 
     @Override

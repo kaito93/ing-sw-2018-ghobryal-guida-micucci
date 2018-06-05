@@ -41,7 +41,7 @@ public class ColorVarietyStrategy extends ObjectiveCardStrategy{
                             counterYellow++;
                         else if(map.getCell(i,j).getDice().getColor().equals(Color.RED))
                             counterRed++;
-                        else if(map.getCell(i,j).getDice().getColor().equals(Color.PINK))
+                        else if(map.getCell(i,j).getDice().getColor().equals(Color.PURPLE))
                             counterPurble++;
                     }
                 } catch (notValidCellException e) {
