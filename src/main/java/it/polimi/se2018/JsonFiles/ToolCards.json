@@ -24,14 +24,14 @@
     "title": "Flux Brush",
     "description": "After drafting, re-roll the drafted die. If it cannot be placed. return it to the Draft Pool",
     "id": "6",
-    "color": "pink",
+    "color": "purple",
     "strategy": "FluxBrush"
   },
   {
     "title": "Flux Remover",
     "description": "After drafting, return the die to the Dice Bag and pull one die from the bag. Choose a value and place the new die, obeying all placement restrictions, or return it to the Draft Pool",
     "id": "11",
-    "color": "pink",
+    "color": "purple",
     "strategy": "FluxRemover"
   },
   {
@@ -45,14 +45,14 @@
     "title": "Grinding Stone",
     "description": "After drafting, flip the die to its opposite side",
     "id": "10",
-    "color": "pink",
+    "color": "purple",
     "strategy": "GrindingStone"
   },
   {
     "title": "Grozing Pliers",
     "description": "After drafting, increase or decrease the value of the drafted die by 1",
     "id": "1",
-    "color": "pink",
+    "color": "purple",
     "strategy": "GrozingPliers"
   },
   {
