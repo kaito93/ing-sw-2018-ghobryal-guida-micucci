@@ -15,6 +15,10 @@ public class entireMap {
         matrix = new ArrayList<>();
     }
 
+    public void setAllMatrix(ArrayList<Cell> matrix) {
+        this.matrix = matrix;
+    }
+
     public void setMatrix(Cell cellOfMatrix) {
         this.matrix.add(cellOfMatrix);
     }

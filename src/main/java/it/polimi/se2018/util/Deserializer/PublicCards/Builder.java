@@ -38,8 +38,6 @@ public class Builder implements Observer{
            poc.add(new PublicObjectiveCard(jT.getTitle(), jT.getDescription(), jT.getScores(), strategy));
            System.out.println(poc.get(0).getTitle());
        }
-       else
-           System.out.println("sono fuori dall'IF");
     }
 
     /**

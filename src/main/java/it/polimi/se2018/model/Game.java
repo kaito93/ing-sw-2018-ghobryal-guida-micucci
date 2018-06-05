@@ -1,8 +1,6 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.model.cards.*;
-import it.polimi.se2018.model.cards.public_objective_card_strategy.MediumShadesStrategy;
-import it.polimi.se2018.model.cards.tool_card_strategy.FluxBrush;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.util.DeckOfPrivateCards;
 import it.polimi.se2018.util.DiceBox;
@@ -13,6 +11,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 
+
+/**
+ * class Game
+ * contains all the resources for this game
+ * @author Samuele Guida
+ */
 public class Game {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
@@ -31,11 +35,9 @@ public class Game {
     private static ArrayList<ToolCard> toolCards = new ArrayList<>();
 
 
-
-
-
-
-
+    /**
+     * class constructor that initialize all the attributes
+     */
     public Game(){
 
 
@@ -80,12 +82,21 @@ public class Game {
 
     }
 
+    /**
+     * method that returns the list of tool card used in this game
+     * @return list of tool card
+     */
+
     public ArrayList<ToolCard> getToolCards() {
         return toolCards;
     }
 
+    /**
+     * method that loads the tool cards from a Json file
+     * @return a list with the cards red
+     */
     private ArrayList<ToolCard> loadToolCards(){
-        // TO DO MIK: Carica tutte le carte tools qui e ritornale
+
 
         toolCardDeserializer tool= new toolCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/ToolCards.json");
         tool.TotalDeserializing();
@@ -98,14 +109,17 @@ public class Game {
         return cards;*/
     }
 
-
+    /**
+     * method that loads the public objective cards from a Json file
+     * @return a list with the cards red
+     */
     private ArrayList<PublicObjectiveCard> loadPublicObjCard(){
 
-        // TO DO MIK: CARICA LE CARTE OBIETTIVO PUBBLICO DA FILE JSON E RITORNALE
 
         PublicCardDeserializer cards =  new PublicCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/PublicCards.json");
         cards.TotalDeserializing();
         return cards.getPublicObjectivetransfer();
+
         /* CODICE SOLO PER TEST.
         MediumShadesStrategy cards = new MediumShadesStrategy();
         ArrayList<PublicObjectiveCard> arr = new ArrayList<>();
@@ -116,6 +130,32 @@ public class Game {
         return arr;
 */
     }
+
+    /**
+     * method that loads the private objective cards from a Json file
+     * @return a list with the cards red
+     */
+
+    private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
+        // TO DO MIK: CARICA QUI LE CARTE OBIETTIVO PRIVATO E RITORNALE
+
+        DeckOfPrivateCards cards = new DeckOfPrivateCards();
+        return cards.getPrivCards();
+/*
+        // codice solo per test
+        ArrayList<PrivateObjectiveCard> array = new ArrayList<>();
+        for (int i=0; i<5;i++){
+            array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
+        }
+        return array;
+        */
+    }
+
+    /**
+     * method that search a tool card from his title
+     * @param title title of the card choosed by player
+     * @return che card that player have chosen
+     */
     public ToolCard searchToolCard(String title) {
         boolean find=false;
         int i=0;
@@ -131,22 +171,42 @@ public class Game {
             return null;
     }
 
+    /**
+     * method that returns the number of rounds in a game
+     * @return an integer between 1 and a generic value (basic: 10)
+     */
     public int getMaxRound() {
         return MAXROUND;
     }
 
+    /**
+     * method that returns the dice bag of this game
+     * @return the collection of dice
+     */
     public DiceBox getDiceBag() {
         return diceBag;
     }
 
+    /**
+     * method that returns the list of public objective cards
+     * @return a list of public cards
+     */
     public ArrayList<PublicObjectiveCard> getPublicObjCard() {
         return publicObjCard;
     }
 
+    /**
+     * method that returns the round scheme
+     * @return the list of a dice in the round scheme
+     */
     public RoundSchemeCell[] getRoundSchemeMap() {
         return roundSchemeMap;
     }
 
+    /**
+     * method that extracts one private objective for every player in game and set it
+     * @param players the list of players in game
+     */
     public void setPrivateObjectiveCard(ArrayList<Player> players){
 
         ArrayList<PrivateObjectiveCard> cards = loadPrivateObjectiveCard();
@@ -164,25 +224,18 @@ public class Game {
 
     }
 
-    private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
-        // TO DO MIK: CARICA QUI LE CARTE OBIETTIVO PRIVATO E RITORNALE
-
-        DeckOfPrivateCards cards = new DeckOfPrivateCards();
-        return cards.getPrivCards();
-/*
-        // codice solo per test
-        ArrayList<PrivateObjectiveCard> array = new ArrayList<>();
-        for (int i=0; i<5;i++){
-            array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
-        }
-        return array;
-        */
-    }
-
+    /**
+     * method that returns the stock of dice
+     * @return the stock
+     */
     public ArrayList<Dice> getStock() {
         return stock;
     }
 
+    /**
+     * method that setup the stock in every round
+     * @param stocks the stock that have been created
+     */
     public void setStock(ArrayList<Dice> stocks) {
         stock = stocks;
     }

@@ -26,6 +26,7 @@ public class Map implements Serializable {
      */
     public Map(String glassWindowName, int difficulty, int row, int column) throws notValidMatrixException{
         difficultyLevel = difficulty;
+        name = glassWindowName;
         cell = new Cell[row][column];
         if ((row < 0) || (column < 0))
             throw new notValidMatrixException();

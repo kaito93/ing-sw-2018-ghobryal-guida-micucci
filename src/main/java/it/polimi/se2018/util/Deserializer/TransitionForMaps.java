@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class TransitionForMaps {
 
-    private String mapName;
+    private String title;
     private int level;
-    ArrayList<Maps> map;
+    ArrayList<Maps> maps;
 
     public TransitionForMaps(){
         int level = 0;
-        map = new ArrayList<Maps>();
+        maps = new ArrayList<Maps>();
     }
 
     public void setMap(ArrayList<Maps> map) {
-        this.map = map;
+        this.maps = map;
     }
 
     public void setLevel(int level) {
@@ -22,11 +22,11 @@ public class TransitionForMaps {
     }
 
     public void setMapName(String mapName) {
-        this.mapName = mapName;
+        this.title = mapName;
     }
 
     public ArrayList<Maps> getMap() {
-        return map;
+        return maps;
     }
 
     public int getLevel() {
@@ -34,6 +34,6 @@ public class TransitionForMaps {
     }
 
     public String getMapName() {
-        return mapName;
+        return title;
     }
 }

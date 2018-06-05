@@ -28,15 +28,26 @@ public class MapsDeserializer extends Observable {
     private BlankCellBuilder blank;
     private ValueCellBuilder value;
     private ColoredCellBuilder coloured;
-    ArrayList<entireMap> definitive;
+    private ArrayList<entireMap> definitive;
+    private ArrayList<entireMap> definitive2;
+    private entireMap transiction;
+    private ArrayList<Cell> transCell;
 
     public MapsDeserializer() {
         json = new File("src/main/java/it/polimi/se2018/JsonFiles/Maps.json");
+        gson = new Gson();
         try {
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
             System.out.println("non ho trovato il file");
         }
+        mapsJsonJava = new ArrayList<>();
+        blank = new BlankCellBuilder();
+        value = new ValueCellBuilder();
+        coloured = new ColoredCellBuilder();
+        definitive = new ArrayList<>();
+        transiction = new entireMap();
+        transCell = new ArrayList<>();
     }
 
     public void Deserializing() {
@@ -51,6 +62,10 @@ public class MapsDeserializer extends Observable {
         this.addObserver(coloured);
     }
 
+    public void removeObservers() {
+        this.removeObservers();
+    }
+
     public TransitionForMaps ExtractTransition(int index) {
         return this.mapsJsonJava.get(index);
     }
@@ -61,21 +76,30 @@ public class MapsDeserializer extends Observable {
     }
 
     public void SetUpArraylistMatrix() {        //parametro che indica la mappa di riferimento
-        int vi = 0;     //value index
-        int bi = 0;     // blank index
-        int ci = 0;     // coloured index
-        while ((blank.maps.size() != 0) && (value.maps.size() != 0) && (coloured.maps.size() != 0)) {
-            if ((blank.maps.get(bi).getNumberCell() < value.maps.get(vi).getNumberCell()) && (blank.maps.get(bi).getNumberCell() < coloured.maps.get(ci).getNumberCell())) {
-                definitive.add(blank.mappaIntera.getMatrixCell(bi));
-                bi++;
-            } else if (value.maps.get(vi).getNumberCell() < blank.maps.get(bi).getNumberCell() && (value.maps.get(vi).getNumberCell() < coloured.maps.get(ci).getNumberCell())) {
-                definitive.add(value.mappaIntera.getMatrixCell(vi));
-                vi++;
-            } else if (coloured.maps.get(ci).getNumberCell() < blank.maps.get(bi).getNumberCell() && (value.maps.get(vi).getNumberCell() > coloured.maps.get(ci).getNumberCell())) {
-                definitive.add(coloured.mappaIntera.getMatrixCell(ci));
-                ci++;
+        int indexOfCell;
+        boolean find=false;
+        ArrayList<Cell> temp = new ArrayList<>();
+        for (int indexOfMap = 0; indexOfMap < definitive.size(); indexOfMap++) {
+            temp.add(definitive.get(indexOfMap).getMatrix().get(0));
+            for (indexOfCell = 1; indexOfCell < definitive.get(indexOfMap).getMatrix().size(); indexOfCell++) {
+                int indexOfTemp=0;
+                while (!find && indexOfTemp<temp.size()){
+                    if (definitive.get(indexOfMap).getMatrix().get(indexOfCell).getNumberCell()<temp.get(indexOfTemp).getNumberCell())
+                    {
+                        temp.add(indexOfTemp,definitive.get(indexOfMap).getMatrix().get(indexOfCell));
+                        find = true;
+                    }
+                    else
+                        indexOfTemp++;
+                }
+                if (!find)
+                    temp.add(definitive.get(indexOfMap).getMatrix().get(indexOfCell));
+                find=false;
             }
+            definitive.get(indexOfMap).setAllMatrix(temp);
+            temp= new ArrayList<>();
         }
+
     }
 
     public ArrayList<entireMap> getDefinitive() {
@@ -86,12 +110,24 @@ public class MapsDeserializer extends Observable {
         ArrayList<Map> definitiveMap = new ArrayList<>();
         this.Deserializing();
         this.SetUpObservers();
-        for (int index = 0; index < mapsJsonJava.size(); index++)
+        for (int index = 0; index < mapsJsonJava.size(); index++) {
             this.StartMapBuilding(this.ExtractTransition(index));
+            transiction.setTitle(blank.getEntireMapTitle());
+            transiction.setLevel(blank.getEntireMapLevel());
+            transiction.setAllMatrix(mergeArraylist());
+            // richiamare un metodo per ordinare l'arraylist di celle per numero di cella
+            definitive.add(transiction);
+            blank = new BlankCellBuilder();
+            coloured = new ColoredCellBuilder();
+            value = new ValueCellBuilder();
+            transiction = new entireMap();
+            this.SetUpObservers();
+        }
         this.SetUpArraylistMatrix();
+
         for (int i = 0; i < definitive.size(); i++) {
             try {
-                Map nmap = new Map(definitive.get(i).getTitle(),definitive.get(i).getLevel(), 4, 5);
+                Map nmap = new Map(definitive.get(i).getTitle(), definitive.get(i).getLevel(), 4, 5);
                 setUpMatrix(i, nmap.getCell());
                 definitiveMap.add(nmap);
             } catch (notValidMatrixException e) {
@@ -104,18 +140,35 @@ public class MapsDeserializer extends Observable {
 
     public void setUpMatrix(int numberOfMap, Cell[][] matrix) {
         int indexOfMatrix;
-        int sizeOfColumn = matrix[0].length - 1;
+        int sizeOfColumn = matrix[0].length;
         int indexOfColumn;
         int indexOfLine = 0;
         int indexOfArrayList = definitive.get(numberOfMap).getMatrix().size();
-        for (indexOfMatrix = 0; indexOfMatrix <= indexOfArrayList; indexOfMatrix++) {
+        for (indexOfMatrix = 0; indexOfMatrix < indexOfArrayList; indexOfMatrix++) {
             indexOfColumn = 0;
+            if(indexOfMatrix != 0)
+                indexOfMatrix--;
             do {
-                matrix[indexOfColumn][indexOfLine] = definitive.get(numberOfMap).getCellOfMatrix(indexOfMatrix);
+                matrix[indexOfLine][indexOfColumn] = definitive.get(numberOfMap).getCellOfMatrix(indexOfMatrix);
                 indexOfColumn++;
                 indexOfMatrix++;
             } while (indexOfColumn % sizeOfColumn != 0);
             indexOfLine++;
         }
+    }
+
+    public ArrayList<Cell> mergeArraylist() {
+        ArrayList<Cell> mergiato = new ArrayList<>();
+
+        for (int i = 0; i < blank.mappaIntera.getMatrix().size(); i++) {
+            mergiato.add(blank.mappaIntera.getMatrix().get(i));
+        }
+        for (int i = 0; i < coloured.mappaIntera.getMatrix().size(); i++) {
+            mergiato.add(coloured.mappaIntera.getMatrix().get(i));
+        }
+        for (int i = 0; i < value.mappaIntera.getMatrix().size(); i++) {
+            mergiato.add(value.mappaIntera.getMatrix().get(i));
+        }
+        return mergiato;
     }
 }

@@ -15,6 +15,11 @@ import it.polimi.se2018.util.Observer;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+
+/** class Controller
+ contains all method for the manage of the game
+ @author Samuele Guida
+ */
 public class Controller implements Observer<MessageVC> {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -31,19 +36,11 @@ public class Controller implements Observer<MessageVC> {
     ArrayList<Player> playersInRound = new ArrayList<>();
 
 
-    public ArrayList<Player> getPlayersInRound() {
-        return playersInRound;
-    }
-
-    public int getTurno() {
-        return turno;
-    }
-
-    public void update(MessageVC message) {
-        message.accept(this);
-
-    }
-
+    /**
+     * class constructor initialize the object controller
+      * @param view an occurence of virtual view
+     * @param players arraylist of players in game
+     */
     public Controller(VirtualView view, ArrayList<Player> players) {
         this.game = new Game();
         this.view = view;
@@ -53,6 +50,35 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     * method that return the players in the game
+     * @return Arraylist<Player>
+     */
+    public ArrayList<Player> getPlayersInRound() {
+        return playersInRound;
+    }
+
+    /**
+     * method that return the turn of the game in a round
+     * @return an integer between 1 and #players*2
+     */
+    public int getTurno() {
+        return turno;
+    }
+
+    /**
+     * method that accept the message of type Socket
+     * @param message the message received
+     */
+    public void update(MessageVC message) {
+        message.accept(this);
+
+    }
+
+    /**
+     * method that manage the choose of the scheme of one player
+     * @param message message received
+     */
     public void visit(ResponseMap message) {
         int index = searchUser(message.getUsername());
         if (index >= 0) {
@@ -62,6 +88,12 @@ public class Controller implements Observer<MessageVC> {
             LOGGER.log(Level.WARNING, "E' stato passato un giocatore errato");
     }
 
+    /**
+     * method that research a player throws his username
+     * @param user username of a player
+     * @return the number in the arralist of players where is the username searched
+     */
+
     public int searchUser(String user) {
         for (int i = 0; i < this.players.size(); i++) {
             if (players.get(i).getName().equalsIgnoreCase(user))
@@ -70,6 +102,9 @@ public class Controller implements Observer<MessageVC> {
         return -1;
     }
 
+    /**
+     * method that setup the game
+     */
     public void startGame() {
         game.setPrivateObjectiveCard(players); // chiama il metodo per settare le carte obiettivo privato
         view.startGame();
@@ -77,20 +112,29 @@ public class Controller implements Observer<MessageVC> {
         game();
     }
 
+    /**
+     * method that return the object with the proprieties of the game
+     * @return the class Game
+     */
     public Game getGame() {
         return game;
     }
 
-    public void updatePlayers(Player players) {
+    /**
+     * method that manage the disconnession of a player during the game
+     * @param player player disconnected
+     */
+    public void updatePlayers(Player player) {
         // TO DO: SE IL GIOCATORE SI DISCONNETTE BISOGNA MODIFICARE TUTTI I CONTATORI DEI GIOCATORI IN GIOCO
     }
 
+    /**
+     * method that managed the whole game
+     */
     public void game() {
 
 
         setPlayersInRound(playersInRound);
-        Message mex;
-
 
         // CICLO CHE GESTISCE I ROUND
         for (int round = 0; round < game.getMaxRound(); round++) {
@@ -115,7 +159,8 @@ public class Controller implements Observer<MessageVC> {
 
                     b = false;
                     waitMove();
-                    LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore " + playersInRound.get(turno).getName());
+                    LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
+                            + playersInRound.get(turno).getName());
 
                 }
 
@@ -140,9 +185,11 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     * method that wait the move of a player
+     */
     synchronized public void waitMove() {
         try {
-            normale:
             LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turno).getName() + " effettui la sua mossa");
 
             while (!b) {
@@ -154,17 +201,28 @@ public class Controller implements Observer<MessageVC> {
         }
     }
 
+    /**
+     * method that assign a value to setTool and unlock the waiter
+     */
+
     synchronized public void setTools() {
         this.playersInRound.get(turno).setUseTools(A);
         notifyAll();
     }
+
+    /**
+     * method that assign a value to setPos and unlock the waiter
+     */
 
     synchronized public void setPos() {
         this.playersInRound.get(turno).setSetDice(A);
         notifyAll();
     }
 
-
+    /**
+     * method that build the array of players that can play in a round
+     * @param players the list with all players
+     */
     public void setPlayersInRound(ArrayList<Player> players) {
         // inizializza la prima metà dell'array
         for (int i = 0; i < this.players.size(); i++)
@@ -174,6 +232,11 @@ public class Controller implements Observer<MessageVC> {
             players.add(this.players.get(i - 1));
     }
 
+    /**
+     * method that move the first player in the last place to play
+     * @param players the list of players that play in a round (x2)
+     */
+
     public void updatePlayersInRound(ArrayList<Player> players) {
         Player exFirst = players.get(0); // salvo il giocatore da spostare
         players.remove(players.size() - 1); // elimino il giocatore che si trova in fondo
@@ -182,7 +245,10 @@ public class Controller implements Observer<MessageVC> {
         players.add(this.players.size(), exFirst); // aggiungi il secondo turno del giocatore
     }
 
-    // metodo per calcolare i punteggi dei giocatori
+    /**
+     * method for the calculus of score for every players
+     */
+
     public void calcScore() {
         // cicla i giocatori
         for (int i = 0; i < this.players.size(); i++) {
@@ -200,7 +266,11 @@ public class Controller implements Observer<MessageVC> {
         }
     }
 
-    // Metodo che ritorna un elenco ordinato dei player per punteggio
+    /**
+     * method that compare the score of the player
+     * @param playersInLastRound list of players in order that play the last game
+     * @return a list of player ordered by score
+     */
     public ArrayList<Player> vsScore(ArrayList<Player> playersInLastRound) {
         boolean set;
         int j;
@@ -268,25 +338,45 @@ public class Controller implements Observer<MessageVC> {
         return playersFinal;
     }
 
+    /**
+     * method that call the method for use the card that players have requested
+     * @param titleCard Title of tool card that player wants to use
+     */
     public void useTools(String titleCard) {
         game.searchToolCard(titleCard).getStrategy().requestMessage(view, titleCard, players.indexOf(playersInRound.get(turno)));
     }
 
+    /**
+     * method that assign a value to setDice
+     * @param setDice a boolean value
+     */
     public void setSetDice(boolean setDice) {
         this.setDice = setDice;
     }
+
+    /**
+     * method that assign a value to useTools
+     * @param useTools a boolean value
+     */
 
     public void setUseTools(boolean useTools) {
         this.useTools = useTools;
     }
 
-    public void fakemove() {
+    /**
+     * method that simulate a fake move from the player that have been disconnected and unlock the waiter
+     */
+    public void fakeMove() {
         setSetDice(true);
         setUseTools(true);
         move++;
         notifyAll();
     }
 
+    /**
+     * method that compare turn with the number of players in game
+     * @return a number between 1 and 2
+     */
     public int firstOrSecond() {
         if ((turno+1) < (players.size()))
             return 1;

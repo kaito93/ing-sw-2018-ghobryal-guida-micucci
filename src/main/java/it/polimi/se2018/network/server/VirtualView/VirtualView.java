@@ -7,10 +7,7 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.exception.notValidCellException;
-import it.polimi.se2018.model.exception.notValidMatrixException;
-import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
-import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Deserializer.MapsDeserializer;
@@ -94,7 +91,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         // TO DO MIK: Carica le carte schema da file qui
 
         MapsDeserializer maps = new MapsDeserializer();
-        maps.totalDeserialize();
+        return maps.totalDeserialize();
         // richiama l'arraylist
 
 
@@ -111,7 +108,6 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
         }*/
-        return maps.totalDeserialize();
     }
 
 
@@ -156,7 +152,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             }
 
             if (currentPlayer==this){ // se toccava al giocatore sospeso
-                controller.fakemove();
+                controller.fakeMove();
             }
 
             // GESTIONE DELLA RICONNESSIONE [Ipotesi]

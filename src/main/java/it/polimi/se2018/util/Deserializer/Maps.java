@@ -2,13 +2,13 @@ package it.polimi.se2018.util.Deserializer;
 
 public class Maps {
 
-    private int numberCell;
+    private int numbercell;
     private String type;
     private String color;
     private int value;
 
     public Maps(){
-        numberCell = 0;
+        numbercell = 0;
         value = 0;
     }
 
@@ -17,7 +17,7 @@ public class Maps {
     }
 
     public void setNumberCell(int numberCell) {
-        this.numberCell = numberCell;
+        this.numbercell = numberCell;
     }
 
     public void setType(String type) {
@@ -41,6 +41,6 @@ public class Maps {
     }
 
     public int getNumberCell() {
-        return numberCell;
+        return numbercell;
     }
 }

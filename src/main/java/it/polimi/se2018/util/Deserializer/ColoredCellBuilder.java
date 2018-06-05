@@ -18,6 +18,7 @@ public class ColoredCellBuilder extends MapsBuilder {
     public Cell createCell(String color, int value, int number) {
      colored = new ColoredCell();
      colored.setColor(colour.parseInput(color));
+     colored.setNumberCell(number);
      return colored;
     }
 }
