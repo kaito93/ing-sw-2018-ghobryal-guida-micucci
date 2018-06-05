@@ -39,8 +39,9 @@ public class DiceBox {
         Type listType = new TypeToken<ArrayList<Dice>>(){}.getType();
         box = gson.fromJson(br, listType);
 
-        box.get(0).throwDice();
-        System.out.println(box.get(0).getValue());
+        for (int index = 0; index<box.size(); index++){
+            box.get(index).throwDice();
+        }
     }
 
     /**
