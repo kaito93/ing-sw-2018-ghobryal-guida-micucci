@@ -1,14 +1,17 @@
 package it.polimi.se2018.util.Deserializer;
 
+import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.util.Deserializer.PublicCards.*;
+import it.polimi.se2018.util.PublicCardsTransfer;
 import it.polimi.se2018.util.jsonTransiction;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class PublicCardDeserializer extends StrategyCardDeserializer {
 
-    private ArrayList<jsonTransiction> publCard;
+    private ArrayList<PublicCardsTransfer> publCard;
     private ColorDiagonalsStrategyBuilder cdsBuilder;
     private ColorVarietyStrategyBuilder cvsBuilder;
     private ColumnColorVarietyStrategyBuilder ccvsBuilder;
@@ -35,6 +38,18 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
         svsBuilder = new ShadeVarietyStrategyBuilder();
         publicObjectivetransfer = new ArrayList();
     }
+
+    @Override
+    public void Deserializing() {
+        Type trans = new TypeToken<ArrayList<PublicCardsTransfer>>(){}.getType();
+        publCard = this.getGson().fromJson(this.getBr(), trans);
+    }
+
+    @Override
+    public PublicCardsTransfer getSingleTransiction(int index) {
+        return this.publCard.get(index);
+    }
+
     @Override
     public void SetUpObserver() {
         this.addObserver(cdsBuilder);
@@ -71,8 +86,17 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
     public void TotalDeserializing(){
         this.Deserializing();
         this.SetUpObserver();
-        for(int index=0; index<jsontrans.size();index++)
-            this.StartBuilding(this.getSingleTransiction(index));
+        for(int index=0; index<publCard.size();index++)
+            this.StartBuilding(getSingleTransiction(index));
         this.SetUpDeck();
+    }
+
+    public void StartBuilding(PublicCardsTransfer publCardsingle){
+        setChanged();
+        notifyObservers(publCardsingle);
+    }
+
+    public ArrayList<PublicCardsTransfer> getPublCard() {
+        return publCard;
     }
 }

@@ -21,4 +21,14 @@ public class ViewGui extends View {
         gameStatus.setMyUsername(username);
         return (maps.get(0));
     }
+
+    @Override
+    public void startView() {
+
+    }
+
+    @Override
+    public String askNewUsername() {
+        return null;
+    }
 }

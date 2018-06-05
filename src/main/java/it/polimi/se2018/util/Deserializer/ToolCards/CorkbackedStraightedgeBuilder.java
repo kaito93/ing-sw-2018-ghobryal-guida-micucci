@@ -14,6 +14,7 @@ public class CorkbackedStraightedgeBuilder extends ToolBuilder{
      */
     public CorkbackedStraightedgeBuilder(){
         super();
+        cbs = new CorkbackedStraightedge();
         this.setStrategy(cbs);
         this.setToBeCompared("CorkbackedStraightedge");
     }

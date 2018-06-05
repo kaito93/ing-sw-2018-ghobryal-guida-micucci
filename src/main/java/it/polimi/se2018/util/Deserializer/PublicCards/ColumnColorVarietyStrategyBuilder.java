@@ -15,6 +15,7 @@ public class ColumnColorVarietyStrategyBuilder extends Builder{
      */
     public ColumnColorVarietyStrategyBuilder(){
         super();
+        ccvs = new ColumnColorVarietyStrategy();
         this.setStrategy(ccvs);
         this.setToBeCompared("ColumnColorVarietyStrategy");
     }

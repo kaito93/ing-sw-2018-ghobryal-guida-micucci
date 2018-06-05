@@ -14,6 +14,7 @@ public class CopperFoilBurnisherBuilder extends ToolBuilder {
      */
     public CopperFoilBurnisherBuilder(){
         super();
+        cfb = new CopperFoilBurnisher();
         this.setToBeCompared("CopperFoilBurnisher");
         this.setStrategy(cfb);
     }

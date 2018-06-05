@@ -35,7 +35,7 @@ public class TestPlayer extends TestCase {
         player.setUseTools(false);
         player.setMap(new Map("map", 3, 4, 5));
         player.setFavorSig();
-        player.setPrivateObjectiveCard(new PrivateObjectiveCard("Violet", "description", Color.PURPLE));
+        player.setPrivateObjectiveCard(new PrivateObjectiveCard("Violet", "description", Color.PINK));
         super.setUp();
     }
 

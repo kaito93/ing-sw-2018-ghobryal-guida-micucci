@@ -24,15 +24,7 @@ public abstract class View {
         gameStatus= new GameView();
     }
 
-    public void startView(){
-        // mostra la view
-    }
-
-    public String request(String message){
-        LOGGER.log(Level.INFO,message);
-
-        return new Scanner(System.in).nextLine();
-    }
+    public abstract void startView();
 
     public abstract Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username);
 
@@ -84,5 +76,7 @@ public abstract class View {
         updateUsers(message.getUsers(),message.getCells(), message.getUseTools(),message.getRoundSchemeMap(), message.getStock());
         addLog(message.getMessage());
     }
+
+    public abstract String askNewUsername();
 
 }

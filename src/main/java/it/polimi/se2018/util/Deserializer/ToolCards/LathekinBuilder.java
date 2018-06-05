@@ -14,6 +14,7 @@ public class LathekinBuilder extends ToolBuilder {
      */
     public LathekinBuilder(){
         super();
+        lath = new Lathekin();
         this.setStrategy(lath);
         this.setToBeCompared("Lathekin");
     }

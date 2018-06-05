@@ -14,6 +14,7 @@ public class GrozingPliersBuilder extends ToolBuilder {
      */
     public GrozingPliersBuilder(){
         super();
+        gp = new GrozingPliers();
         this.setStrategy(gp);
         this.setToBeCompared("GrozingPliers");
     }

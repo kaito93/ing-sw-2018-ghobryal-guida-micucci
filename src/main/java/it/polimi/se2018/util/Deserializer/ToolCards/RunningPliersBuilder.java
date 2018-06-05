@@ -14,6 +14,7 @@ public class RunningPliersBuilder extends ToolBuilder {
      */
     public RunningPliersBuilder(){
         super();
+        rp = new RunningPliers();
         this.setStrategy(rp);
         this.setToBeCompared("RunningPliers");
     }

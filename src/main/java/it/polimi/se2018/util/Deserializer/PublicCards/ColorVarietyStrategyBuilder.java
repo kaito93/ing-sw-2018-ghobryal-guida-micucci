@@ -15,6 +15,7 @@ public class ColorVarietyStrategyBuilder extends Builder {
      */
     public ColorVarietyStrategyBuilder(){
         super();
+
         this.setStrategy(cvs);
         this.setToBeCompared("ColorVarietyStrategy");
     }

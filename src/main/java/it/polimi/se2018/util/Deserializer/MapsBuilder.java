@@ -15,6 +15,15 @@ public abstract class MapsBuilder implements Observer {
     ArrayList<Cell> toBeReturn;
     entireMap mappaIntera;
 
+    public MapsBuilder(){
+        trans = new TransitionForMaps();
+        maps = new ArrayList<>();
+        toBeReturn = new ArrayList<>();
+        mappaIntera = new entireMap();
+    }
+
+
+
     @Override
     public void update(Observable o, Object arg) {
         trans = (TransitionForMaps) arg;

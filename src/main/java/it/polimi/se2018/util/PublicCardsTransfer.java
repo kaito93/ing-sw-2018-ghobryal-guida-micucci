@@ -6,7 +6,7 @@ package it.polimi.se2018.util;
  */
 public class PublicCardsTransfer extends jsonTransiction{
 
-    private int scores;
+    private String score;
     private String strategy;
 
 
@@ -23,6 +23,6 @@ public class PublicCardsTransfer extends jsonTransiction{
      * @return the points that assign this cards
      */
     public int getScores() {
-        return scores;
+        return Integer.decode(score);
     }
 }

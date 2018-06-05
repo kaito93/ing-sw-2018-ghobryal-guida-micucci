@@ -15,12 +15,20 @@ public class entireMap {
         matrix = new ArrayList<>();
     }
 
+    public void setAllMatrix(ArrayList<Cell> matrix) {
+        this.matrix = matrix;
+    }
+
     public void setMatrix(Cell cellOfMatrix) {
         this.matrix.add(cellOfMatrix);
     }
 
     public entireMap getMatrixCell(int index){
         return this;
+    }
+
+    public Cell getCellOfMatrix(int index){
+        return this.getMatrix().get(index);
     }
 
     public void setTitle(String title) {
@@ -39,4 +47,7 @@ public class entireMap {
         return level;
     }
 
+    public ArrayList<Cell> getMatrix() {
+        return matrix;
+    }
 }

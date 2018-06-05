@@ -5,6 +5,10 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.message.*;
 
+/**
+ * Class ConnectionClientRMI
+ * @author Samuele Guida, Anton
+ */
 
 public class ConnectionClientRMI extends ConnectionClient {
 

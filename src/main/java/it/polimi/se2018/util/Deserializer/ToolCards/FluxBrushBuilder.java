@@ -14,6 +14,7 @@ public class FluxBrushBuilder extends ToolBuilder {
      */
     public FluxBrushBuilder(){
         super();
+        fb = new FluxBrush();
         this.setStrategy(fb);
         this.setToBeCompared("FluxBrush");
     }

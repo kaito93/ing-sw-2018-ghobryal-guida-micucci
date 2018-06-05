@@ -17,7 +17,7 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
     private ArrayList<Cell> temp = new ArrayList<>();
 
     public ColorDiagonalsStrategy(){
-
+        super();
     }
 
     /**

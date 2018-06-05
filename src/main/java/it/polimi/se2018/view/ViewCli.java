@@ -1,8 +1,7 @@
 package it.polimi.se2018.view;
 
 import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.cards.ToolCard;
+
 import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.network.client.message.Message;
 
@@ -181,5 +180,17 @@ public class ViewCli extends View {
             System.out.println(i);
         }
 
+    }
+
+    @Override
+    public void startView() {
+
+        client.setUsername(askNewUsername());
+    }
+
+    @Override
+    public String askNewUsername() {
+        addLog("Inserisci il tuo username:");
+        return scanner.nextLine();
     }
 }

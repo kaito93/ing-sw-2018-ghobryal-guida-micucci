@@ -14,6 +14,7 @@ public class ColorDiagonalsStrategyBuilder extends Builder{
      */
     public ColorDiagonalsStrategyBuilder(){
         super();
+        cds = new ColorDiagonalsStrategy();
         this.setStrategy(cds);
         this.setToBeCompared("ColorDiagonalsStrategy");
     }

@@ -22,7 +22,7 @@ public class LauncherClient {
         else
              view = new ViewGui();
 
-        view.startView(); // visualizza la view
+
 
         // To Do: Caricamento da interfaccia grafica di porta e ip
 
@@ -32,6 +32,7 @@ public class LauncherClient {
             client = new ConnectionClientRMI();
         }
         view.setClient(client);
+        view.startView(); // visualizza la view
         client.run();
 
 

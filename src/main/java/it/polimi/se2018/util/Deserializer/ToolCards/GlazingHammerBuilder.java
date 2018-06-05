@@ -14,6 +14,7 @@ public class GlazingHammerBuilder extends ToolBuilder{
      */
     public GlazingHammerBuilder(){
         super();
+        gh = new GlazingHammer();
         this.setStrategy(gh);
         this.setToBeCompared("GlazingHammer");
     }

@@ -1,10 +1,14 @@
 package it.polimi.se2018.util.Deserializer;
 
+import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.cards.tool_card_strategy.CopperFoilBurnisher;
 import it.polimi.se2018.model.cards.tool_card_strategy.GlazingHammer;
 import it.polimi.se2018.util.Deserializer.ToolCards.*;
+import it.polimi.se2018.util.jsonTransiction;
+import it.polimi.se2018.util.toolCardTransfer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +29,7 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     private RunningPliersBuilder rpBuilder;
     private TapWheelBuilder twBuilder;
     private ArrayList<ToolCard> deck;
+    private ArrayList<toolCardTransfer> tooltrans;
 
 
     /**
@@ -46,6 +51,18 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
         rpBuilder = new RunningPliersBuilder();
         twBuilder = new TapWheelBuilder();
         deck = new ArrayList<>();
+        tooltrans = new ArrayList<>();
+    }
+
+    @Override
+    public void Deserializing() {
+        Type listTool = new TypeToken<ArrayList<toolCardTransfer>>(){}.getType();
+        tooltrans= this.getGson().fromJson(this.getBr(), listTool);
+    }
+
+    @Override
+    public toolCardTransfer getSingleTransiction(int index) {
+        return this.tooltrans.get(index);
     }
 
     @Override
@@ -97,9 +114,14 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     public void TotalDeserializing(){
         this.Deserializing();
         this.SetUpObserver();
-        for(int index=0; index<jsontrans.size(); index++)
-            this.StartBuilding(jsontrans.get(index));
+        for(int index=0; index<tooltrans.size(); index++)
+            this.StartBuilding(tooltrans.get(index));
         this.MountDeck();
+    }
+
+    public void StartBuilding(toolCardTransfer toolCardsingle){
+        setChanged();
+        notifyObservers(toolCardsingle);
     }
 
 }

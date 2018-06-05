@@ -15,6 +15,7 @@ public class ValueCellBuilder extends MapsBuilder {
     public Cell createCell(String color, int value, int number) {
         valueCell = new ValueCell();
         valueCell.setValue(value);
+        valueCell.setNumberCell(number);
         return valueCell;
     }
 }
