@@ -34,6 +34,8 @@ public class Game {
 
     private static ArrayList<ToolCard> toolCards = new ArrayList<>();
 
+    private ArrayList<Map> maps;
+
 
     /**
      * class constructor that initialize all the attributes
@@ -238,5 +240,19 @@ public class Game {
      */
     public void setStock(ArrayList<Dice> stocks) {
         stock = stocks;
+    }
+
+    public ArrayList<Map> getMaps() {
+        return maps;
+    }
+
+    public void setMaps() {
+        ArrayList<Map> maps= loadMaps();
+    }
+
+    public ArrayList<Map> loadMaps() {
+
+        MapsDeserializer maps = new MapsDeserializer();
+        return maps.totalDeserialize();
     }
 }

@@ -26,12 +26,10 @@ public class MessageGrindingStone implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-        try {
+
             controller.getGame().searchToolCard(title).useTool(null,dice,0,0,null,false,
-                    0,0,null,null,null,0,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+                    0,0,null,null,null,0);
+
 
     }
     public void setTitle(String title) {

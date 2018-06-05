@@ -36,6 +36,7 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
 
 
+
     public VirtualView (){
 
     }
@@ -54,12 +55,8 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     public void start()  {
 
-        // TO DO MIK: Carica carte schema
-        ArrayList<Map> maps;
-        maps = loadMaps();
-
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            connections.get(i).sendMap(maps,playersActive.get(i));
+            connections.get(i).sendMap(controller.getGame().getMaps(),playersActive.get(i));
         }
         LOGGER.log(Level.INFO,"Tutto è pronto! Si cominciaaaaaaaa");
     }
@@ -84,32 +81,6 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
             connections.get(i).sendPublicInformation(publicCards,tools);
         }
     }
-
-
-
-    public ArrayList<Map> loadMaps() {
-        // TO DO MIK: Carica le carte schema da file qui
-
-        MapsDeserializer maps = new MapsDeserializer();
-        return maps.totalDeserialize();
-        // richiama l'arraylist
-
-
-        // CODICE PER TEST
-/*
-        ArrayList<Map> maps = new ArrayList<>();
-        for (int i=0; i<8; i++){
-            try {Map map = new Map("ciao",1,3,3);
-                maps.add(map);
-            }
-            catch (notValidMatrixException e) {
-                LOGGER.log(Level.SEVERE, e.toString(), e);
-            }
-
-
-        }*/
-    }
-
 
     class PlayerPlay extends Thread{
 
@@ -263,14 +234,10 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
     public void createMessageGlazing(String title){
         String error="ciao";
-        try {
             controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),
                     null,controller.firstOrSecond(),0,controller.getGame().getStock(),
                     controller.getPlayersInRound().get(controller.getTurno()).getSetDice(),0,0,null,
-                    null,null,0,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+                    null,null,0);
 
 
     }
@@ -296,5 +263,9 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void sendScorePlayers(ArrayList<Player> players){
         for (int i=0; i<playersActive.size();i++)
             connections.get(i).sendFinalPlayers(players);
+    }
+
+    public void createMessageError(String error, int player){
+        connections.get(player).manageError(error);
     }
 }

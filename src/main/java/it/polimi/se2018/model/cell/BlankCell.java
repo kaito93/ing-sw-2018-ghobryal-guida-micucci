@@ -19,7 +19,7 @@ public class BlankCell extends Cell{
      */
     @Override
     public Color getColor() {
-        return null;
+        return Color.NULL;
     }
     
     /** method that return the value of the cell

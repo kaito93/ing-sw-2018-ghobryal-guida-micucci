@@ -29,12 +29,10 @@ public class MessageLensCutter implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-        try {
+
             controller.getGame().searchToolCard(title).useTool(null,diceStock,numberRound,0,controller.getGame().getStock(),
-                    false,0,0,diceRound,controller.getGame().getRoundSchemeMap(),null,0,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+                    false,0,0,diceRound,controller.getGame().getRoundSchemeMap(),null,0);
+
 
     }
     public void setTitle(String title) {

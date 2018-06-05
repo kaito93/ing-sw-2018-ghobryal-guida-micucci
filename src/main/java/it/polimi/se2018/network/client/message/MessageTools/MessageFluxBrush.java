@@ -30,13 +30,11 @@ public class MessageFluxBrush implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-        try {
+
             controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),dice,
                     row,column,controller.getGame().getStock(),false,0,0,null,null,
-                    null,0,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+                    null,0);
+
 
     }
     public void setTitle(String title) {

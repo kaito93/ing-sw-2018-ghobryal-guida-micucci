@@ -131,4 +131,9 @@ public class ConnectionServerRMI extends ConnectionServer {
     public void manageTap(String title) {
 
     }
+
+    @Override
+    public void manageError(String error) {
+
+    }
 }

@@ -32,12 +32,10 @@ public class MessageLathekin implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-        try {
             controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),
                     null,row1,column1,dices,false,row2,column2,null,null,null,
-                    0,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);        }
+                    0);
+
 
     }
     public void setTitle(String title) {

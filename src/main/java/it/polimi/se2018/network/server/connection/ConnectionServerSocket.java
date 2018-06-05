@@ -251,4 +251,12 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
+
+    @Override
+    public void manageError(String error) {
+        MessageError message= new MessageError();
+        message.setErrorMessage(error);
+        mex = new Message(Message.SYSTEMEVENT,message);
+        send(mex);
+    }
 }
