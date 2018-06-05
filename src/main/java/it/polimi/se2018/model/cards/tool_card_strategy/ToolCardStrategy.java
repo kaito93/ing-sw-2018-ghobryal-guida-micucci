@@ -51,6 +51,14 @@ public abstract class ToolCardStrategy implements Serializable {
         return false;
     }
 
+    /**
+     * gets an ErrorBoolTool status
+     * @return a data structure within an error message and an error boolean
+     */
+    public static ErrorBoolTool getErrorBoolTool() {
+        return errorBoolTool;
+    }
+
     public abstract void useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock
         , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
         , List<Player> turns, int posDice1);
