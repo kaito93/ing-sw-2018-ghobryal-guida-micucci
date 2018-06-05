@@ -37,7 +37,7 @@ public class ErrorBoolTool {
      * sets the error boolean, true if there is an error message else false
      * @param errBool the forced boolean into the structure
      */
-    protected void setErrBool(Boolean errBool) {
+    public void setErrBool(Boolean errBool) {
         this.errBool = errBool;
     }
 
@@ -45,7 +45,7 @@ public class ErrorBoolTool {
      * sets the error message if there is any else null
      * @param errorMessage a string of the error message
      */
-    protected void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 }

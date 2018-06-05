@@ -66,33 +66,27 @@ public class ToolCard extends Card{
     /**
      * implements the card algorithm in a specific way
      * for parameters' description go to card's strategy
-     * @param errorMessage an error message if the player doesn't have enough favour signals else null
      * @return a boolean which is true if the player respects the rules of using this card else false
      */
     public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock
             , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
-            , List<Player> turns, int posDice1, String errorMessage){
-        if(!isUsed() && player.getFavSig()>0){
+            , List<Player> turns, int posDice1){
+        if((!isUsed() && player.getFavSig()<1) || (isUsed() && player.getFavSig()<2)){
+            ToolCardStrategy.getErrorBoolTool().setErrorMessage("Player doesn't have enough favor signals");
+            ToolCardStrategy.getErrorBoolTool().setErrBool(true);
+            return false;
+        }else if(!isUsed() && player.getFavSig()>0){
             strategy.useTool(player, dice, row1, column1, stock,
                     posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1);
             if(!ToolCardStrategy.getErrorBoolTool().getErrBool()) {
                 used = true;
-                errorMessage = null;
                 return player.modifyFavorSig(1);
-            }else{
-                errorMessage = "Player doesn't have enough favor signals";
-                return false;
             }
         }else if(isUsed() && player.getFavSig()>1){
             strategy.useTool(player, dice, row1, column1, stock,
                     posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1);
             if(!ToolCardStrategy.getErrorBoolTool().getErrBool()){
-                errorMessage = null;
                 return player.modifyFavorSig(2);
-            }
-            else{
-                errorMessage = "Player doesn't have enough favor signals";
-                return false;
             }
         }
         return false;
