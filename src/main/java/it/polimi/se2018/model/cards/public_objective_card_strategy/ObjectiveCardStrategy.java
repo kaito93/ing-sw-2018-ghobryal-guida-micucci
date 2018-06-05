@@ -1,6 +1,7 @@
 package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
+import it.polimi.se2018.util.Logger;
 
 import java.io.Serializable;
 
@@ -11,9 +12,8 @@ import java.io.Serializable;
 
 public class ObjectiveCardStrategy implements Serializable {
 
-    public ObjectiveCardStrategy(){
+    protected static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    }
     /**
      * implements the card's description
      * @param map player's map

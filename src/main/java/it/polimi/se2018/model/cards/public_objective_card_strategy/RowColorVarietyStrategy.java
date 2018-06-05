@@ -3,6 +3,8 @@ package it.polimi.se2018.model.cards.public_objective_card_strategy;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.exception.notValidCellException;
 
+import java.util.logging.Level;
+
 /**
  * Row Color Variety Public Objective Card
  * @author Anton Ghobryal
@@ -32,8 +34,8 @@ public class RowColorVarietyStrategy extends ObjectiveCardStrategy{
                             break;
                         }else colorBool = true;
                     }else break;
-                    } catch (notValidCellException ex) {
-                        System.out.println("RowColorVarietyStrategy");
+                    } catch (notValidCellException e) {
+                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class RowColorVarietyStrategy", e);
                     }
                 }
                 if(colorBool)

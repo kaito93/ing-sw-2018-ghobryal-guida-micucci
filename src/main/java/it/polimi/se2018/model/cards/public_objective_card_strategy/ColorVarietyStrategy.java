@@ -4,6 +4,8 @@ import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.exception.notValidCellException;
 
+import java.util.logging.Level;
+
 /**
  * Color Variety Public Objective Card
  * @author Anton Ghobryal
@@ -42,8 +44,8 @@ public class ColorVarietyStrategy extends ObjectiveCardStrategy{
                         else if(map.getCell(i,j).getDice().getColor().equals(Color.PURPLE))
                             counterPurble++;
                     }
-                } catch (notValidCellException ex) {
-                    System.out.println("colorVarietyStrategy");
+                } catch (notValidCellException e) {
+                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ColorVarietyStrategy", e);
                 }
             }
         }

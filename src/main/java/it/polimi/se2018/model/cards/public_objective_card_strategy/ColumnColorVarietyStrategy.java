@@ -3,6 +3,8 @@ package it.polimi.se2018.model.cards.public_objective_card_strategy;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.exception.notValidCellException;
 
+import java.util.logging.Level;
+
 /**
  * Column Color Variety Public Objective Card
  * @author Anton Ghobryal
@@ -24,16 +26,17 @@ public class ColumnColorVarietyStrategy extends ObjectiveCardStrategy{
         int colorCounter=1;    //counts how many consecutive dices with different colors
         for(int i=0; i<map.numColumn(); i++){   //iterates on columns
             for(int j=0; j<map.numRow()-1; j++){    //iterates on row
-                for(int k=j+1; k<map.numRow(); k++){    try {
-                    //iterates on the next row
-                    if((!map.isEmptyCell(j, i))&&(!map.isEmptyCell(k, i))){    //controls if there is a dice or not
-                        if(map.getCell(j,i).getDice().getColor().equals(map.getCell(k,i).getDice().getColor())){    //controls if there is two consecutive dices with the same color
-                            colorBool = false;
-                            break;
-                        }else colorBool = true;
-                    }else break;
-                    } catch (notValidCellException ex) {
-                        System.out.println("columnColorVarietyStrategy");
+                for(int k=j+1; k<map.numRow(); k++){
+                    try {
+                        //iterates on the next row
+                        if((!map.isEmptyCell(j, i))&&(!map.isEmptyCell(k, i))){    //controls if there is a dice or not
+                            if(map.getCell(j,i).getDice().getColor().equals(map.getCell(k,i).getDice().getColor())){    //controls if there is two consecutive dices with the same color
+                                colorBool = false;
+                                break;
+                            }else colorBool = true;
+                        }else break;
+                    } catch (notValidCellException e) {
+                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ColumnColorVarietyStrategy", e);
                     }
                 }
                 if(colorBool)

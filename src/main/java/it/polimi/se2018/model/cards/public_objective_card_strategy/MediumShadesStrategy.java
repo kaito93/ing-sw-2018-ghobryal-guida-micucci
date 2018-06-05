@@ -3,6 +3,8 @@ package it.polimi.se2018.model.cards.public_objective_card_strategy;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.exception.notValidCellException;
 
+import java.util.logging.Level;
+
 /**
  * Medium Shades Public Objective Card
  * @author Anton Ghobryal
@@ -30,8 +32,8 @@ public class MediumShadesStrategy extends ObjectiveCardStrategy {
                     else if(map.getCell(i,j).getDice().getValue()==4)
                         counter4++;
                 }
-                } catch (notValidCellException ex) {
-                    System.out.println("MediumShadeStrategy");
+                } catch (notValidCellException e) {
+                LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class MediumShadesStrategy", e);
                 }
             }
         }

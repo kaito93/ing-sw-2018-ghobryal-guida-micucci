@@ -1,8 +1,9 @@
 package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.exception.notValidCellException;
+
+import java.util.logging.Level;
 
 /**
  * Deep Shades Public Objective Card
@@ -31,8 +32,8 @@ public class DeepShadesStrategy extends ObjectiveCardStrategy {
                     else if(map.getCell(i,j).getDice().getValue()==6)
                         counter6++;
                 }
-                } catch (notValidCellException ex) {
-                    System.out.println("deepShadeStrategy");
+                } catch (notValidCellException e) {
+                LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class DeepShadesStrategy", e);
                 }
             }
         }

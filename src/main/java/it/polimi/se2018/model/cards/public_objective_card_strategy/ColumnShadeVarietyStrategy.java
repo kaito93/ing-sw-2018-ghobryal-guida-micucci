@@ -3,6 +3,8 @@ package it.polimi.se2018.model.cards.public_objective_card_strategy;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.exception.notValidCellException;
 
+import java.util.logging.Level;
+
 /**
  * Column Shade Variety
  * @author Anton Ghobryal
@@ -32,8 +34,8 @@ public class ColumnShadeVarietyStrategy extends ObjectiveCardStrategy {
                             break;
                         }else numBool = true;
                     }else break;
-                    } catch (notValidCellException ex) {
-                        System.out.println("columnColorShadeStrategy");
+                    } catch (notValidCellException e) {
+                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ColumnShadeVarietyStrategy", e);
                     }
                 }
                 if(numBool)
