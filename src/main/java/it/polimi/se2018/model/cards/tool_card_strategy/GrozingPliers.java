@@ -4,11 +4,10 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.InvalidValueException;
-import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -38,17 +37,15 @@ public class GrozingPliers extends ToolCardStrategy {
      * @param t4 n.a.
      * @param t5 n.a.
      * @param t6 n.a.
-     * @param errorMessage an error message that indicates the cause of return false
-     * @return true :D
      */
 
-    public boolean useTool(Player player, Dice dice, int value, int a, ArrayList<Dice> stock
-            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, ArrayList<Player> t5, int t6, String errorMessage) throws notValidCellException {
+    public void useTool(Player player, Dice dice, int value, int a, List<Dice> stock
+            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4,  List<Player> t5, int t6){
         if(value<1 || value > 6){
-            errorMessage = "Invalid passed value";
-            return false;
-        }
-        if(value>1 && value < 6){
+            errorBoolTool.setErrorMessage("Invalid passed dice value");
+            errorBoolTool.setErrBool(true);
+            return;
+        } else if(value>1 && value < 6){
             firstValue = value + 1;
             secondValue = value - 1;
         } else if(value==1){
@@ -58,7 +55,8 @@ public class GrozingPliers extends ToolCardStrategy {
             firstValue = 0;
             secondValue = value - 1;
         }
-        return true;
+        errorBoolTool.setErrorMessage(null);
+        errorBoolTool.setErrBool(false);
     }
 
     /**
@@ -78,27 +76,10 @@ public class GrozingPliers extends ToolCardStrategy {
     }
 
     /**
-     * forces the chosen value (the incremented one) into the dice's value
+     * forces the value into the dice
      * @param dice the chosen dice
-     * @return if the operation was successful or not
+     * @param value1 the chosen value
      */
-
-    public boolean setFirstValue(Dice dice){
-        setChosenValue(dice, firstValue);
-        return firstValue != 0;
-    }
-
-    /**
-     * forces the chosen value (the decremented one) into the dice's value
-     * @param dice the chosen dice
-     * @return a boolean that verifies if the operation was successful or not
-     */
-
-    public boolean setSecondValue(Dice dice){
-       setChosenValue(dice, secondValue);
-        return secondValue != 0;
-    }
-
     public void setChosenValue(Dice dice, int value1){
 
             if (value1 != 0) {

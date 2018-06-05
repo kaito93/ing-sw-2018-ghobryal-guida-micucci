@@ -3,9 +3,9 @@ package it.polimi.se2018.model.cards.tool_card_strategy;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
-import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -30,14 +30,12 @@ public class LensCutter extends ToolCardStrategy {
      * @param t6 n.a.
      * @param roundSchemeDice a chosen dice from the Round Scheme
      * @param roundSchemeMap the Round Scheme
-     * @param errorMessage an error message that indicates the cause of return false
-     * @return a boolean that verifies if the chosen dice from the Round Scheme
      */
 
     //non ho posizionato il dado
-    public boolean useTool(Player player, Dice stockDice, int posDice, int t1, ArrayList<Dice> stock, boolean t2
-            , int t3, int t4, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, ArrayList<Player> t5, int t6, String errorMessage) throws notValidCellException {
-        ArrayList<Dice> temp = new ArrayList<>();
+    public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, boolean t2
+            , int t3, int t4, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
+        List<Dice> temp = new ArrayList<>();
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stockDice!=null
                 && roundSchemeDice!=null && stock.contains(stockDice)){
             temp.add(stockDice);
@@ -45,11 +43,13 @@ public class LensCutter extends ToolCardStrategy {
             roundSchemeMap[posDice].removeDice(roundSchemeDice);
             roundSchemeMap[posDice].setDices(temp);
             dice = roundSchemeDice;
-            return true;
+            errorBoolTool.setErrorMessage(null);
+            errorBoolTool.setErrBool(false);
+            return;
         }
         dice = null;
-        errorMessage = "Invalid Passed Parameters";
-        return false;
+        errorBoolTool.setErrorMessage("Invalid Passed Parameters");
+        errorBoolTool.setErrBool(true);
     }
 
     /**

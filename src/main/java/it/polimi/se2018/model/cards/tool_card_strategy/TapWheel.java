@@ -4,7 +4,8 @@ import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Tap Wheel Tool Card
@@ -27,44 +28,43 @@ public class TapWheel extends ToolCardStrategy {
      * @param roundSchemeMap the Round Scheme
      * @param t3 n.a.
      * @param posDice which round contains the dice on the round scheme
-     * @param errorMessage an error message that indicates the cause of return false
-     * @return a boolean that verifies if the operation of positioning the dice was successful or not
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
-    public boolean useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, ArrayList<Dice> dicesToMove, boolean t1,
-            int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, ArrayList<Player> t3, int posDice, String errorMessage) throws notValidCellException {
-        int b=0, c=0, f=0, g=0;
-        boolean d, e;
-        errorMessage = "";
+    public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove, boolean t1,
+            int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
+        int b=0;
+        int c=0;
+        int f=0;
+        int g=0;
+        boolean d;
+        String errorMessage = "";
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
-            if(dicesToMove.size()==1){
-                if(roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor()) && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)){
-                    d = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
-                    if(d)
-                        player.getMap().posDice(null, b, c, errorMessage);
-                    return d;
+            try {
+                if (dicesToMove.size() == 1) {
+                    if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor()) && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)) {
+                        d = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
+                        if (d)
+                            player.getMap().posDice(null, b, c, errorMessage);
+                        else {
+                            errorBoolTool.setErrorMessage(errorMessage);
+                            errorBoolTool.setErrBool(true);
+                            return;
+                        }
+                    }
+                } else if (dicesToMove.size() == 2 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())
+                        && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)
+                        && mapContainsDice(player.getMap(), dicesToMove.get(1), f, g)
+                        && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())) {
+                    Lathekin x = new Lathekin();
+                    x.useTool(player, roundSchemeMapDice, row1, column1, dicesToMove, t1, row2, column2, t2,
+                            roundSchemeMap, t3, posDice);
                 }
-            }else if(dicesToMove.size()==2 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())
-                && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)
-                && mapContainsDice(player.getMap(), dicesToMove.get(1), f, g)
-                && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())){
-                    d = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
-                    if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
-                    e = player.getMap().posDice(dicesToMove.get(1), row2, column2, errorMessage);
-                    if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
-                    if(d) {
-                        player.getMap().posDice(null, b, c, errorMessage);
-                        if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
-                    }
-                    if(e) {
-                        player.getMap().posDice(null, f, g, errorMessage);
-                        if(errorMessage!=null) errorMessage = errorMessage.concat("\n"+errorMessage);
-                    }
-                    return d && e;
+            }
+            catch(notValidCellException e){
+                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in TapWheel tool card", e);
             }
         }
-        errorMessage = "the round scheme doesn't contain the chosen dice from the round scheme";
-        return false;
+        errorBoolTool.setErrorMessage("the round scheme doesn't contain the chosen dice from the round scheme");
+        errorBoolTool.setErrBool(true);
     }
 
     @Override
@@ -72,9 +72,3 @@ public class TapWheel extends ToolCardStrategy {
         view.createMessageTap(title,player);
     }
 }
-
-
-
-//Sistemare tutti gli errorMessage
-
-
