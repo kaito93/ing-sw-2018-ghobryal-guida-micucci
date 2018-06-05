@@ -29,13 +29,11 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-        try {
+
             controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),dice,
                     controller.firstOrSecond(),0,controller.getGame().getStock(),false,row,column,null,
-                    null,controller.getPlayersInRound(),0,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+                    null,controller.getPlayersInRound(),0);
+
 
     }
     public void setTitle(String title) {

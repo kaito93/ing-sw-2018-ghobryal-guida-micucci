@@ -34,13 +34,11 @@ public class MessageTapWheel implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-        try {
+
             controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),
                     diceRoundScheme,row1,column1,diceToMove,false,row2,column2,null,
-                    controller.getGame().getRoundSchemeMap(),null,posDiceinSchemeRound,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+                    controller.getGame().getRoundSchemeMap(),null,posDiceinSchemeRound);
+
 
     }
     public void setTitle(String title) {

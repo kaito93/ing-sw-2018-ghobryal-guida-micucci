@@ -1,5 +1,6 @@
 package it.polimi.se2018.controller;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 
@@ -16,9 +17,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 
-/** class Controller
- contains all method for the manage of the game
- @author Samuele Guida
+/**
+ * class Controller
+ * contains all method for the manage of the game
+ *
+ * @author Samuele Guida
  */
 public class Controller implements Observer<MessageVC> {
 
@@ -38,7 +41,8 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * class constructor initialize the object controller
-      * @param view an occurence of virtual view
+     *
+     * @param view    an occurence of virtual view
      * @param players arraylist of players in game
      */
     public Controller(VirtualView view, ArrayList<Player> players) {
@@ -52,6 +56,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that return the players in the game
+     *
      * @return Arraylist<Player>
      */
     public ArrayList<Player> getPlayersInRound() {
@@ -60,6 +65,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that return the turn of the game in a round
+     *
      * @return an integer between 1 and #players*2
      */
     public int getTurno() {
@@ -68,6 +74,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that accept the message of type Socket
+     *
      * @param message the message received
      */
     public void update(MessageVC message) {
@@ -77,6 +84,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that manage the choose of the scheme of one player
+     *
      * @param message message received
      */
     public void visit(ResponseMap message) {
@@ -90,6 +98,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that research a player throws his username
+     *
      * @param user username of a player
      * @return the number in the arralist of players where is the username searched
      */
@@ -114,6 +123,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that return the object with the proprieties of the game
+     *
      * @return the class Game
      */
     public Game getGame() {
@@ -122,6 +132,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that manage the disconnession of a player during the game
+     *
      * @param player player disconnected
      */
     public void updatePlayers(Player player) {
@@ -159,6 +170,7 @@ public class Controller implements Observer<MessageVC> {
 
                     b = false;
                     waitMove();
+                    syncPlayers(playersInRound.get(turno));
                     LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
                             + playersInRound.get(turno).getName());
 
@@ -182,6 +194,16 @@ public class Controller implements Observer<MessageVC> {
         // INVIA AI GIOCATORI I PUNTEGGI FINALI + MAPPE FINALI + OBIETTIVI PRIVATI DI TUTTI I GIOCATORI
 
         view.sendScorePlayers(finalPlayers);
+
+    }
+
+    public void syncPlayers(Player playerGame){
+        for (int i=0; i<players.size();i++)
+            if (players.get(i).getName().equalsIgnoreCase(playerGame.getName())){
+                players.remove(i);
+                players.add(i,playerGame);
+            }
+
 
     }
 
@@ -214,13 +236,21 @@ public class Controller implements Observer<MessageVC> {
      * method that assign a value to setPos and unlock the waiter
      */
 
-    synchronized public void setPos() {
-        this.playersInRound.get(turno).setSetDice(A);
-        notifyAll();
+    synchronized public void setPos(Dice dice, int row, int column) {
+        String error = "ciao";
+        if (!this.playersInRound.get(turno).posDice(dice, row, column, error)) {
+            view.createMessageError(error,players.indexOf(playersInRound.get(turno)));
+            // ERRORE... BISOGNA INVIARE IL MESSAGGIO DI ERRORE AL CLIENT
+        }
+        else {
+            this.playersInRound.get(turno).setSetDice(A);
+            notifyAll();
+        }
     }
 
     /**
      * method that build the array of players that can play in a round
+     *
      * @param players the list with all players
      */
     public void setPlayersInRound(ArrayList<Player> players) {
@@ -234,6 +264,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that move the first player in the last place to play
+     *
      * @param players the list of players that play in a round (x2)
      */
 
@@ -268,6 +299,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that compare the score of the player
+     *
      * @param playersInLastRound list of players in order that play the last game
      * @return a list of player ordered by score
      */
@@ -340,6 +372,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that call the method for use the card that players have requested
+     *
      * @param titleCard Title of tool card that player wants to use
      */
     public void useTools(String titleCard) {
@@ -348,6 +381,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that assign a value to setDice
+     *
      * @param setDice a boolean value
      */
     public void setSetDice(boolean setDice) {
@@ -356,6 +390,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that assign a value to useTools
+     *
      * @param useTools a boolean value
      */
 
@@ -375,10 +410,11 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that compare turn with the number of players in game
+     *
      * @return a number between 1 and 2
      */
     public int firstOrSecond() {
-        if ((turno+1) < (players.size()))
+        if ((turno + 1) < (players.size()))
             return 1;
         else
             return 2;

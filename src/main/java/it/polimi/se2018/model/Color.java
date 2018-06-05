@@ -6,7 +6,7 @@ package it.polimi.se2018.model;
  */
 
 public enum Color {
-    BLUE, GREEN, RED, PURPLE, YELLOW;
+    BLUE, GREEN, RED, PURPLE, YELLOW, NULL;
 
     /**
      * a string transformation in an object

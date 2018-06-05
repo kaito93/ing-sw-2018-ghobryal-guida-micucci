@@ -73,4 +73,6 @@ public abstract class ConnectionServer {
     public abstract void manageRunning(String title);
     public abstract void manageTap(String title);
 
+    public abstract void manageError(String error);
+
 }

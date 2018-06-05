@@ -15,7 +15,7 @@ public class ViewCli extends View {
 
     @Override
     public void addLog(String message) {
-        LOGGER.log(Level.INFO, message);
+        System.out.println(message);
     }
 
     @Override
@@ -157,18 +157,21 @@ public class ViewCli extends View {
 
     public void printSchemeMap (Cell[][] cells ){
 
+        for (int j=0; j<cells[0].length; j++){
+            // scrivo il numero della colonna
+            System.out.print("|       " + j+ "                 |");
+
+        }
         // esamino le righe
         for (int i=0; i<cells.length;i++){
+            // mostra il numero di riga
+            System.out.println(String.valueOf(i));
             // esamino le colonne
-            System.out.println("");
             for (int j=0; j<cells[i].length; j++){
-                // scrivo il numero della colonna
-                System.out.print("|       " + j);
-            }
-            for (int j=0; j<cells[i].length; j++){
+
                     if (cells[i][j].getDice() != null) {
                         // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
-                        System.out.print(" | Colore: " + cells[i][j].getDice().getColor() + ", Valore:" + cells[i][j].getDice().getValue());
+                        System.out.print("| Colore: " + cells[i][j].getDice().getColor() + ", Valore:" + cells[i][j].getDice().getValue()+ "   ");
                     }
                     else{
                         // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
@@ -176,8 +179,7 @@ public class ViewCli extends View {
                     }
 
             }
-            // mostra il numero di riga
-            System.out.println(i);
+
         }
 
     }

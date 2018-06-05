@@ -31,7 +31,7 @@ public class ValueCell extends Cell {
      */
     @Override
     public Color getColor() {
-        return null;
+        return Color.NULL;
     }
 
     public void setValue(int value) {

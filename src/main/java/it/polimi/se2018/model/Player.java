@@ -1,16 +1,21 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.model.exception.notValidCellException;
+import it.polimi.se2018.network.client.message.Message;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Level;
 
 /** class Player
  * contains all method to change the status of data of the player
  * @author Andrea Micucci, Anton Ghobryal
  */
 public class Player implements Serializable {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
     private String name;
     private Map map;
@@ -162,5 +167,14 @@ public class Player implements Serializable {
     //tested
     public void setPrivateObjectiveCard(PrivateObjectiveCard newCard){
         this.privateObj = newCard;
+    }
+
+    public boolean posDice(Dice dice, int row, int column, String error){
+        try {
+            return map.posDice(dice,row,column,error);
+        } catch (notValidCellException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+        return false;
     }
 }
