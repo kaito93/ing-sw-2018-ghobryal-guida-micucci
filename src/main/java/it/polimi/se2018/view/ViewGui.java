@@ -31,4 +31,9 @@ public class ViewGui extends View {
     public String askNewUsername() {
         return null;
     }
+
+    @Override
+    public void addError(String Message) {
+
+    }
 }

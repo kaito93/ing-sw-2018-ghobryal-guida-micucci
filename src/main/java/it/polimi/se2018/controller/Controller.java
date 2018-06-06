@@ -50,8 +50,6 @@ public class Controller implements Observer<MessageVC> {
         this.view = view;
         this.players = players;
         view.addObservers(this);
-        view.start();
-
     }
 
     /**

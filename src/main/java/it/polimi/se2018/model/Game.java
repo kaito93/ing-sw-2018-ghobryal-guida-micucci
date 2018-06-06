@@ -43,11 +43,8 @@ public class Game {
     public Game(){
 
 
-        try {
-            diceBag=new DiceBox(); // carica i dadi dal file json
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+        diceBag=new DiceBox(); // carica i dadi dal file json
+
 
         ArrayList<PublicObjectiveCard> cards = loadPublicObjCard(); // carica tutte le carte obiettivo pubblico
 
@@ -81,6 +78,8 @@ public class Game {
 
         }
 
+        maps = loadMaps();
+
 
     }
 
@@ -103,12 +102,6 @@ public class Game {
         toolCardDeserializer tool= new toolCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/ToolCards.json");
         tool.TotalDeserializing();
         return tool.getDeck();
-        /* codice solo per test
-        ArrayList<ToolCard> cards = new ArrayList<>();
-        for (int i=0; i<3; i++){
-            cards.add(new ToolCard("ciao","ciao",1,Color.BLUE,new FluxBrush()));
-        }
-        return cards;*/
     }
 
     /**
@@ -121,16 +114,6 @@ public class Game {
         PublicCardDeserializer cards =  new PublicCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/PublicCards.json");
         cards.TotalDeserializing();
         return cards.getPublicObjectivetransfer();
-
-        /* CODICE SOLO PER TEST.
-        MediumShadesStrategy cards = new MediumShadesStrategy();
-        ArrayList<PublicObjectiveCard> arr = new ArrayList<>();
-        for (int i=0; i<3;i++) {
-            PublicObjectiveCard card = new PublicObjectiveCard("1", "1", 1, cards);
-            arr.add(card);
-        }
-        return arr;
-*/
     }
 
     /**
@@ -139,18 +122,11 @@ public class Game {
      */
 
     private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
-        // TO DO MIK: CARICA QUI LE CARTE OBIETTIVO PRIVATO E RITORNALE
+
 
         DeckOfPrivateCards cards = new DeckOfPrivateCards();
         return cards.getPrivCards();
-/*
-        // codice solo per test
-        ArrayList<PrivateObjectiveCard> array = new ArrayList<>();
-        for (int i=0; i<5;i++){
-            array.add(new PrivateObjectiveCard("ciao","ciaociao",Color.BLUE));
-        }
-        return array;
-        */
+
     }
 
     /**

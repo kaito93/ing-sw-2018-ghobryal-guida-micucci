@@ -6,15 +6,12 @@ import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
-import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.message.*;
-import it.polimi.se2018.util.Deserializer.MapsDeserializer;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.util.Observer;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -56,7 +53,13 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     public void start()  {
 
         for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            connections.get(i).sendMap(controller.getGame().getMaps(),playersActive.get(i));
+            try{
+                connections.get(i).sendMap(controller.getGame().getMaps(),playersActive.get(i));
+            }
+            catch (NullPointerException e){
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+
         }
         LOGGER.log(Level.INFO,"Tutto è pronto! Si cominciaaaaaaaa");
     }
@@ -157,17 +160,6 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
 
         }
     }
-
-
-
-   /* public synchronized void sendBroadcast(Message message){
-        for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            this.connections.get(i).send(message); // spedisci il messaggio
-        }
-
-    }*/
-
-
 
     @Override
     public void update(MessageMV event) {

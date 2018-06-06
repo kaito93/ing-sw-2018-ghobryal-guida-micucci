@@ -8,7 +8,7 @@ public class MessageError implements MessageSystem {
 
     @Override
     public void accept(ConnectionClientSocket socket) {
-
+        socket.visit(this);
     }
 
     public void setErrorMessage(String errorMessage) {

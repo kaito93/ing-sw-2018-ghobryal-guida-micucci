@@ -6,6 +6,7 @@ import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.network.client.connection.ConnectionClient;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.util.Logger;
 
@@ -56,11 +57,13 @@ public abstract class View {
         addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
     }
 
-    public void updateFavor (int favor){
+    public void updateFavor (int favor, boolean pos, boolean tool){
         if (gameStatus.getFavor()!=favor){
             gameStatus.setFavor(favor);
             addLog("Ho aggiornato le informazioni relative ai tuoi punti favore rimanenti");
         }
+        gameStatus.setUseTool(tool);
+        gameStatus.setPosDice(pos);
 
     }
 
@@ -78,5 +81,12 @@ public abstract class View {
     }
 
     public abstract String askNewUsername();
+
+    public void manageError(String message){
+        addError(message);
+        myTurn(gameStatus.isPosDice(),gameStatus.isUseTool());
+    }
+
+    public abstract void addError(String Message);
 
 }

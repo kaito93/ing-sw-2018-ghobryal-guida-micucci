@@ -39,7 +39,7 @@ public class MapsDeserializer extends Observable {
         try {
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
-            System.out.println("non ho trovato il file");
+            LOGGER.log(Level.SEVERE, "File non trovato", e);
         }
         mapsJsonJava = new ArrayList<>();
         blank = new BlankCellBuilder();
