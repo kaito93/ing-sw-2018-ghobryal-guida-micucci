@@ -343,7 +343,7 @@ public class Map implements Serializable {
             return false;
         }
         else if(isCellValid(dice, row, column) && isBorderEmpty()
-                && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))){
+                && ((column==0 || row==0) || (row==numRow()-1 || column==numColumn()-1))){
             cell[row][column].setDice(dice);
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
