@@ -10,11 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * class to create the deck of all the private cards saved in json file
  */
 public class DeckOfPrivateCards {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private Gson gson = new Gson();
     private File json;
@@ -30,7 +33,7 @@ public class DeckOfPrivateCards {
         try {
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
-            System.out.println("file per le carte pubbliche non trovato");
+            LOGGER.log(Level.SEVERE, "File non trovato", e);
         }
         Type listPrivCards = new TypeToken<ArrayList<PrivateObjectiveCard>>(){}.getType();
         privCards = gson.fromJson(br, listPrivCards);

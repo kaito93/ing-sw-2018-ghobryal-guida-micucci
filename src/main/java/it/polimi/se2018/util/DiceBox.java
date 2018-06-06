@@ -12,12 +12,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.logging.Level;
 
 /** class DiceBox
  * contains all method to generate the DiceBox from the Json file
  * @author Andrea
  */
 public class DiceBox {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private Gson gson = new Gson();
     private File json;
@@ -28,13 +31,13 @@ public class DiceBox {
      * class constructor
      * @throws FileNotFoundException if the json file that contains all the info about the dices don't exists
      */
-    public DiceBox() throws FileNotFoundException{
+    public DiceBox() {
 
         try{
             json = new File("src/main/java/it/polimi/se2018/JsonFiles/Dices.json");
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
-            System.out.println("File non trovato");
+            LOGGER.log(Level.SEVERE, "File non trovato", e);
         }
         Type listType = new TypeToken<ArrayList<Dice>>(){}.getType();
         box = gson.fromJson(br, listType);

@@ -36,7 +36,6 @@ public class Builder implements Observer{
         jT = (PublicCardsTransfer) arg;
        if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
            poc.add(new PublicObjectiveCard(jT.getTitle(), jT.getDescription(), jT.getScores(), strategy));
-           System.out.println(poc.get(0).getTitle());
        }
     }
 

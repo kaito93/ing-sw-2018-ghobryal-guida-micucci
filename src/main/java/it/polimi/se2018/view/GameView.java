@@ -29,6 +29,10 @@ public class GameView {
 
     private int favor;
 
+    private boolean useTool;
+    private boolean posDice;
+
+
     public ArrayList<Dice> getStock() {
         return stock;
     }
@@ -140,5 +144,21 @@ public class GameView {
 
     public int getYourIndex() {
         return yourIndex;
+    }
+
+    public void setPosDice(boolean posDice) {
+        this.posDice = posDice;
+    }
+
+    public void setUseTool(boolean useTool) {
+        this.useTool = useTool;
+    }
+
+    public boolean isUseTool() {
+        return useTool;
+    }
+
+    public boolean isPosDice() {
+        return posDice;
     }
 }

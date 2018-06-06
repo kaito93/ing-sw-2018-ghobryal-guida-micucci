@@ -51,4 +51,9 @@ public class ConnectionClientRMI extends ConnectionClient {
     public void sendUseTool(String titleCardTool) {
 
     }
+
+    @Override
+    public void visit(MessageError message) {
+
+    }
 }

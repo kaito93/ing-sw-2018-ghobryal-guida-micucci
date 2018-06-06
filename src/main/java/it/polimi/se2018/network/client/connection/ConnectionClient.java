@@ -72,6 +72,8 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
         this.username= username;
     }
 
+    public abstract void visit (MessageError message);
+
 
 
 

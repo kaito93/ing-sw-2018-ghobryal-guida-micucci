@@ -179,7 +179,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
     @Override
     public void visit(MessageYourTurn message) {
-        view.updateFavor(message.getFavor());
+        view.updateFavor(message.getFavor(),message.isPosDice(),message.isUseTools());
         view.myTurn(message.isPosDice(),message.isUseTools());
     }
 
@@ -196,5 +196,10 @@ public class ConnectionClientSocket extends ConnectionClient {
         MessageUseTool message = new MessageUseTool();
         message.setTitleCardChoosed(titleCardTool);
         update(message);
+    }
+
+    @Override
+    public void visit(MessageError message) {
+        view.manageError(message.getErrorMessage());
     }
 }

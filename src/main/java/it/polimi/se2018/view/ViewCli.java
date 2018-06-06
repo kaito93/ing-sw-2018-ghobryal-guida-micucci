@@ -15,6 +15,7 @@ public class ViewCli extends View {
 
     @Override
     public void addLog(String message) {
+        System.out.println("");
         System.out.println(message);
     }
 
@@ -73,7 +74,7 @@ public class ViewCli extends View {
                             boolean finals=false;
                             while (!finals){
                                 addLog("Confermi di voler inserire il dado: Colore: "+gameStatus.getStock().get(chooseDice).getColor().toString() +
-                                        " e valore: "+ gameStatus.getStock().get(chooseDice).getValue() + "in colonna " +chooseColumn +
+                                        " e valore: "+ gameStatus.getStock().get(chooseDice).getValue() + " in colonna " +chooseColumn +
                                         "e riga " +chooseRow + " ? [Si/No]" );
                                 String finalChoose = scanner.nextLine();
                                 if (finalChoose.equalsIgnoreCase("si")) {
@@ -156,16 +157,17 @@ public class ViewCli extends View {
     }
 
     public void printSchemeMap (Cell[][] cells ){
-
+        System.out.print("__");
         for (int j=0; j<cells[0].length; j++){
             // scrivo il numero della colonna
-            System.out.print("|       " + j+ "                 |");
+            System.out.print("|       " + j+ "                  ");
 
         }
         // esamino le righe
         for (int i=0; i<cells.length;i++){
             // mostra il numero di riga
-            System.out.println(String.valueOf(i));
+            System.out.println("");
+            System.out.print(i);
             // esamino le colonne
             for (int j=0; j<cells[i].length; j++){
 
@@ -194,5 +196,16 @@ public class ViewCli extends View {
     public String askNewUsername() {
         addLog("Inserisci il tuo username:");
         return scanner.nextLine();
+    }
+
+    @Override
+    public void addError(String message) {
+        LOGGER.log(Level.SEVERE,message);
+        // IL WAIT SERVE PERCHE' IL LOG IMPIEGA SEMPLICEMENTE TROPPO TEMPO A PRINTARE...
+        try {
+            wait(100);
+        } catch (InterruptedException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
     }
 }
