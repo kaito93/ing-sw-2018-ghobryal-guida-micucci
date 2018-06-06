@@ -52,7 +52,7 @@ public abstract class ToolCardStrategy implements Serializable {
      * gets an ErrorBoolTool status
      * @return a data structure within an error message and an error boolean
      */
-    public static ErrorBool getErrorBool() {
+    public ErrorBool getErrorBool() {
         return errorBool;
     }
 
