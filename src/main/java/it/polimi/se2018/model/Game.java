@@ -43,11 +43,8 @@ public class Game {
     public Game(){
 
 
-        try {
-            diceBag=new DiceBox(); // carica i dadi dal file json
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+        diceBag=new DiceBox(); // carica i dadi dal file json
+
 
         ArrayList<PublicObjectiveCard> cards = loadPublicObjCard(); // carica tutte le carte obiettivo pubblico
 
