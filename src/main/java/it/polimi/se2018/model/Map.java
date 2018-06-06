@@ -326,7 +326,11 @@ public class Map implements Serializable {
         else if(cell[row][column].getValue()!=0)
             return cell[row][column].getValue()==value;
         else if(cell[row][column].getColor()!=null)
-            return color.equalsColor(cell[row][column].getColor());
+            try {
+                return color.equalsColor(cell[row][column].getColor());
+            }catch (NullPointerException e){
+                return true;
+            }
         return false;
     }
 
