@@ -30,7 +30,7 @@ public class Game {
 
     private static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <>();
 
-    private RoundSchemeCell roundSchemeMap[];
+    private RoundSchemeCell[] roundSchemeMap;
 
     private static ArrayList<ToolCard> toolCards = new ArrayList<>();
 
@@ -154,20 +154,20 @@ public class Game {
     }
 
     /**
-     * method that search a tool card from his title
-     * @param title title of the card choosed by player
-     * @return che card that player have chosen
+     * method that search a tool card from its title
+     * @param title title of the card chose by player
+     * @return which card the player have chosen
      */
     public ToolCard searchToolCard(String title) {
-        boolean find=false;
+        boolean found=false;
         int i=0;
-        while (!find && i < toolCards.size()) {
+        while (!found && i < toolCards.size()) {
             if (toolCards.get(i).getTitle().equalsIgnoreCase(title))
-                find = true;
+                found = true;
             else
                 i++;
         }
-        if (find)
+        if (found)
             return toolCards.get(i);
         else
             return null;
@@ -227,7 +227,7 @@ public class Game {
     }
 
     /**
-     * method that returns the stock of dice
+     * method that returns the stock of dices
      * @return the stock
      */
     public ArrayList<Dice> getStock() {
@@ -242,17 +242,28 @@ public class Game {
         stock = stocks;
     }
 
+    /**
+     * method that returns all the maps
+     * @return all the maps
+     */
     public ArrayList<Map> getMaps() {
         return maps;
     }
 
+    /**
+     * method that setup an array list of all maps from the file Json
+     */
     public void setMaps() {
-        ArrayList<Map> maps= loadMaps();
+        maps = loadMaps();
     }
 
-    public ArrayList<Map> loadMaps() {
+    /**
+     * method that loads all the maps from the file Json directly
+     * @return an array list of all the maps
+     */
+    private ArrayList<Map> loadMaps() {
 
-        MapsDeserializer maps = new MapsDeserializer();
-        return maps.totalDeserialize();
+        MapsDeserializer mapscegia = new MapsDeserializer();
+        return mapscegia.totalDeserialize();
     }
 }

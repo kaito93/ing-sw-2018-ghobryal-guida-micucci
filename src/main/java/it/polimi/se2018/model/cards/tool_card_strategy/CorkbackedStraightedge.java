@@ -36,8 +36,8 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(player.getMap().isAdjacentDice(row, column)) {
-            errorBoolTool.setErrorMessage("There's an Adjacent dice to the chosen coordinates");
-            errorBoolTool.setErrBool(true);
+            errorBool.setErrorMessage("There's an Adjacent dice to the chosen coordinates");
+            errorBool.setErrBool(true);
             return;
         }
         try {
@@ -45,8 +45,8 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
         } catch (notValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in CorkbackedStraightedge tool card", e);
         }
-        errorBoolTool.setErrorMessage(null);
-        errorBoolTool.setErrBool(false);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
     }
 
     @Override

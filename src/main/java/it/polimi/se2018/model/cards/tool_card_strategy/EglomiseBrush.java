@@ -42,22 +42,22 @@ public class EglomiseBrush extends ToolCardStrategy {
                 if (player.getMap().valueAlreadyExistInRow(row, dice.getValue())
                         || player.getMap().valueAlreadyExistInColumn(column, dice.getValue())
                         || (player.getMap().getCell(row, column).getValue()!=0 && player.getMap().getCell(row, column).getValue()!=dice.getValue())) {
-                    errorBoolTool.setErrorMessage("Player doesn't respect value restrictions");
-                    errorBoolTool.setErrBool(true);
+                    errorBool.setErrorMessage("Player doesn't respect value restrictions");
+                    errorBool.setErrBool(true);
                     return;
                 }
                 player.getMap().getCell(row, column).setDice(dice);
                 player.getMap().getCell(i, j).setDice(null);
-                errorBoolTool.setErrorMessage(null);
-                errorBoolTool.setErrBool(false);
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
                 return;
             }
         } catch (notValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class ElgomiseBrush Tool Card", e);
         }
 
-        errorBoolTool.setErrorMessage("The map doesn't contain the chosen dice");
-        errorBoolTool.setErrBool(true);
+        errorBool.setErrorMessage("The map doesn't contain the chosen dice");
+        errorBool.setErrBool(true);
     }
 
     @Override

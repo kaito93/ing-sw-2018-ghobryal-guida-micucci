@@ -1,9 +1,6 @@
 package it.polimi.se2018.model.cards.tool_card_strategy;
 
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.RoundSchemeCell;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.util.Logger;
@@ -20,7 +17,7 @@ import java.util.logging.Level;
 public abstract class ToolCardStrategy implements Serializable {
 
     protected static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    protected static ErrorBoolTool errorBoolTool = new ErrorBoolTool(null, true);
+    protected static ErrorBool errorBool = new ErrorBool(null, false);
 
     /**
      * controls if the dice that the player chose is really on the map or not
@@ -55,8 +52,8 @@ public abstract class ToolCardStrategy implements Serializable {
      * gets an ErrorBoolTool status
      * @return a data structure within an error message and an error boolean
      */
-    public static ErrorBoolTool getErrorBoolTool() {
-        return errorBoolTool;
+    public static ErrorBool getErrorBool() {
+        return errorBool;
     }
 
     public abstract void useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock

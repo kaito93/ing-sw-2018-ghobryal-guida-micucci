@@ -43,13 +43,13 @@ public class LensCutter extends ToolCardStrategy {
             roundSchemeMap[posDice].removeDice(roundSchemeDice);
             roundSchemeMap[posDice].setDices(temp);
             dice = roundSchemeDice;
-            errorBoolTool.setErrorMessage(null);
-            errorBoolTool.setErrBool(false);
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
             return;
         }
         dice = null;
-        errorBoolTool.setErrorMessage("Invalid Passed Parameters");
-        errorBoolTool.setErrBool(true);
+        errorBool.setErrorMessage("Invalid Passed Parameters");
+        errorBool.setErrBool(true);
     }
 
     /**

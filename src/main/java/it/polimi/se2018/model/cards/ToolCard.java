@@ -72,20 +72,20 @@ public class ToolCard extends Card{
             , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
             , List<Player> turns, int posDice1){
         if((!isUsed() && player.getFavSig()<1) || (isUsed() && player.getFavSig()<2)){
-            ToolCardStrategy.getErrorBoolTool().setErrorMessage("Player doesn't have enough favor signals");
-            ToolCardStrategy.getErrorBoolTool().setErrBool(true);
+            ToolCardStrategy.getErrorBool().setErrorMessage("Player doesn't have enough favor signals");
+            ToolCardStrategy.getErrorBool().setErrBool(true);
             return false;
         }else if(!isUsed() && player.getFavSig()>0){
             strategy.useTool(player, dice, row1, column1, stock,
                     posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1);
-            if(!ToolCardStrategy.getErrorBoolTool().getErrBool()) {
+            if(!ToolCardStrategy.getErrorBool().getErrBool()) {
                 used = true;
                 return player.modifyFavorSig(1);
             }
         }else if(isUsed() && player.getFavSig()>1){
             strategy.useTool(player, dice, row1, column1, stock,
                     posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1);
-            if(!ToolCardStrategy.getErrorBoolTool().getErrBool()){
+            if(!ToolCardStrategy.getErrorBool().getErrBool()){
                 return player.modifyFavorSig(2);
             }
         }

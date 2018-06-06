@@ -38,8 +38,8 @@ public class GrindingStone extends ToolCardStrategy {
     public void useTool(Player player, Dice dice, int turn, int a, List<Dice> stock
             , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(dice==null){
-            errorBoolTool.setErrorMessage("There's no passed dice");
-            errorBoolTool.setErrBool(true);
+            errorBool.setErrorMessage("There's no passed dice");
+            errorBool.setErrBool(true);
             return;
         }
         else
@@ -64,16 +64,16 @@ public class GrindingStone extends ToolCardStrategy {
                         dice.setValue(1);
                         break;
                     default:
-                        errorBoolTool.setErrorMessage("Invalid passed dice value");
-                        errorBoolTool.setErrBool(true);
+                        errorBool.setErrorMessage("Invalid passed dice value");
+                        errorBool.setErrBool(true);
                         return;
                 }
             }
             catch (InvalidValueException e){
                 LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class GrindingStone Tool Card", e);
             }
-        errorBoolTool.setErrorMessage(null);
-        errorBoolTool.setErrBool(false);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
     }
 
     @Override

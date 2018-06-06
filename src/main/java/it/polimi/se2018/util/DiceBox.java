@@ -42,6 +42,7 @@ public class DiceBox {
         for (int index = 0; index<box.size(); index++){
             box.get(index).throwDice();
         }
+        initDiceBox();
     }
 
     /**

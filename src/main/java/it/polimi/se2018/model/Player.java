@@ -169,12 +169,7 @@ public class Player implements Serializable {
         this.privateObj = newCard;
     }
 
-    public boolean posDice(Dice dice, int row, int column, String error){
-        try {
-            return map.posDice(dice,row,column,error);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-        return false;
+    public boolean posDice(Dice dice, int row, int column){
+        return map.posDice(dice,row,column);
     }
 }

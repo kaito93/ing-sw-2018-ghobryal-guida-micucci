@@ -3,8 +3,10 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.model.exception.notValidMatrixException;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.model.cell.*;
+import it.polimi.se2018.util.Logger;
 
 import java.io.Serializable;
+import java.util.logging.Level;
 
 /** class Map
  * contains all the method to interact with the map
@@ -16,6 +18,9 @@ public class Map implements Serializable {
     private String name;
     private int difficultyLevel;
     private Cell[][] cell;
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private static ErrorBool errorBool = new ErrorBool(null, false);
     
     /** class constructor initialize the object Map type
      * @param glassWindowName name of the matrix, refers to the corrispondent card
@@ -280,19 +285,43 @@ public class Map implements Serializable {
      * @param dice a chosen dice
      * @param row row's coordinate on the map where to position the dice
      * @param column column's coordinate on the map where to position the dice
-     * @param errorMessage an error message that indicates the cause of return false
      * @return a boolean, if the dice respects the cell restriction else false
      */
-    //da modificare
-    public boolean isCellValid(Dice dice, int row, int column, String errorMessage){
+    public boolean isCellValid(Dice dice, int row, int column){
         if(!isEmptyCell(row, column)){
-            errorMessage = "There's a dice on the same cell";
-        }
-        else if(cell[row][column] instanceof BlankCell)
+            errorBool.setErrorMessage("There's a dice on the same cell");
+            errorBool.setErrBool(true);
+            return false;
+        }else if(diceCompatibleCell(row, column, 0, null)){
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
             return true;
-        else if(cell[row][column] instanceof ValueCell)
-            return cell[row][column].getValue()==dice.getValue();
-        return cell[row][column].getColor().equalsColor(dice.getColor());
+        }
+        else if(diceCompatibleCell(row, column, dice.getValue(), null)) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+            return diceCompatibleCell(row, column, dice.getValue(), null);
+        }
+        else if(diceCompatibleCell(row, column, 0, dice.getColor())) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+            return diceCompatibleCell(row, column, 0, dice.getColor());
+        }
+        errorBool.setErrorMessage("This is not a valid cell");
+        errorBool.setErrBool(true);
+        return false;
+    }
+
+    /**
+     * verifies if the chosen dice is compatible with cell in which the dice would be positioned
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     * @param value chosen dice's value
+     * @param color chosen dice's color
+     * @return a boolean, true if the dice is compatible else false
+     */
+    public boolean diceCompatibleCell(int row, int column, int value, Color color){
+        return cell[row][column].getValue()==value && cell[row][column].getColor().equalsColor(color);
     }
 
     /**
@@ -300,31 +329,38 @@ public class Map implements Serializable {
      * @param dice a chosen dice
      * @param row row's coordinate on the map where to position the dice
      * @param column column's coordinate on the map where to position the dice
-     * @param errorMessage an error message that indicates the cause of return false
      * @return a boolean, true if the dice can be positioned else false
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
 
-    public boolean posDice(Dice dice, int row, int column, String errorMessage) throws notValidCellException {
+    public boolean posDice(Dice dice, int row, int column) {
         if(isBorderEmpty() && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))) {
-            errorMessage = "Player has to position the dice on the border for beginning";
+            errorBool.setErrorMessage("Player has to position the dice on the border for beginning");
+            errorBool.setErrBool(true);
             return false;
         }
-        else if(isCellValid(dice, row, column, errorMessage) && isBorderEmpty()
+        else if(isCellValid(dice, row, column) && isBorderEmpty()
                 && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))){
             cell[row][column].setDice(dice);
-            errorMessage= null;
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
             return true;
         }
-        else if(!isBorderEmpty() && isAdjacentDice(row, column))
-            if(isCellValid(dice, row, column, errorMessage) && !colorAlreadyExistInColumn(column, dice.getColor())
-                    && !colorAlreadyExistInRow(row, dice.getColor()) && !valueAlreadyExistInColumn(column, dice.getValue())
-                    && !valueAlreadyExistInRow(row, dice.getValue())) {
-                cell[row][column].setDice(dice);
-                errorMessage=null;
-                return true;
+        else if(!isBorderEmpty() && isAdjacentDice(row, column)) {
+            try {
+                if(isCellValid(dice, row, column) && !colorAlreadyExistInColumn(column, dice.getColor())
+                        && !colorAlreadyExistInRow(row, dice.getColor()) && !valueAlreadyExistInColumn(column, dice.getValue())
+                        && !valueAlreadyExistInRow(row, dice.getValue())) {
+                    cell[row][column].setDice(dice);
+                    errorBool.setErrorMessage(null);
+                    errorBool.setErrBool(false);
+                    return true;
+                }
+            } catch (notValidCellException e) {
+                LOGGER.log(Level.SEVERE, e.toString()+"\nposDice method in Map class", e);
             }
-         errorMessage = "Player doesn't respect the positioning rules";
+        }
+        errorBool.setErrorMessage("Player doesn't respect the positioning rules");
+        errorBool.setErrBool(true);
         return false;
     }
 
@@ -370,5 +406,13 @@ public class Map implements Serializable {
         difficultyLevel = 0;
         cell = null;
         System.gc();
+    }
+
+    /**
+     * incapsulates the error message if there is any
+     * @return an ErrorBool type that incapsulates the error message if there is any
+     */
+    public static ErrorBool getErrorBool() {
+        return errorBool;
     }
 }

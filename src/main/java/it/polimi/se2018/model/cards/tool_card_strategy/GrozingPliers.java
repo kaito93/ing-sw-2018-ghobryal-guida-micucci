@@ -42,8 +42,8 @@ public class GrozingPliers extends ToolCardStrategy {
     public void useTool(Player player, Dice dice, int value, int a, List<Dice> stock
             , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4,  List<Player> t5, int t6){
         if(value<1 || value > 6){
-            errorBoolTool.setErrorMessage("Invalid passed dice value");
-            errorBoolTool.setErrBool(true);
+            errorBool.setErrorMessage("Invalid passed dice value");
+            errorBool.setErrBool(true);
             return;
         } else if(value>1 && value < 6){
             firstValue = value + 1;
@@ -55,8 +55,8 @@ public class GrozingPliers extends ToolCardStrategy {
             firstValue = 0;
             secondValue = value - 1;
         }
-        errorBoolTool.setErrorMessage(null);
-        errorBoolTool.setErrBool(false);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
     }
 
     /**

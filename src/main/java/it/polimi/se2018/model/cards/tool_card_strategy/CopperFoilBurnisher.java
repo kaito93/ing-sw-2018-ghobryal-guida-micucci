@@ -43,21 +43,21 @@ public class CopperFoilBurnisher extends ToolCardStrategy {
                         || player.getMap().colorAlreadyExistInColumn(column, dice.getColor())
                         || (player.getMap().getCell(row, column).getColor() != null
                         && player.getMap().getCell(row, column).getColor().equalsColor(dice.getColor()))) {
-                    errorBoolTool.setErrorMessage("Player doesn't respect color restrictions");
-                    errorBoolTool.setErrBool(true);
+                    errorBool.setErrorMessage("Player doesn't respect color restrictions");
+                    errorBool.setErrBool(true);
                     return;
                 }
                 player.getMap().getCell(row, column).setDice(dice);
                 player.getMap().getCell(i, j).setDice(null);
-                errorBoolTool.setErrorMessage(null);
-                errorBoolTool.setErrBool(false);
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
                 return;
             }
         } catch (notValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class CopperFoilBurnisher Tool Card", e);
         }
-        errorBoolTool.setErrorMessage("The map doesn't contain the chosen dice");
-        errorBoolTool.setErrBool(true);
+        errorBool.setErrorMessage("The map doesn't contain the chosen dice");
+        errorBool.setErrBool(true);
     }
 
     @Override

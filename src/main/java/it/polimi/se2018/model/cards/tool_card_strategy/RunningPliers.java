@@ -33,23 +33,18 @@ public class RunningPliers extends ToolCardStrategy {
      */
     public void useTool(Player playerCurr, Dice dice, int turn, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
-        boolean a = false;
-        String errorMessage="";
+        boolean a;
         if(turns.indexOf(playerCurr)==0 && stock.contains(dice) && turn==1){
-            try {
-                a = playerCurr.getMap().posDice(dice, row, column, errorMessage);
-            } catch (notValidCellException e) {
-                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in RunningPliers tool card", e);
-            }
+            a = playerCurr.getMap().posDice(dice, row, column);
             turns.remove(0);
             if(a) {
                 stock.remove(dice);
-                errorBoolTool.setErrorMessage(null);
-                errorBoolTool.setErrBool(false);
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
             }
             else {
-                errorBoolTool.setErrorMessage(errorMessage);
-                errorBoolTool.setErrBool(true);
+                errorBool.setErrorMessage("posDice method in RunningPliers tool card");
+                errorBool.setErrBool(true);
             }
         }
     }

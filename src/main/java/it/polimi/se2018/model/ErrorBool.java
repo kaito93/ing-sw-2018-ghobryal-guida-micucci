@@ -1,9 +1,9 @@
-package it.polimi.se2018.model.cards.tool_card_strategy;
+package it.polimi.se2018.model;
 
 /**
  * @author Anton Ghobryal
  */
-public class ErrorBoolTool {
+public class ErrorBool {
     private String errorMessage;
     private Boolean errBool;
 
@@ -12,7 +12,7 @@ public class ErrorBoolTool {
      * @param errorMessage an error message of where and why there is an error in a certain tool card strategy
      * @param errBool a boolean, if there is an error or not
      */
-    public ErrorBoolTool(String errorMessage, Boolean errBool){
+    public ErrorBool(String errorMessage, Boolean errBool){
         setErrorMessage(errorMessage);
         setErrBool(errBool);
     }

@@ -35,20 +35,15 @@ public class FluxBrush extends ToolCardStrategy {
      */
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
-        String errorMessage = "";
         dice.throwDice();
-        try {
-            if(player.getMap().posDice(dice, row, column, errorMessage)) {
-                stock.remove(dice);
-                errorBoolTool.setErrorMessage(null);
-                errorBoolTool.setErrBool(false);
-                return;
-            }
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class FluxBrush Tool Card", e);
+        if(player.getMap().posDice(dice, row, column)) {
+            stock.remove(dice);
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+            return;
         }
-        errorBoolTool.setErrorMessage("PosDice fail in FluxBrush Tool Card");
-        errorBoolTool.setErrBool(true);
+        errorBool.setErrorMessage("PosDice fail in FluxBrush Tool Card");
+        errorBool.setErrBool(true);
     }
 
     @Override

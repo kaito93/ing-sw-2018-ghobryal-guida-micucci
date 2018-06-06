@@ -37,12 +37,12 @@ public class GlazingHammer extends ToolCardStrategy {
             for (Dice dice : stock)
                 dice.throwDice();
         else{
-            errorBoolTool.setErrorMessage("Player doesn't respect color restrictions");
-            errorBoolTool.setErrBool(true);
+            errorBool.setErrorMessage("Player doesn't respect color restrictions");
+            errorBool.setErrBool(true);
             return;
         }
-        errorBoolTool.setErrorMessage(null);
-        errorBoolTool.setErrBool(false);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
     }
 
     @Override

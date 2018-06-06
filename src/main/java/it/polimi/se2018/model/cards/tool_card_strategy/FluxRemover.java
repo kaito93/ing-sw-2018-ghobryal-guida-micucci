@@ -46,8 +46,8 @@ public class FluxRemover extends ToolCardStrategy {
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class FluxRemover Tool Card", e);
         }
-        errorBoolTool.setErrorMessage(null);
-        errorBoolTool.setErrBool(false);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
     }
 
     @Override

@@ -39,28 +39,27 @@ public class Lathekin extends ToolCardStrategy {
         int column4=0;
         boolean a;
         boolean b;
-        String errorMessage="";
         try {
             if(mapContainsDice(player.getMap(), dicesToMove.get(0), row3, column3)
                 && mapContainsDice(player.getMap(), dicesToMove.get(1), row4, column4)
                     && dicesToMove.size()==2){
-                a = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
+                a = player.getMap().posDice(dicesToMove.get(0), row1, column1);
                 if (!a) {
-                    errorBoolTool.setErrorMessage(errorMessage+"\nfirst dice not valid");
+                    errorBool.setErrorMessage("first dice not valid");
                     return;
                 }
-                player.getMap().posDice(null, row3, column3, errorMessage);
-                b = player.getMap().posDice(dicesToMove.get(1), row2, column2, errorMessage);
+                player.getMap().posDice(null, row3, column3);
+                b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
                 if (!b) {
-                    player.getMap().posDice(dicesToMove.get(0), row3, column3, errorMessage);
-                    player.getMap().posDice(null, row1, column1, errorMessage);
-                    errorBoolTool.setErrorMessage(errorMessage+"\nsecond dice not valid");
+                    player.getMap().posDice(dicesToMove.get(0), row3, column3);
+                    player.getMap().posDice(null, row1, column1);
+                    errorBool.setErrorMessage("second dice not valid");
                     return;
                 }
-                player.getMap().posDice(null, row4, column4, errorMessage);
+                player.getMap().posDice(null, row4, column4);
             } else {
-                errorBoolTool.setErrorMessage("Map may not contains a passed dice");
-                errorBoolTool.setErrBool(true);
+                errorBool.setErrorMessage("Map may not contains a passed dice");
+                errorBool.setErrBool(true);
             }
         } catch (notValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in Lathekin tool card", e);

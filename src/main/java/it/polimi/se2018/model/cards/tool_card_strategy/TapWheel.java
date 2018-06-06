@@ -36,17 +36,16 @@ public class TapWheel extends ToolCardStrategy {
         int f=0;
         int g=0;
         boolean d;
-        String errorMessage = "";
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
             try {
                 if (dicesToMove.size() == 1) {
                     if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor()) && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)) {
-                        d = player.getMap().posDice(dicesToMove.get(0), row1, column1, errorMessage);
+                        d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
                         if (d)
-                            player.getMap().posDice(null, b, c, errorMessage);
+                            player.getMap().posDice(null, b, c);
                         else {
-                            errorBoolTool.setErrorMessage(errorMessage);
-                            errorBoolTool.setErrBool(true);
+                            errorBool.setErrorMessage("posDice method in TapWheel tool card");
+                            errorBool.setErrBool(true);
                             return;
                         }
                     }
@@ -63,8 +62,8 @@ public class TapWheel extends ToolCardStrategy {
                 LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in TapWheel tool card", e);
             }
         }
-        errorBoolTool.setErrorMessage("the round scheme doesn't contain the chosen dice from the round scheme");
-        errorBoolTool.setErrBool(true);
+        errorBool.setErrorMessage("the round scheme doesn't contain the chosen dice from the round scheme");
+        errorBool.setErrBool(true);
     }
 
     @Override

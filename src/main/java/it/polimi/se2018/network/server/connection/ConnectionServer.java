@@ -1,7 +1,6 @@
 package it.polimi.se2018.network.server.connection;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
