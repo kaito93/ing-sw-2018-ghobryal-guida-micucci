@@ -321,7 +321,7 @@ public class Map implements Serializable {
      * @return a boolean, true if the dice is compatible else false
      */
     public boolean diceCompatibleCell(int row, int column, int value, Color color){
-        return cell[row][column].getValue()==value && cell[row][column].getColor().equalsColor(color);
+        return cell[row][column].getValue()==value && color.equalsColor(cell[row][column].getColor());
     }
 
     /**
