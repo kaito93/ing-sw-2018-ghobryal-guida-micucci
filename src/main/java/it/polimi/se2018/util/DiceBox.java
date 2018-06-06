@@ -63,7 +63,7 @@ public class DiceBox {
     public void eraseDices(int index){
         int i=0;
         while (i<index){
-            box.remove(i);
+            box.remove(0);
             i++;
         }
 

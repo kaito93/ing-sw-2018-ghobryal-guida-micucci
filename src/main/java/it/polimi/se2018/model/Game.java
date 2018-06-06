@@ -78,7 +78,7 @@ public class Game {
 
         }
 
-        maps = loadMaps();
+        setMaps();
 
 
     }
@@ -229,7 +229,7 @@ public class Game {
     /**
      * method that setup an array list of all maps from the file Json
      */
-    public void setMaps() {
+    private void setMaps() {
         maps = loadMaps();
     }
 
