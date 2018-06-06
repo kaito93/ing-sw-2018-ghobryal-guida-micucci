@@ -236,7 +236,7 @@ public class Controller implements Observer<MessageVC> {
 
     synchronized public void setPos(Dice dice, int row, int column) {
         String error = "ciao";
-        if (!this.playersInRound.get(turno).posDice(dice, row, column, error)) {
+        if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
             view.createMessageError(error,players.indexOf(playersInRound.get(turno)));
             // ERRORE... BISOGNA INVIARE IL MESSAGGIO DI ERRORE AL CLIENT
         }
