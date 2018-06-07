@@ -237,10 +237,10 @@ public class Controller implements Observer<MessageVC> {
     synchronized public void setPos(Dice dice, int row, int column) {
         String error = "ciao";
         if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
-            view.createMessageError(error,players.indexOf(playersInRound.get(turno)));
-            // ERRORE... BISOGNA INVIARE IL MESSAGGIO DI ERRORE AL CLIENT
+            manageError(error);
         }
         else {
+            game.removeDiceStock(dice);
             this.playersInRound.get(turno).setSetDice(A);
             notifyAll();
         }
@@ -399,7 +399,7 @@ public class Controller implements Observer<MessageVC> {
     /**
      * method that simulate a fake move from the player that have been disconnected and unlock the waiter
      */
-    public void fakeMove() {
+    synchronized public void fakeMove() {
         setSetDice(true);
         setUseTools(true);
         move++;
@@ -416,5 +416,9 @@ public class Controller implements Observer<MessageVC> {
             return 1;
         else
             return 2;
+    }
+
+    public void manageError(String error){
+        view.createMessageError(error,players.indexOf(playersInRound.get(turno)));
     }
 }

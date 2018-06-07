@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 public class RequestReconnect implements MessageVC{
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private static final long serialVersionUID = 2349636460774404003L;
 
     @Override
     public void accept(Controller controller) {

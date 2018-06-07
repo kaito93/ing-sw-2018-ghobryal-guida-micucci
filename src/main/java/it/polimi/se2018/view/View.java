@@ -9,6 +9,8 @@ import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.util.Logger;
+import javax.swing.*;
+import java.awt.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +21,6 @@ public abstract class View {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     GameView gameStatus;
     ConnectionClient client;
-
 
     public View(){
         gameStatus= new GameView();
@@ -88,5 +89,12 @@ public abstract class View {
     }
 
     public abstract void addError(String Message);
+
+    public abstract ArrayList<Object> manageCCEFR();
+    public abstract ArrayList<Object>  managefluxRemove();
+    public abstract Dice manageGG();
+    public abstract ArrayList<Object>  manageLathekin();
+    public abstract ArrayList<Dice>  manageLens();
+    public abstract ArrayList<Object>  manageTap();
 
 }

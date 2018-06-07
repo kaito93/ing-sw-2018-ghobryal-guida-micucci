@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Dice;
 
 public class MessagePosDice implements MessageVC {
 
+    private static final long serialVersionUID = 6624068114762037735L;
     private Dice diceChoosed;
     private int row;
     private int column;

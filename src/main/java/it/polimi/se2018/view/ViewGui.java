@@ -1,5 +1,6 @@
 package it.polimi.se2018.view;
 
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.cell.Cell;
 
@@ -35,5 +36,41 @@ public class ViewGui extends View {
     @Override
     public void addError(String Message) {
 
+    }
+
+    @Override
+    public ArrayList<Object> manageCCEFR() {
+        // Dice, Row, Column
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> managefluxRemove() {
+        //Dice dice, int value
+        return null;
+    }
+
+    @Override
+    public Dice manageGG() {
+        //Dice
+        return null;
+    }
+
+
+    public ArrayList<Object> manageLathekin() {
+        //int row1,int column1, int row2, int column2, ArrayList<Dice> dices
+        return null;
+    }
+
+    @Override
+    public ArrayList<Dice> manageLens() {
+        //Dice dice1,Dice dice2)
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> manageTap() {
+        //Dice diceRound, Dice dice1, Dice dice2, int row1, int row2, int column1, int column2
+        return null;
     }
 }

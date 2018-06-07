@@ -37,8 +37,6 @@ public class DeckOfPrivateCards {
         }
         Type listPrivCards = new TypeToken<ArrayList<PrivateObjectiveCard>>(){}.getType();
         privCards = gson.fromJson(br, listPrivCards);
-        System.out.println(privCards.get(1).getTitle());
-        System.out.println(privCards.get(3).getTitle());
     }
 
     /**

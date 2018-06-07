@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class VirtualView extends Observable<MessageVC> implements Observer<MessageMV> {
+public class VirtualView extends Observable<MessageVC> {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
@@ -30,13 +30,6 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
     ArrayList <ConnectionServer> connectionsSuspend = new ArrayList<>();
     ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
 
-
-
-
-
-    public VirtualView (){
-
-    }
 
     public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect){
         for (int i=0; i<connect.size(); i++){ // per ogni connessione creata
@@ -161,10 +154,6 @@ public class VirtualView extends Observable<MessageVC> implements Observer<Messa
         }
     }
 
-    @Override
-    public void update(MessageMV event) {
-
-    }
 
     // metodo che cerca l'username nelle connessioni
     public int searchUser(String user){

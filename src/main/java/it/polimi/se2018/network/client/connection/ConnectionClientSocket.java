@@ -3,6 +3,7 @@ package it.polimi.se2018.network.client.connection;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.network.client.message.*;
+import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.view.View;
@@ -67,7 +68,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
             update(new RequestConnection(username)); //chiamo il metodo per inviare la richiesta
             listener = new Listen(); // creo un oggetto ascoltatore
-            listener.start(); // metto il client ad ascoltare i messaggi in arrivo dal server
+            listener.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
 
 
 
@@ -83,20 +84,20 @@ public class ConnectionClientSocket extends ConnectionClient {
     /**
      * internal class that listen for the request from server
      */
-    class Listen extends Thread{
+    class Listen{
 
         /**
          * method that listen the request for the whole game
          */
-        @Override
-        public void run() {
+        synchronized public void run() {
 
-            Message message; // crea una variabile per contenere il messaggio ricevuto
+            //Message message; // crea una variabile per contenere il messaggio ricevuto
             boolean condition=true;
             while(condition){
 
                 try{
-                     message= (Message)input.readObject(); // leggi il messaggio
+                    Message message = new Message(2,"ciao");
+                    message= (Message)input.readObject(); // leggi il messaggio
                     if (message.getType()==CVEVENT){// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV)message.getEvent(); // casta il messaggio
                         messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
@@ -107,7 +108,7 @@ public class ConnectionClientSocket extends ConnectionClient {
                         MessageSystem mess = (MessageSystem) message.getEvent();
                         mess.accept(ConnectionClientSocket.this);
                     }
-                    if (message.getType()==Message.MVEVENT){ // se il tipo di messaggio è di Sistema
+                    if (message.getType()==Message.MVEVENT){ // se il tipo di messaggio viene dal model
                         MessageMV mess = (MessageMV) message.getEvent();
                         mess.accept(view);
                     }
@@ -131,7 +132,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      * method that send a VCMessage to server
      * @param message the message that has sent
      */
-    public void update (MessageVC message){
+    synchronized public void update (MessageVC message){
         try {
             this.output.writeObject(message);
             this.output.flush();
@@ -151,10 +152,9 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     /**
-     * abstract method that manage the request for choose a map
+     * method that manage the request for choose a map
      * @param message message received by server
      */
-    @Override
     public void visit(MessageChooseMap message) {
         this.username=message.getUsername(); // setto il giocatore proprietario di questa connessione
         ArrayList<Cell[][]> cells = new ArrayList<>();
@@ -164,20 +164,26 @@ public class ConnectionClientSocket extends ConnectionClient {
         int i= cells.indexOf(mapPlayer);
         update(new ResponseMap(message.getMaps().get(i),username)); // invio la risposta al server
     }
-
-    @Override
+    /**
+     * abstract method that manage the update of public news
+     * @param message message received by server
+     */
     public void visit(MessagePublicInformation message) {
         view.setPublicInformation(message.getTitlePublicObjective(),message.getDescriptionPublicObjective(),
                 message.getTitleTools(),message.getDescriptionTools());
     }
-
-    @Override
+    /**
+     * abstract method that manage the update of private news
+     * @param message message received by server
+     */
     public void visit(MessageStart message) {
         view.setPrivateInformation(message.getTitlePrivateCard(),message.getDescriptionPrivateCard());
     }
+    /**
+     * abstract method that manage the update of turn's news.
+     * @param message message received by server
+     */
 
-
-    @Override
     public void visit(MessageYourTurn message) {
         view.updateFavor(message.getFavor(),message.isPosDice(),message.isUseTools());
         view.myTurn(message.isPosDice(),message.isUseTools());
@@ -198,8 +204,61 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
-    @Override
     public void visit(MessageError message) {
         view.manageError(message.getErrorMessage());
+    }
+
+    public void visit(MessageCopperFoilBurnisher message) {
+        String title = message.getTitle();
+        ArrayList<Object> obj= view.manageCCEFR();
+        message.setDice((Dice)obj.get(0));
+        message.setRowMit((int)obj.get(1));
+        message.setColumnMit((int)obj.get(2));
+    }
+
+    public void visit(MessageCorkBackedStraightedge message) {
+
+    }
+
+    public void visit(MessageEglomiseBrush message) {
+
+    }
+
+    public void visit(MessageFluxBrush message) {
+
+    }
+
+    public void visit(MessageFluxRemover message) {
+
+    }
+
+    public void visit(MessageGrindingStone message) {
+
+    }
+
+    public void visit(MessageGrozingPliers message) {
+
+    }
+
+    public void visit(MessageLathekin message) {
+
+    }
+
+    public void visit(MessageLensCutter message) {
+
+    }
+
+    public void visit(MessageRunningPliers message) {
+
+    }
+
+    public void visit(MessageTapWheel message) {
+
+    }
+
+    @Override
+    public void sendPassMove() {
+        MessagePassTurn message = new MessagePassTurn();
+        update(message);
     }
 }
