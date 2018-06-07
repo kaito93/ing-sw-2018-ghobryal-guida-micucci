@@ -11,6 +11,9 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 
+/**
+ * class used to deserialize the Server information
+ */
 public class ServerDeserialize {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
@@ -20,6 +23,11 @@ public class ServerDeserialize {
     BufferedReader br;
     ServerStructure ss;
 
+    /**
+     * class constructor: return an object inizialized to deserialize the json file given by the path
+     * @throws FileNotFoundException if the file path name is not correct
+     * @param path string that refer to the json file
+     */
     public ServerDeserialize(String path){
         gson = new Gson();
         file = new File(path);
@@ -30,6 +38,10 @@ public class ServerDeserialize {
         }
     }
 
+    /**
+     * method that make the deserializing of the json file with the servers information.
+     * it put it in the ss data structure
+     */
     public void Deserializing(){
         Type server = new TypeToken<ServerStructure>(){}.getType();
         ss = gson.fromJson(br, server);

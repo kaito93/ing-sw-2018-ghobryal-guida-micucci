@@ -9,6 +9,10 @@ import it.polimi.se2018.util.jsonTransiction;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * class that deserialize the public cards dinamically building the type of cards
+ * extends the strategy cards deserializer class
+ */
 public class PublicCardDeserializer extends StrategyCardDeserializer {
 
     private ArrayList<PublicCardsTransfer> publCard;
@@ -24,6 +28,11 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
     private ShadeVarietyStrategyBuilder svsBuilder;
     private ArrayList<PublicObjectiveCard> publicObjectivetransfer;
 
+    /**
+     * class constructor that inizialize the buffered reader for the reading of the
+     * json file contain the public cards
+     * @param pathname of the file that has to be deserialized
+     */
     public PublicCardDeserializer(String pathname){
         super(pathname);
         cdsBuilder = new ColorDiagonalsStrategyBuilder();
@@ -40,17 +49,28 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
     }
 
     @Override
+    /**
+     * class method that deserialize the json file and put the data about it in
+     * publCard object in state of string
+     */
     public void Deserializing() {
         Type trans = new TypeToken<ArrayList<PublicCardsTransfer>>(){}.getType();
         publCard = this.getGson().fromJson(this.getBr(), trans);
     }
 
     @Override
+    /**
+     * method use to get a cell of the arraylist with the info about the public card in form of string
+     * @return a cell of the arraylist with some strings and integer
+     */
     public PublicCardsTransfer getSingleTransiction(int index) {
         return this.publCard.get(index);
     }
 
     @Override
+    /**
+     * method that is use to set all the observers of the class
+     */
     public void SetUpObserver() {
         this.addObserver(cdsBuilder);
         this.addObserver(cvsBuilder);
@@ -65,6 +85,10 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
     }
 
 
+    /**
+     * method that take all the cards objects created by the observers and
+     * put them in an arraylist of cards
+     */
     public void SetUpDeck(){
         cdsBuilder.setDeck(this.publicObjectivetransfer);
         cvsBuilder.setDeck(this.publicObjectivetransfer);
@@ -79,10 +103,18 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
         svsBuilder.setDeck(this.publicObjectivetransfer);
     }
 
+    /**
+     * method that is use to get the arraylist with all the strings about all the cards
+     * @return an arraylist with, in the cell, all the info about the cards, saved like strings
+     */
     public ArrayList<PublicObjectiveCard> getPublicObjectivetransfer() {
         return publicObjectivetransfer;
     }
 
+    /**
+     * method that make the deserialize of the file json, by the invocation of all the methods
+     * used to make it
+     */
     public void TotalDeserializing(){
         this.Deserializing();
         this.SetUpObserver();
@@ -91,11 +123,20 @@ public class PublicCardDeserializer extends StrategyCardDeserializer {
         this.SetUpDeck();
     }
 
+    /**
+     * method that notify the availibility of a cell of the arraylist of cards by string, to recognise it
+     * like a card object
+     * @param publCardsingle a cell of the arraylist of cards saved by strings
+     */
     public void StartBuilding(PublicCardsTransfer publCardsingle){
         setChanged();
         notifyObservers(publCardsingle);
     }
 
+    /**
+     * method that is used to get the arraylist of all cards saved by strings
+     * @return an arraylist of public cards transfer data structure
+     */
     public ArrayList<PublicCardsTransfer> getPublCard() {
         return publCard;
     }

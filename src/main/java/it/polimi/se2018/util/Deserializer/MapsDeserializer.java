@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.logging.Level;
 
+/**
+ * class used to deserialize the maps from json file
+ * extends observable class for observer pattern
+ */
 public class MapsDeserializer extends Observable {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
-
-
     private Gson gson;
     private File json;
     private BufferedReader br;
@@ -33,8 +35,13 @@ public class MapsDeserializer extends Observable {
     private entireMap transiction;
     private ArrayList<Cell> transCell;
 
-    public MapsDeserializer() {
-        json = new File("src/main/java/it/polimi/se2018/JsonFiles/Maps.json");
+    /**
+     * class constructor: inizialize all the variable and the buffered reader for the json file
+     * @param pathname of the file that has to be deserialize
+     * @throws FileNotFoundException if the path is wrong
+     */
+    public MapsDeserializer(String pathname) {
+        json = new File(pathname);
         gson = new Gson();
         try {
             br = new BufferedReader(new FileReader(json));
@@ -50,32 +57,56 @@ public class MapsDeserializer extends Observable {
         transCell = new ArrayList<>();
     }
 
+    /**
+     * class used to make the deserializing of the json file in a data structure
+     * that contains all the string with the information about Glasswindow
+     */
     public void Deserializing() {
         Type listJson = new TypeToken<ArrayList<TransitionForMaps>>() {
         }.getType();
         mapsJsonJava = gson.fromJson(br, listJson);
     }
 
+    /**
+     * method that set all the observer class to build the Cell object of the
+     * GlassWindow
+     */
     public void SetUpObservers() {
         this.addObserver(blank);
         this.addObserver(value);
         this.addObserver(coloured);
     }
 
+    /**
+     * method that remove all the observers of this class
+     */
     public void removeObservers() {
         this.removeObservers();
     }
 
+    /**
+     * method that return a cell of the arraylist contain all the info about one map
+     * in form of string
+     * @param index of the cell of the arraylist, which is the index of the map
+     * @return a cell of the arraylist with all the string with info about map
+     */
     public TransitionForMaps ExtractTransition(int index) {
         return this.mapsJsonJava.get(index);
     }
 
+    /**
+     * method that notify to all observer class to build the cell of the maps
+     * @param element the cell of arraylist referred to the map to build
+     */
     public void StartMapBuilding(TransitionForMaps element) {
         setChanged();
         notifyObservers(element);
     }
 
-    public void SetUpArraylistMatrix() {        //parametro che indica la mappa di riferimento
+    /**
+     * method that takes all the maps with the Cell Arraylist and build the map object with the matrix
+     */
+    public void SetUpArraylistMatrix() {
         int indexOfCell;
         boolean find=false;
         ArrayList<Cell> temp = new ArrayList<>();
@@ -102,10 +133,18 @@ public class MapsDeserializer extends Observable {
 
     }
 
+    /**
+     * getter method to obtain the arraylist of entire map
+     * @return an arraylist of entire map, that are all maps with an arraylist of cell
+     */
     public ArrayList<entireMap> getDefinitive() {
         return definitive;
     }
 
+    /**
+     * method that make a total deserializing of all the maps in json files
+     * @return an arraylist with all the maps
+     */
     public ArrayList<Map> totalDeserialize() {
         ArrayList<Map> definitiveMap = new ArrayList<>();
         this.Deserializing();
@@ -138,6 +177,11 @@ public class MapsDeserializer extends Observable {
     }
 
 
+    /**
+     * method that make a matrix of cell from the arraylist of cell
+     * @param numberOfMap of which has to make matrix
+     * @param matrix of cell that has to made
+     */
     public void setUpMatrix(int numberOfMap, Cell[][] matrix) {
         int indexOfMatrix;
         int sizeOfColumn = matrix[0].length;
@@ -157,6 +201,11 @@ public class MapsDeserializer extends Observable {
         }
     }
 
+    /**
+     * method that take all the object created by the observer and create the arraylist of
+     * ordered cell
+     * @return an arraylist of cell
+     */
     public ArrayList<Cell> mergeArraylist() {
         ArrayList<Cell> mergiato = new ArrayList<>();
 
