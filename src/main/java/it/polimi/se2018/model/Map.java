@@ -40,7 +40,6 @@ public class Map implements Serializable {
     /** method that return the difficulty level of the match
      * @return an integer between 3 and 6
      */
-    //tested
     public int getDifficultyLevel(){
         return difficultyLevel;
     }
@@ -48,7 +47,6 @@ public class Map implements Serializable {
     /** method that return the number of column of the matrix that represent the glasswindow
      * @return an integer between 0 and n
      */
-    //tested
     public int numColumn(){
         return cell[0].length;
     }
@@ -56,7 +54,6 @@ public class Map implements Serializable {
     /** method that return the number of row in the matrix that represent the glasswindow
      * @return an integer between 0 and n
      */
-    //tested
     public int numRow(){
         return cell.length;
     }
@@ -67,7 +64,6 @@ public class Map implements Serializable {
      * @return an object Cell
      * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
      */
-    //tested
     public Cell getCell(int row, int column) throws notValidCellException{
         if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1))
             throw new notValidCellException();
@@ -77,7 +73,6 @@ public class Map implements Serializable {
     /** method that return the name of the map (that represent the glasswindow)
      * @return a string that represent the name of the glasswindow
      */
-    //tested
     public String getName(){
         return name;
     }
@@ -88,14 +83,13 @@ public class Map implements Serializable {
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if value already exist in the column of matrix, else false
      */
-    //tested
     public boolean valueAlreadyExistInColumn(int column, int value) throws notValidCellException{
         int index;
         int counter=0;
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(index, column) && getCell(index, column).getDice().getValue() == value)
                 counter++;
-        return counter>1;
+        return counter>0;
     }
 
     /** method that verify if a color exist already in a column of the matrix
@@ -110,7 +104,7 @@ public class Map implements Serializable {
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(index, column) && getCell(index, column).getDice().getColor().equalsColor(color))
                 counter++;
-        return counter>1;
+        return counter>0;
     }
     
     /** method that verify if a number exist already in a row of the matrix
@@ -125,7 +119,7 @@ public class Map implements Serializable {
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(row, index) && getCell(row, index).getDice().getValue() == value)
                 counter++;
-        return counter>1;
+        return counter>0;
     }
 
     /** method that verify if a color exist already in a row of the matrix
@@ -140,21 +134,27 @@ public class Map implements Serializable {
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(row, index) && getCell(row, index).getDice().getColor().equalsColor(color))
                 counter++;
-        return counter>1;
+        return counter>0;
     }
 
     /**
      * controls if the borders on the map are empty or not
      * @return a boolean, if the borders are empty or not
      */
-    public boolean isBorderEmpty(){ //first positioning rule
+    private boolean isBorderEmpty(){ //first positioning rule
+        boolean control=false;
         for(int i=0; i<numColumn(); i++) //controls up & down borders
-            if(!isEmptyCell(0, i) || !isEmptyCell(numRow()-1, i))
-                return false;
-        for(int i=0; i<numRow(); i++) //controls left & right borders
-            if(!isEmptyCell(i, 0) || !isEmptyCell(i, numColumn()-1))
-                return false;
-        return true;
+            if(!isEmptyCell(0, i) || !isEmptyCell(numRow()-1, i)){
+                control=true;
+                break;
+            }
+        if(!control)
+            for(int i=0; i<numRow(); i++) //controls left & right borders
+                if(!isEmptyCell(i, 0) || !isEmptyCell(i, numColumn()-1)) {
+                    control=true;
+                    break;
+                }
+        return !control;
     }
 
     /**
@@ -163,24 +163,59 @@ public class Map implements Serializable {
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, true if there's  an adjacent dice else false
      */
-
     public boolean isAdjacentDice(int row, int column){
+        boolean a = upcontrol(row, column);
+        boolean b = downcontrol(row, column);
+        boolean c = centrecontrol(row, column);
+        return a || b || c;
+    }
+
+    /**
+     * controls the high part of the map if there's an Adjacent Dice
+     * @helper a helper method for isAdjacentDice method
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     * @return a boolean, true if there's  an adjacent dice else false
+     */
+    private boolean upcontrol(int row, int column){
         if(row < 1 && column < 1)
             return upleftDice(row, column);
-        else if(row > numRow() - 2 && column < 1)
-            return downleftDice(row, column);
-        else if(row > 0 && row <= numRow() - 2 && column < 1)
-            return centreleftDice(row, column);
         else if(row < 1 && column > numColumn() - 2)
             return uprightDice(row, column);
-        else if(row > numRow() - 2 && column > numColumn() - 2)
-            return downrightDice(row, column);
-        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2)
-            return centrerightDice(row, column);
         else if(row < 1 && column > 0 && column <= numColumn() - 2)
             return upcentreDice(row, column);
+        return false;
+    }
+
+    /**
+     * controls the low part of the map if there's an Adjacent Dice
+     * @helper a helper method for isAdjacentDice method
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     * @return a boolean, true if there's  an adjacent dice else false
+     */
+    private boolean downcontrol(int row, int column){
+        if(row > numRow() - 2 && column < 1)
+            return downleftDice(row, column);
+        else if(row > numRow() - 2 && column > numColumn() - 2)
+            return downrightDice(row, column);
         else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2)
             return downcentreDice(row, column);
+        return false;
+    }
+
+    /**
+     * controls the centre part of the map if there's an Adjacent Dice
+     * @helper a helper method for isAdjacentDice method
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     * @return a boolean, true if there's  an adjacent dice else false
+     */
+    private boolean centrecontrol(int row, int column){
+        if(row > 0 && row <= numRow() - 2 && column < 1)
+            return centreleftDice(row, column);
+        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2)
+            return centrerightDice(row, column);
         else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1)
             return centreDice(row, column);
         return false;
@@ -297,15 +332,15 @@ public class Map implements Serializable {
             errorBool.setErrorMessage("There's a dice on the same cell");
             errorBool.setErrBool(true);
             return false;
-        }else if(diceCompatibleCell(row, column, 0, null)){
+        }else if(diceCompatibleCell(row, column, 0, Color.NULL)){
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
             return true;
         }
-        else if(diceCompatibleCell(row, column, dice.getValue(), null)) {
+        else if(diceCompatibleCell(row, column, dice.getValue(), Color.NULL)) {
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
-            return diceCompatibleCell(row, column, dice.getValue(), null);
+            return diceCompatibleCell(row, column, dice.getValue(), Color.NULL);
         }
         else if(diceCompatibleCell(row, column, 0, dice.getColor())) {
             errorBool.setErrorMessage(null);
@@ -326,16 +361,13 @@ public class Map implements Serializable {
      * @return a boolean, true if the dice is compatible else false
      */
     private boolean diceCompatibleCell(int row, int column, int value, Color color){
-        if(cell[row][column].getValue()==0 && cell[row][column].getColor()==null)
-            return true;
-        else if(cell[row][column].getValue()!=0)
+        if(cell[row][column].getValue()!=0)
             return cell[row][column].getValue()==value;
-        else if(cell[row][column].getColor()!=null)
-            try {
-                return color.equalsColor(cell[row][column].getColor());
-            }catch (NullPointerException e){
-                return true;
-            }
+        else if(cell[row][column].getValue()==0 && cell[row][column].getColor().equalsColor(Color.NULL))
+            return true;
+        else if(!cell[row][column].getColor().equalsColor(Color.NULL)) {
+            return color.equalsColor(cell[row][column].getColor());
+        }
         return false;
     }
 
@@ -346,7 +378,6 @@ public class Map implements Serializable {
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, true if the dice can be positioned else false
      */
-
     public boolean posDice(Dice dice, int row, int column) {
         if(isBorderEmpty() && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))) {
             errorBool.setErrorMessage("Player has to position the dice on the border for beginning");
@@ -372,6 +403,7 @@ public class Map implements Serializable {
                 }
             } catch (notValidCellException e) {
                 LOGGER.log(Level.SEVERE, e.toString()+"\nposDice method in Map class", e);
+                return false;
             }
         }
         errorBool.setErrorMessage("Player doesn't respect the positioning rules");
@@ -385,16 +417,18 @@ public class Map implements Serializable {
      * @param column column's coordinate on the map
      * @return a boolean, true if there's no dice positioned on a chosen cell
      */
-
     public boolean isEmptyCell(int row, int column){
-        return cell[row][column].getDice()==null;
+        try {
+            return cell[row][column].getDice() == null;
+        }catch (NullPointerException e){
+            return true;
+        }
     }
 
     /**
      * calculates the number of empty cells
      * @return an integer with the number of empty cells
      */
-
     public int emptyCells(){
         int counter = 0;
         for(int i=0; i<numRow(); i++)
@@ -407,7 +441,7 @@ public class Map implements Serializable {
     /**
      * @return a matrix of cells
      */
-    public Cell[][] getCell() {
+    public Cell[][] getCells() {
         return cell;
     }
 

@@ -128,7 +128,7 @@ public class MapsDeserializer extends Observable {
         for (int i = 0; i < definitive.size(); i++) {
             try {
                 Map nmap = new Map(definitive.get(i).getTitle(), definitive.get(i).getLevel(), 4, 5);
-                setUpMatrix(i, nmap.getCell());
+                setUpMatrix(i, nmap.getCells());
                 definitiveMap.add(nmap);
             } catch (notValidMatrixException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);

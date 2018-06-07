@@ -42,7 +42,7 @@ public class MessageUpdate implements MessageMV {
     }
 
     public void addMaps(Map maps) {
-        this.cells.add(maps.getCell());
+        this.cells.add(maps.getCells());
     }
 
     public void addUsers(String user) {
@@ -84,6 +84,6 @@ public class MessageUpdate implements MessageMV {
 
     public void setCells(ArrayList<Map> maps) {
         for (int i=0; i<maps.size();i++)
-            cells.add(maps.get(i).getCell());
+            cells.add(maps.get(i).getCells());
     }
 }

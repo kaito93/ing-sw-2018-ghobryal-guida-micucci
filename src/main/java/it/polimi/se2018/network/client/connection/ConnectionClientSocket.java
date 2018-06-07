@@ -159,7 +159,7 @@ public class ConnectionClientSocket extends ConnectionClient {
         this.username=message.getUsername(); // setto il giocatore proprietario di questa connessione
         ArrayList<Cell[][]> cells = new ArrayList<>();
         for (int i=0; i<message.getMaps().size();i++)
-            cells.add(message.getMaps().get(i).getCell());
+            cells.add(message.getMaps().get(i).getCells());
         Cell[][] mapPlayer = view.chooseMap(cells,username); // invoco la view per scegliere la mappa
         int i= cells.indexOf(mapPlayer);
         update(new ResponseMap(message.getMaps().get(i),username)); // invio la risposta al server
