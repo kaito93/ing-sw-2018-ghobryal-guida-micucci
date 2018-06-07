@@ -24,13 +24,13 @@ public class Game {
 
     private static DiceBox diceBag;
 
-    private static ArrayList<Dice> stock;
+    private ArrayList<Dice> stock;
 
     private static ArrayList<PublicObjectiveCard> publicObjCard;
 
     private RoundSchemeCell[] roundSchemeMap;
 
-    private static ArrayList<ToolCard> toolCards;
+    private ArrayList<ToolCard> toolCards;
 
     private ArrayList<Map> maps;
 
@@ -283,4 +283,10 @@ public class Game {
             map.finalize();
         System.gc();
     }
+
+    public void removeDiceStock(Dice dice){
+        stock.remove(dice);
+    }
+
+    public void removeMap(Map map){maps.remove(map);}
 }

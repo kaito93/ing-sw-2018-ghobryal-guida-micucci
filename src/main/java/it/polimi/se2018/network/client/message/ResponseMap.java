@@ -4,6 +4,7 @@ import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Map;
 
 public class ResponseMap implements MessageVC {
+    private static final long serialVersionUID = -880966329705705431L;
     Map mapChoose;
     String username;
 

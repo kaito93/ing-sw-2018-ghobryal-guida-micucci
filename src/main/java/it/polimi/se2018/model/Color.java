@@ -39,6 +39,7 @@ public enum Color {
     public String toString() {
         return super.toString().toLowerCase();
     }
+
 }
 
 

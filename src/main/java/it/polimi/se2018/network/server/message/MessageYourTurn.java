@@ -1,15 +1,17 @@
 package it.polimi.se2018.network.server.message;
 
 import it.polimi.se2018.network.client.connection.ConnectionClient;
+import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 public class MessageYourTurn implements MessageCV {
 
+    private static final long serialVersionUID = -2685027267850020534L;
     boolean posDice;
     boolean useTools;
     int favor;
 
     @Override
-    public void accept(ConnectionClient client) {
+    public void accept(ConnectionClientSocket client) {
         client.visit(this);
     }
 

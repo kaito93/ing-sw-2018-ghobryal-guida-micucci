@@ -8,6 +8,7 @@ public class Message implements Serializable {
     public static final int MVEVENT=0;
     public static final int CVEVENT=1;
     public static final int SYSTEMEVENT=2;
+    private static final long serialVersionUID = 392490809315164554L;
 
     int type;
     Object event;

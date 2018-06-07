@@ -4,6 +4,7 @@ import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 public class MessageError implements MessageSystem {
 
+    private static final long serialVersionUID = 2509917442158095155L;
     String errorMessage;
 
     @Override

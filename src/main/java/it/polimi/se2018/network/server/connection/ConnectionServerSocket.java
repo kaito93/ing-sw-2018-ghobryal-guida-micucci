@@ -48,7 +48,7 @@ public class ConnectionServerSocket extends ConnectionServer {
         return this.input;
     }
 
-    public void send(Object message) {
+    synchronized public void send(Object message) {
         try {
             this.output.writeObject(message);
             this.output.flush();
@@ -146,11 +146,13 @@ public class ConnectionServerSocket extends ConnectionServer {
         MessageUpdate message= new MessageUpdate();
         message.setMessage(messa);
         message.setCells(maps);
+        message.setMaps(maps);
         message.setStock(stock);
         message.setUseTools(tools);
         message.setUsers(users);
         message.setRoundSchemeMap(roundSchemeMap);
         mex = new Message(Message.MVEVENT,message);
+
         send(mex);
     }
 

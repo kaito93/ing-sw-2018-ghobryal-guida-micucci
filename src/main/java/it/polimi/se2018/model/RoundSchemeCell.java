@@ -1,5 +1,6 @@
 package it.polimi.se2018.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  *  @author Andrea Micucci
  */
 
-public class RoundSchemeCell {
+public class RoundSchemeCell implements Serializable {
     private ArrayList<Dice> restOfStock;
 
     /** class constructor

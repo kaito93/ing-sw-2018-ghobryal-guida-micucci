@@ -2,6 +2,7 @@ package it.polimi.se2018.network.client.connection;
 
 import it.polimi.se2018.model.Dice;
 
+import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Observable;
@@ -27,30 +28,6 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
     public abstract void run();
 
     /**
-     * abstract method that manage the request for choose a map
-     * @param message message received by server
-     */
-    public abstract void visit (MessageChooseMap message);
-
-    /**
-     * abstract method that manage the update of public news
-     * @param message message received by server
-     */
-    public abstract void visit (MessagePublicInformation message);
-
-    /**
-     * abstract method that manage the update of private news
-     * @param message message received by server
-     */
-    public abstract void visit (MessageStart message);
-
-    /**
-     * abstract method that manage the update of turn's news.
-     * @param message message received by server
-     */
-    public abstract void visit (MessageYourTurn message);
-
-    /**
      * abstract method that send the choice of set a dice
      * @param dice the dice chosen
      * @param column the column where set the dice
@@ -72,10 +49,5 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
         this.username= username;
     }
 
-    public abstract void visit (MessageError message);
-
-
-
-
-
+    public abstract void sendPassMove ();
 }

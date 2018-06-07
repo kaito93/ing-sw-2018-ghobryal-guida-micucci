@@ -4,22 +4,28 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cell.Cell;
-import it.polimi.se2018.network.client.connection.ConnectionClient;
+import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.view.View;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class MessageUpdate implements MessageMV {
 
-    ArrayList<Cell[][]> cells = new ArrayList<>();
-    ArrayList <String> users = new ArrayList<>();
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
+    private static final long serialVersionUID = 2201748410369437792L;
 
-    ArrayList<Boolean> useTools = new ArrayList<>();
 
-    ArrayList<Dice> stock = new ArrayList<>();
-    RoundSchemeCell roundSchemeMap[];
+    protected ArrayList<Map> maps;
+    protected ArrayList<Cell[][]> cells = new ArrayList<>();
+    protected ArrayList <String> users = new ArrayList<>();
 
-    String message;
+    protected ArrayList<Boolean> useTools;
+
+    protected ArrayList<Dice> stock;
+    protected RoundSchemeCell roundSchemeMap[];
+
+    protected String message;
 
     public RoundSchemeCell[] getRoundSchemeMap() {
         return roundSchemeMap;
@@ -39,14 +45,6 @@ public class MessageUpdate implements MessageMV {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public void addMaps(Map maps) {
-        this.cells.add(maps.getCell());
-    }
-
-    public void addUsers(String user) {
-        this.users.add(user);
     }
 
     public ArrayList<String> getUsers() {
@@ -83,7 +81,17 @@ public class MessageUpdate implements MessageMV {
     }
 
     public void setCells(ArrayList<Map> maps) {
-        for (int i=0; i<maps.size();i++)
-            cells.add(maps.get(i).getCell());
+        try {
+            for (int i=0; i<maps.size();i++)
+                cells.add(maps.get(i).getCell());
+        }
+        catch (NullPointerException e){
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+    }
+
+    public void setMaps(ArrayList<Map> maps) {
+        this.maps = maps;
     }
 }
