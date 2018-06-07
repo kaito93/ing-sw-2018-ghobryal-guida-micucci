@@ -88,12 +88,14 @@ public class Map implements Serializable {
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if value already exist in the column of matrix, else false
      */
+    //tested
     public boolean valueAlreadyExistInColumn(int column, int value) throws notValidCellException{
         int index;
+        int counter=0;
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(index, column) && getCell(index, column).getDice().getValue() == value)
-                return true;
-        return false;
+                counter++;
+        return counter>1;
     }
 
     /** method that verify if a color exist already in a column of the matrix
@@ -104,10 +106,11 @@ public class Map implements Serializable {
      */
     public boolean colorAlreadyExistInColumn(int column, Color color) throws notValidCellException{
         int index;
+        int counter=0;
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(index, column) && getCell(index, column).getDice().getColor().equalsColor(color))
-                return true;
-        return false;
+                counter++;
+        return counter>1;
     }
     
     /** method that verify if a number exist already in a row of the matrix
@@ -118,10 +121,11 @@ public class Map implements Serializable {
      */
     public boolean valueAlreadyExistInRow(int row, int value) throws notValidCellException{
         int index;
+        int counter=0;
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(row, index) && getCell(row, index).getDice().getValue() == value)
-                return true;
-        return false;
+                counter++;
+        return counter>1;
     }
 
     /** method that verify if a color exist already in a row of the matrix
@@ -132,10 +136,11 @@ public class Map implements Serializable {
      */
     public boolean colorAlreadyExistInRow(int row, Color color) throws notValidCellException{
         int index;
+        int counter=0;
         for(index = 0; index < numRow(); index++)
             if(!isEmptyCell(row, index) && getCell(row, index).getDice().getColor().equalsColor(color))
-                return true;
-        return false;
+                counter++;
+        return counter>1;
     }
 
     /**
