@@ -6,10 +6,8 @@ import it.polimi.se2018.util.DeckOfPrivateCards;
 import it.polimi.se2018.util.DiceBox;
 import it.polimi.se2018.util.Deserializer.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
 
 
 /**
@@ -26,13 +24,13 @@ public class Game {
 
     private static DiceBox diceBag;
 
-    private static ArrayList<Dice> stock = new ArrayList<>();
+    private static ArrayList<Dice> stock;
 
-    private static ArrayList<PublicObjectiveCard> publicObjCard =new ArrayList <>();
+    private static ArrayList<PublicObjectiveCard> publicObjCard;
 
     private RoundSchemeCell[] roundSchemeMap;
 
-    private static ArrayList<ToolCard> toolCards = new ArrayList<>();
+    private static ArrayList<ToolCard> toolCards;
 
     private ArrayList<Map> maps;
 
@@ -45,6 +43,9 @@ public class Game {
 
         diceBag=new DiceBox(); // carica i dadi dal file json
 
+        stock = new ArrayList<>();
+
+        publicObjCard =new ArrayList <>();
 
         ArrayList<PublicObjectiveCard> cards = loadPublicObjCard(); // carica tutte le carte obiettivo pubblico
 
@@ -65,6 +66,8 @@ public class Game {
         this.roundSchemeMap= new RoundSchemeCell[MAXROUND]; // Crea il tracciato dei round
 
         ArrayList<ToolCard> tools = loadToolCards(); // carica le carte utensili
+
+        toolCards = new ArrayList<>();
 
         for (int k=0; k<3; k++) { // per 3 volte
 
@@ -241,5 +244,43 @@ public class Game {
 
         MapsDeserializer mapscegia = new MapsDeserializer();
         return mapscegia.totalDeserialize();
+    }
+
+    /**
+     * method that gets the map with a specified name
+     * @param name map's name
+     * @return a map Type with the specified name
+     */
+    public Map getThatMap(String name){
+        for (Map map : maps){
+            if(map.getName().equals(name))
+                return map;
+        }
+        return null;
+    }
+
+    /**
+     * destroys game
+     */
+    @Override
+    @SuppressWarnings("Deprecated")
+    public void finalize(){
+        diceBag.eraseDices(diceBag.getBox().size());
+        diceBag=null;
+        publicObjCard.clear();
+        publicObjCard=null;
+        for (int i=0; i<roundSchemeMap.length; i++)
+            try{
+                if(roundSchemeMap[i].getRestOfStock()!=null)
+                    roundSchemeMap[i].getRestOfStock().clear();
+            }catch (NullPointerException e){
+                continue;
+            }
+        roundSchemeMap=null;
+        toolCards.clear();
+        toolCards=null;
+        for (Map map: maps)
+            map.finalize();
+        System.gc();
     }
 }

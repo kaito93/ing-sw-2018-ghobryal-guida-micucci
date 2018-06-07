@@ -188,7 +188,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean upleftDice(int row, int column){
+    private boolean upleftDice(int row, int column){
         return !isEmptyCell(row, column+1) || !isEmptyCell(row+1, column+1) || !isEmptyCell(row+1, column);
     }
 
@@ -199,7 +199,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean downleftDice(int row, int column){
+    private boolean downleftDice(int row, int column){
         return !isEmptyCell(row, column+1) || !isEmptyCell(row-1, column) || !isEmptyCell(row-1, column+1);
     }
 
@@ -210,7 +210,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean centreleftDice(int row, int column){
+    private boolean centreleftDice(int row, int column){
         return upleftDice(row, column) || downleftDice(row, column);
     }
 
@@ -221,7 +221,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean uprightDice(int row, int column){
+    private boolean uprightDice(int row, int column){
         return !isEmptyCell(row, column-1) || !isEmptyCell(row+1, column-1) || !isEmptyCell(row+1, column);
     }
 
@@ -232,7 +232,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean downrightDice(int row, int column){
+    private boolean downrightDice(int row, int column){
         return !isEmptyCell(row-1, column) || !isEmptyCell(row-1, column-1) || !isEmptyCell(row, column-1);
     }
 
@@ -243,7 +243,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean centrerightDice(int row, int column){
+    private boolean centrerightDice(int row, int column){
         return uprightDice(row, column) || downrightDice(row, column);
     }
 
@@ -254,7 +254,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean upcentreDice(int row, int column){
+    private boolean upcentreDice(int row, int column){
         return uprightDice(row, column) || upleftDice(row, column);
     }
 
@@ -265,7 +265,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean downcentreDice(int row, int column){
+    private boolean downcentreDice(int row, int column){
         return downrightDice(row, column) || downleftDice(row, column);
     }
 
@@ -276,7 +276,7 @@ public class Map implements Serializable {
      * @return a boolean, true if exist at least one adjacent dice on the portion else false
      */
 
-    public boolean centreDice(int row, int column){
+    private boolean centreDice(int row, int column){
         return centreleftDice(row, column) || centrerightDice(row, column);
     }
 
@@ -287,7 +287,7 @@ public class Map implements Serializable {
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, if the dice respects the cell restriction else false
      */
-    public boolean isCellValid(Dice dice, int row, int column){
+    private boolean isCellValid(Dice dice, int row, int column){
         if(!isEmptyCell(row, column)){
             errorBool.setErrorMessage("There's a dice on the same cell");
             errorBool.setErrBool(true);
@@ -320,7 +320,7 @@ public class Map implements Serializable {
      * @param color chosen dice's color
      * @return a boolean, true if the dice is compatible else false
      */
-    public boolean diceCompatibleCell(int row, int column, int value, Color color){
+    private boolean diceCompatibleCell(int row, int column, int value, Color color){
         if(cell[row][column].getValue()==0 && cell[row][column].getColor()==null)
             return true;
         else if(cell[row][column].getValue()!=0)
