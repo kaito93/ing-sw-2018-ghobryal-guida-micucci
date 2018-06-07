@@ -242,7 +242,7 @@ public class Game {
      */
     private ArrayList<Map> loadMaps() {
 
-        MapsDeserializer mapscegia = new MapsDeserializer();
+        MapsDeserializer mapscegia = new MapsDeserializer("");
         return mapscegia.totalDeserialize();
     }
 

@@ -83,7 +83,7 @@ public class MessageUpdate implements MessageMV {
     public void setCells(ArrayList<Map> maps) {
         try {
             for (int i=0; i<maps.size();i++)
-                cells.add(maps.get(i).getCell());
+                cells.add(maps.get(i).getCells());
         }
         catch (NullPointerException e){
             LOGGER.log(Level.SEVERE, e.toString(), e);
