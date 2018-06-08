@@ -48,6 +48,10 @@ public class ClientDeserializer {
         cs = gson.fromJson(br, client);
     }
 
+    /**
+     * getter method for the client structure
+     * @return a ClientStructure object with the info of the client like integers
+     */
     public ClientStructure getCs() {
         return cs;
     }
