@@ -98,7 +98,7 @@ public class VirtualView extends Observable<MessageVC> {
             boolean connect = true;
             while (connect){
                 try{
-                    MessageVC message = (MessageVC) client.getInput().readObject();
+                    MessageVC message = (MessageVC) client.getInput().readUnshared();
                     notifyObservers(message);
                 } catch (IOException e) {
                     connect=false;

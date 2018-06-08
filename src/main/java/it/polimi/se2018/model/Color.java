@@ -25,8 +25,6 @@ public enum Color {
      */
 
     public boolean equalsColor(Color color){
-        if(color==null)
-            return true;
         return this.toString().equals(color.toString());
     }
 

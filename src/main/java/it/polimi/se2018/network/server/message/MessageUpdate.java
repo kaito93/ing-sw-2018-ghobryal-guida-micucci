@@ -18,7 +18,7 @@ public class MessageUpdate implements MessageMV {
 
     protected ArrayList<Map> maps;
     protected ArrayList<Cell[][]> cells = new ArrayList<>();
-    protected ArrayList <String> users = new ArrayList<>();
+    protected ArrayList<String> users = new ArrayList<>();
 
     protected ArrayList<Boolean> useTools;
 
@@ -83,7 +83,7 @@ public class MessageUpdate implements MessageMV {
     public void setCells(ArrayList<Map> maps) {
         try {
             for (int i=0; i<maps.size();i++)
-                cells.add(maps.get(i).getCell());
+                cells.add(maps.get(i).getCells());
         }
         catch (NullPointerException e){
             LOGGER.log(Level.SEVERE, e.toString(), e);
@@ -94,4 +94,25 @@ public class MessageUpdate implements MessageMV {
     public void setMaps(ArrayList<Map> maps) {
         this.maps = maps;
     }
+
+   /* public void setCells(ArrayList<Map> maps) {
+
+        for (int i=0; i<maps.size();i++){
+            Cell[][] cell = new Cell[maps.get(0).getCells().length][maps.get(0).getCells()[0].length];
+            for (int j=0; j<maps.get(i).getCells().length;j++){
+                for (int k=0;k<maps.get(i).getCells()[j].length;k++)
+                    cell[j][k]=maps.get(i).getCells()[j][k];
+            }
+            this.cells.add(cell);
+        }
+
+    }
+        for (int mappa = 0; mappa < maps.size(); mappa++) {
+            Cell[][] myInt = new Cell[maps.get(mappa).getCells().length][];
+            for (int i = 0; i < maps.get(mappa).getCells().length; i++) {
+                myInt[i] = maps.get(mappa).getCells()[i].clone();
+            }
+            cells.add(myInt);
+        }
+    }*/
 }

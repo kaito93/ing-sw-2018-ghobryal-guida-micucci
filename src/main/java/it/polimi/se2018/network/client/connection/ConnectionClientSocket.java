@@ -98,6 +98,7 @@ public class ConnectionClientSocket extends ConnectionClient {
                 try{
                     Message message = new Message(2,"ciao");
                     message= (Message)input.readObject(); // leggi il messaggio
+
                     if (message.getType()==CVEVENT){// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV)message.getEvent(); // casta il messaggio
                         messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
@@ -134,8 +135,9 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     synchronized public void update (MessageVC message){
         try {
-            this.output.writeObject(message);
+            this.output.writeUnshared(message);
             this.output.flush();
+            this.output.reset();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
@@ -159,7 +161,7 @@ public class ConnectionClientSocket extends ConnectionClient {
         this.username=message.getUsername(); // setto il giocatore proprietario di questa connessione
         ArrayList<Cell[][]> cells = new ArrayList<>();
         for (int i=0; i<message.getMaps().size();i++)
-            cells.add(message.getMaps().get(i).getCell());
+            cells.add(message.getMaps().get(i).getCells());
         Cell[][] mapPlayer = view.chooseMap(cells,username); // invoco la view per scegliere la mappa
         int i= cells.indexOf(mapPlayer);
         update(new ResponseMap(message.getMaps().get(i),username)); // invio la risposta al server

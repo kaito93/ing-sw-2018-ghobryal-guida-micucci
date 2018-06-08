@@ -50,8 +50,9 @@ public class ConnectionServerSocket extends ConnectionServer {
 
     synchronized public void send(Object message) {
         try {
-            this.output.writeObject(message);
+            this.output.writeUnshared(message);
             this.output.flush();
+            this.output.reset();
         }
         catch (IOException e){
             LOGGER.log(Level.SEVERE, e.toString(), e);

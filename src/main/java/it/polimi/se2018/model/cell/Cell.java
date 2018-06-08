@@ -33,7 +33,11 @@ public abstract class Cell implements Serializable {
      * @return the dice object inside the cell, null if dice isn't in it
      */
     public Dice getDice(){
-        return dice;
+        try {
+            return dice;
+        }catch (NullPointerException e){
+            return null;
+        }
     }
     
     /** method that return the color of the dice inside the cell
