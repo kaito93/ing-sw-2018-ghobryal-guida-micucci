@@ -11,6 +11,9 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 
+/**
+ * class to deserialize the client information in json file
+ */
 public class ClientDeserializer {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
@@ -19,6 +22,11 @@ public class ClientDeserializer {
     File json;
     ClientStructure cs;
 
+    /**
+     * class constructor, initialize the BufferedReader for the json file
+     * @param path of the json file
+     * @throws FileNotFoundException if the pathname is wrong
+     */
     public ClientDeserializer(String path){
         json = new File(path);
         try {
@@ -30,6 +38,10 @@ public class ClientDeserializer {
         gson = new Gson();
     }
 
+    /**
+     * method that make the deserializing of the info in json file and save it in a support data structure
+     * that is ClientStructure
+     */
     public void Deserializing(){
         Type client = new TypeToken<ClientStructure>(){}.getType();
         cs = gson.fromJson(br, client);
