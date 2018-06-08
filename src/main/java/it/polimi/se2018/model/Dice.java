@@ -11,7 +11,7 @@ import java.util.Random;
  * @author Andrea Micucci
  */
 
-public class Dice implements Serializable {
+public class Dice implements Serializable,Cloneable {
 
     private int value;
     private Color color;
@@ -58,5 +58,10 @@ public class Dice implements Serializable {
      */
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    @Override
+    public Dice clone() throws CloneNotSupportedException {
+        return (Dice)super.clone();
     }
 }

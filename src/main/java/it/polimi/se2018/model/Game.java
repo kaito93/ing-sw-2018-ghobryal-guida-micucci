@@ -242,7 +242,7 @@ public class Game {
      */
     private ArrayList<Map> loadMaps() {
 
-        MapsDeserializer mapscegia = new MapsDeserializer("");
+        MapsDeserializer mapscegia = new MapsDeserializer("src/main/java/it/polimi/se2018/JsonFiles/Maps.json");
         return mapscegia.totalDeserialize();
     }
 
