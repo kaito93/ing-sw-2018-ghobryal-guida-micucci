@@ -94,7 +94,7 @@ public abstract class View {
     public abstract ArrayList<Object>  managefluxRemove();
     public abstract Dice manageGG();
     public abstract ArrayList<Object>  manageLathekin();
-    public abstract ArrayList<Dice>  manageLens();
+    public abstract ArrayList<Object>  manageLens();
     public abstract ArrayList<Object>  manageTap();
 
 }

@@ -46,4 +46,16 @@ public class MessageGrozingPliers implements MessageCV, MessageVC {
     public String getTitle() {
         return title;
     }
+
+    public void setDice(Dice dice) {
+        this.dice = dice;
+    }
+
+    public void setRowDest(int rowDest) {
+        this.rowDest = rowDest;
+    }
+
+    public void setColDest(int colDest) {
+        this.colDest = colDest;
+    }
 }

@@ -44,4 +44,16 @@ public class MessageLensCutter implements MessageCV, MessageVC {
     public String getTitle() {
         return title;
     }
+
+    public void setDiceRound(Dice diceRound) {
+        this.diceRound = diceRound;
+    }
+
+    public void setDiceStock(Dice diceStock) {
+        this.diceStock = diceStock;
+    }
+
+    public void setNumberRound(int numberRound) {
+        this.numberRound = numberRound;
+    }
 }

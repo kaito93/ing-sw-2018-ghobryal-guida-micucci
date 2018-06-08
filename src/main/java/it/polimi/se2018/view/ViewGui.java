@@ -63,14 +63,14 @@ public class ViewGui extends View {
     }
 
     @Override
-    public ArrayList<Dice> manageLens() {
-        //Dice dice1,Dice dice2)
+    public ArrayList<Object> manageLens() {
+        //Dice diceRound,Dice diceStock, int numberRound
         return null;
     }
 
     @Override
     public ArrayList<Object> manageTap() {
-        //Dice diceRound, Dice dice1, Dice dice2, int row1, int row2, int column1, int column2
+        //Dice diceRound, Arraylist Dice (dice1, Dice dice2), int row1, int row2, int column1, int column2
         return null;
     }
 }

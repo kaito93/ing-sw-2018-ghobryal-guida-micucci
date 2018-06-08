@@ -47,4 +47,24 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
     public String getTitle() {
         return title;
     }
+
+    public void setRowDest(int rowDest) {
+        this.rowDest = rowDest;
+    }
+
+    public void setDice(Dice dice) {
+        this.dice = dice;
+    }
+
+    public void setColumnDest(int columnDest) {
+        this.columnDest = columnDest;
+    }
+
+    public void setRowMit(int rowMit) {
+        this.rowMit = rowMit;
+    }
+
+    public void setColumnMit(int columnMit) {
+        this.columnMit = columnMit;
+    }
 }

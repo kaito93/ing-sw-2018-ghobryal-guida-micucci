@@ -41,4 +41,8 @@ public class MessageGrindingStone implements MessageCV, MessageVC {
     public String getTitle() {
         return title;
     }
+
+    public void setDice(Dice dice) {
+        this.dice = dice;
+    }
 }

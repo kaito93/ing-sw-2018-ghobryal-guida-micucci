@@ -183,7 +183,6 @@ public class ViewCli extends View {
                     // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
 
                     printColor(cells[i][j].getDice().getColor().toString(), String.valueOf(cells[i][j].getDice().getValue()));
-                    System.out.print(" ");
                 } else {
                     // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
                     printColor(cells[i][j].getColor().toString(), String.valueOf(cells[i][j].getValue()));
@@ -216,6 +215,7 @@ public class ViewCli extends View {
     @Override
     public ArrayList<Object> manageCCEFR() {
         // DIce, row, column
+        askDiceMap();
         return null;
     }
 
@@ -238,14 +238,14 @@ public class ViewCli extends View {
     }
 
     @Override
-    public ArrayList<Dice> manageLens() {
-        //Dice dice1,Dice dice2)
+    public ArrayList<Object> manageLens() {
+        //Dice diceRound,Dice dicStock2, int numberRound
         return null;
     }
 
     @Override
     public ArrayList<Object> manageTap() {
-        //Dice diceRound, Dice dice1, Dice dice2, int row1, int row2, int column1, int column2
+        //Dice diceRound, Arraylist Dice (dice1, Dice dice2), int row1, int row2, int column1, int column2
         return null;
     }
 
@@ -256,13 +256,11 @@ public class ViewCli extends View {
         return Integer.decode(scanner.nextLine())-1;
     }
 
-    public int askDiceMap() {
+    public ArrayList<Integer> askDiceMap() {
         addLog("La tua mappa:");
         printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
         addLog("Inserisci le cordinate del dado");
-        ArrayList<Integer> inta = askRowColumn();
-
-        return Integer.decode(scanner.nextLine());
+        return askRowColumn();
     }
 
     public ArrayList<Integer> askRowColumn() {

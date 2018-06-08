@@ -54,4 +54,48 @@ public class MessageTapWheel implements MessageCV, MessageVC {
     public String getTitle() {
         return title;
     }
+
+    public void setRow2Dest(int row2Dest) {
+        this.row2Dest = row2Dest;
+    }
+
+    public void setRow2Mit(int row2Mit) {
+        this.row2Mit = row2Mit;
+    }
+
+    public void setRow1Mit(int row1Mit) {
+        this.row1Mit = row1Mit;
+    }
+
+    public void setColumn2Dest(int column2Dest) {
+        this.column2Dest = column2Dest;
+    }
+
+    public void setColumn1Dest(int column1Dest) {
+        this.column1Dest = column1Dest;
+    }
+
+    public void setCol2Mit(int col2Mit) {
+        this.col2Mit = col2Mit;
+    }
+
+    public void setCol1Mit(int col1Mit) {
+        this.col1Mit = col1Mit;
+    }
+
+    public void setRow1Dest(int row1Dest) {
+        this.row1Dest = row1Dest;
+    }
+
+    public void setDiceRoundScheme(Dice diceRoundScheme) {
+        this.diceRoundScheme = diceRoundScheme;
+    }
+
+    public void setDiceToMove(ArrayList<Dice> diceToMove) {
+        this.diceToMove = diceToMove;
+    }
+
+    public void setPosDiceinSchemeRound(int posDiceinSchemeRound) {
+        this.posDiceinSchemeRound = posDiceinSchemeRound;
+    }
 }

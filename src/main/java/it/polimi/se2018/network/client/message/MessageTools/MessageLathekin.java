@@ -51,4 +51,40 @@ public class MessageLathekin implements MessageCV, MessageVC {
     public String getTitle() {
         return title;
     }
+
+    public void setRow1Dest(int row1Dest) {
+        this.row1Dest = row1Dest;
+    }
+
+    public void setCol1Mit(int col1Mit) {
+        this.col1Mit = col1Mit;
+    }
+
+    public void setCol2Mit(int col2Mit) {
+        this.col2Mit = col2Mit;
+    }
+
+    public void setColumn1Dest(int column1Dest) {
+        this.column1Dest = column1Dest;
+    }
+
+    public void setColumn2Dest(int column2Dest) {
+        this.column2Dest = column2Dest;
+    }
+
+    public void setDices(ArrayList<Dice> dices) {
+        this.dices = dices;
+    }
+
+    public void setRow1Mit(int row1Mit) {
+        this.row1Mit = row1Mit;
+    }
+
+    public void setRow2Dest(int row2Dest) {
+        this.row2Dest = row2Dest;
+    }
+
+    public void setRow2Mit(int row2Mit) {
+        this.row2Mit = row2Mit;
+    }
 }
