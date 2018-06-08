@@ -46,4 +46,8 @@ public class ServerDeserialize {
         Type server = new TypeToken<ServerStructure>(){}.getType();
         ss = gson.fromJson(br, server);
     }
+
+    public ServerStructure getSs() {
+        return ss;
+    }
 }

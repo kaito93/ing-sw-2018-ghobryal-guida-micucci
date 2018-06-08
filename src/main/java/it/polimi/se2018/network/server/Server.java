@@ -8,6 +8,8 @@ import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
 import it.polimi.se2018.network.server.message.MessageNewUsername;
+import it.polimi.se2018.util.Deserializer.PathDeserializer;
+import it.polimi.se2018.util.Deserializer.ServerDeserialize;
 import it.polimi.se2018.util.Logger;
 
 import java.io.IOException;
@@ -196,12 +198,19 @@ public class Server implements ServerRMI{
     }
 
     public static void main (String[] args) {
-        int porta=9736;
-        int timer=10000;
-        Server server;
-        // To Do: Caricamento da file di configurazione partita di porta e timer
+        PathDeserializer path = new PathDeserializer();
+        path.Deserializing();
+        ServerDeserialize serv= new ServerDeserialize(path.getPathFromType("server"));
+        serv.Deserializing();
 
+        int porta=serv.getSs().getPort();
+        int timer=serv.getSs().getTime();
+
+        // QUI PUOI CHIUDERE IL BUFFER READER
+
+        Server server;
         server=new Server(porta,timer);
+
         server.start();
 
     }

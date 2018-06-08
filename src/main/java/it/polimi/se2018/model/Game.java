@@ -34,14 +34,19 @@ public class Game {
 
     private ArrayList<Map> maps;
 
+    PathDeserializer path;
+
 
     /**
      * class constructor that initialize all the attributes
      */
     public Game(){
 
+        path= new PathDeserializer();
 
-        diceBag=new DiceBox(); // carica i dadi dal file json
+        path.Deserializing();
+
+        diceBag=new DiceBox(path.getPathFromType("dice")); // carica i dadi dal file json
 
         stock = new ArrayList<>();
 
@@ -102,7 +107,7 @@ public class Game {
     private ArrayList<ToolCard> loadToolCards(){
 
 
-        toolCardDeserializer tool= new toolCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/ToolCards.json");
+        toolCardDeserializer tool= new toolCardDeserializer(path.getPathFromType("tool"));
         tool.TotalDeserializing();
         return tool.getDeck();
     }
@@ -114,7 +119,7 @@ public class Game {
     private ArrayList<PublicObjectiveCard> loadPublicObjCard(){
 
 
-        PublicCardDeserializer cards =  new PublicCardDeserializer("src/main/java/it/polimi/se2018/JsonFiles/PublicCards.json");
+        PublicCardDeserializer cards =  new PublicCardDeserializer(path.getPathFromType("public"));
         cards.TotalDeserializing();
         return cards.getPublicObjectivetransfer();
     }
@@ -127,7 +132,7 @@ public class Game {
     private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
 
 
-        DeckOfPrivateCards cards = new DeckOfPrivateCards();
+        DeckOfPrivateCards cards = new DeckOfPrivateCards(path.getPathFromType("private"));
         return cards.getPrivCards();
 
     }
@@ -242,7 +247,7 @@ public class Game {
      */
     private ArrayList<Map> loadMaps() {
 
-        MapsDeserializer mapscegia = new MapsDeserializer("src/main/java/it/polimi/se2018/JsonFiles/Maps.json");
+        MapsDeserializer mapscegia = new MapsDeserializer(path.getPathFromType("maps"));
         return mapscegia.totalDeserialize();
     }
 

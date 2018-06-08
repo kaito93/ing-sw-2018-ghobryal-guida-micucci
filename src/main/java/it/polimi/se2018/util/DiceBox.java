@@ -31,10 +31,10 @@ public class DiceBox {
      * class constructor
      * @throws FileNotFoundException if the json file that contains all the info about the dices don't exists
      */
-    public DiceBox() {
+    public DiceBox(String path) {
 
         try{
-            json = new File("src/main/java/it/polimi/se2018/JsonFiles/Dices.json");
+            json = new File(path);
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.SEVERE, "File non trovato", e);

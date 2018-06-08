@@ -57,7 +57,7 @@ public class PathDeserializer {
     public String getPathFromType(String type){
         String error = "errore";
         for(int index=0; index<pathjson.size(); index++){
-            if (pathjson.get(index).getType() == type)
+            if (pathjson.get(index).getType().equalsIgnoreCase(type))
                 return pathjson.get(index).getPath();
         }
         return error;

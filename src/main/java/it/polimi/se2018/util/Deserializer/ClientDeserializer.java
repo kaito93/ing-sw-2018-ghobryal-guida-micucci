@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * class to deserialize the client information in json file
@@ -46,4 +47,9 @@ public class ClientDeserializer {
         Type client = new TypeToken<ClientStructure>(){}.getType();
         cs = gson.fromJson(br, client);
     }
+
+    public ClientStructure getCs() {
+        return cs;
+    }
 }
+

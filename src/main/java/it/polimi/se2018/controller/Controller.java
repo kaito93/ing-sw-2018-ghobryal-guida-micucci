@@ -39,6 +39,7 @@ public class Controller implements Observer<MessageVC> {
     ArrayList<Player> playersInRound = new ArrayList<>();
 
 
+
     /**
      * class constructor initialize the object controller
      *
