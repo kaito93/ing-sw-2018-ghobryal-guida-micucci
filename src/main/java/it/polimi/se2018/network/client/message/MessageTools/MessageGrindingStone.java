@@ -2,6 +2,7 @@ package it.polimi.se2018.network.client.message.MessageTools;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Dice;
+import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
@@ -18,6 +19,9 @@ public class MessageGrindingStone implements MessageCV, MessageVC {
 
     String title;
     Dice dice;
+    Dice diceBefore;
+    int row;
+    int column;
 
 
     @Override
@@ -29,8 +33,13 @@ public class MessageGrindingStone implements MessageCV, MessageVC {
     public void accept(Controller controller) {
         String error="ciao";
 
-            controller.getGame().searchToolCard(title).useTool(null,dice,0,0,null,false,
-                    0,0,null,null,null,0);
+            if(!controller.getGame().searchToolCard(title).useTool(null,dice,0,0,null,false,
+                    row,column,null,null,null,0)){
+                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+
+            }
+            else
+                controller.getGame().getStock().remove(diceBefore);
 
 
     }
@@ -44,5 +53,17 @@ public class MessageGrindingStone implements MessageCV, MessageVC {
 
     public void setDice(Dice dice) {
         this.dice = dice;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setDiceBefore(Dice diceBefore) {
+        this.diceBefore = diceBefore;
     }
 }

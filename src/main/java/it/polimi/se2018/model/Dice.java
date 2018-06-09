@@ -61,4 +61,8 @@ public class Dice implements Serializable,Cloneable {
         this.color = color;
     }
 
+    @Override
+    public Dice clone() throws CloneNotSupportedException {
+        return (Dice)super.clone();
+    }
 }

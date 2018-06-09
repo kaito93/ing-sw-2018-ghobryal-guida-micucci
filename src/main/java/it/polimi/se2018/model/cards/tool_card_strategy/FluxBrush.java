@@ -28,17 +28,16 @@ public class FluxBrush extends ToolCardStrategy {
      * @param a n.a.
      * @param t1 n.a.
      * @param t2 n.a.
-     * @param t3 n.a.
+     * @param t3 a stock dice before the throw
      * @param t4 n.a.
      * @param t5 n.a.
      * @param t6 n.a.
      */
-    //posiziono il dado e lo tolgo dalla riserva
+    //posiziono il dado nuovo e tolgo dalla riserva il dado vecchio
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
-        dice.throwDice();
         if(player.posDice(dice, row, column)) {
-            stock.remove(dice);
+            stock.remove(t3);
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
             return;

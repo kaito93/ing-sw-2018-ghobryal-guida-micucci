@@ -22,6 +22,7 @@ public class MessageGrozingPliers implements MessageCV, MessageVC {
     int rowDest;
     int colDest;
 
+
     @Override
     public void accept(ConnectionClientSocket client) {
         client.visit(this);
@@ -31,13 +32,13 @@ public class MessageGrozingPliers implements MessageCV, MessageVC {
     public void accept(Controller controller) {
         String error="ciao";
 
-            if(controller.getGame().searchToolCard(title).useTool(null,dice,dice.getValue(),0,null,false,0,0,
-                    null,null,null,0))
-                controller.setPos(dice,rowDest,colDest);
-            else
+            if(!controller.getGame().searchToolCard(title).useTool(null,dice,rowDest,colDest,null,false,0,0,
+                    null,null,null,0)){
                 controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-
-
+            }
+            else {
+                controller.getGame().getStock().remove(dice);
+            }
     }
     public void setTitle(String title) {
         this.title = title;
@@ -58,4 +59,5 @@ public class MessageGrozingPliers implements MessageCV, MessageVC {
     public void setColDest(int colDest) {
         this.colDest = colDest;
     }
+
 }

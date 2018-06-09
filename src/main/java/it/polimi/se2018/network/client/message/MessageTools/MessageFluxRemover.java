@@ -2,6 +2,7 @@ package it.polimi.se2018.network.client.message.MessageTools;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Dice;
+import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
@@ -19,6 +20,7 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
     String title;
     Dice dice;
     int value;
+    boolean a = false;
 
     // altre info: contenitore dei 90 dadi.
 
@@ -29,13 +31,18 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error="ciao";
+        String error = "ciao";
 
-            controller.getGame().searchToolCard(title).useTool(null,dice,value,0,controller.getGame().getDiceBag().getBox(),
-                    false,0,0,null,null,null,0);
-
+        if (a)
+            if (!controller.getGame().searchToolCard(title).useTool(null, dice, value, 0, controller.getGame().getDiceBag().getBox(),
+                    false, 0, 0, null, null, null, 0))
+                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else {
+            controller.getView().manageFluxRemover2(dice,title,controller.getPlayersInRound().get(controller.getTurno()));
+        }
 
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -52,4 +59,15 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
         this.value = value;
     }
 
+    public void setA(boolean a) {
+        this.a = a;
+    }
+
+    public boolean isA() {
+        return a;
+    }
+
+    public Dice getDice() {
+        return dice;
+    }
 }

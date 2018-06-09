@@ -17,6 +17,9 @@ public abstract class ToolCardStrategy implements Serializable {
     protected static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     protected static ErrorBool errorBool = new ErrorBool(null, false);
 
+    protected int firstValue; //+1
+    protected int secondValue; //-1
+
     /**
      * gets an ErrorBoolTool status
      * @return a data structure within an error message and an error boolean
@@ -30,5 +33,21 @@ public abstract class ToolCardStrategy implements Serializable {
         , List<Player> turns, int posDice1);
 
     public abstract void requestMessage(VirtualView view, String title, int player);
+
+    /**
+     * @return the value increased if it's possible (different from zero)
+     */
+
+    public int getFirstValue() {
+        return firstValue;
+    }
+
+    /**
+     * @return the value decreased if it's possible (different from zero)
+     */
+
+    public int getSecondValue() {
+        return secondValue;
+    }
 
 }

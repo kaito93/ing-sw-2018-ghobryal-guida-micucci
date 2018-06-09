@@ -422,4 +422,8 @@ public class Controller implements Observer<MessageVC> {
     public void manageError(String error){
         view.createMessageError(error,players.indexOf(playersInRound.get(turno)));
     }
+
+    public VirtualView getView() {
+        return view;
+    }
 }

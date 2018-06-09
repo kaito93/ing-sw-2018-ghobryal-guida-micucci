@@ -19,16 +19,12 @@ public class GrozingPliers extends ToolCardStrategy {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
-    private int firstValue; //+1
-    private int secondValue; //-1
-
-
     /**
      * Read description of this card for further information
      * @param player n.a.
      * @param dice the chosen dice
-     * @param value dice's value that is needed to be increased or decreased
-     * @param a n.a.
+     * @param row row's coordinate on the map where the chosen dice to be positioned
+     * @param column column's coordinate on the map where the chosen dice to be positioned
      * @param stock n.a.
      * @param posDice n.a.
      * @param t1 n.a.
@@ -41,41 +37,19 @@ public class GrozingPliers extends ToolCardStrategy {
 
     //qui non posso posizonarti il dado perché ci sono 2 valori diversi, quindi mandi un nuovo messaggio di tipo
     // posizionamento dado con le coordinate e il dado da mettere e hai i metodi qui che i servono
-    public void useTool(Player player, Dice dice, int value, int a, List<Dice> stock
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4,  List<Player> t5, int t6){
-        if(value<1 || value > 6){
-            errorBool.setErrorMessage("Invalid passed dice value");
-            errorBool.setErrBool(true);
+
+        boolean a =player.getMap().posDice(dice,row,column);
+        if (!a) {
+            errorBool.setErrorMessage("first dice not valid");
             return;
-        } else if(value>1 && value < 6){
-            firstValue = value + 1;
-            secondValue = value - 1;
-        } else if(value==1){
-            firstValue = value + 1;
-            secondValue = 0;
-        } else{
-            firstValue = 0;
-            secondValue = value - 1;
         }
         errorBool.setErrorMessage(null);
         errorBool.setErrBool(false);
     }
 
-    /**
-     * @return the value increased if it's possible (different from zero)
-     */
 
-    public int getFirstValue() {
-        return firstValue;
-    }
-
-    /**
-     * @return the value decreased if it's possible (different from zero)
-     */
-
-    public int getSecondValue() {
-        return secondValue;
-    }
 
     /**
      * forces the value into the dice

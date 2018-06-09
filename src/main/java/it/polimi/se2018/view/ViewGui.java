@@ -17,6 +17,10 @@ public class ViewGui extends View {
 
     }
 
+    public ViewGui(){
+
+    }
+
     public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username){
         // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
         gameStatus.setMyUsername(username);
@@ -39,38 +43,74 @@ public class ViewGui extends View {
     }
 
     @Override
-    public ArrayList<Object> manageCCEFR() {
-        // Dice, Row, Column
+    public ArrayList<Object> manageCER() {
+        // Dice, RowDest, ColumnDect, rowMit, ColumnMit
         return null;
     }
 
     @Override
-    public ArrayList<Object> managefluxRemove() {
-        //Dice dice, int value
+    public Dice managefluxRemove() {
+        //Dice dice da stock
         return null;
     }
 
     @Override
-    public Dice manageGG() {
-        //Dice
+    public Dice manageGrozing1() {
+        // return dice scelto dallo stock
         return null;
     }
 
+    @Override
+    public int manageGrozing2(int minus, int major) {
+        // return minus o major scelto dall'utente
+        return 0;
+    }
+
+    @Override
+    public ArrayList<Integer> manageGrozing3() {
+        // ritorna row e column di destinazione
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> manageGrinding() {
+        return null;
+    }
 
     public ArrayList<Object> manageLathekin() {
-        //int row1,int column1, int row2, int column2, ArrayList<Dice> dices
+        //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+
         return null;
     }
 
     @Override
     public ArrayList<Object> manageLens() {
-        //Dice diceRound,Dice diceStock, int numberRound
+        //Dice diceStock, Dice diceRound, int numberRound
         return null;
     }
 
     @Override
     public ArrayList<Object> manageTap() {
         //Dice diceRound, Arraylist Dice (dice1, Dice dice2), int row1, int row2, int column1, int column2
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> manageCork() {
+        // Dice, row, column
+
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> managefluxBrush() {
+        // dice dicebefore, dice diceafter, int rowdest, int columndest
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> manageFlueRemove2(Dice dice) {
+        // dice row column
         return null;
     }
 }

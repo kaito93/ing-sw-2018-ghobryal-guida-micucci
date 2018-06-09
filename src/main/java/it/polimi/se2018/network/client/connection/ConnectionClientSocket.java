@@ -211,74 +211,100 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     public void visit(MessageCopperFoilBurnisher message) {
-        ArrayList<Object> obj= view.manageCCEFR();
+        ArrayList<Object> obj= view.manageCER();
         message.setDice((Dice)obj.get(0));
-        message.setRowMit((int)obj.get(1));
-        message.setColumnMit((int)obj.get(2));
+        message.setRow((int)obj.get(1));
+        message.setColumn((int)obj.get(2));
+        message.setRowMit((int)obj.get(3));
+        message.setColumnMit((int)obj.get(4));
         update(message);
     }
 
     public void visit(MessageCorkBackedStraightedge message) {
-        ArrayList<Object> obj= view.manageCCEFR();
+        ArrayList<Object> obj= view.manageCork();
         message.setDice((Dice)obj.get(0));
-        message.setRowMit((int)obj.get(1));
-        message.setColumnMit((int)obj.get(2));
+        message.setRowDest((int)obj.get(1));
+        message.setColumnDest((int)obj.get(2));
         update(message);
     }
 
     public void visit(MessageEglomiseBrush message) {
 
-        ArrayList<Object> obj= view.manageCCEFR();
+        ArrayList<Object> obj= view.manageCER();
         message.setDice((Dice)obj.get(0));
-        message.setRowMit((int)obj.get(1));
-        message.setColumnMit((int)obj.get(2));
+        message.setRowDest((int)obj.get(1));
+        message.setColumnDest((int)obj.get(2));
+        message.setRowMit((int)obj.get(3));
+        message.setColumnMit((int)obj.get(4));
         update(message);
     }
 
     public void visit(MessageFluxBrush message) {
+        // dice dicebefore, dice diceafter, int rowdest, int columndest
 
-        ArrayList<Object> obj= view.manageCCEFR();
-        message.setDice((Dice)obj.get(0));
-        message.setRowMit((int)obj.get(1));
-        message.setColumnMit((int)obj.get(2));
+        ArrayList<Object> obj= view.managefluxBrush();
+        message.setDiceBefore((Dice)obj.get(0));
+        message.setDice((Dice)obj.get(1));
+        message.setRowDest((int)obj.get(2));
+        message.setColumnDest((int)obj.get(3));
         update(message);
     }
 
     public void visit(MessageFluxRemover message) {
         // TO DO
+        if (message.isA()){
+            view.manageFlueRemove2(message.getDice());
+        }
+        else{
+            message.setDice(view.managefluxRemove());
+            update(message);
+        }
+
     }
 
     public void visit(MessageGrindingStone message) {
-        message.setDice(view.manageGG());
+        ArrayList<Object> obj = view.manageGrinding();
+        message.setDice((Dice)obj.get(0));
+        message.setRow((int)obj.get(1));
+        message.setColumn((int)obj.get(2));
+        message.setDiceBefore((Dice)obj.get(3));
         update(message);
     }
 
     public void visit(MessageGrozingPliers message) {
-        message.setDice(view.manageGG());
+        // Dice dice, int row, int column
+        ArrayList<Object> obj = view.manageGrozing();
+        message.setDice((Dice)obj.get(0));
+        message.setRowDest((int)obj.get(1));
+        message.setColDest((int)obj.get(2));
         update(message);
     }
 
     public void visit(MessageLathekin message) {
-        //int row1,int column1, int row2, int column2, ArrayList<Dice> dices
+        //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
         ArrayList<Object> obj = view.manageLathekin();
         message.setRow1Mit((int)obj.get(0));
         message.setCol1Mit((int)obj.get(1));
-        message.setRow2Mit((int)obj.get(2));
-        message.setCol2Mit((int)obj.get(3));
-        message.setDices((ArrayList<Dice>)obj.get(4));
+        message.setRow1Dest((int)obj.get(2));
+        message.setColumn1Dest((int)obj.get(3));
+        message.setRow2Mit((int)obj.get(4));
+        message.setCol2Mit((int)obj.get(5));
+        message.setRow2Dest((int)obj.get(6));
+        message.setColumn2Dest((int)obj.get(7));
+        message.setDices((ArrayList<Dice>)obj.get(8));
         update(message);
     }
 
     public void visit(MessageLensCutter message) {
         ArrayList<Object> obj = view.manageLens();
-        message.setDiceRound((Dice)obj.get(0));
-        message.setDiceStock((Dice)obj.get(1));
+        message.setDiceStock((Dice)obj.get(0));
+        message.setDiceRound((Dice)obj.get(1));
         message.setNumberRound((int)obj.get(2));
         update(message);
     }
 
     public void visit(MessageRunningPliers message) {
-        ArrayList<Object> obj= view.manageCCEFR();
+        ArrayList<Object> obj= view.manageCER();
         message.setDice((Dice)obj.get(0));
         message.setRowMit((int)obj.get(1));
         message.setColumnMit((int)obj.get(2));

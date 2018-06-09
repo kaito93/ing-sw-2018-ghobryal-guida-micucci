@@ -73,5 +73,6 @@ public abstract class ConnectionServer {
     public abstract void manageTap(String title);
 
     public abstract void manageError(String error);
+    public abstract void manageFluxRemover2(Dice dice, String title);
 
 }

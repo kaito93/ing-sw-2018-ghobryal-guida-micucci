@@ -262,4 +262,14 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.SYSTEMEVENT,message);
         send(mex);
     }
+
+    @Override
+    public void manageFluxRemover2(Dice dice, String title) {
+        MessageFluxRemover message = new MessageFluxRemover();
+        message.setTitle(title);
+        message.setDice(dice);
+        message.setA(true);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
+    }
 }

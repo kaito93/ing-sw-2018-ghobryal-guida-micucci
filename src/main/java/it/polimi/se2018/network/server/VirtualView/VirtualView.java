@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.server.VirtualView;
 
 import it.polimi.se2018.controller.Controller;
+import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
@@ -248,5 +249,8 @@ public class VirtualView extends Observable<MessageVC> {
 
     public void createMessageError(String error, int player){
         connections.get(player).manageError(error);
+    }
+    public void manageFluxRemover2(Dice dice, String title, Player player){
+        connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice,title);
     }
 }

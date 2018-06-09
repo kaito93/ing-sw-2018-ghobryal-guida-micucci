@@ -12,6 +12,7 @@ import java.util.logging.Level;
 
 /**
  * Grinding Stone Tool Card
+ *
  * @author Anton Ghobryal
  */
 
@@ -19,67 +20,38 @@ public class GrindingStone extends ToolCardStrategy {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
 
-
     /**
      * Read description of this card for further information
-     * @param player n.a.
-     * @param dice the chosen dice
-     * @param turn n.a.
-     * @param a n.a.
-     * @param stock n.a.
+     *
+     * @param player  n.a.
+     * @param dice    the chosen dice
+     * @param turn    n.a.
+     * @param a       n.a.
+     * @param stock   n.a.
      * @param posDice n.a.
-     * @param row row's coordinate where to position the dice
-     * @param column column's coordinate where to position the dice
-     * @param t3 n.a.
-     * @param t4 n.a.
-     * @param t5 n.a.
-     * @param t6 n.a.
+     * @param row     row's coordinate where to position the dice
+     * @param column  column's coordinate where to position the dice
+     * @param t3      n.a.
+     * @param t4      n.a.
+     * @param t5      n.a.
+     * @param t6      n.a.
      */
     //posiziono io il dado per facilitarti la vita, aggiungi nel messaggio le coordinate
     public void useTool(Player player, Dice dice, int turn, int a, List<Dice> stock
-            , boolean posDice, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
-        if(dice==null){
+            , boolean posDice, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
+        if (dice == null) {
             errorBool.setErrorMessage("There's no passed dice");
             errorBool.setErrBool(true);
             return;
-        }
-        else
-            try {
-                switch (dice.getValue()) {
-                    case 1:
-                        dice.setValue(6);
-                        break;
-                    case 2:
-                        dice.setValue(5);
-                        break;
-                    case 3:
-                        dice.setValue(4);
-                        break;
-                    case 4:
-                        dice.setValue(3);
-                        break;
-                    case 5:
-                        dice.setValue(2);
-                        break;
-                    case 6:
-                        dice.setValue(1);
-                        break;
-                    default:
-                        errorBool.setErrorMessage("Invalid passed dice value");
-                        errorBool.setErrBool(true);
-                        return;
-                }
-                player.posDice(dice, row, column);
-            }
-            catch (InvalidValueException e){
-                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class GrindingStone Tool Card", e);
-            }
+        } else
+            player.posDice(dice, row, column);
+
         errorBool.setErrorMessage(null);
         errorBool.setErrBool(false);
     }
 
     @Override
     public void requestMessage(VirtualView view, String title, int player) {
-        view.createMessageGrinding(title,player);
+        view.createMessageGrinding(title, player);
     }
 }

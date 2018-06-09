@@ -2,6 +2,7 @@ package it.polimi.se2018.network.client.message.MessageTools;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.Dice;
+import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
@@ -34,9 +35,10 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
     public void accept(Controller controller) {
         String error="ciao";
 
-            controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),dice,
+            if(!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),dice,
                     controller.firstOrSecond(),0,controller.getGame().getStock(),false,rowDest,columnDest,null,
-                    null,controller.getPlayersInRound(),0);
+                    null,controller.getPlayersInRound(),0))
+                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
 
 
     }

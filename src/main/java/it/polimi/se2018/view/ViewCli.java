@@ -3,9 +3,12 @@ package it.polimi.se2018.view;
 import it.polimi.se2018.model.Dice;
 
 import it.polimi.se2018.model.cell.Cell;
+import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.util.Logger;
 
+import java.awt.image.AreaAveragingScaleFilter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -213,40 +216,96 @@ public class ViewCli extends View {
     }
 
     @Override
-    public ArrayList<Object> manageCCEFR() {
-        // DIce, row, column
-        askDiceMap();
+    public ArrayList<Object> manageCER() {
+        // Dice, RowDest, ColumnDect, rowMit, ColumnMit
+        ArrayList<Object> obj = new ArrayList<>();
+        ArrayList<Integer> obj2 = askDiceMap();
+        addLog("Seleziona dove vuoi piazzare il dado scelto:");
+        ArrayList<Integer> obj3 = askRowColumn();
+        obj.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj2.get(0)][obj2.get(1)].getDice());
+        obj.add(obj3.get(0));
+        obj.add(obj3.get(1));
+        obj.add(obj2.get(0));
+        obj.add(obj2.get(1));
+        return obj;
+    }
+
+    @Override
+    public Dice managefluxRemove() {
+        //Dice dice
         return null;
     }
 
     @Override
-    public ArrayList<Object> managefluxRemove() {
-        //Dice dice, int value
-        return null;
+    public Dice manageGrozing1() {
+        // Dice
+        return (gameStatus.getStock().get(askDiceStock()));
     }
 
     @Override
-    public Dice manageGG() {
-        //Dice
-        return null;
+    public int manageGrozing2(int minus, int major) {
+        addLog("Scegli il nuovo valore che deve avere il dado");
+        addLog(String.valueOf(minus) + " o " + String.valueOf(major) + " ?");
+        return (Integer.decode(scanner.nextLine()));
     }
 
+    public ArrayList<Integer> manageGrozing3(){
+        ArrayList<Integer> obj = new ArrayList<>();
+        addLog("Seleziona dove inserire il dado");
+        return askRowColumn();
+    }
+
+    @Override
+    public ArrayList<Object> manageGrinding() {
+        return null;
+    }
 
     public ArrayList<Object> manageLathekin() {
-        //int row1,int column1, int row2, int column2, ArrayList<Dice> dices
-        return null;
+        //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+        ArrayList<Object> obj = new ArrayList<>();
+        ArrayList<Dice> dices = new ArrayList<>();
+        for (int i=0; i<2;i++){
+            addLog("Scegli il " + (i+1)+"° dado da riposizionare:");
+            ArrayList<Integer> obj2 = askDiceMap();
+            obj.add(obj2.get(0));
+            obj.add(obj2.get(1));
+            dices.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj2.get(0)][obj2.get(1)].getDice());
+            addLog("Scegli dove riposizionare il dado scelto:");
+            ArrayList<Integer> obj3 = askDiceMap();
+            obj.add(obj3.get(0));
+            obj.add(obj3.get(1));
+        }
+        obj.add(dices);
+        return obj;
     }
 
     @Override
     public ArrayList<Object> manageLens() {
-        //Dice diceRound,Dice dicStock2, int numberRound
-        return null;
+        //Dice dicStock2,Dice diceRound, int numberRound
+        ArrayList<Object> obj = new ArrayList<>();
+        obj.add(gameStatus.getStock().get(askDiceStock()));
+        ArrayList<Object> obj2 = askDiceRound();
+        obj.add(obj2.get(0));
+        obj.add(obj2.get(1));
+        return obj;
     }
 
     @Override
     public ArrayList<Object> manageTap() {
         //Dice diceRound, Arraylist Dice (dice1, Dice dice2), int row1, int row2, int column1, int column2
         return null;
+    }
+
+    @Override
+    public ArrayList<Object> manageCork() {
+        // Dice, row, column
+        ArrayList<Object> obj = new ArrayList<>();
+        obj.add(gameStatus.getStock().get(askDiceStock()));
+        addLog("Seleziona le coordinate dove posizionare il dado:");
+        ArrayList<Integer> obj2 = askRowColumn();
+        obj.add(obj2.get(0));
+        obj.add(obj2.get(1));
+        return obj;
     }
 
     public int askDiceStock() {
@@ -258,8 +317,7 @@ public class ViewCli extends View {
 
     public ArrayList<Integer> askDiceMap() {
         addLog("La tua mappa:");
-        printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
-        addLog("Inserisci le cordinate del dado");
+        addLog("Inserisci le cordinate:");
         return askRowColumn();
     }
 
@@ -317,5 +375,82 @@ public class ViewCli extends View {
             default:
                 break;
         }
+    }
+
+    public ArrayList<Object> askDiceRound(){
+        ArrayList<Object> obj = new ArrayList<>();
+        addLog("Seleziona il dado dallo schema dei round:");
+        printSchemeRounds();
+        addLog("Seleziona il round dal quale prendere il dado:");
+        int round=Integer.decode(scanner.nextLine())-1;
+        addLog("Seleziona il dado da questo round:");
+        printSchemeRound(round);
+        obj.add(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(Integer.decode(scanner.nextLine())));
+        obj.add(round);
+        return obj;
+    }
+
+    public void printSchemeRounds(){
+        // cicla i round
+        for (int round=0; round<gameStatus.getRoundSchemeMap().length;round++){
+            // cicla i dadi all'interno di ogni round
+            printSchemeRound(round);
+        }
+    }
+
+    public void printSchemeRound(int round){
+        for (int dice=0; dice<gameStatus.getRoundSchemeMap()[round].getRestOfStock().size();dice++){
+            printColor(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
+                    String.valueOf(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getValue()));
+        }
+    }
+
+    @Override
+    public ArrayList<Object> managefluxBrush() {
+        // dice dicebefore, dice diceafter, int rowdest, int columndest
+        ArrayList<Object> obj = new ArrayList<>();
+        Dice diceBefore = gameStatus.getStock().get(askDiceStock());
+        Dice diceAfter=null;
+        try {
+            diceAfter= diceBefore.clone();
+        } catch (CloneNotSupportedException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+        diceAfter.throwDice();
+        addLog("Ecco il risultato del lancio del dado precedentemente scelto: ");
+        printColor(diceAfter.getColor().toString(),String.valueOf(diceAfter.getValue()));
+        addLog("Scegli dove posizionare il dado: ");
+        ArrayList<Integer> obj2 = askRowColumn();
+        obj.add(diceBefore);
+        obj.add(diceAfter);
+        obj.add(obj2.get(0));
+        obj.add(obj2.get(1));
+        return obj;
+    }
+
+
+    @Override
+    public ArrayList<Object> manageFlueRemove2(Dice dice) {
+        int valore=0;
+        boolean ok=false;
+        while(!ok){
+        addLog("Hai estratto un dado di colore "+ dice.getColor().toString()+ "\n Scegli il valore da assegnare a questo dado:");
+            valore = Integer.decode(scanner.nextLine());
+            if (valore<7 && valore>0)
+                ok=true;
+            else
+                addLog("Hai inserito un valore errato per questo dado");
+        }
+        try {
+            dice.setValue(valore);
+        } catch (InvalidValueException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+        ArrayList<Integer>obj2= askRowColumn();
+        ArrayList<Object> obj = new ArrayList<>();
+        obj.add(dice);
+        obj.add(obj2.get(0));
+        obj.add(obj2.get(1));
+        return obj;
     }
 }
