@@ -15,6 +15,10 @@ import java.util.logging.Level;
  */
 
 public class Lathekin extends ToolCardStrategy {
+    private int row3=0; //poszione riga iniziale primo dado
+    private int column3=0; //poszione colonna iniziale primo dado
+    private int row4=0; //poszione riga iniziale secondo dado
+    private int column4=0; //poszione colonna iniziale secondo dado
 
     /**
      * Read description of this card for further information
@@ -31,39 +35,64 @@ public class Lathekin extends ToolCardStrategy {
      * @param t5 n.a.
      * @param t6 n.a.
      */
+    //qui ti metto 4 attributi in questa classe con i loro set e get perché non c'è voglia di aggiungere 4 parametri in più
+    //a tutti i metodi di tutte le carte, già superiamo il limite di un bel po'
+    //in ogni caso ti posiziono i dadi
     public void useTool(Player player, Dice dice, int row1, int column1, List<Dice> dicesToMove,
             boolean temp, int row2, int column2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
-        int row3=0;
-        int column3=0;
-        int row4=0;
-        int column4=0;
         boolean a;
         boolean b;
-        try {
-            if(mapContainsDice(player.getMap(), dicesToMove.get(0), row3, column3)
-                && mapContainsDice(player.getMap(), dicesToMove.get(1), row4, column4)
-                    && dicesToMove.size()==2){
-                a = player.getMap().posDice(dicesToMove.get(0), row1, column1);
-                if (!a) {
-                    errorBool.setErrorMessage("first dice not valid");
-                    return;
-                }
-                player.getMap().posDice(null, row3, column3);
-                b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
-                if (!b) {
-                    player.getMap().posDice(dicesToMove.get(0), row3, column3);
-                    player.getMap().posDice(null, row1, column1);
-                    errorBool.setErrorMessage("second dice not valid");
-                    return;
-                }
-                player.getMap().posDice(null, row4, column4);
-            } else {
-                errorBool.setErrorMessage("Map may not contains a passed dice");
-                errorBool.setErrBool(true);
+        if(dicesToMove.size()==2){
+            a = player.getMap().posDice(dicesToMove.get(0), row1, column1);
+            if (!a) {
+                errorBool.setErrorMessage("first dice not valid");
+                return;
             }
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in Lathekin tool card", e);
+            player.getMap().posDice(null, row3, column3);
+            b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
+            if (!b) {
+                player.getMap().posDice(dicesToMove.get(0), row3, column3);
+                player.getMap().posDice(null, row1, column1);
+                errorBool.setErrorMessage("second dice not valid");
+                return;
+            }
+            player.getMap().posDice(null, row4, column4);
+        } else {
+            errorBool.setErrorMessage("passed dices aren't exactly two");
+            errorBool.setErrBool(true);
         }
+    }
+
+    public void setRow3(int row3) {
+        this.row3 = row3;
+    }
+
+    public void setRow4(int row4) {
+        this.row4 = row4;
+    }
+
+    public int getRow3() {
+        return row3;
+    }
+
+    public int getRow4() {
+        return row4;
+    }
+
+    public int getColumn3() {
+        return column3;
+    }
+
+    public void setColumn3(int column3) {
+        this.column3 = column3;
+    }
+
+    public int getColumn4() {
+        return column4;
+    }
+
+    public void setColumn4(int column4) {
+        this.column4 = column4;
     }
 
     @Override

@@ -26,7 +26,11 @@ public abstract class Cell implements Serializable {
      * @param nextDice: dice the player want to put in the cell
      */
     public void setDice(Dice nextDice){
-        dice = nextDice;
+        try {
+            dice = nextDice;
+        }catch (NullPointerException e){
+            dice = null;
+        }
     }
     
     /** method that return the dice inside cell
@@ -48,10 +52,18 @@ public abstract class Cell implements Serializable {
      */
     public abstract int getValue();
 
+    /**
+     * sets the cell's number in a sequential mood, like if it was in array list [1...20]
+     * @param numberCell cell's assigned number
+     */
     public void setNumberCell(int numberCell) {
         this.numberCell = numberCell;
     }
 
+    /**
+     * gets the cell's number
+     * @return an integer of the cell's assigned number
+     */
     public int getNumberCell() {
         return numberCell;
     }

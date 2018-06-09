@@ -28,15 +28,16 @@ public class GrindingStone extends ToolCardStrategy {
      * @param a n.a.
      * @param stock n.a.
      * @param posDice n.a.
-     * @param t1 n.a.
-     * @param t2 n.a.
+     * @param row row's coordinate where to position the dice
+     * @param column column's coordinate where to position the dice
      * @param t3 n.a.
      * @param t4 n.a.
      * @param t5 n.a.
      * @param t6 n.a.
      */
+    //posiziono io il dado per facilitarti la vita, aggiungi nel messaggio le coordinate
     public void useTool(Player player, Dice dice, int turn, int a, List<Dice> stock
-            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+            , boolean posDice, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(dice==null){
             errorBool.setErrorMessage("There's no passed dice");
             errorBool.setErrBool(true);
@@ -68,6 +69,7 @@ public class GrindingStone extends ToolCardStrategy {
                         errorBool.setErrBool(true);
                         return;
                 }
+                player.posDice(dice, row, column);
             }
             catch (InvalidValueException e){
                 LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class GrindingStone Tool Card", e);

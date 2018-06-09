@@ -32,7 +32,7 @@ public class LensCutter extends ToolCardStrategy {
      * @param roundSchemeMap the Round Scheme
      */
 
-    //non ho posizionato il dado
+    //non ho posizionato il dado se vuoi dimmelo e te lo posiziono qui
     public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, boolean t2
             , int t3, int t4, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
         List<Dice> temp = new ArrayList<>();

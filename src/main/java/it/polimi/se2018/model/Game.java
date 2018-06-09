@@ -289,9 +289,20 @@ public class Game {
         System.gc();
     }
 
+    /**
+     * removes a specified dice from the stock
+     * @param dice a chosen dice from the stock
+     */
+    //da testare
     public void removeDiceStock(Dice dice){
         stock.remove(dice);
     }
 
+    /**
+     * removes a specified map from the array list of all maps
+     * @param map a specified dice
+     */
+    //da testare
+    //perché ne avete bisogno?
     public void removeMap(Map map){maps.remove(map);}
 }

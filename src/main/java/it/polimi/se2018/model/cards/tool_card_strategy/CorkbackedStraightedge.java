@@ -32,7 +32,7 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
      * @param t5 n.a.
      * @param t6 n.a.
      */
-
+    //posiziono io il dado
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(player.getMap().isAdjacentDice(row, column)) {
@@ -41,6 +41,16 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
             return;
         }
         try {
+            if (player.getMap().isAdjacentDice(row, column) || player.getMap().colorAlreadyExistInColumn(column, dice.getColor())
+                    || player.getMap().colorAlreadyExistInRow(row, dice.getColor())
+                    || !player.getMap().diceCompatibleColorCell(row, column, dice.getColor())
+                    || player.getMap().valueAlreadyExistInColumn(column, dice.getValue())
+                    || player.getMap().valueAlreadyExistInRow(row, dice.getValue())
+                    || !player.getMap().diceCompatibleValueCell(row, column, dice.getValue())){
+                errorBool.setErrorMessage("Player doesn't respect color restrictions");
+                errorBool.setErrBool(true);
+                return;
+            }
             player.getMap().getCell(row, column).setDice(dice);
         } catch (notValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in CorkbackedStraightedge tool card", e);

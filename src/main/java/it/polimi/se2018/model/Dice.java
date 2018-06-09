@@ -54,14 +54,11 @@ public class Dice implements Serializable,Cloneable {
 
     /**
      * sets the dice's color
-     * @param color
+     * @param color a Color to give to "this" dice
      */
+    //da testare
     public void setColor(Color color) {
         this.color = color;
     }
 
-    @Override
-    public Dice clone() throws CloneNotSupportedException {
-        return (Dice)super.clone();
-    }
 }

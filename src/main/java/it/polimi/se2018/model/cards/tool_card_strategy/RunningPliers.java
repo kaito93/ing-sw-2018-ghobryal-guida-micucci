@@ -31,6 +31,7 @@ public class RunningPliers extends ToolCardStrategy {
      * @param t5 n.a.
      * @param turns players in order
      */
+    //posiziono solo il dado che viene scelto al posto del secondo turno
     public void useTool(Player playerCurr, Dice dice, int turn, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
         boolean a;

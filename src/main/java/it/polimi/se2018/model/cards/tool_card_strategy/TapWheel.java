@@ -13,6 +13,10 @@ import java.util.logging.Level;
  */
 
 public class TapWheel extends ToolCardStrategy {
+    private int row3=0; //poszione riga iniziale primo dado
+    private int column3=0; //poszione colonna iniziale primo dado
+    private int row4=0; //poszione riga iniziale secondo dado
+    private int column4=0; //poszione colonna iniziale secondo dado
 
     /**
      * Read description of this card for further information
@@ -29,41 +33,67 @@ public class TapWheel extends ToolCardStrategy {
      * @param t3 n.a.
      * @param posDice which round contains the dice on the round scheme
      */
+    //guarda il commento su Lathekin ma qui è variablile sul numero di dadi passato
     public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove, boolean t1,
             int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
-        int b=0;
-        int c=0;
-        int f=0;
-        int g=0;
         boolean d;
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
-            try {
-                if (dicesToMove.size() == 1) {
-                    if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor()) && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)) {
-                        d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
-                        if (d)
-                            player.getMap().posDice(null, b, c);
-                        else {
-                            errorBool.setErrorMessage("posDice method in TapWheel tool card");
-                            errorBool.setErrBool(true);
-                            return;
-                        }
+            if (dicesToMove.size() == 1) {
+                if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
+                    d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
+                    if (d)
+                        player.getMap().posDice(null, row3, column3);
+                    else {
+                        errorBool.setErrorMessage("posDice method in TapWheel tool card");
+                        errorBool.setErrBool(true);
+                        return;
                     }
-                } else if (dicesToMove.size() == 2 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())
-                        && mapContainsDice(player.getMap(), dicesToMove.get(0), b, c)
-                        && mapContainsDice(player.getMap(), dicesToMove.get(1), f, g)
-                        && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())) {
-                    Lathekin x = new Lathekin();
-                    x.useTool(player, roundSchemeMapDice, row1, column1, dicesToMove, t1, row2, column2, t2,
-                            roundSchemeMap, t3, posDice);
                 }
-            }
-            catch(notValidCellException e){
-                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in TapWheel tool card", e);
+            } else if (dicesToMove.size() == 2 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())
+                    && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())) {
+                Lathekin x = new Lathekin();
+                x.setRow3(row3);
+                x.setRow4(row4);
+                x.setColumn3(column3);
+                x.setColumn4(column4);
+                x.useTool(player, roundSchemeMapDice, row1, column1, dicesToMove, t1, row2, column2, t2,
+                        roundSchemeMap, t3, posDice);
             }
         }
         errorBool.setErrorMessage("the round scheme doesn't contain the chosen dice from the round scheme");
         errorBool.setErrBool(true);
+    }
+
+    public void setRow3(int row3) {
+        this.row3 = row3;
+    }
+
+    public void setRow4(int row4) {
+        this.row4 = row4;
+    }
+
+    public int getRow3() {
+        return row3;
+    }
+
+    public int getRow4() {
+        return row4;
+    }
+
+    public int getColumn3() {
+        return column3;
+    }
+
+    public void setColumn3(int column3) {
+        this.column3 = column3;
+    }
+
+    public int getColumn4() {
+        return column4;
+    }
+
+    public void setColumn4(int column4) {
+        this.column4 = column4;
     }
 
     @Override

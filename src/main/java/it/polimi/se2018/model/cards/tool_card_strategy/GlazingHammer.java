@@ -30,7 +30,7 @@ public class GlazingHammer extends ToolCardStrategy {
      * @param t6 n.a.
      */
 
-    //posDice ok!
+    //non posiziono nessun dado perché non c'entra con la descrizione della carta
     public void useTool(Player player, Dice dice1, int turn, int a, List<Dice> stock
             , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(turn==2 && !posDice)

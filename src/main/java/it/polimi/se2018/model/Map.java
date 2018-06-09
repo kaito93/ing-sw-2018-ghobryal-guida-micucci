@@ -141,7 +141,8 @@ public class Map implements Serializable {
      * controls if the borders on the map are empty or not
      * @return a boolean, if the borders are empty or not
      */
-    private boolean isBorderEmpty(){ //first positioning rule
+    //da testare
+    public boolean isBorderEmpty(){ //first positioning rule
         boolean control=false;
         for(int i=0; i<numColumn(); i++) //controls up & down borders
             if(!isEmptyCell(0, i) || !isEmptyCell(numRow()-1, i)){
@@ -361,15 +362,43 @@ public class Map implements Serializable {
      * @return a boolean, true if the dice is compatible else false
      */
     private boolean diceCompatibleCell(int row, int column, int value, Color color){
-        if(cell[row][column].getValue()!=0)
+        if(diceCompatibleValueCell(row, column, value))
             return cell[row][column].getValue()==value;
         else if(cell[row][column].getValue()==0 && cell[row][column].getColor().equalsColor(Color.NULL))
             return true;
-        else if(!cell[row][column].getColor().equalsColor(Color.NULL)) {
+        else if(diceCompatibleColorCell(row, column, color))
             return color.equalsColor(cell[row][column].getColor());
-        }
         return false;
     }
+
+    /**
+     * verifies if the chosen dice is compatible with cell in which the dice would be positioned
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     * @param value chosen dice's value
+     * @return a boolean, true if the dice is compatible else false
+     */
+    //da testare
+    public boolean diceCompatibleValueCell(int row, int column, int value){
+        if(cell[row][column].getValue()!=0)
+            return cell[row][column].getValue()==value;
+        else return false;
+    }
+
+    /**
+     * verifies if the chosen dice is compatible with cell in which the dice would be positioned
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     * @param color chosen dice's color
+     * @return a boolean, true if the dice is compatible else false
+     */
+    //da testare
+    public boolean diceCompatibleColorCell(int row, int column, Color color){
+        if(!cell[row][column].getColor().equalsColor(Color.NULL))
+            return color.equalsColor(cell[row][column].getColor());
+        else return false;
+    }
+
 
     /**
      * positions the dice if it's possibile and it respects all the restrictions
