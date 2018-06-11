@@ -8,7 +8,7 @@ import it.polimi.se2018.model.cell.ValueCell;
  * extends mapBuilder
  */
 public class ValueCellBuilder extends MapsBuilder {
-    private ValueCell valueCell;
+    private Cell valueCell;
 
     /**
      * map constructor: set all the value of the class: in particular the string is setted to "value"

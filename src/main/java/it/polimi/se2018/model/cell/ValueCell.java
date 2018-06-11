@@ -9,14 +9,12 @@ import it.polimi.se2018.model.Color;
 
 public class ValueCell extends Cell {
 
-    private int value;
-    
+
     /** class constructor
      *  return a cell with a particoular number
      */
     public ValueCell(){
         super();
-        value = 0;
     }
     
     /** method that return the value of the cell
@@ -31,9 +29,23 @@ public class ValueCell extends Cell {
      */
     @Override
     public Color getColor() {
-        return Color.NULL;
+        return color;
     }
 
+    /**
+     * sets the cell's color on the map
+     * @param color cell's color
+     */
+    @Override
+    public void setColor(Color color) {
+        this.color=Color.NULL;
+    }
+
+    /**
+     * sets the cell's value on the map
+     * @param value cell's value
+     */
+    @Override
     public void setValue(int value) {
         this.value = value;
     }

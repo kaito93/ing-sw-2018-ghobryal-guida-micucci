@@ -8,6 +8,7 @@ import it.polimi.se2018.util.Deserializer.*;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
 
 
 /**
@@ -294,13 +295,7 @@ public class Game {
      * @param dice a chosen dice from the stock
      */
     //da testare
-    public void removeDiceStock(Dice dice){
-
-        for (int i=0; i<stock.size();i++){
-            if (dice.getColor().equalsColor(stock.get(i).getColor())){
-                if (dice.getValue()==stock.get(i).getValue())
-                    stock.remove(i);
-            }
-        }
+    public void removeDiceStock(Dice dice) {
+        stock.remove(dice);
     }
 }

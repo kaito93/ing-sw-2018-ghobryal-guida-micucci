@@ -9,7 +9,7 @@ import it.polimi.se2018.model.cell.ColoredCell;
  * extends map builder abstract class
  */
 public class ColoredCellBuilder extends MapsBuilder {
-    private ColoredCell colored;
+    private Cell colored;
     private Color colour;
 
     /**

@@ -4,7 +4,7 @@ import it.polimi.se2018.model.cell.BlankCell;
 import it.polimi.se2018.model.cell.Cell;
 
 public class BlankCellBuilder extends MapsBuilder {
-    BlankCell blank;
+    private Cell blank;
 
     public BlankCellBuilder(){
         super();

@@ -12,6 +12,8 @@ import java.io.Serializable;
 
 public abstract class Cell implements Serializable {
 
+    protected int value;
+    protected Color color;
     private Dice dice;
     private int numberCell;
     
@@ -19,7 +21,10 @@ public abstract class Cell implements Serializable {
      *  return a cell object with no dice inside
      */
     public Cell(){
+        value=0;
+        color=Color.NULL;
         dice = null;
+        numberCell=0;
     }
     
     /** method that set the dice incide the cell
@@ -53,6 +58,18 @@ public abstract class Cell implements Serializable {
     public abstract int getValue();
 
     /**
+     * sets the cell's value on the map
+     * @param value cell's assigned value
+     */
+    public abstract void setValue(int value);
+
+    /**
+     * sets the cell's color on the map
+     * @param color cell's assigned color
+     */
+    public abstract void setColor(Color color);
+
+    /**
      * sets the cell's number in a sequential mood, like if it was in array list [1...20]
      * @param numberCell cell's assigned number
      */
@@ -67,4 +84,5 @@ public abstract class Cell implements Serializable {
     public int getNumberCell() {
         return numberCell;
     }
+    
 }

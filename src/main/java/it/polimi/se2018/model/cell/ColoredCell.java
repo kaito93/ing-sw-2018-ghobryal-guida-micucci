@@ -8,14 +8,12 @@ import it.polimi.se2018.model.Color;
  */
 
 public class ColoredCell extends Cell {
-    private Color color;
 
     /** class constructor
      *  return a cell with a particular color
      */
     public ColoredCell(){
         super();
-        color = null;
     }
     
     /** method that returns the color of the cell
@@ -34,10 +32,22 @@ public class ColoredCell extends Cell {
     }
 
     /**
-     * sets cell's color
-     * @param color a Color type to color the cell
+     * sets the cell's color on the map
+     * @param color cell's color
      */
+    @Override
     public void setColor(Color color) {
-        this.color = color;
+        this.color=color;
     }
+
+    /**
+     * sets the cell's value on the map
+     * @param value cell's value
+     */
+    @Override
+    public void setValue(int value) {
+        this.value = 0;
+    }
+
+
 }

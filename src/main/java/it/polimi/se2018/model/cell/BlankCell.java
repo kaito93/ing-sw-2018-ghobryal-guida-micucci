@@ -19,16 +19,32 @@ public class BlankCell extends Cell{
      */
     @Override
     public Color getColor() {
-        return Color.NULL;
+        return color;
     }
-    
+
     /** method that return the value of the cell
      * @return 0 cause cell is with no value
      */
     @Override
     public int getValue() {
-        return 0;
-        
+        return value;
     }
-    
+
+    /**
+     * sets the cell's color on the map
+     * @param color cell's color
+     */
+    @Override
+    public void setColor(Color color) {
+        this.color=Color.NULL;
+    }
+
+    /**
+     * sets the cell's value on the map
+     * @param value cell's value
+     */
+    @Override
+    public void setValue(int value) {
+        this.value = 0;
+    }
 }

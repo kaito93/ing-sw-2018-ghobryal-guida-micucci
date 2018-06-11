@@ -141,7 +141,6 @@ public class Map implements Serializable {
      * controls if the borders on the map are empty or not
      * @return a boolean, if the borders are empty or not
      */
-    //da testare
     public boolean isBorderEmpty(){ //first positioning rule
         boolean control=false;
         for(int i=0; i<numColumn(); i++) //controls up & down borders
@@ -150,7 +149,7 @@ public class Map implements Serializable {
                 break;
             }
         if(!control)
-            for(int i=0; i<numRow(); i++) //controls left & right borders
+            for(int i=1; i<numRow()-1; i++) //controls left & right borders
                 if(!isEmptyCell(i, 0) || !isEmptyCell(i, numColumn()-1)) {
                     control=true;
                     break;
@@ -378,7 +377,6 @@ public class Map implements Serializable {
      * @param value chosen dice's value
      * @return a boolean, true if the dice is compatible else false
      */
-    //da testare
     public boolean diceCompatibleValueCell(int row, int column, int value){
         if(cell[row][column].getValue()!=0)
             return cell[row][column].getValue()==value;
@@ -392,7 +390,6 @@ public class Map implements Serializable {
      * @param color chosen dice's color
      * @return a boolean, true if the dice is compatible else false
      */
-    //da testare
     public boolean diceCompatibleColorCell(int row, int column, Color color){
         if(!cell[row][column].getColor().equalsColor(Color.NULL))
             return color.equalsColor(cell[row][column].getColor());
