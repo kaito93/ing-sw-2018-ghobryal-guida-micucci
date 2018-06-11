@@ -5,6 +5,7 @@ import it.polimi.se2018.model.exception.InvalidValueException;
 import junit.framework.TestCase;
 
 /**
+ * class Dice Tester
  * @author Anton Ghobryal
  */
 

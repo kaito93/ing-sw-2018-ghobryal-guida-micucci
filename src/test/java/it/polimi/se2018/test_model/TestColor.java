@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Color;
 import junit.framework.TestCase;
 
 /**
+ * Enumeration Color Tester
  * @author Anton Ghobryal
  */
 

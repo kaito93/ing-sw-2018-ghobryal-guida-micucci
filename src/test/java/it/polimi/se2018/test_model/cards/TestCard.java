@@ -4,6 +4,7 @@ import it.polimi.se2018.model.cards.Card;
 import junit.framework.TestCase;
 
 /**
+ * class Card Tester
  * @author Anton Ghobryal
  */
 

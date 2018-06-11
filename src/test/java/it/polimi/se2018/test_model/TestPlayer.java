@@ -8,6 +8,7 @@ import it.polimi.se2018.model.exception.notValidMatrixException;
 import junit.framework.TestCase;
 
 /**
+ * class Player Tester
  * @author Anton Ghobryal
  */
 

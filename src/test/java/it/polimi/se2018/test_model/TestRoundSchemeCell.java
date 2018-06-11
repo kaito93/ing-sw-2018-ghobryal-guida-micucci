@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 
 /**
+ * class RoundSchemeCell Tester
  * @author Anton Ghobryal
  */
 
@@ -55,8 +56,11 @@ public class TestRoundSchemeCell extends TestCase {
         roundSchemeCell.removeDice(roundSchemeCellDices.get(0));
         assertFalse(roundSchemeCell.getRestOfStock().contains(roundSchemeCellDices.get(0)));
     }
-    //perché appena faccio il teardown non mi funziona più nessun test?
 
+    /**
+     * tearing down the test data
+     * @throws Exception teardown general exception
+     */
     @Override
     protected void tearDown() throws Exception {
         for(int i=0; i<4; i++){
