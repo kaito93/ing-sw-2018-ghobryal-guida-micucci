@@ -33,7 +33,16 @@ public abstract class ConnectionServer {
 
     public abstract ObjectInputStream getInput();
 
-    public abstract void sendMap(ArrayList<Map> maps, Player player);
+    public void sendMap(ArrayList<Map> maps, Player player){
+        ArrayList<Map> mapsToPlayer= new ArrayList<>();
+        for (int j=0; j<2;j++){ // sceglie 2 carte schema
+            Map m = randomMap(maps);
+            mapsToPlayer.add(m); // aggiunge la mappa estratta al messaggio da inviare
+        }
+        sendMapConn(mapsToPlayer,player);
+    }
+
+    public abstract void sendMapConn(ArrayList<Map> maps, Player player);
 
     public Map randomMap(ArrayList<Map> ma){
         Random random = new Random();

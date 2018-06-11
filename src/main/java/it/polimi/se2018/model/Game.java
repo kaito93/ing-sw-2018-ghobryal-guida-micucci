@@ -295,14 +295,12 @@ public class Game {
      */
     //da testare
     public void removeDiceStock(Dice dice){
-        stock.remove(dice);
-    }
 
-    /**
-     * removes a specified map from the array list of all maps
-     * @param map a specified dice
-     */
-    //da testare
-    //perché ne avete bisogno?
-    public void removeMap(Map map){maps.remove(map);}
+        for (int i=0; i<stock.size();i++){
+            if (dice.getColor().equalsColor(stock.get(i).getColor())){
+                if (dice.getValue()==stock.get(i).getValue())
+                    stock.remove(i);
+            }
+        }
+    }
 }

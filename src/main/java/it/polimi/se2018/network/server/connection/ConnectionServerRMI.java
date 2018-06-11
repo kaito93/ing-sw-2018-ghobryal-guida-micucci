@@ -24,7 +24,7 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendMap(ArrayList<Map> maps, Player player) {
+    public void sendMapConn(ArrayList<Map> maps, Player player) {
         // METODO PER INVIARE LA SCELTA DELLE MAPPE AI GIOCATORI
     }
 

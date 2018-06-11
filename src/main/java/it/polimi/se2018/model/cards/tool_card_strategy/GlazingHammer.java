@@ -14,6 +14,9 @@ import java.util.List;
 
 public class GlazingHammer extends ToolCardStrategy {
 
+    protected int firstValue; //+1
+    protected int secondValue; //-1
+
     /**
      * Read description of this card for further information
      * @param player n.a.
@@ -48,5 +51,23 @@ public class GlazingHammer extends ToolCardStrategy {
     @Override
     public void requestMessage(VirtualView view, String title, int player) {
         view.createMessageGlazing(title);
+    }
+
+    /**
+     * @return the value increased if it's possible (different from zero)
+     */
+
+    @Override
+    public int getFirstValue() {
+        return firstValue;
+    }
+
+    /**
+     * @return the value decreased if it's possible (different from zero)
+     */
+
+    @Override
+    public int getSecondValue() {
+        return secondValue;
     }
 }

@@ -26,7 +26,7 @@ public class GrindingStone extends ToolCardStrategy {
      * @param player  n.a.
      * @param dice    the chosen dice
      * @param turn    n.a.
-     * @param a       n.a.
+     * @param t1       n.a.
      * @param stock   n.a.
      * @param posDice n.a.
      * @param row     row's coordinate where to position the dice
@@ -37,17 +37,15 @@ public class GrindingStone extends ToolCardStrategy {
      * @param t6      n.a.
      */
     //posiziono io il dado per facilitarti la vita, aggiungi nel messaggio le coordinate
-    public void useTool(Player player, Dice dice, int turn, int a, List<Dice> stock
+    public void useTool(Player player, Dice dice, int turn, int t1, List<Dice> stock
             , boolean posDice, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
         if (dice == null) {
             errorBool.setErrorMessage("There's no passed dice");
             errorBool.setErrBool(true);
-            return;
-        } else
-            player.posDice(dice, row, column);
-
-        errorBool.setErrorMessage(null);
-        errorBool.setErrBool(false);
+        }else if(player.posDice(dice, row, column)) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+        }
     }
 
     @Override

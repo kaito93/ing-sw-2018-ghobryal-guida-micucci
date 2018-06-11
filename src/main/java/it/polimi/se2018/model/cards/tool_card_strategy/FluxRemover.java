@@ -25,7 +25,7 @@ public class FluxRemover extends ToolCardStrategy {
      * @param player n.a.
      * @param stockDice a chosen dice from the stock
      * @param value the value should be forced into the chosen dice from the bag
-     * @param a n.a.
+     * @param t1 n.a.
      * @param bag the container of all dices
      * @param b n.a.
      * @param row row's coordinate where to position the dice
@@ -38,19 +38,20 @@ public class FluxRemover extends ToolCardStrategy {
     //posiziono io il dado
     //se il giocatore non riesce a posizionare il dado perde comunque i punti perché ha scambiato un
     //dado dalla riserva con un'altro del DiceBox e perciò gli tolgo i punti a prescindere
-    public void useTool(Player player, Dice stockDice, int value, int a, List<Dice> bag
+    public void useTool(Player player, Dice stockDice, int value, int t1, List<Dice> bag
             , boolean b, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         bag.add(stockDice);
         Collections.shuffle(bag);
         Dice temp = bag.remove(0);
         try {
             temp.setValue(value);
-            player.posDice(temp, row, column);
+            if(player.posDice(temp, row, column)) {
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+            }
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class FluxRemover Tool Card", e);
         }
-        errorBool.setErrorMessage(null);
-        errorBool.setErrBool(false);
     }
 
     @Override

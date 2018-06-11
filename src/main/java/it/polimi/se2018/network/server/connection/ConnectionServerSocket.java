@@ -60,14 +60,12 @@ public class ConnectionServerSocket extends ConnectionServer {
     }
 
     @Override
-    public void sendMap(ArrayList<Map> maps, Player player) {
+    public void sendMapConn(ArrayList<Map> maps, Player player) {
         MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
-        for (int j=0; j<2;j++){ // sceglie 2 carte schema
-            Map m = randomMap(maps);
-            message.addMap(m); // aggiunge la mappa estratta al messaggio da inviare
-            message.setPlayer(player); // invio alla view il giocatore proprietario
+        for (int j=0; j<maps.size();j++){ // sceglie 2 carte schema
+            message.addMap(maps.get(j)); // aggiunge la mappa estratta al messaggio da inviare
         }
-
+        message.setPlayer(player); // invio alla view il giocatore proprietario
         mex= new Message(Message.CVEVENT, message);
         send(mex); // viene inviato il messaggio al giocatore per scegliere la carta
 

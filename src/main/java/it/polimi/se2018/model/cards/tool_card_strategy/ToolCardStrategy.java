@@ -17,8 +17,7 @@ public abstract class ToolCardStrategy implements Serializable {
     protected static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     protected static ErrorBool errorBool = new ErrorBool(null, false);
 
-    protected int firstValue; //+1
-    protected int secondValue; //-1
+
 
     /**
      * gets an ErrorBoolTool status
@@ -39,7 +38,7 @@ public abstract class ToolCardStrategy implements Serializable {
      */
 
     public int getFirstValue() {
-        return firstValue;
+        return 0;
     }
 
     /**
@@ -47,7 +46,29 @@ public abstract class ToolCardStrategy implements Serializable {
      */
 
     public int getSecondValue() {
-        return secondValue;
+        return 0;
     }
+
+    public void setRow3(int row3) {}
+
+    public void setRow4(int row4) {}
+
+    public int getRow3() {
+        return 0;
+    }
+
+    public int getRow4() {
+        return 0;
+    }
+
+    public int getColumn3() {
+        return 0;
+    }
+
+    public void setColumn3(int column3) {}
+
+    public int getColumn4() { return 0; }
+
+    public void setColumn4(int column4) {}
 
 }

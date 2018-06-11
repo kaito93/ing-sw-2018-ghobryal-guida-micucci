@@ -41,7 +41,10 @@ public class MessageTapWheel implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
         String error="ciao";
-
+        controller.getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
+        controller.getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
+        controller.getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
+        controller.getGame().searchToolCard(title).getStrategy().setRow3(col2Mit);
             if(!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),
                     diceRoundScheme,row1Dest,column1Dest,diceToMove,false,row2Dest,column2Dest,null,
                     controller.getGame().getRoundSchemeMap(),null,posDiceinSchemeRound))

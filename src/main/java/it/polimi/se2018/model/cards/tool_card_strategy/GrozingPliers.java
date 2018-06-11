@@ -39,14 +39,15 @@ public class GrozingPliers extends ToolCardStrategy {
     // posizionamento dado con le coordinate e il dado da mettere e hai i metodi qui che i servono
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4,  List<Player> t5, int t6){
-
-        boolean a =player.getMap().posDice(dice,row,column);
-        if (!a) {
-            errorBool.setErrorMessage("first dice not valid");
-            return;
+        // L'algoritmo di questa carta è stato spostato nella View (nel metodo ManageGrozing()) per evitare un continuo
+        // invio di messaggi contenenti una singola e elementare informazione. In questo modo l'utente invia al server
+        // solamente le informazioni del dado da posizionare e delle relative coordinate come in un normalissimo
+        // posizionamento di dadi.
+        // Il metodo UseTool rimane comunque perchè viene richiamato tramite RMI
+        if (player.getMap().posDice(dice,row,column)) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
         }
-        errorBool.setErrorMessage(null);
-        errorBool.setErrBool(false);
     }
 
 

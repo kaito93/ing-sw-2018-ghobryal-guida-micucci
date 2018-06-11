@@ -63,34 +63,35 @@ public class Lathekin extends ToolCardStrategy {
         }
     }
 
+    @Override
     public void setRow3(int row3) {
         this.row3 = row3;
     }
-
+    @Override
     public void setRow4(int row4) {
         this.row4 = row4;
     }
-
+    @Override
     public int getRow3() {
         return row3;
     }
-
+    @Override
     public int getRow4() {
         return row4;
     }
-
+    @Override
     public int getColumn3() {
         return column3;
     }
-
+    @Override
     public void setColumn3(int column3) {
         this.column3 = column3;
     }
-
+    @Override
     public int getColumn4() {
         return column4;
     }
-
+    @Override
     public void setColumn4(int column4) {
         this.column4 = column4;
     }

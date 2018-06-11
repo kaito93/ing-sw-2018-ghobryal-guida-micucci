@@ -157,7 +157,7 @@ public abstract class View {
             minus = 0;
         } else {
             major = 0;
-            major = dice.getValue() - 1;
+            minus = dice.getValue() - 1;
         }
         try {
             dice.setValue(manageGrozing2(minus, major));
@@ -185,5 +185,7 @@ public abstract class View {
     public abstract ArrayList<Object> manageTap();
 
     public abstract ArrayList<Object> manageCork();
+
+
 
 }
