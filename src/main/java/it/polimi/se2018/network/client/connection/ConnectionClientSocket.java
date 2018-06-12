@@ -160,9 +160,14 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void visit(MessageChooseMap message) {
         this.username=message.getUsername(); // setto il giocatore proprietario di questa connessione
         ArrayList<Cell[][]> cells = new ArrayList<>();
-        for (int i=0; i<message.getMaps().size();i++)
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<Integer> fav = new ArrayList<>();
+        for (int i=0; i<message.getMaps().size();i++){
             cells.add(message.getMaps().get(i).getCells());
-        Cell[][] mapPlayer = view.chooseMap(cells,username); // invoco la view per scegliere la mappa
+            names.add(message.getMaps().get(i).getName());
+            fav.add(message.getMaps().get(i).getDifficultyLevel());
+        }
+        Cell[][] mapPlayer = view.chooseMap(cells,username,names,fav); // invoco la view per scegliere la mappa
         int i= cells.indexOf(mapPlayer);
         update(new ResponseMap(message.getMaps().get(i),username)); // invio la risposta al server
     }

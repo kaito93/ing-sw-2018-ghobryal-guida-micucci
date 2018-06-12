@@ -136,10 +136,109 @@ public class ViewCli extends View {
 
     }
 
-    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username) {
-        // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
-        gameStatus.setMyUsername(username);
-        return (maps.get(0));
+    public String doString(String nome) {
+        StringBuilder sb = new StringBuilder(19);
+        sb.append(nome);
+        for (int i = sb.length(); i < sb.capacity(); i++)
+            sb.append(" ");
+        return sb.toString();
+    }
+
+    public int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav) {
+
+
+        int val = 9;
+        while ((val > maps.size())||(val<1)) {
+            System.out.println();
+            for (int i = 0; i < names.size(); i++) {
+                System.out.print("      Mappa " + (i + 1) + "                                      ");
+            }
+            System.out.println();
+            for (int i = 0; i < names.size(); i++) {
+
+                System.out.print("Nome: " + (doString(names.get(i))) + "                         ");
+            }
+
+            System.out.println("  ");
+            System.out.print("  ");
+
+            for (int j = 0; j < maps.get(0)[0].length; j++) {
+                // scrivo il numero della colonna
+                System.out.print("| " + (j + 1) + " ");
+            }
+            System.out.print("                             ");
+            for (int j = 0; j < maps.get(1)[0].length; j++) {
+                // scrivo il numero della colonna
+                System.out.print("| " + (j + 1) + " ");
+            }
+
+            System.out.println("");
+            System.out.print("__");
+            System.out.print(" ");
+            for (int j = 0; j < maps.get(0)[0].length; j++) {
+                // scrivo il numero della colonna
+                System.out.print(" _  ");
+
+            }
+            System.out.print("                          ");
+            System.out.print("__ ");
+            for (int j = 0; j < maps.get(0)[0].length; j++) {
+                // scrivo il numero della colonna
+                System.out.print(" _  ");
+            }
+
+            // esamino le righe
+            for (int i = 0; i < maps.get(0).length; i++) {
+                // mostra il numero di riga
+                System.out.println("");
+                System.out.print(i + 1);
+                // esamino le colonne
+                for (int j = 0; j < maps.get(0)[i].length; j++) {
+                    System.out.print(" | ");
+                    if (maps.get(0)[i][j].getDice() != null) {
+                        // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
+
+                        printColor(maps.get(0)[i][j].getDice().getColor().toString(), maps.get(0)[i][j].getDice().toString());
+                    } else {
+                        // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
+                        printColor(maps.get(0)[i][j].getColor().toString(), maps.get(0)[i][j].toString());
+                    }
+
+                }
+
+                System.out.print("                            ");
+                System.out.print(i + 1);
+                for (int j = 0; j < maps.get(1)[i].length; j++) {
+                    System.out.print(" | ");
+                    if (maps.get(1)[i][j].getDice() != null) {
+                        // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
+
+                        printColor(maps.get(1)[i][j].getDice().getColor().toString(),maps.get(1)[i][j].getDice().toString());
+                    } else {
+                        // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
+                        printColor(maps.get(1)[i][j].getColor().toString(), maps.get(1)[i][j].toString());
+                    }
+
+                }
+
+            }
+            System.out.println();
+            System.out.println();
+            for (int i = 0; i < fav.size(); i++) {
+                System.out.print("    Difficoltà: " + String.valueOf(fav.get(i)) + "                                ");
+            }
+
+            System.out.println();
+            System.out.println();
+            System.out.println("Quale mappa scegli?");
+            val = Integer.decode(scanner.nextLine());
+            if (val > (maps.size()) || val<1) {
+                addError("Hai inserito un valore errato");
+            }
+        }
+
+
+        return val-1;
     }
 
     public void printDicesStock(ArrayList<Dice> dices) {
@@ -184,10 +283,10 @@ public class ViewCli extends View {
                 if (cells[i][j].getDice() != null) {
                     // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
 
-                    printColor(cells[i][j].getDice().getColor().toString(), String.valueOf(cells[i][j].getDice().getValue()));
+                    printColor(cells[i][j].getDice().getColor().toString(), cells[i][j].getDice().toString());
                 } else {
                     // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
-                    printColor(cells[i][j].getColor().toString(), String.valueOf(cells[i][j].getValue()));
+                    printColor(cells[i][j].getColor().toString(), cells[i][j].toString());
                 }
 
             }
@@ -405,7 +504,7 @@ public class ViewCli extends View {
     public void printSchemeRound(int round) {
         for (int dice = 0; dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size(); dice++) {
             printColor(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
-                    String.valueOf(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getValue()));
+                    gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).toString());
         }
     }
 
@@ -422,7 +521,7 @@ public class ViewCli extends View {
         }
         diceAfter.throwDice();
         addLog("Ecco il risultato del lancio del dado precedentemente scelto: ");
-        printColor(diceAfter.getColor().toString(), String.valueOf(diceAfter.getValue()));
+        printColor(diceAfter.getColor().toString(), diceAfter.toString());
         addLog("Scegli dove posizionare il dado: ");
         ArrayList<Integer> obj2 = askRowColumn();
         obj.add(diceBefore);

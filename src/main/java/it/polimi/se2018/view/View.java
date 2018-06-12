@@ -30,7 +30,12 @@ public abstract class View {
 
     public abstract void startView();
 
-    public abstract Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username);
+    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username, ArrayList<String> names, ArrayList<Integer> fav){
+        gameStatus.setMyUsername(username);
+        return maps.get(chooseSingleMap(maps,names,fav));
+    }
+
+    public abstract int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav);
 
 
     public void setPublicInformation(ArrayList<String> titlePublic, ArrayList<String> descriptionPublic, ArrayList<String> titleTools,

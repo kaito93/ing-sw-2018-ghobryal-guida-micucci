@@ -37,7 +37,7 @@ public class Controller implements Observer<MessageVC> {
     boolean useTools;
     int turno;
     ArrayList<Player> playersInRound = new ArrayList<>();
-
+    int mappe = 0;
 
 
     /**
@@ -86,11 +86,14 @@ public class Controller implements Observer<MessageVC> {
      *
      * @param message message received
      */
-    public void visit(ResponseMap message) {
+    synchronized public void visit(ResponseMap message) {
         int index = searchUser(message.getUsername());
         if (index >= 0) {
             this.players.get(index).setMap(message.getMapChoose());
             this.players.get(index).setFavorSig();
+            mappe++;
+            if (mappe == players.size())
+                notifyAll();
         } else
             LOGGER.log(Level.WARNING, "E' stato passato un giocatore errato");
     }
@@ -144,6 +147,7 @@ public class Controller implements Observer<MessageVC> {
     public void game() {
 
 
+        waitw();
         setPlayersInRound(playersInRound);
 
         // CICLO CHE GESTISCE I ROUND
@@ -196,11 +200,11 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
-    public void syncPlayers(Player playerGame){
-        for (int i=0; i<players.size();i++)
-            if (players.get(i).getName().equalsIgnoreCase(playerGame.getName())){
+    public void syncPlayers(Player playerGame) {
+        for (int i = 0; i < players.size(); i++)
+            if (players.get(i).getName().equalsIgnoreCase(playerGame.getName())) {
                 players.remove(i);
-                players.add(i,playerGame);
+                players.add(i, playerGame);
             }
 
 
@@ -209,6 +213,16 @@ public class Controller implements Observer<MessageVC> {
     /**
      * method that wait the move of a player
      */
+    synchronized public void waitw() {
+
+        try {
+            this.wait();
+        } catch (InterruptedException e1) {
+            LOGGER.log(Level.SEVERE, e1.toString(), e1);
+        }
+    }
+
+
     synchronized public void waitMove() {
         try {
             LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turno).getName() + " effettui la sua mossa");
@@ -239,8 +253,7 @@ public class Controller implements Observer<MessageVC> {
         String error = "ciao";
         if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
             manageError(error);
-        }
-        else {
+        } else {
             game.removeDiceStock(dice);
             this.playersInRound.get(turno).setSetDice(A);
             notifyAll();
@@ -419,8 +432,8 @@ public class Controller implements Observer<MessageVC> {
             return 2;
     }
 
-    public void manageError(String error){
-        view.createMessageError(error,players.indexOf(playersInRound.get(turno)));
+    public void manageError(String error) {
+        view.createMessageError(error, players.indexOf(playersInRound.get(turno)));
     }
 
     public VirtualView getView() {

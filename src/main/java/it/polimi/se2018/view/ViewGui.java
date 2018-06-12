@@ -21,10 +21,9 @@ public class ViewGui extends View {
 
     }
 
-    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username){
+    public int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav){
         // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
-        gameStatus.setMyUsername(username);
-        return (maps.get(0));
+        return 0;
     }
 
     @Override

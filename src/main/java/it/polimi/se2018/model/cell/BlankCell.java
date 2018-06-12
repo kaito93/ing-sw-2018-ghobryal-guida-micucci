@@ -47,4 +47,6 @@ public class BlankCell extends Cell{
     public void setValue(int value) {
         this.value = 0;
     }
+
+
 }
