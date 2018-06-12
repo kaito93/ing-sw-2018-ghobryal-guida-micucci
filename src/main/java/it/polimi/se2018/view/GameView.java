@@ -27,7 +27,7 @@ public class GameView {
     private RoundSchemeCell roundSchemeMap[];
     private ArrayList<Dice> stock;
 
-    private int favor;
+    private ArrayList<Integer> favUser;
 
     private boolean useTool;
     private boolean posDice;
@@ -122,14 +122,6 @@ public class GameView {
         return cells;
     }
 
-    public void setFavor(int favor) {
-        this.favor = favor;
-    }
-
-    public int getFavor() {
-        return favor;
-    }
-
     public void setUseTools(ArrayList<Boolean> useTools) {
         this.useTools = useTools;
     }
@@ -160,5 +152,13 @@ public class GameView {
 
     public boolean isPosDice() {
         return posDice;
+    }
+
+    public void setFavUser(ArrayList<Integer> favUser) {
+        this.favUser = favUser;
+    }
+
+    public ArrayList<Integer> getFavUser() {
+        return favUser;
     }
 }

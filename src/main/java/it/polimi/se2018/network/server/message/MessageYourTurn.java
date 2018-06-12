@@ -8,19 +8,10 @@ public class MessageYourTurn implements MessageCV {
     private static final long serialVersionUID = -2685027267850020534L;
     boolean posDice;
     boolean useTools;
-    int favor;
 
     @Override
     public void accept(ConnectionClientSocket client) {
         client.visit(this);
-    }
-
-    public void setFavor(int favor) {
-        this.favor = favor;
-    }
-
-    public int getFavor() {
-        return favor;
     }
 
     public void setUseTools(boolean useTools) {

@@ -124,9 +124,8 @@ public class ConnectionServerSocket extends ConnectionServer {
     }
 
     @Override
-    public void sendIsYourTurn(int fav, boolean dice, boolean tool) {
+    public void sendIsYourTurn(boolean dice, boolean tool) {
         MessageYourTurn mes = new MessageYourTurn();
-        mes.setFavor(fav);
         mes.setPosDice(dice);
         mes.setUseTools(tool);
         mex = new Message(Message.CVEVENT,mes);
@@ -141,14 +140,15 @@ public class ConnectionServerSocket extends ConnectionServer {
     }
 
     @Override
-    public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String messa, ArrayList<Boolean> tools, RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock) {
+    public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String messa, ArrayList<Boolean> tools,
+                           RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock, ArrayList<Integer> favors) {
         MessageUpdate message= new MessageUpdate();
         message.setMessage(messa);
         message.setCells(maps);
-        message.setMaps(maps);
         message.setStock(stock);
         message.setUseTools(tools);
         message.setUsers(users);
+        message.setFavUsers(favors);
         message.setRoundSchemeMap(roundSchemeMap);
         mex = new Message(Message.MVEVENT,message);
 

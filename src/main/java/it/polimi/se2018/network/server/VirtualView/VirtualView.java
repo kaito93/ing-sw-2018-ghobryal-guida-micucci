@@ -174,7 +174,7 @@ public class VirtualView extends Observable<MessageVC> {
     }
 
     public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
-        connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(playersInRound.get(turno).getFavSig(),
+        connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
                 playersInRound.get(turno).getSetDice(),playersInRound.get(turno).getUseTools());
     }
 
@@ -183,18 +183,20 @@ public class VirtualView extends Observable<MessageVC> {
         ArrayList<Map> maps = new ArrayList<>();
         ArrayList<String> users = new ArrayList<>();
         ArrayList<Boolean> tools = new ArrayList<>();
+        ArrayList<Integer> fav = new ArrayList<>();
         String message = "E' il turno di "+name;
 
 
         for (int i=0; i<playersActive.size();i++){
             maps.add(playersActive.get(i).getMap());
             users.add(playersActive.get(i).getName());
+            fav.add(playersActive.get(i).getFavSig());
         }
         for (int i=0; i<model.getToolCards().size();i++)
             tools.add(model.getToolCards().get(i).isUsed());
 
         for (int i=0; i<playersActive.size(); i++)
-            connections.get(i).sendUpdate(maps,users,message,tools,model.getRoundSchemeMap(),model.getStock());
+            connections.get(i).sendUpdate(maps,users,message,tools,model.getRoundSchemeMap(),model.getStock(),fav);
 
     }
 

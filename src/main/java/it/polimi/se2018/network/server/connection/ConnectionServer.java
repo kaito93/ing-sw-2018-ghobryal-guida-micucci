@@ -62,12 +62,12 @@ public abstract class ConnectionServer {
 
     public abstract void sendFinalPlayers(ArrayList<Player> players);
 
-    public abstract void sendIsYourTurn (int fav, boolean dice, boolean tool);
+    public abstract void sendIsYourTurn (boolean dice, boolean tool);
 
     public abstract void sendErrorUser();
 
     public abstract void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String message, ArrayList<Boolean> tools,
-                                    RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock);
+                                    RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock, ArrayList<Integer> favor);
 
     public abstract void manageCopper(String title);
     public abstract void manageCork(String title);

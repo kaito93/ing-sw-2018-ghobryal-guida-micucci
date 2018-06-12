@@ -55,8 +55,8 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendIsYourTurn(int fav, boolean dice, boolean tool) {
-        // METODO CHE INVIA ALL'UTENTE IL NUMERO DI SEGNALINI FAVORE, ED I BOOLEANI SE PUO' FARE O MENO UNA DETERMINATA
+    public void sendIsYourTurn(boolean dice, boolean tool) {
+        // METODO CHE INVIA ALL'UTENTE I BOOLEANI SE PUO' FARE O MENO UNA DETERMINATA
         // MOSSA. INOLTRE IL GIOCATORE COMINCIA A GESTIRE IL PROPRIO TURNO
     }
 
@@ -69,10 +69,10 @@ public class ConnectionServerRMI extends ConnectionServer {
 
     @Override
     public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String message, ArrayList<Boolean> tools,
-                           RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock) {
+                           RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock, ArrayList<Integer> favors) {
         // METODO CHE INVIA LE MATRICI DEI GIOCATORI, LA LISTA DEI GIOCATORI AGGIORNATA [Vedesi disconnessioni]
         // IL MESSAGGIO DA MOSTRARE A SCHERMO DI CHI TOCCA, ARRAYLIST DI BOOLEANI CHE SI RIFERISCONO ALLE CARTE TOOL,
-        // LO SCHEMA DEI ROUND E LA RISERVA
+        // LO SCHEMA DEI ROUND E LA RISERVA e l'elenco dei punti favore rimanenti ai giocatori
     }
 
     // METODI PER LA GESTIONE DELLE CARTE UTENSILI

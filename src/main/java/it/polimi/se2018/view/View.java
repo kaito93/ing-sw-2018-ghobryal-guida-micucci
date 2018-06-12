@@ -56,20 +56,18 @@ public abstract class View {
     }
 
     public void updateUsers(ArrayList<String> users, ArrayList<Cell[][]> cells, ArrayList<Boolean> useTools,
-                            RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock) {
+                            RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock, ArrayList<Integer> favors) {
         gameStatus.setUsers(users);
         gameStatus.setCells(cells);
         gameStatus.setUseTools(useTools);
         gameStatus.setRoundSchemeMap(roundSchemeMap);
         gameStatus.setStock(stock);
+        gameStatus.setFavUser(favors);
         addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
     }
 
-    public void updateFavor(int favor, boolean pos, boolean tool) {
-        if (gameStatus.getFavor() != favor) {
-            gameStatus.setFavor(favor);
-            addLog("Ho aggiornato le informazioni relative ai tuoi punti favore rimanenti");
-        }
+    public void updateFavor(boolean pos, boolean tool) {
+
         gameStatus.setUseTool(tool);
         gameStatus.setPosDice(pos);
 
@@ -84,7 +82,8 @@ public abstract class View {
     public abstract void myTurn(boolean posDice, boolean useTools);
 
     public void accept(MessageUpdate message) {
-        updateUsers(message.getUsers(), message.getCells(), message.getUseTools(), message.getRoundSchemeMap(), message.getStock());
+        updateUsers(message.getUsers(), message.getCells(), message.getUseTools(), message.getRoundSchemeMap(),
+                message.getStock(), message.getFavUsers());
         addLog(message.getMessage());
     }
 

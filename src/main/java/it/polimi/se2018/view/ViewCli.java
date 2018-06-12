@@ -41,7 +41,8 @@ public class ViewCli extends View {
 
             // SELEZIONE MOSSA
             addLog("E' il tuo turno. Scegli che mossa fare: \n 1 - Posizionare un dado dalla riserva alla tua carta schema " +
-                    "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza la tua mappa");
+                    "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza la tua mappa" +
+                    "\n 5 - Visualizza le mappe degli avversari");
             String choose = scanner.nextLine();
             map = false;
             if (choose.equalsIgnoreCase("1")) {
@@ -88,7 +89,7 @@ public class ViewCli extends View {
                     // IL GIOCATORE HA SCELTO DI USARE UNA CARTA TOOLS
                     boolean tool = false;
                     while (!tool) {
-                        if (gameStatus.getFavor() > 0) {
+                        if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
                             addLog("Carte utensili utilizzabili:");
                             printTools();
                             addLog("Quali delle carte utensili vuoi usare?");
@@ -126,6 +127,19 @@ public class ViewCli extends View {
             if (choose.equalsIgnoreCase("4")) {
                 printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
                 map = true;
+            }
+
+            if (choose.equalsIgnoreCase("5")){
+                for (int i=0;i<gameStatus.getCells().size();i++){
+                    if(i==gameStatus.getYourIndex())
+                        continue;
+                    else{
+                        addLog("Giocatore "+ (i+1) +" : "+gameStatus.getUsers().get(i));
+                        addLog("Punti favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(i)));
+                        printSchemeMap(gameStatus.getCells().get(i));
+                    }
+                }
+                map=true;
             }
 
             if (!map && !valid) {
