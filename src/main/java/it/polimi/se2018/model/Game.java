@@ -296,6 +296,9 @@ public class Game {
      */
     //da testare
     public void removeDiceStock(Dice dice) {
-        stock.remove(dice);
+        for (int i=0; i<stock.size();i++)
+            if (dice.getValue()==stock.get(i).getValue())
+                if (dice.getColor().equalsColor(stock.get(i).getColor()))
+                    stock.remove(i);
     }
 }

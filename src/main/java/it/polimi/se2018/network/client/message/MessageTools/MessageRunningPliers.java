@@ -33,15 +33,19 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error="ciao";
+        String error = "ciao";
 
-            if(!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),dice,
-                    controller.firstOrSecond(),0,controller.getGame().getStock(),false,rowDest,columnDest,null,
-                    null,controller.getPlayersInRound(),0))
-                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        if (!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()), dice,
+                controller.firstOrSecond(), 0, controller.getGame().getStock(), false, rowDest, columnDest, null,
+                null, controller.getPlayersInRound(), 0))
+            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else
+        {   controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
+            controller.setTools();}
 
 
     }
+
     public void setTitle(String title) {
         this.title = title;
     }

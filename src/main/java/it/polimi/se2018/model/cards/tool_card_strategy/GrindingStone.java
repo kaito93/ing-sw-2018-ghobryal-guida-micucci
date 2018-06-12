@@ -39,13 +39,20 @@ public class GrindingStone extends ToolCardStrategy {
     //posiziono io il dado per facilitarti la vita, aggiungi nel messaggio le coordinate
     public void useTool(Player player, Dice dice, int turn, int t1, List<Dice> stock
             , boolean posDice, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
-        if (dice == null) {
-            errorBool.setErrorMessage("There's no passed dice");
-            errorBool.setErrBool(true);
-        }else if(player.posDice(dice, row, column)) {
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
+        if (player.getPosDice()<3){
+            if (dice == null) {
+                errorBool.setErrorMessage("There's no passed dice");
+                errorBool.setErrBool(true);
+            }else if(player.posDice(dice, row, column)) {
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+            }
         }
+        else{
+            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            errorBool.setErrBool(true);
+        }
+
     }
 
     @Override

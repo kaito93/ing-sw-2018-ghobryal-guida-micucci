@@ -35,19 +35,26 @@ public class RunningPliers extends ToolCardStrategy {
     public void useTool(Player playerCurr, Dice dice, int turn, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
         boolean a;
-        if(turns.indexOf(playerCurr)==0 && stock.contains(dice) && turn==1){
-            a = playerCurr.getMap().posDice(dice, row, column);
-            turns.remove(0);
-            if(a) {
-                stock.remove(dice);
-                errorBool.setErrorMessage(null);
-                errorBool.setErrBool(false);
-            }
-            else {
-                errorBool.setErrorMessage("posDice method in RunningPliers tool card");
-                errorBool.setErrBool(true);
+        if (playerCurr.getPosDice()<3){
+            if(turns.indexOf(playerCurr)==0 && stock.contains(dice) && turn==1){
+                a = playerCurr.getMap().posDice(dice, row, column);
+                turns.remove(0);
+                if(a) {
+                    stock.remove(dice);
+                    errorBool.setErrorMessage(null);
+                    errorBool.setErrBool(false);
+                }
+                else {
+                    errorBool.setErrorMessage("posDice method in RunningPliers tool card");
+                    errorBool.setErrBool(true);
+                }
             }
         }
+        else{
+            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            errorBool.setErrBool(true);
+        }
+
     }
 
     @Override

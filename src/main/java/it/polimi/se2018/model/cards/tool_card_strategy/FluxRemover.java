@@ -43,13 +43,20 @@ public class FluxRemover extends ToolCardStrategy {
     public void useTool(Player player, Dice stockDice, int value, int t1, List<Dice> bag
             , boolean b, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
 
-        if (player.posDice(stockDice, row, column)) {
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
-        } else {
-            errorBool.setErrorMessage("posDice method in FluxRemover tool card");
+        if (player.getPosDice()<3){
+            if (player.posDice(stockDice, row, column)) {
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+            } else {
+                errorBool.setErrorMessage("posDice method in FluxRemover tool card");
+                errorBool.setErrBool(true);
+            }
+        }
+        else{
+            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
             errorBool.setErrBool(true);
         }
+
 
     }
 

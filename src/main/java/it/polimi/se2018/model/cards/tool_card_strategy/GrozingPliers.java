@@ -44,10 +44,17 @@ public class GrozingPliers extends ToolCardStrategy {
         // solamente le informazioni del dado da posizionare e delle relative coordinate come in un normalissimo
         // posizionamento di dadi.
         // Il metodo UseTool rimane comunque perchè viene richiamato tramite RMI
-        if (player.getMap().posDice(dice,row,column)) {
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
+        if (player.getPosDice()<3){
+            if (player.getMap().posDice(dice,row,column)) {
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+            }
         }
+        else{
+            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            errorBool.setErrBool(true);
+        }
+
     }
 
 

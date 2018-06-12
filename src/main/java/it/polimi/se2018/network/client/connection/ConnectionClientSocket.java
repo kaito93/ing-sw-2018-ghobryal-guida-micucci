@@ -216,7 +216,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     public void visit(MessageCopperFoilBurnisher message) {
-        ArrayList<Object> obj= view.manageCER();
+        ArrayList<Object> obj= view.manageCE();
         message.setDice((Dice)obj.get(0));
         message.setRow((int)obj.get(1));
         message.setColumn((int)obj.get(2));
@@ -235,7 +235,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
     public void visit(MessageEglomiseBrush message) {
 
-        ArrayList<Object> obj= view.manageCER();
+        ArrayList<Object> obj= view.manageCE();
         message.setDice((Dice)obj.get(0));
         message.setRowDest((int)obj.get(1));
         message.setColumnDest((int)obj.get(2));
@@ -307,11 +307,13 @@ public class ConnectionClientSocket extends ConnectionClient {
         message.setDiceStock((Dice)obj.get(0));
         message.setDiceRound((Dice)obj.get(1));
         message.setNumberRound((int)obj.get(2));
+        message.setRow((int)obj.get(3));
+        message.setColumn((int)obj.get(4));
         update(message);
     }
 
     public void visit(MessageRunningPliers message) {
-        ArrayList<Object> obj= view.manageCER();
+        ArrayList<Object> obj= view.manageCork();
         message.setDice((Dice)obj.get(0));
         message.setRowMit((int)obj.get(1));
         message.setColumnMit((int)obj.get(2));

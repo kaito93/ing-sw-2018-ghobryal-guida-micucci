@@ -21,6 +21,8 @@ public class MessageLensCutter implements MessageCV, MessageVC {
     Dice diceStock;
     int numberRound;
     Dice diceRound;
+    int row;
+    int column;
 
     // altre informazioni: la riserva, schema dei round.
 
@@ -31,14 +33,20 @@ public class MessageLensCutter implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error="ciao";
+        String error = "ciao";
 
-            if(!controller.getGame().searchToolCard(title).useTool(null,diceStock,numberRound,0,controller.getGame().getStock(),
-                    false,0,0,diceRound,controller.getGame().getRoundSchemeMap(),null,0))
-                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        if (!controller.getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, controller.getGame().getStock(),
+                false, row, column, diceRound, controller.getGame().getRoundSchemeMap(), null, 0))
+            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else
+        {
+            controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
+            controller.setTools();
+        }
 
 
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -57,5 +65,13 @@ public class MessageLensCutter implements MessageCV, MessageVC {
 
     public void setNumberRound(int numberRound) {
         this.numberRound = numberRound;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
     }
 }

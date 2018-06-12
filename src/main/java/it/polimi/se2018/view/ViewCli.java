@@ -328,7 +328,7 @@ public class ViewCli extends View {
     }
 
     @Override
-    public ArrayList<Object> manageCER() {
+    public ArrayList<Object> manageCE() {
         // Dice, RowDest, ColumnDect, rowMit, ColumnMit
         ArrayList<Object> obj = new ArrayList<>();
         ArrayList<Integer> obj2 = askDiceMap();
@@ -377,7 +377,12 @@ public class ViewCli extends View {
             ArrayList<Integer> obj2 = askDiceMap();
             obj.add(obj2.get(0));
             obj.add(obj2.get(1));
-            dices.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj2.get(0)][obj2.get(1)].getDice());
+            try {
+                if (gameStatus.getCells().get(gameStatus.getYourIndex())[obj2.get(0)][obj2.get(1)].getDice()!=null)
+                    dices.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj2.get(0)][obj2.get(1)].getDice());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
             addLog("Scegli dove riposizionare il dado scelto:");
             ArrayList<Integer> obj3 = askDiceMap();
             obj.add(obj3.get(0));
@@ -389,12 +394,15 @@ public class ViewCli extends View {
 
     @Override
     public ArrayList<Object> manageLens() {
-        //Dice dicStock2,Dice diceRound, int numberRound
+        //Dice dicStock2,Dice diceRound, int numberRound,row,column
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(gameStatus.getStock().get(askDiceStock()));
         ArrayList<Object> obj2 = askDiceRound();
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
+        ArrayList<Integer> obj3 = askDiceMap();
+        obj.add(obj3.get(0));
+        obj.add(obj3.get(1));
         return obj;
     }
 
@@ -408,7 +416,7 @@ public class ViewCli extends View {
         obj3 = askDiceRound();
         obj.add(obj3.get(0));
         int a = 0;
-        while (a<2) {
+        while (a < 2) {
             addLog("Seleziona il dado da spostare: ");
             ArrayList<Integer> obj4 = askDiceMap();
             obj2.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj4.get(0)][obj4.get(1)].getDice());
@@ -421,7 +429,7 @@ public class ViewCli extends View {
             else
                 break;
         }
-        if (a==2)
+        if (a == 2)
             addError("Non puoi selezionare un ulteriore dado! Verranno inviati quelli selezionati precedentemente");
 
         obj.add(obj2);

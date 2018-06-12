@@ -36,14 +36,20 @@ public class FluxBrush extends ToolCardStrategy {
     //posiziono il dado nuovo e tolgo dalla riserva il dado vecchio
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
-        if(player.posDice(dice, row, column)) {
-            stock.remove(t3);
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
-            return;
+        if (player.getPosDice()<3){
+            if(player.posDice(dice, row, column)) {
+                stock.remove(t3);
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+                return;
+            }
+            errorBool.setErrorMessage("PosDice fail in FluxBrush Tool Card");
+            errorBool.setErrBool(true);
         }
-        errorBool.setErrorMessage("PosDice fail in FluxBrush Tool Card");
-        errorBool.setErrBool(true);
+            else{
+                errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
+                errorBool.setErrBool(true);
+            }
     }
 
     @Override

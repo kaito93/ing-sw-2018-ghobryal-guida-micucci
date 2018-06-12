@@ -42,7 +42,7 @@ public class ViewGui extends View {
     }
 
     @Override
-    public ArrayList<Object> manageCER() {
+    public ArrayList<Object> manageCE() {
         // Dice, RowDest, ColumnDect, rowMit, ColumnMit
         return null;
     }
@@ -84,7 +84,7 @@ public class ViewGui extends View {
 
     @Override
     public ArrayList<Object> manageLens() {
-        //Dice diceStock, Dice diceRound, int numberRound
+        //Dice dicStock2,Dice diceRound, int numberRound,row,column
         return null;
     }
 

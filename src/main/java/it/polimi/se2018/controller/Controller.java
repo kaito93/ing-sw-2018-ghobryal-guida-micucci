@@ -2,6 +2,7 @@ package it.polimi.se2018.controller;
 
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Game;
+import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
 
 import it.polimi.se2018.network.client.message.Message;
@@ -152,6 +153,8 @@ public class Controller implements Observer<MessageVC> {
 
         // CICLO CHE GESTISCE I ROUND
         for (int round = 0; round < game.getMaxRound(); round++) {
+            // Resetta i posDice dei giocatori.
+            resetDice();
 
             // ESTRAI I DADI DAL SACCHETTO E METTILI NELLA RISERVA. #DADI ESTRATTI = (2*giocatori)+1
             game.setStock(game.getDiceBag().extractDice(playersInRound.size() + 1));
@@ -251,13 +254,20 @@ public class Controller implements Observer<MessageVC> {
 
     synchronized public void setPos(Dice dice, int row, int column) {
         String error = "ciao";
-        if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
-            manageError(error);
-        } else {
-            game.removeDiceStock(dice);
-            this.playersInRound.get(turno).setSetDice(A);
-            notifyAll();
+        if (this.playersInRound.get(turno).getPosDice()<3){
+            if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
+                manageError(Map.getErrorBool().getErrorMessage());
+            } else {
+                game.removeDiceStock(dice);
+                this.playersInRound.get(turno).setSetDice(A);
+                this.playersInRound.get(turno).incrementPosDice();
+                notifyAll();
+            }
         }
+        else {
+            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+        }
+
     }
 
     /**
@@ -438,5 +448,10 @@ public class Controller implements Observer<MessageVC> {
 
     public VirtualView getView() {
         return view;
+    }
+
+    public void resetDice(){
+        for (int i=0; i<playersInRound.size();i++)
+            playersInRound.get(i).setPosDice(0);
     }
 }

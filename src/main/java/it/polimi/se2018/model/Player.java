@@ -18,6 +18,7 @@ public class Player implements Serializable {
     private int score;
     private boolean setDice;
     private boolean useTools;
+    private int posDice;
 
 
     /**
@@ -142,5 +143,17 @@ public class Player implements Serializable {
      */
     public boolean posDice(Dice dice, int row, int column){
         return map.posDice(dice,row,column);
+    }
+
+    // DA TESTARE
+    public void setPosDice(int posDice) {
+        this.posDice = posDice;
+    }
+    public void incrementPosDice(){
+        posDice++;
+    }
+
+    public int getPosDice() {
+        return posDice;
     }
 }

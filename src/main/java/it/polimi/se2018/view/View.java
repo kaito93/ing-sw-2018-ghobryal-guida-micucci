@@ -96,7 +96,7 @@ public abstract class View {
 
     public abstract void addError(String Message);
 
-    public abstract ArrayList<Object> manageCER();
+    public abstract ArrayList<Object> manageCE();
 
     public abstract ArrayList<Object> managefluxBrush();
 

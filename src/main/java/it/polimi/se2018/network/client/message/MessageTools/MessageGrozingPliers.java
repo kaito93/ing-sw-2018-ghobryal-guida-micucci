@@ -30,16 +30,18 @@ public class MessageGrozingPliers implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error="ciao";
+        String error = "ciao";
 
-            if(!controller.getGame().searchToolCard(title).useTool(null,dice,rowDest,colDest,null,false,0,0,
-                    null,null,null,0)){
-                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-            }
-            else {
-                controller.getGame().getStock().remove(dice);
-            }
+        if (!controller.getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, false, 0, 0,
+                null, null, null, 0)) {
+            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        } else {
+            controller.getGame().getStock().remove(dice);
+            controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
+            controller.setTools();
+        }
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
