@@ -104,7 +104,7 @@ public abstract class View {
         return manageGrozing1();
     }
 
-    public abstract ArrayList<Object> manageFlueRemove2(Dice dice);
+    public abstract ArrayList<Object> manageFluxRemove2(Dice dice);
 
     public ArrayList<Object> manageGrinding() {
         // dice, row, column

@@ -90,7 +90,8 @@ public class ViewGui extends View {
 
     @Override
     public ArrayList<Object> manageTap() {
-        //Dice diceRound, Arraylist Dice (dice1, Dice dice2), int row1, int row2, int column1, int column2
+        //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
+        // in roundscheme
         return null;
     }
 
@@ -108,7 +109,7 @@ public class ViewGui extends View {
     }
 
     @Override
-    public ArrayList<Object> manageFlueRemove2(Dice dice) {
+    public ArrayList<Object> manageFluxRemove2(Dice dice) {
         // dice row column
         return null;
     }

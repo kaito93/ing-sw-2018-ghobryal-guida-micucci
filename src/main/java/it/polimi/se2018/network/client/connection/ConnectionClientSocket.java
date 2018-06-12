@@ -258,13 +258,15 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void visit(MessageFluxRemover message) {
         // TO DO
         if (message.isA()){
-            view.manageFlueRemove2(message.getDice());
+            ArrayList<Object> obj= view.manageFluxRemove2(message.getDice());
+            message.setDice((Dice)obj.get(0));
+            message.setRow((int)obj.get(1));
+            message.setColumn((int)obj.get(2));
         }
         else{
             message.setDice(view.managefluxRemove());
-            update(message);
         }
-
+        update(message);
     }
 
     public void visit(MessageGrindingStone message) {
@@ -316,18 +318,18 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     public void visit(MessageTapWheel message) {
-        //Dice diceRound, Dice dice1, Dice dice2, int row1, int row2, int column1, int column2
+        //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
+        // in roundscheme
         ArrayList<Object>obj = view.manageTap();
         message.setDiceRoundScheme((Dice) obj.get(0));
-        message.setDiceToMove((ArrayList<Dice>) obj.get(1));
-        message.setRow1Mit((int)obj.get(2));
+        message.setDiceToMove((ArrayList<Dice>) obj.get(5));
+        message.setRow1Mit((int)obj.get(1));
         message.setRow2Mit((int)obj.get(3));
-        message.setCol1Mit((int)obj.get(4));
-        message.setCol2Mit((int)obj.get(5));
+        message.setCol1Mit((int)obj.get(2));
+        message.setCol2Mit((int)obj.get(4));
+        message.setPosDiceinSchemeRound((int)obj.get(6));
         update(message);
     }
-
-    // CONTROLLARE DI DOVER INSERIRE ANCHE LE DESTINAZIONI OLTRE CHE ALLE COORDINATE INIZIALI
 
     @Override
     public void sendPassMove() {

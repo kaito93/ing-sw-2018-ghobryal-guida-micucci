@@ -129,17 +129,17 @@ public class ViewCli extends View {
                 map = true;
             }
 
-            if (choose.equalsIgnoreCase("5")){
-                for (int i=0;i<gameStatus.getCells().size();i++){
-                    if(i==gameStatus.getYourIndex())
+            if (choose.equalsIgnoreCase("5")) {
+                for (int i = 0; i < gameStatus.getCells().size(); i++) {
+                    if (i == gameStatus.getYourIndex())
                         continue;
-                    else{
-                        addLog("Giocatore "+ (i+1) +" : "+gameStatus.getUsers().get(i));
+                    else {
+                        addLog("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
                         addLog("Punti favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(i)));
                         printSchemeMap(gameStatus.getCells().get(i));
                     }
                 }
-                map=true;
+                map = true;
             }
 
             if (!map && !valid) {
@@ -162,7 +162,7 @@ public class ViewCli extends View {
 
 
         int val = 9;
-        while ((val > maps.size())||(val<1)) {
+        while ((val > maps.size()) || (val < 1)) {
             System.out.println();
             for (int i = 0; i < names.size(); i++) {
                 System.out.print("      Mappa " + (i + 1) + "                                      ");
@@ -227,7 +227,7 @@ public class ViewCli extends View {
                     if (maps.get(1)[i][j].getDice() != null) {
                         // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
 
-                        printColor(maps.get(1)[i][j].getDice().getColor().toString(),maps.get(1)[i][j].getDice().toString());
+                        printColor(maps.get(1)[i][j].getDice().getColor().toString(), maps.get(1)[i][j].getDice().toString());
                     } else {
                         // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
                         printColor(maps.get(1)[i][j].getColor().toString(), maps.get(1)[i][j].toString());
@@ -246,13 +246,13 @@ public class ViewCli extends View {
             System.out.println();
             System.out.println("Quale mappa scegli?");
             val = Integer.decode(scanner.nextLine());
-            if (val > (maps.size()) || val<1) {
+            if (val > (maps.size()) || val < 1) {
                 addError("Hai inserito un valore errato");
             }
         }
 
 
-        return val-1;
+        return val - 1;
     }
 
     public void printDicesStock(ArrayList<Dice> dices) {
@@ -342,11 +342,6 @@ public class ViewCli extends View {
         return obj;
     }
 
-    @Override
-    public Dice managefluxRemove() {
-        //Dice dice
-        return null;
-    }
 
     @Override
     public Dice manageGrozing1() {
@@ -372,10 +367,6 @@ public class ViewCli extends View {
         return askRowColumn();
     }
 
-    @Override
-    public ArrayList<Object> manageGrinding() {
-        return null;
-    }
 
     public ArrayList<Object> manageLathekin() {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
@@ -409,8 +400,33 @@ public class ViewCli extends View {
 
     @Override
     public ArrayList<Object> manageTap() {
-        //Dice diceRound, Arraylist Dice (dice1, Dice dice2), int row1, int row2, int column1, int column2
-        return null;
+        //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
+        // in roundscheme
+        ArrayList<Object> obj = new ArrayList<>();
+        ArrayList<Dice> obj2 = new ArrayList<>();
+        ArrayList<Object> obj3;
+        obj3 = askDiceRound();
+        obj.add(obj3.get(0));
+        int a = 0;
+        while (a<2) {
+            addLog("Seleziona il dado da spostare: ");
+            ArrayList<Integer> obj4 = askDiceMap();
+            obj2.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj4.get(0)][obj4.get(1)].getDice());
+            obj.add(obj4.get(0));
+            obj.add(obj4.get(1));
+            addLog("Vuoi selezionare un altro dado? [Si/No]");
+            String choose = scanner.nextLine();
+            if (choose.equalsIgnoreCase("si"))
+                a++;
+            else
+                break;
+        }
+        if (a==2)
+            addError("Non puoi selezionare un ulteriore dado! Verranno inviati quelli selezionati precedentemente");
+
+        obj.add(obj2);
+        obj.add(obj3.get(1));
+        return obj;
     }
 
     @Override
@@ -502,7 +518,7 @@ public class ViewCli extends View {
         int round = Integer.decode(scanner.nextLine()) - 1;
         addLog("Seleziona il dado da questo round:");
         printSchemeRound(round);
-        obj.add(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(Integer.decode(scanner.nextLine())));
+        obj.add(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(Integer.decode(scanner.nextLine()) - 1));
         obj.add(round);
         return obj;
     }
@@ -547,7 +563,7 @@ public class ViewCli extends View {
 
 
     @Override
-    public ArrayList<Object> manageFlueRemove2(Dice dice) {
+    public ArrayList<Object> manageFluxRemove2(Dice dice) {
         int valore = 0;
         boolean ok = false;
         while (!ok) {

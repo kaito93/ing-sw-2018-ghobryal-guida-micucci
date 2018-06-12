@@ -10,6 +10,7 @@ import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.message.MessageCV;
 
+import java.util.Collections;
 import java.util.logging.Level;
 
 public class MessageFluxRemover implements MessageCV, MessageVC {
@@ -19,7 +20,8 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
 
     String title;
     Dice dice;
-    int value;
+    int row;
+    int column;
     boolean a = false;
 
     // altre info: contenitore dei 90 dadi.
@@ -34,12 +36,16 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
         String error = "ciao";
 
         if (a)
-            if (!controller.getGame().searchToolCard(title).useTool(null, dice, value, 0, controller.getGame().getDiceBag().getBox(),
-                    false, 0, 0, null, null, null, 0))
+            if (!controller.getGame().searchToolCard(title).useTool(null, dice, 0, 0, controller.getGame().getDiceBag().getBox(),
+                    false, row, column, null, null, null, 0))
                 controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        else {
-            controller.getView().manageFluxRemover2(dice,title,controller.getPlayersInRound().get(controller.getTurno()));
-        }
+            else {
+                controller.getGame().getDiceBag().getBox().add(dice);
+                controller.getGame().removeDiceStock(dice);
+                Collections.shuffle(controller.getGame().getDiceBag().getBox());
+                dice = controller.getGame().getDiceBag().getBox().remove(0);
+                controller.getView().manageFluxRemover2(dice, title, controller.getPlayersInRound().get(controller.getTurno()));
+            }
 
     }
 
@@ -55,10 +61,6 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
         this.dice = dice;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public void setA(boolean a) {
         this.a = a;
     }
@@ -69,5 +71,13 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
 
     public Dice getDice() {
         return dice;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 }

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 
 /**
  * Flux Remover Tool Card
+ *
  * @author Anton Ghobryal
  */
 
@@ -22,40 +23,38 @@ public class FluxRemover extends ToolCardStrategy {
 
     /**
      * Read description of this card for further information
-     * @param player n.a.
+     *
+     * @param player    n.a.
      * @param stockDice a chosen dice from the stock
-     * @param value the value should be forced into the chosen dice from the bag
-     * @param t1 n.a.
-     * @param bag the container of all dices
-     * @param b n.a.
-     * @param row row's coordinate where to position the dice
-     * @param column column's coordinate where to position the dice
-     * @param t3 n.a.
-     * @param t4 n.a.
-     * @param t5 n.a.
-     * @param t6 n.a.
+     * @param value     n.a
+     * @param t1        n.a.
+     * @param bag       the container of all dices
+     * @param b         n.a.
+     * @param row       row's coordinate where to position the dice
+     * @param column    column's coordinate where to position the dice
+     * @param t3        n.a.
+     * @param t4        n.a.
+     * @param t5        n.a.
+     * @param t6        n.a.
      */
     //posiziono io il dado
     //se il giocatore non riesce a posizionare il dado perde comunque i punti perché ha scambiato un
     //dado dalla riserva con un'altro del DiceBox e perciò gli tolgo i punti a prescindere
     public void useTool(Player player, Dice stockDice, int value, int t1, List<Dice> bag
-            , boolean b, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
-        bag.add(stockDice);
-        Collections.shuffle(bag);
-        Dice temp = bag.remove(0);
-        try {
-            temp.setValue(value);
-            if(player.posDice(temp, row, column)) {
-                errorBool.setErrorMessage(null);
-                errorBool.setErrBool(false);
-            }
-        } catch (InvalidValueException e) {
-            LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class FluxRemover Tool Card", e);
+            , boolean b, int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
+
+        if (player.posDice(stockDice, row, column)) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+        } else {
+            errorBool.setErrorMessage("posDice method in FluxRemover tool card");
+            errorBool.setErrBool(true);
         }
+
     }
 
     @Override
     public void requestMessage(VirtualView view, String title, int player) {
-        view.createMessageFluxRemover(title,player);
+        view.createMessageFluxRemover(title, player);
     }
 }
