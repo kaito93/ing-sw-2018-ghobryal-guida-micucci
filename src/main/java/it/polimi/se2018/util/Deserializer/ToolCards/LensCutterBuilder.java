@@ -1,13 +1,14 @@
 package it.polimi.se2018.util.Deserializer.ToolCards;
 
 import it.polimi.se2018.model.cards.tool_card_strategy.LensCutter;
+import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 
 /**
  * class to deserialize Lens cutter strategy card
  * extends ToolCard
  */
 public class LensCutterBuilder extends ToolBuilder {
-    private LensCutter lc;
+    private ToolCardStrategy lc;
 
     /**
      * class constructor that inizialize the string and the strategy

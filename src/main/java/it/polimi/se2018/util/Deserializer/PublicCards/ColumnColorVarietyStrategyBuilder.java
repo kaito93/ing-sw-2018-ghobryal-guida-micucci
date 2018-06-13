@@ -1,6 +1,7 @@
 package it.polimi.se2018.util.Deserializer.PublicCards;
 
 import it.polimi.se2018.model.cards.public_objective_card_strategy.ColumnColorVarietyStrategy;
+import it.polimi.se2018.model.cards.public_objective_card_strategy.ObjectiveCardStrategy;
 
 /**
  * class to deserialize column color variety strategy card
@@ -8,7 +9,7 @@ import it.polimi.se2018.model.cards.public_objective_card_strategy.ColumnColorVa
  */
 public class ColumnColorVarietyStrategyBuilder extends Builder{
 
-    ColumnColorVarietyStrategy ccvs;
+    ObjectiveCardStrategy ccvs;
 
     /**
      * class constructor that inizialize the string and the strategy
