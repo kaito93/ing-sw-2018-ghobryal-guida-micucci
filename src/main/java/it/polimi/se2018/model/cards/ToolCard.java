@@ -1,9 +1,6 @@
 package it.polimi.se2018.model.cards;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.RoundSchemeCell;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 
 import java.util.List;
@@ -33,7 +30,7 @@ public class ToolCard extends Card{
     /**
      * @return if the card was used till now or not
      */
-
+    @Override
     public boolean isUsed(){
         return used;
     }
@@ -41,7 +38,7 @@ public class ToolCard extends Card{
     /**
      * @return card's id
      */
-
+    @Override
     public int getId() {
         return id;
     }
@@ -49,18 +46,14 @@ public class ToolCard extends Card{
     /**
      * @return card's associated color
      */
-
+    @Override
     public Color getColor() {
         return color;
     }
 
-    /**
-     * sets the boolean if the card is being used
-     * @param used1 pass true if it's used
-     */
-
+    @Override
     public void setUsed(boolean used1) {
-        used = used1;
+
     }
 
     /**
@@ -68,6 +61,7 @@ public class ToolCard extends Card{
      * for parameters' description go to card's strategy
      * @return a boolean which is true if the player respects the rules of using this card else false
      */
+    @Override
     public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock
             , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
             , List<Player> turns, int posDice1){
@@ -92,10 +86,21 @@ public class ToolCard extends Card{
         return false;
     }
 
+    @Override
+    public int search(Map map) {
+        return 0;
+    }
+
+    @Override
+    public int getScore() {
+        return 0;
+    }
+
     /**
      * gets the used strategy
      * @return the used strategy
      */
+    @Override
     public ToolCardStrategy getStrategy() {
         return strategy;
     }

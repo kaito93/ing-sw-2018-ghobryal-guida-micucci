@@ -1,7 +1,10 @@
 package it.polimi.se2018.model.cards;
 
-import it.polimi.se2018.model.Map;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.ObjectiveCardStrategy;
+import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
+
+import java.util.List;
 
 /**
  * a generic public objective card
@@ -28,8 +31,39 @@ public class PublicObjectiveCard extends Card {
     /**
      * @return the achieved score of a public card
      */
+    @Override
     public int getScore() {
         return score;
+    }
+
+    @Override
+    public ToolCardStrategy getStrategy() {
+        return null;
+    }
+
+    @Override
+    public boolean isUsed() {
+        return false;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
+
+    @Override
+    public Color getColor() {
+        return null;
+    }
+
+    @Override
+    public void setUsed(boolean used1) {
+
+    }
+
+    @Override
+    public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock, boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> turns, int posDice1) {
+        return false;
     }
 
     /**
@@ -37,7 +71,7 @@ public class PublicObjectiveCard extends Card {
      * @param map player's map
      * @return the score that the player achieved out of this card
      */
-
+    @Override
     public int search(Map map){
         return strategy.search(map, score);
     }

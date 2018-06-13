@@ -3,7 +3,7 @@ package it.polimi.se2018.util.Deserializer.PublicCards;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.ObjectiveCardStrategy;
 import it.polimi.se2018.util.PublicCardsTransfer;
-import it.polimi.se2018.util.jsonTransiction;
+import it.polimi.se2018.model.cards.Card;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -14,7 +14,7 @@ import java.util.Observer;
  * implements observer interface
  */
 public class Builder implements Observer{
-    private ArrayList<PublicObjectiveCard> poc;
+    private ArrayList<Card> poc;
     private ObjectiveCardStrategy strategy;
     private String toBeCompared;
     private PublicCardsTransfer jT = null;
@@ -59,7 +59,7 @@ public class Builder implements Observer{
      * getter method to obtain the arraylist of created cards
      * @return the arraylist of cards
      */
-    public ArrayList<PublicObjectiveCard> getPoc() {
+    public ArrayList<Card> getPoc() {
         return poc;
     }
 

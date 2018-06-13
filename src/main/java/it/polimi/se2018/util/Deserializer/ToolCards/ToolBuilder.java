@@ -1,7 +1,7 @@
 package it.polimi.se2018.util.Deserializer.ToolCards;
 
 import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.cards.PublicObjectiveCard;
+import it.polimi.se2018.model.cards.Card;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.util.jsonTransiction;
@@ -17,8 +17,8 @@ import java.util.Observer;
  */
 public class ToolBuilder implements Observer {
     private String toBeCompared;
-    private toolCardTransfer jT = null;
-    private ArrayList<ToolCard> toolCardStrategic;
+    private toolCardTransfer jT;
+    private ArrayList<Card> toolCardStrategic;
     private ToolCardStrategy strategy;
 
     /**

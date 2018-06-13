@@ -26,14 +26,19 @@ public class RowColorVarietyStrategy extends ObjectiveCardStrategy{
         int colorCounter=1; //counts how many consecutive dices with different colors
         for(int i=0; i<map.numRow(); i++){    //iterates on rows
             for(int j=0; j<map.numColumn()-1; j++){    //iterates on column
-                for(int k=j+1; k<map.numColumn(); k++){    try {
-                    //iterates on the next column
-                    if((!map.isEmptyCell(i, j))&&(!map.isEmptyCell(i, k))){    //controls if there is a dice or not
-                        if(map.getCell(i,j).getDice().getColor().equals(map.getCell(i,k).getDice().getColor())){    //controls if there is two consecutive dices with the same color
+                for(int k=j+1; k<map.numColumn(); k++){     //iterates on the next column
+                    try {
+                        if((!map.isEmptyCell(i, j))&&(!map.isEmptyCell(i, k))){    //controls if there is a dice or not
+                            if(map.getCell(i,j).getDice().getColor().equals(map.getCell(i,k).getDice().getColor())){    //controls if there is two consecutive dices with the same color
+                                colorBool = false;
+                                break;
+                            }else{
+                                colorBool = true;
+                            }
+                        }else{
                             colorBool = false;
                             break;
-                        }else colorBool = true;
-                    }else break;
+                        }
                     } catch (notValidCellException e) {
                     LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class RowColorVarietyStrategy", e);
                     }

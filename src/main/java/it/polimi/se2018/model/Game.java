@@ -63,9 +63,7 @@ public class Game {
 
             int j = random.nextInt(cards.size());
 
-            publicObjCard.add(cards.get(j));
-
-            cards.remove(j);
+            publicObjCard.add(cards.remove(j));
 
         }
 
@@ -81,9 +79,7 @@ public class Game {
 
              int j = random.nextInt(tools.size()); // scegli un numero a caso
 
-            toolCards.add(tools.get(j)); // inserisci la carta nell'array.
-
-            tools.remove(j);
+            toolCards.add(tools.remove(j)); // inserisci la carta nell'array.
 
         }
 
