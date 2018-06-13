@@ -8,6 +8,7 @@ public class ClientStructure {
 
     int port;
     String ip;
+    int timerTurn;
 
     /**
      * setter class for the ip number
@@ -40,5 +41,21 @@ public class ClientStructure {
      */
     public String getIp() {
         return ip;
+    }
+
+    /**
+     * getter method for the timer for turn
+     * @return an integer represent the timer
+     */
+    public int getTimerTurn() {
+        return timerTurn;
+    }
+
+    /**
+     * setter method for the timer for the turn
+     * @param timerTurn to be assigned to the timer
+     */
+    public void setTimerTurn(int timerTurn) {
+        this.timerTurn = timerTurn;
     }
 }

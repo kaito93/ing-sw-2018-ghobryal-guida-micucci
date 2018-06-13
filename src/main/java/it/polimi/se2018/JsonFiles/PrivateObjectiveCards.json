@@ -1,27 +1,27 @@
 [
   {
-    "title":"red shades",
-    "description": "sum of all values of red dices",
+    "title":"Sfumature rosse",
+    "description": "somma dei valori di tutti i dadi rossi",
     "color":"RED"
   },
   {
-    "title":"yellow shades",
-    "description": "sum of all values of yellow dices",
+    "title":"Sfumature gialle",
+    "description": "somma dei valori di tutti i dadi gialli",
     "color":"YELLOW"
   },
   {
-    "title":"green shades",
-    "description": "sum of all values of green dices",
+    "title":"Sfumature verdi",
+    "description": "somma dei valori di tutti i dadi verdi",
     "color":"GREEN"
   },
   {
-    "title":"blue shades",
-    "description": "sum of all values of blue dices",
+    "title":"Sfumature blu",
+    "description": "somma dei valori di tutti i dadi blu",
     "color":"BLUE"
   },
   {
-    "title":"purple shades",
-    "description": "sum of all values of purple dices",
-    "color":"RED"
+    "title":"Sfumature viola",
+    "description": "somma dei valori di tutti i dadi viola",
+    "color":"PURPLE"
   }
 ]
