@@ -315,8 +315,8 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void visit(MessageRunningPliers message) {
         ArrayList<Object> obj= view.manageCork();
         message.setDice((Dice)obj.get(0));
-        message.setRowMit((int)obj.get(1));
-        message.setColumnMit((int)obj.get(2));
+        message.setRowDest((int)obj.get(1));
+        message.setColumnDest((int)obj.get(2));
     }
 
     public void visit(MessageTapWheel message) {

@@ -33,16 +33,8 @@ public class MessageLensCutter implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error = "ciao";
 
-        if (!controller.getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, controller.getGame().getStock(),
-                false, row, column, diceRound, controller.getGame().getRoundSchemeMap(), null, 0))
-            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        else
-        {
-            controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
-            controller.setTools();
-        }
+        controller.manageLens(title,diceStock,numberRound,row,column,diceRound);
 
 
     }

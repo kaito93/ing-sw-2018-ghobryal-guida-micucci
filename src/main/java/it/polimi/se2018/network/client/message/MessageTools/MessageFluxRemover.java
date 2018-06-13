@@ -33,25 +33,8 @@ public class MessageFluxRemover implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error = "ciao";
 
-        if (a) {
-            if (!controller.getGame().searchToolCard(title).useTool(null, dice, 0, 0, controller.getGame().getDiceBag().getBox(),
-                    false, row, column, null, null, null, 0)) {
-                controller.getGame().getStock().add(dice);
-                controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-            } else{
-                controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
-                controller.setTools();
-            }
-
-        } else {
-            controller.getGame().getDiceBag().getBox().add(dice);
-            controller.getGame().removeDiceStock(dice);
-            Collections.shuffle(controller.getGame().getDiceBag().getBox());
-            dice = controller.getGame().getDiceBag().getBox().remove(0);
-            controller.getView().manageFluxRemover2(dice, title, controller.getPlayersInRound().get(controller.getTurno()));
-        }
+        controller.manageFluxRemover(a,title,dice,row,column);
 
     }
 

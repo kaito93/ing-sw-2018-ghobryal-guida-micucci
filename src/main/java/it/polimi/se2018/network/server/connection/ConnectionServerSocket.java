@@ -101,9 +101,9 @@ public class ConnectionServerSocket extends ConnectionServer {
             try{
                 MessageVC reconn = (MessageVC) getInput().readObject();
                 if (reconn instanceof RequestReconnect)
-                    reconnect=false;
-                else
                     reconnect=true;
+                else
+                    reconnect=false;
             } catch (IOException e) {
                 LOGGER.log(Level.OFF, "Il player " + getUsername()+" è ancora disconnesso. Non ho ricevuto nulla", e);
 

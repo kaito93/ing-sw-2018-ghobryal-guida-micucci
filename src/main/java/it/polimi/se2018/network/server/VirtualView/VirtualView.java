@@ -217,13 +217,7 @@ public class VirtualView extends Observable<MessageVC> {
     }
 
     public void createMessageGlazing(String title){
-        String error="ciao";
-            controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()),
-                    null,controller.firstOrSecond(),0,controller.getGame().getStock(),
-                    controller.getPlayersInRound().get(controller.getTurno()).getSetDice(),0,0,null,
-                    null,null,0);
-
-
+        controller.manageGlazing(title);
     }
     public void createMessageGrinding(String title, int player){
         connections.get(player).manageGrinding(title);

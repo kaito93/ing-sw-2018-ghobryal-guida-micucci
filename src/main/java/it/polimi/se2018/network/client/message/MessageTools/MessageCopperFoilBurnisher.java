@@ -33,14 +33,8 @@ public class MessageCopperFoilBurnisher implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error = "ciao";
 
-        if (!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()), dice
-                , rowDest, columnDest, null, false, rowMit,
-                columnMit, null, null, null, 0)) {
-            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        } else
-            controller.setTools();
+       controller.manageCopper(title,dice,rowDest,columnDest,rowMit,columnMit);
 
     }
 

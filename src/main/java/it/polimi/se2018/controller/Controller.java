@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
 
+import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.ResponseMap;
@@ -15,6 +16,7 @@ import it.polimi.se2018.util.Observer;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 
 
@@ -453,5 +455,135 @@ public class Controller implements Observer<MessageVC> {
     public void resetDice(){
         for (int i=0; i<playersInRound.size();i++)
             playersInRound.get(i).setPosDice(0);
+    }
+
+    public void manageCopper(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit){
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice
+            , rowDest, columnDest, null, false, rowMit,
+            columnMit, null, null, null, 0)) {
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    } else
+        setTools();
+    }
+
+    public void manageCork(String title, Dice dice, int rowDest, int columnDest){
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
+            dice, rowDest, columnDest, null, false, 0, 0, null, null,
+            null, 0))
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    else {
+        getGame().getStock().remove(dice);
+        getPlayersInRound().get(getTurno()).incrementPosDice();
+        setTools();
+    }
+    }
+    public void manageEglomise(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit){
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
+            rowDest, columnDest, null, false, rowMit, columnMit, null, null,
+            null, 0))
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    else
+        setTools();
+    }
+    public void manageFluxBrush(String title, Dice dice, int rowDest, int columnDest, Dice diceBefore){
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
+            rowDest, columnDest, getGame().getStock(), false, 0, 0, diceBefore, null,
+            null, 0))
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    else
+    {getPlayersInRound().get(getTurno()).incrementPosDice();
+        getGame().removeDiceStock(diceBefore);
+        setTools();}
+    }
+    public void manageFluxRemover(boolean a, String title, Dice dice, int row, int column){
+        if (a) {
+        if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, getGame().getDiceBag().getBox(),
+                false, row, column, null, null, null, 0)) {
+            getGame().getStock().add(dice);
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        } else{
+            getPlayersInRound().get(getTurno()).incrementPosDice();
+            setTools();
+        }
+
+    } else {
+        getGame().getDiceBag().getBox().add(dice);
+        getGame().removeDiceStock(dice);
+        Collections.shuffle(getGame().getDiceBag().getBox());
+        dice = getGame().getDiceBag().getBox().remove(0);
+        getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurno()));
+    }
+    }
+    public void manageGlazing(String title){
+        getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
+            null,firstOrSecond(),0,getGame().getStock(),
+            getPlayersInRound().get(getTurno()).getSetDice(),0,0,null,
+            null,null,0);
+        setTools();
+    }
+    public void manageGrinding(String title, Dice dice, int row,int column, Dice diceBefore){
+        if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, false,
+            row, column, null, null, null, 0)) {
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+
+    } else {
+        getGame().getStock().remove(diceBefore);
+        getPlayersInRound().get(getTurno()).incrementPosDice();
+        setTools();
+    }}
+    public void manageGrozing(String title, Dice dice, int rowDest, int colDest){
+        if (!getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, false, 0, 0,
+            null, null, null, 0)) {
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    } else {
+        getGame().getStock().remove(dice);
+        getPlayersInRound().get(getTurno()).incrementPosDice();
+        setTools();
+    }
+    }
+    public void manageLathekin(String title, int row1Mit,int row2Mit, int col1Mit, int col2Mit, int row1Dest, int column1Dest,
+                               ArrayList<Dice> dices, int row2Dest, int column2Dest){
+        getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
+        getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
+        getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
+        getGame().searchToolCard(title).getStrategy().setRow3(col2Mit);
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
+                null, row1Dest, column1Dest, dices, false, row2Dest, column2Dest, null, null, null,
+                0))
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else
+            setTools();
+    }
+    public void manageLens(String title, Dice diceStock, int numberRound, int row, int column,Dice diceRound){
+        if (!getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, getGame().getStock(),
+            false, row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    else
+    {
+        getPlayersInRound().get(getTurno()).incrementPosDice();
+        setTools();
+    }
+    }
+    public void manageRunning(String title, Dice dice,int rowDest, int columnDest){
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
+            firstOrSecond(), 0, getGame().getStock(), false, rowDest, columnDest, null,
+            null, getPlayersInRound(), 0))
+        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+    else
+    {   getPlayersInRound().get(getTurno()).incrementPosDice();
+        setTools();}
+    }
+    public void manageTap(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit,Dice diceRoundScheme, int row1Dest,
+                          int column1Dest, ArrayList<Dice> diceToMove, int row2Dest, int column2Dest, int posDiceinSchemeRound){
+        getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
+        getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
+        getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
+        getGame().searchToolCard(title).getStrategy().setRow3(col2Mit);
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
+                diceRoundScheme, row1Dest, column1Dest, diceToMove, false, row2Dest, column2Dest, null,
+                getGame().getRoundSchemeMap(), null, posDiceinSchemeRound))
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else
+            setTools();
     }
 }

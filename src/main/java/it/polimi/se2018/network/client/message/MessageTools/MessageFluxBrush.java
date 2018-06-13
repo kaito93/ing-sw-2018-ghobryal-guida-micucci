@@ -33,17 +33,8 @@ public class MessageFluxBrush implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error = "ciao";
 
-        if (!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()), dice,
-                rowDest, columnDest, controller.getGame().getStock(), false, 0, 0, diceBefore, null,
-                null, 0))
-            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        else
-        {controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
-        controller.getGame().removeDiceStock(diceBefore);
-            controller.setTools();}
-
+        controller.manageFluxBrush(title,dice,rowDest,columnDest,diceBefore);
 
     }
 

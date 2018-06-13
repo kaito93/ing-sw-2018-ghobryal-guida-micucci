@@ -21,8 +21,6 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
     Dice dice;
     int rowDest;
     int columnDest;
-    int rowMit;
-    int columnMit;
 
     // altre informazioni: giocatore in gioco, il numero del round del giocatore (1 o 2), la riserva, playersInRound
 
@@ -33,16 +31,8 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
 
     @Override
     public void accept(Controller controller) {
-        String error = "ciao";
 
-        if (!controller.getGame().searchToolCard(title).useTool(controller.getPlayersInRound().get(controller.getTurno()), dice,
-                controller.firstOrSecond(), 0, controller.getGame().getStock(), false, rowDest, columnDest, null,
-                null, controller.getPlayersInRound(), 0))
-            controller.manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        else
-        {   controller.getPlayersInRound().get(controller.getTurno()).incrementPosDice();
-            controller.setTools();}
-
+        controller.manageRunning(title,dice,rowDest,columnDest);
 
     }
 
@@ -66,11 +56,4 @@ public class MessageRunningPliers implements MessageCV, MessageVC {
         this.columnDest = columnDest;
     }
 
-    public void setRowMit(int rowMit) {
-        this.rowMit = rowMit;
-    }
-
-    public void setColumnMit(int columnMit) {
-        this.columnMit = columnMit;
-    }
 }
