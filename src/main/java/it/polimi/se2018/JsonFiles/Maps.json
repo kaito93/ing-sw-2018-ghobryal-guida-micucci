@@ -502,7 +502,7 @@
       {
         "numbercell": 20,
         "type": "color",
-        "color": "blue",
+        "color": "yellow",
         "value": 0
       }
     ]
@@ -587,7 +587,7 @@
       {
         "numbercell": 13,
         "type": "value",
-        "color": "green",
+        "color": "blank",
         "value": 6
       },
       {
@@ -1192,7 +1192,7 @@
         "numbercell": 8,
         "type": "color",
         "color": "blue",
-        "value": 6
+        "value": 0
       },
       {
         "numbercell": 9,
@@ -1245,7 +1245,7 @@
       {
         "numbercell": 17,
         "type": "value",
-        "color": "green",
+        "color": "blank",
         "value": 4
       },
       {
@@ -1633,7 +1633,7 @@
         "numbercell": 18,
         "type": "color",
         "color": "yellow",
-        "value": 1
+        "value": 0
       },
       {
         "numbercell": 19,
@@ -2105,7 +2105,7 @@
         "numbercell": 12,
         "type": "color",
         "color": "red",
-        "value": 3
+        "value": 0
       },
       {
         "numbercell": 13,
@@ -2184,7 +2184,7 @@
         "numbercell": 4,
         "type": "color",
         "color": "yellow",
-        "value": 5
+        "value": 0
       },
       {
         "numbercell": 5,
@@ -2256,7 +2256,7 @@
         "numbercell": 16,
         "type": "color",
         "color": "blue",
-        "value": 5
+        "value": 0
       },
       {
         "numbercell": 17,
@@ -2432,7 +2432,7 @@
         "numbercell": 3,
         "type": "color",
         "color": "yellow",
-        "value": 1
+        "value": 0
       },
       {
         "numbercell": 4,
