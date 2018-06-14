@@ -277,4 +277,13 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.SYSTEMEVENT,message);
         send(mex);
     }
+
+    @Override
+    public void closeConnection() {
+        try {
+            client.close();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+    }
 }

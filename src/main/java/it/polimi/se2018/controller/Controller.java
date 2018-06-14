@@ -153,6 +153,7 @@ public class Controller implements Observer<MessageVC> {
                 i--;
             }
         }
+        turno--;
         if (players.size() == 1) {
             view.manageVictoryAbbandon();
         }
@@ -195,10 +196,11 @@ public class Controller implements Observer<MessageVC> {
 
                         b = false;
                         waitMove();
-                        if (!view.isTerminate())
+                        if (!view.isTerminate()){
                             syncPlayers(playersInRound.get(turno));
-                        LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
-                                + playersInRound.get(turno).getName());
+                            LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
+                                    + playersInRound.get(turno).getName());
+                        }
                     } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
                         move = 2;
                         turno = playersInRound.size();

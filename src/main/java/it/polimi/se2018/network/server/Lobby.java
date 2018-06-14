@@ -37,6 +37,10 @@ public class Lobby extends Thread {
         this.view.startServer(); // avvia la view
         this.controller.startGame(); // fa cominciare effettivamente la partita
         LOGGER.log(Level.INFO,"La partita "+ String.valueOf(number)  +"  è terminata");
+        view.disconnect();
+        for (int i=0; i<playerConnection.size();i++){
+            playerConnection.get(i).closeConnection();
+        }
 
     }
 }

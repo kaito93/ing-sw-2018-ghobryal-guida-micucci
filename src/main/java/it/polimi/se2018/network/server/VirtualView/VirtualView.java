@@ -12,7 +12,9 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observable;
+
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -21,119 +23,126 @@ public class VirtualView extends Observable<MessageVC> {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     Controller controller;
-    ArrayList<ConnectionServer> connections;
+    ArrayList<ConnectionServer> connections = new ArrayList<>();
     ArrayList<Player> playersActive = new ArrayList<>();
     ArrayList<PlayerPlay> playersPlay = new ArrayList<>();
     PlayerPlay currentPlayer;
 
-    ArrayList <Player> playersSuspend = new ArrayList<>();
-    ArrayList <ConnectionServer> connectionsSuspend = new ArrayList<>();
+    ArrayList<Player> playersSuspend = new ArrayList<>();
+    ArrayList<ConnectionServer> connectionsSuspend = new ArrayList<>();
     ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
-    boolean terminate=false;
+    boolean terminate = false;
 
 
-    public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect){
-        for (int i=0; i<connect.size(); i++){ // per ogni connessione creata
-            PlayerPlay player = new PlayerPlay(connect.get(i));// crea un thread per il giocatore
+    public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect) {
+        for (int i = 0; i < connect.size(); i++) {
+            try {
+                connections.add(connect.get(i).clone());
+            } catch (CloneNotSupportedException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
+        }
+
+        for (int i = 0; i < connections.size(); i++) { // per ogni connessione creata
+            PlayerPlay player = new PlayerPlay(connections.get(i));// crea un thread per il giocatore
             playersPlay.add(player); // aggiungi il thread all'elenco
-            playersActive.add(new Player(connect.get(i).getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
+            playersActive.add(new Player(connections.get(i).getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
 
         }
-        this.connections=connect;
         return playersActive;
 
     }
 
-    public void start()  {
+    public void start() {
 
-        for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            try{
-                connections.get(i).sendMap(controller.getGame().getMaps(),playersActive.get(i));
-            }
-            catch (NullPointerException e){
+        for (int i = 0; i < this.connections.size(); i++) { // per ogni giocatore
+            try {
+                connections.get(i).sendMap(controller.getGame().getMaps(), playersActive.get(i));
+            } catch (NullPointerException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
 
         }
-        LOGGER.log(Level.INFO,"Tutto è pronto! Si cominciaaaaaaaa");
+        LOGGER.log(Level.INFO, "Tutto è pronto! Si cominciaaaaaaaa");
     }
 
-    public void startServer(){
-        for (int i=0; i<this.playersPlay.size();i++)
+    public void startServer() {
+        for (int i = 0; i < this.playersPlay.size(); i++)
             this.playersPlay.get(i).start(); // avvia i thread ascoltatori dei giocatori
     }
 
-    public void startGame(){
+    public void startGame() {
         // invia le informazioni al singolo giocatore delle SUE caratteristiche
-        for (int i=0; i<playersActive.size();i++){ // per ogni giocatore
+        for (int i = 0; i < playersActive.size(); i++) { // per ogni giocatore
             connections.get(i).sendPrivateInformation(playersActive.get(i).getCardPrivateObj());
         }
     }
 
-    public void publicInformation(ArrayList<PublicObjectiveCard> publicCards){
+    public void publicInformation(ArrayList<PublicObjectiveCard> publicCards) {
         // invia le informazioni a tutti i giocatori delle informazioni GENERALI della partita.
 
         ArrayList<ToolCard> tools = controller.getGame().getToolCards();
-        for (int i=0; i<this.connections.size();i++){ // per ogni giocatore
-            connections.get(i).sendPublicInformation(publicCards,tools);
+        for (int i = 0; i < this.connections.size(); i++) { // per ogni giocatore
+            connections.get(i).sendPublicInformation(publicCards, tools);
         }
     }
 
-    class PlayerPlay extends Thread{
+    class PlayerPlay extends Thread {
 
         ConnectionServer client;
         boolean connected;
 
-        public PlayerPlay (ConnectionServer player) {
-            this.client=player;
-            this.connected=true;
+        public PlayerPlay(ConnectionServer player) {
+            this.client = player;
+            this.connected = true;
 
-        }
-
-        public boolean isConnected() {
-            return connected;
         }
 
         @Override
         public void run() { // metodo sempre in esecuzione che controlla se il giocatore è ancora connesso
             boolean connect = true;
-            while (connect){
-                try{
+            while (connect) {
+                try {
                     MessageVC message = (MessageVC) client.getInput().readUnshared();
-                    if (message instanceof MessageDisconnect){
-                        connect=false;
-                        LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" non ha effettuato una mossa in tempo\n" +
+                    if (message instanceof MessageDisconnect) {
+                        connect = false;
+                        LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " non ha effettuato una mossa in tempo\n" +
                                 "l'ho messo in sospensione");
-                    }
-
-                    else
+                    } else
                         notifyObservers(message);
                 } catch (IOException e) {
-                    connect=false;
-                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" si è disconnesso. Non ho ricevuto nulla", e);
-
+                    connect = false;
+                    if (client.isConnected())
+                        LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
+                    else
+                        return;
                 } catch (ClassNotFoundException e) {
-                    connect=false;
-                    LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" si è disconnesso. Non manda dati corretti", e);
+                    connect = false;
+                    LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
 
                 }
+
             }
             reconn();
+            for (int i = 0; i < playersPlay.size(); i++)
+                playersPlay.get(i).closeThread();
+            for (int i = 0; i < playerNotPlay.size(); i++)
+                playerNotPlay.get(i).closeThread();
 
         }
 
-        public void reconn(){
-            Player temp=connectionLost();
+        public void reconn() {
+            Player temp = connectionLost();
             controller.updatePlayers(temp);
-            if (currentPlayer==this){ // se toccava al giocatore sospeso
+            if (currentPlayer == this) { // se toccava al giocatore sospeso
                 controller.fakeMove();
             }
 
 
-            if (!terminate){
-                String text= "Il giocatore "+client.getUsername()+ " si è disconnesso. Il giocatore è stato sospeso.";
+            if (!terminate) {
+                String text = "Il giocatore " + client.getUsername() + " si è disconnesso. Il giocatore è stato sospeso.";
 
-                for (int i=0; i<connections.size();i++){ // per ogni giocatore
+                for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
                     connections.get(i).sendLostConnection(text);
                 }
 
@@ -141,7 +150,7 @@ public class VirtualView extends Observable<MessageVC> {
 
                 this.client.tryReconnect();
 
-                int ind2= playerNotPlay.indexOf(this);
+                int ind2 = playerNotPlay.indexOf(this);
                 playersPlay.add(this); // aggiungi il thread del giocatore tra quelli attivi
                 playerNotPlay.remove(this); // rimuovi il thread del giocatore tra quelli sospesi
                 playersActive.add(playersSuspend.get(ind2)); // aggiungi il giocatore all'elenco dei giocatori in gioco
@@ -149,15 +158,14 @@ public class VirtualView extends Observable<MessageVC> {
                 connections.add(connectionsSuspend.get(ind2)); //aggiungi la connessione del giocatore tra quelle attive
                 connectionsSuspend.remove(ind2); // rimuovi la connessione del giocatore da quelle sospese
                 this.run();// riavvio l'ascolto della view
-            }
-            else
+            } else
                 this.interrupt();
 
         }
 
-        public Player connectionLost(){
+        public Player connectionLost() {
 
-            this.connected=false; // il giocatore non è connesso
+            this.connected = false; // il giocatore non è connesso
 
             int index = connections.indexOf(this.client); // ricerca l'indice del giocatore
             playersSuspend.add(playersActive.get(index)); // aggiungi il giocatore all'elenco di giocatori sospesi
@@ -169,16 +177,20 @@ public class VirtualView extends Observable<MessageVC> {
             playersPlay.remove(this); // rimuovi questo thread all'elenco di thread riferiti a giocatori attivi
             return temp;
         }
+
+        public void closeThread() {
+            this.interrupt();
+        }
     }
 
 
     // metodo che cerca l'username nelle connessioni
-    public int searchUser(String user){
-        boolean trovato=false;
-        int i=0;
-        while (!trovato){
+    public int searchUser(String user) {
+        boolean trovato = false;
+        int i = 0;
+        while (!trovato) {
             if (connections.get(i).getUsername().equalsIgnoreCase(user))
-                trovato=true;
+                trovato = true;
             else
                 i++;
         }
@@ -189,96 +201,112 @@ public class VirtualView extends Observable<MessageVC> {
         this.controller = controller;
     }
 
-    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno){
+    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno) {
         connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
-                playersInRound.get(turno).getSetDice(),playersInRound.get(turno).getUseTools());
+                playersInRound.get(turno).getSetDice(), playersInRound.get(turno).getUseTools());
     }
 
-    public void sendMessageUpdate (int turno, Game model, String name){
+    public void sendMessageUpdate(int turno, Game model, String name) {
         // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
         ArrayList<Map> maps = new ArrayList<>();
         ArrayList<String> users = new ArrayList<>();
         ArrayList<Boolean> tools = new ArrayList<>();
         ArrayList<Integer> fav = new ArrayList<>();
-        String message = "E' il turno di "+name;
+        String message = "E' il turno di " + name;
 
 
-        for (int i=0; i<playersActive.size();i++){
+        for (int i = 0; i < playersActive.size(); i++) {
             maps.add(playersActive.get(i).getMap());
             users.add(playersActive.get(i).getName());
             fav.add(playersActive.get(i).getFavSig());
         }
-        for (int i=0; i<model.getToolCards().size();i++)
+        for (int i = 0; i < model.getToolCards().size(); i++)
             tools.add(model.getToolCards().get(i).isUsed());
 
-        for (int i=0; i<playersActive.size(); i++)
-            connections.get(i).sendUpdate(maps,users,message,tools,model.getRoundSchemeMap(),model.getStock(),fav);
+        for (int i = 0; i < playersActive.size(); i++)
+            connections.get(i).sendUpdate(maps, users, message, tools, model.getRoundSchemeMap(), model.getStock(), fav);
 
     }
 
-    public void createMessageCopper(String title, int player){
+    public void createMessageCopper(String title, int player) {
         connections.get(player).manageCopper(title);
     }
-    public void createMessageCork(String title, int player){
+
+    public void createMessageCork(String title, int player) {
         connections.get(player).manageCork(title);
-            }
-    public void createMessageEglomise(String title, int player){
+    }
+
+    public void createMessageEglomise(String title, int player) {
         connections.get(player).manageEglomise(title);
     }
-    public void createMessageFluxBrush(String title, int player){
+
+    public void createMessageFluxBrush(String title, int player) {
         connections.get(player).manageFluxBrush(title);
     }
-    public void createMessageFluxRemover(String title, int player){
+
+    public void createMessageFluxRemover(String title, int player) {
         connections.get(player).manageFluxRemover(title);
     }
 
-    public void createMessageGlazing(String title){
+    public void createMessageGlazing(String title) {
         controller.manageGlazing(title);
     }
-    public void createMessageGrinding(String title, int player){
+
+    public void createMessageGrinding(String title, int player) {
         connections.get(player).manageGrinding(title);
     }
-    public void createMessageGrozing(String title, int player){
+
+    public void createMessageGrozing(String title, int player) {
         connections.get(player).manageGrozing(title);
     }
-    public void createMessageLathekin(String title, int player){
+
+    public void createMessageLathekin(String title, int player) {
         connections.get(player).manageLathekin(title);
     }
-    public void createMessageLens(String title, int player){
+
+    public void createMessageLens(String title, int player) {
         connections.get(player).manageLens(title);
     }
-    public void createMessageRunning(String title, int player){
+
+    public void createMessageRunning(String title, int player) {
         connections.get(player).manageRunning(title);
     }
-    public void createMessageTap(String title, int player){
+
+    public void createMessageTap(String title, int player) {
         connections.get(player).manageTap(title);
     }
 
-    public void sendScorePlayers(ArrayList<Player> players){
-        for (int i=0; i<playersActive.size();i++)
+    public void sendScorePlayers(ArrayList<Player> players) {
+        for (int i = 0; i < playersActive.size(); i++)
             connections.get(i).sendFinalPlayers(players);
     }
 
-    public void createMessageError(String error, int player){
+    public void createMessageError(String error, int player) {
         connections.get(player).manageError(error);
     }
-    public void manageFluxRemover2(Dice dice, String title, Player player){
-        connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice,title);
+
+    public void manageFluxRemover2(Dice dice, String title, Player player) {
+        connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice, title);
     }
 
     public void setCurrentPlayer(Player currentPlayer) {
-        for (int i=0; i<playersActive.size();i++){
+        for (int i = 0; i < playersActive.size(); i++) {
             if (currentPlayer == playersActive.get(i))
-                this.currentPlayer=playersPlay.get(i);
+                this.currentPlayer = playersPlay.get(i);
         }
     }
 
-    public void manageVictoryAbbandon(){
+    public void manageVictoryAbbandon() {
         connections.get(0).sendVictoryAbbandon();
-        terminate=true;
+        terminate = true;
     }
 
     public boolean isTerminate() {
         return terminate;
+    }
+
+    public void disconnect(){
+        for (int i=0; i<this.connections.size();i++)
+            connections.get(i).setConnected(false);
     }
 }

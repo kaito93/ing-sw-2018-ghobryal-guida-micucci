@@ -175,6 +175,7 @@ public class Server implements ServerRMI{
                 this.cancel();
                 Lobby newLobby= new Lobby(clients,lobbies.size());
                 lobbies.add(newLobby);
+                newLobby.start();
                 LOGGER.log(Level.INFO,"Sono presenti 4 giocatori. Il gioco si sta avviando");
 
                 clients=new ArrayList<>();

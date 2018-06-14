@@ -146,4 +146,9 @@ public class ConnectionServerRMI extends ConnectionServer {
     public void sendVictoryAbbandon() {
 
     }
+
+    @Override
+    public void closeConnection() {
+
+    }
 }

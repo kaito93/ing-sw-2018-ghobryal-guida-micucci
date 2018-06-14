@@ -13,13 +13,14 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class ConnectionServer {
+public abstract class ConnectionServer implements Cloneable {
 
     public static final int MVEVENT=0;
     public static final int CVEVENT=1;
     public static final int SYSTEMMESSAGE=2;
 
     String username;
+    boolean connected=true;
 
     protected abstract void send (Object message);
 
@@ -84,5 +85,18 @@ public abstract class ConnectionServer {
     public abstract void manageError(String error);
     public abstract void manageFluxRemover2(Dice dice, String title);
     public abstract void sendVictoryAbbandon();
+    public abstract void closeConnection();
 
+    @Override
+    public ConnectionServer clone() throws CloneNotSupportedException {
+        return (ConnectionServer) super.clone();
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
 }
