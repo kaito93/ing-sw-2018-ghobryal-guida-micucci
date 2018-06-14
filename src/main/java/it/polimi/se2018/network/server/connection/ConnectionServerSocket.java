@@ -88,9 +88,10 @@ public class ConnectionServerSocket extends ConnectionServer {
     }
 
     @Override
-    public void sendLostConnection(String text) {
+    public void sendLostConnection(String text, int index) {
         MessagePlayerDisconnect message= new MessagePlayerDisconnect();
         message.setMessage(text);
+        message.setIndex(index);
         mex = new Message(Message.SYSTEMEVENT, message); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
         send(mex);
     }
@@ -285,5 +286,22 @@ public class ConnectionServerSocket extends ConnectionServer {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    @Override
+    public void sendGainConnection(String text) {
+        MessagePlayerDisconnect message = new MessagePlayerDisconnect();
+        message.setMessage(text);
+        mex = new Message(Message.SYSTEMEVENT,message);
+        send(mex);
+    }
+
+    @Override
+    public void sendAcceptReconnection(String text, int index) {
+        RequestReconnect message = new RequestReconnect();
+        message.setMessage(text);
+        message.setNewIndex(index);
+        mex = new Message(Message.CVEVENT,message);
+        send(mex);
     }
 }

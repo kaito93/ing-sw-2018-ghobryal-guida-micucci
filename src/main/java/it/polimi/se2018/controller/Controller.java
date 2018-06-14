@@ -41,6 +41,7 @@ public class Controller implements Observer<MessageVC> {
     int turno;
     ArrayList<Player> playersInRound = new ArrayList<>();
     int mappe = 0;
+    boolean disconnect=false;
 
 
     /**
@@ -157,6 +158,7 @@ public class Controller implements Observer<MessageVC> {
         if (players.size() == 1) {
             view.manageVictoryAbbandon();
         }
+        disconnect=true;
 
 
     }
@@ -181,7 +183,7 @@ public class Controller implements Observer<MessageVC> {
             // CICLO CHE GESTISCE I TURNI INTERNI AL ROUND...
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
             for (turno = 0; turno < playersInRound.size(); turno++) {
-
+                disconnect=false;
                 playersInRound.get(turno).setSetDice(false);
                 playersInRound.get(turno).setUseTools(false);
                 view.setCurrentPlayer(playersInRound.get(turno));
@@ -196,8 +198,7 @@ public class Controller implements Observer<MessageVC> {
 
                         b = false;
                         waitMove();
-                        if (!view.isTerminate()){
-                            syncPlayers(playersInRound.get(turno));
+                        if (!view.isTerminate() && !disconnect){
                             LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
                                     + playersInRound.get(turno).getName());
                         }
@@ -328,6 +329,16 @@ public class Controller implements Observer<MessageVC> {
         players.remove(0); // elimino il giocatore che si trova in prima posizione
         players.add(this.players.size() - 1, exFirst); // aggiungi il primo turno del giocatore
         players.add(this.players.size(), exFirst); // aggiungi il secondo turno del giocatore
+        checkPlayerRound();// controlla che non si siano riconnessi giocatori. Se sì, li aggiunge come ultimi giocatori.
+    }
+
+    public void checkPlayerRound(){
+        for (int i=0; i<players.size();i++){
+            if (!playersInRound.contains(players.get(i))){
+                playersInRound.add(this.playersInRound.size() - 1, players.get(i)); // aggiungi il primo turno del giocatore che non era presente
+                playersInRound.add(this.playersInRound.size(), players.get(i)); // aggiungi il secondo turno del giocatore che non era presente
+            }
+        }
     }
 
     /**
@@ -628,4 +639,5 @@ public class Controller implements Observer<MessageVC> {
         else
             setTools();
     }
+
 }

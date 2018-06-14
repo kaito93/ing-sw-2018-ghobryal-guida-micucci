@@ -57,7 +57,7 @@ public abstract class ConnectionServer implements Cloneable {
 
     public abstract void sendPublicInformation(ArrayList<PublicObjectiveCard> cards, ArrayList<ToolCard> tools);
 
-    public abstract void sendLostConnection (String text);
+    public abstract void sendLostConnection (String text,int index);
 
     public abstract void tryReconnect();
 
@@ -99,4 +99,8 @@ public abstract class ConnectionServer implements Cloneable {
     public void setConnected(boolean connected) {
         this.connected = connected;
     }
+
+    public abstract void sendGainConnection(String text);
+
+    public abstract void sendAcceptReconnection(String text, int index);
 }

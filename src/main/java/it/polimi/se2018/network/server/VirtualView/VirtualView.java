@@ -143,14 +143,20 @@ public class VirtualView extends Observable<MessageVC> {
                 String text = "Il giocatore " + client.getUsername() + " si è disconnesso. Il giocatore è stato sospeso.";
 
                 for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
-                    connections.get(i).sendLostConnection(text);
+                    connections.get(i).sendLostConnection(text,i);
                 }
 
-                // GESTIONE DELLA RICONNESSIONE [Ipotesi]
+                // GESTIONE DELLA RICONNESSIONE
 
                 this.client.tryReconnect();
-
+                text = "Il giocatore " + client.getUsername() + " si è riconnesso. Tornerà in gioco dal prossimo round.";
+                for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
+                    connections.get(i).sendGainConnection(text);
+                }
+               client.sendAcceptReconnection(
+                        "Ti sei riconnesso. Ricomincerai a giocare al prossimo turno.",playersPlay.size());
                 int ind2 = playerNotPlay.indexOf(this);
+
                 playersPlay.add(this); // aggiungi il thread del giocatore tra quelli attivi
                 playerNotPlay.remove(this); // rimuovi il thread del giocatore tra quelli sospesi
                 playersActive.add(playersSuspend.get(ind2)); // aggiungi il giocatore all'elenco dei giocatori in gioco

@@ -235,5 +235,9 @@ public abstract class View {
     public boolean isA() {
         return a;
     }
+
+    public void updateIndex(int newIndex){
+        gameStatus.setYourIndex(newIndex);
+    }
 }
 

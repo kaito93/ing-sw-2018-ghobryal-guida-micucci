@@ -377,7 +377,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     public void visit(MessagePlayerDisconnect message) {
-
+        view.updateIndex(message.getIndex());
         view.addError(message.getMessage());
 
     }
@@ -386,5 +386,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         view.addLog(message.getMessage());
         view.addLog("Per iniziare una nuova partita riavvia il client");
         condition = false;
+    }
+
+    public void visit(RequestReconnect message){
+        view.updateIndex(message.getNewIndex());
+        view.addLog(message.getMessage());
+
     }
 }

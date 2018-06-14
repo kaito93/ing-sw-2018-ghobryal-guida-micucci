@@ -40,7 +40,7 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendLostConnection(String text) {
+    public void sendLostConnection(String text,int index) {
         // METODO PER INVIARE UNA STRINGA DI COMUNICAZIONE AI CLIENT CHE UN GIOCATORE SI E' DISCONNESSO.
     }
 
@@ -149,6 +149,16 @@ public class ConnectionServerRMI extends ConnectionServer {
 
     @Override
     public void closeConnection() {
+
+    }
+
+    @Override
+    public void sendGainConnection(String text) {
+
+    }
+
+    @Override
+    public void sendAcceptReconnection(String text, int index) {
 
     }
 }
