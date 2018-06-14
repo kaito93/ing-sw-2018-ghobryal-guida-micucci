@@ -1,21 +1,16 @@
 package it.polimi.se2018.view;
 
 import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.RoundSchemeCell;
-import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.network.client.connection.ConnectionClient;
-import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.util.Logger;
 
-import javax.swing.*;
-import java.awt.*;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 
 public abstract class View {
@@ -23,16 +18,20 @@ public abstract class View {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     GameView gameStatus;
     ConnectionClient client;
+    Timer timer = new Timer();
+    int time;
+    boolean a = false;
 
-    public View() {
+    public View(int time) {
         gameStatus = new GameView();
+        this.time = time;
     }
 
     public abstract void startView();
 
-    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username, ArrayList<String> names, ArrayList<Integer> fav){
+    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username, ArrayList<String> names, ArrayList<Integer> fav) {
         gameStatus.setMyUsername(username);
-        return maps.get(chooseSingleMap(maps,names,fav));
+        return maps.get(chooseSingleMap(maps, names, fav));
     }
 
     public abstract int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav);
@@ -79,6 +78,12 @@ public abstract class View {
 
     public abstract void addLog(String message);
 
+    public void turn(boolean posDice, boolean useTools) {
+        TimerCount count = new TimerCount(); //inizializza il timer
+        this.timer.schedule(count, 0, time / 20);
+        myTurn(posDice, useTools);
+    }
+
     public abstract void myTurn(boolean posDice, boolean useTools);
 
     public void accept(MessageUpdate message) {
@@ -100,7 +105,7 @@ public abstract class View {
 
     public abstract ArrayList<Object> managefluxBrush();
 
-    public Dice managefluxRemove(){
+    public Dice managefluxRemove() {
         return manageGrozing1();
     }
 
@@ -109,7 +114,7 @@ public abstract class View {
     public ArrayList<Object> manageGrinding() {
         // dice, row, column
         Dice dice = manageGrozing1();
-        Dice diceBefore=null;
+        Dice diceBefore = null;
         try {
             diceBefore = dice.clone();
         } catch (CloneNotSupportedException e) {
@@ -190,6 +195,45 @@ public abstract class View {
 
     public abstract ArrayList<Object> manageCork();
 
+    class TimerCount extends TimerTask {
 
+        int counter;
 
+        @Override
+        public void run() {
+
+            if (a)
+                this.cancel();
+            else {
+                if (counter == 20) {
+                    this.cancel();
+                    a=true;
+                    addError("Hai impiegato troppo tempo a scegliere una mossa.\n Sei stato disconnesso.");
+                    boolean verit=false;
+                    client.sendDisconnect();
+                    while (!verit){
+                        String str= reconnect();
+                        if (str!=null)
+                        {
+                            client.sendReconnect();
+                            verit=true;
+                        }
+                        else
+                            verit=false;
+                    }
+
+                } else
+                    counter++;
+            }
+
+        }
+
+    }
+
+    public abstract String reconnect();
+
+    public boolean isA() {
+        return a;
+    }
 }
+

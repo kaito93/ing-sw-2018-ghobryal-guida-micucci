@@ -50,4 +50,8 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
     }
 
     public abstract void sendPassMove ();
+
+    public abstract void sendReconnect();
+
+    public abstract void sendDisconnect();
 }

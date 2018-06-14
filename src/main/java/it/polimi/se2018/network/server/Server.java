@@ -4,10 +4,13 @@ package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.RequestConnection;
+import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
+import it.polimi.se2018.network.server.message.MessageFinalGame;
 import it.polimi.se2018.network.server.message.MessageNewUsername;
+import it.polimi.se2018.network.server.message.MessagePlayerDisconnect;
 import it.polimi.se2018.util.Deserializer.PathDeserializer;
 import it.polimi.se2018.util.Deserializer.ServerDeserialize;
 import it.polimi.se2018.util.Logger;
@@ -60,9 +63,13 @@ public class Server implements ServerRMI{
             LOGGER.log(Level.SEVERE, "Errore oggetto remoto RMI", e);
 
         }
-
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        try {
             LOGGER.log(Level.INFO,"Server socket avviato");
             active=true;
             while (active) {
@@ -94,6 +101,14 @@ public class Server implements ServerRMI{
 
                     }
 
+                }
+
+                else if (obj instanceof RequestReconnect){
+                    MessageFinalGame message= new MessageFinalGame();
+                    message.setMessage("Hai richiesto di connetterti ad una partita terminata.");
+                    Message mex = new Message(Message.SYSTEMEVENT,message);
+                    outputSocket.writeUnshared(mex);
+                    outputSocket.reset();
                 }
                 else
                     LOGGER.log(Level.WARNING,"Tipo di messaggio ricevuto sconosciuto");
@@ -150,7 +165,6 @@ public class Server implements ServerRMI{
 
         int numPlayers;
         int counter;
-        int counterMax;
 
 
         @Override
@@ -159,21 +173,22 @@ public class Server implements ServerRMI{
             if (clients.size()==4){ // se si raggiunge il numero massimo di giocatori per una partita...
 
                 this.cancel();
-                new Lobby(clients).start();
+                Lobby newLobby= new Lobby(clients,lobbies.size());
+                lobbies.add(newLobby);
                 LOGGER.log(Level.INFO,"Sono presenti 4 giocatori. Il gioco si sta avviando");
 
-                clients=new ArrayList<ConnectionServer>();
+                clients=new ArrayList<>();
                 LOGGER.log(Level.INFO,"Il server è pronto per accettare richieste per un'altra partita");
             }
             else{
                 if (counter==20) { // se si esaurisce il tempo di attesa
                     this.cancel();
-                    Lobby newLobby = new Lobby(clients);
+                    Lobby newLobby = new Lobby(clients,lobbies.size());
                     lobbies.add(newLobby);
                     newLobby.start();
                     LOGGER.log(Level.WARNING,"Timer scaduto. Il gioco si sta avviando");
 
-                    clients=new ArrayList<ConnectionServer>();
+                    clients=new ArrayList<>();
                     LOGGER.log(Level.INFO,"Il server è pronto per accettare richieste per un'altra partita");
 
 
@@ -193,7 +208,6 @@ public class Server implements ServerRMI{
 
 
             }
-
         }
     }
 

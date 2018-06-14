@@ -23,15 +23,16 @@ public class LauncherClient {
 
         int port = clien.getCs().getPort();
         String ip = clien.getCs().getIp();
+        int timer = clien.getCs().getTimerTurn();
 
         // QUI PUOI CHIUDERE IL BUFFER READER
 
         String choiceConnection = "socket";
         String choiceView = "cli";
         if ("cli".equalsIgnoreCase(choiceView))
-             view = new ViewCli();
+             view = new ViewCli(timer);
         else
-             view = new ViewGui();
+             view = new ViewGui(timer);
 
 
 

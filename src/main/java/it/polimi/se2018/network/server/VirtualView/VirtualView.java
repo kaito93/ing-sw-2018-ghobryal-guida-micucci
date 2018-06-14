@@ -7,12 +7,11 @@ import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
+import it.polimi.se2018.network.client.message.MessageDisconnect;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.connection.ConnectionServer;
-import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observable;
-import it.polimi.se2018.util.Observer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -30,6 +29,7 @@ public class VirtualView extends Observable<MessageVC> {
     ArrayList <Player> playersSuspend = new ArrayList<>();
     ArrayList <ConnectionServer> connectionsSuspend = new ArrayList<>();
     ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
+    boolean terminate=false;
 
 
     public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect){
@@ -100,7 +100,14 @@ public class VirtualView extends Observable<MessageVC> {
             while (connect){
                 try{
                     MessageVC message = (MessageVC) client.getInput().readUnshared();
-                    notifyObservers(message);
+                    if (message instanceof MessageDisconnect){
+                        connect=false;
+                        LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" non ha effettuato una mossa in tempo\n" +
+                                "l'ho messo in sospensione");
+                    }
+
+                    else
+                        notifyObservers(message);
                 } catch (IOException e) {
                     connect=false;
                     LOGGER.log(Level.OFF, "Il player " + client.getUsername()+" si è disconnesso. Non ho ricevuto nulla", e);
@@ -111,47 +118,56 @@ public class VirtualView extends Observable<MessageVC> {
 
                 }
             }
+            reconn();
 
-            connectionLost();
-            String text= "Il giocatore "+client.getUsername()+ " si è disconnesso. Il giocatore è stato sospeso.";
+        }
 
-            for (int i=0; i<connections.size();i++){ // per ogni giocatore
-              connections.get(i).sendLostConnection(text);
-            }
-
+        public void reconn(){
+            Player temp=connectionLost();
+            controller.updatePlayers(temp);
             if (currentPlayer==this){ // se toccava al giocatore sospeso
                 controller.fakeMove();
             }
 
-            // GESTIONE DELLA RICONNESSIONE [Ipotesi]
 
-            this.client.tryReconnect();
+            if (!terminate){
+                String text= "Il giocatore "+client.getUsername()+ " si è disconnesso. Il giocatore è stato sospeso.";
 
-            int ind2= playerNotPlay.indexOf(this);
-            playersPlay.add(this); // aggiungi il thread del giocatore tra quelli attivi
-            playerNotPlay.remove(this); // rimuovi il thread del giocatore tra quelli sospesi
-            playersActive.add(playersSuspend.get(ind2)); // aggiungi il giocatore all'elenco dei giocatori in gioco
-            playersSuspend.remove(ind2); // rimuovi il giocatore riconnesso tra quelli in sospeso
-            connections.add(connectionsSuspend.get(ind2)); //aggiungi la connessione del giocatore tra quelle attive
-            connectionsSuspend.remove(ind2); // rimuovi la connessione del giocatore da quelle sospese
-            this.run();// riavvio l'ascolto della view
+                for (int i=0; i<connections.size();i++){ // per ogni giocatore
+                    connections.get(i).sendLostConnection(text);
+                }
 
+                // GESTIONE DELLA RICONNESSIONE [Ipotesi]
+
+                this.client.tryReconnect();
+
+                int ind2= playerNotPlay.indexOf(this);
+                playersPlay.add(this); // aggiungi il thread del giocatore tra quelli attivi
+                playerNotPlay.remove(this); // rimuovi il thread del giocatore tra quelli sospesi
+                playersActive.add(playersSuspend.get(ind2)); // aggiungi il giocatore all'elenco dei giocatori in gioco
+                playersSuspend.remove(ind2); // rimuovi il giocatore riconnesso tra quelli in sospeso
+                connections.add(connectionsSuspend.get(ind2)); //aggiungi la connessione del giocatore tra quelle attive
+                connectionsSuspend.remove(ind2); // rimuovi la connessione del giocatore da quelle sospese
+                this.run();// riavvio l'ascolto della view
+            }
+            else
+                this.interrupt();
 
         }
 
-        public void connectionLost(){
+        public Player connectionLost(){
 
             this.connected=false; // il giocatore non è connesso
 
             int index = connections.indexOf(this.client); // ricerca l'indice del giocatore
             playersSuspend.add(playersActive.get(index)); // aggiungi il giocatore all'elenco di giocatori sospesi
-            controller.updatePlayers(playersActive.get(index));
+            Player temp = playersActive.get(index);
             playersActive.remove(index); // rimuovi il giocatore sospeso dai giocatori attivi
             connectionsSuspend.add(this.client); // aggiungi la connessione nell array delle connessioni sospese
             connections.remove(index); // rimuovi la connessione dalle connessioni attive
             playerNotPlay.add(this); // aggiungi questo thread all'elenco di thread riferiti a giocatori sospesi
             playersPlay.remove(this); // rimuovi questo thread all'elenco di thread riferiti a giocatori attivi
-
+            return temp;
         }
     }
 
@@ -248,5 +264,21 @@ public class VirtualView extends Observable<MessageVC> {
     }
     public void manageFluxRemover2(Dice dice, String title, Player player){
         connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice,title);
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        for (int i=0; i<playersActive.size();i++){
+            if (currentPlayer == playersActive.get(i))
+                this.currentPlayer=playersPlay.get(i);
+        }
+    }
+
+    public void manageVictoryAbbandon(){
+        connections.get(0).sendVictoryAbbandon();
+        terminate=true;
+    }
+
+    public boolean isTerminate() {
+        return terminate;
     }
 }

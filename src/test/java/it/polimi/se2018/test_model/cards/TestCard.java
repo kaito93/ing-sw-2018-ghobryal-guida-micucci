@@ -26,7 +26,7 @@ public class TestCard extends TestCase {
      */
     @Override
     protected void setUp() throws Exception {
-        card = new Card("testCard", "testCardDescription");
+        //card = new Card("testCard", "testCardDescription");
         super.setUp();
     }
 

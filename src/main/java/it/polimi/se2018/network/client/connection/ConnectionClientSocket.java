@@ -29,6 +29,8 @@ public class ConnectionClientSocket extends ConnectionClient {
     ObjectOutputStream output;
     Socket socket;
     Listen listener;
+    boolean condition=true;
+
 
 
     public static final int MVEVENT=0;
@@ -69,7 +71,7 @@ public class ConnectionClientSocket extends ConnectionClient {
             update(new RequestConnection(username)); //chiamo il metodo per inviare la richiesta
             listener = new Listen(); // creo un oggetto ascoltatore
             listener.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
-
+            view.addLog("La partita è terminata");
 
 
 
@@ -92,12 +94,10 @@ public class ConnectionClientSocket extends ConnectionClient {
         synchronized public void run() {
 
             //Message message; // crea una variabile per contenere il messaggio ricevuto
-            boolean condition=true;
             while(condition){
 
                 try{
-                    Message message = new Message(2,"ciao");
-                    message= (Message)input.readObject(); // leggi il messaggio
+                    Message message= (Message)input.readObject(); // leggi il messaggio
 
                     if (message.getType()==CVEVENT){// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV)message.getEvent(); // casta il messaggio
@@ -193,7 +193,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
     public void visit(MessageYourTurn message) {
         view.updateFavor(message.isPosDice(),message.isUseTools());
-        view.myTurn(message.isPosDice(),message.isUseTools());
+        view.turn(message.isPosDice(),message.isUseTools());
     }
 
     public void sendPosDice(Dice dice, int column, int row){
@@ -337,5 +337,46 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void sendPassMove() {
         MessagePassTurn message = new MessagePassTurn();
         update(message);
+    }
+
+    @Override
+    public void sendReconnect() {
+
+        try {
+
+            System.setProperty("java.net.preferIPv4Stack", "true"); //setta preferenze di protocollo IP V4
+            this.socket = new Socket(ip, port);
+            this.output = new ObjectOutputStream(socket.getOutputStream());
+            output.flush();
+            this.input = new ObjectInputStream(socket.getInputStream()); // inizializza la variabile input e output
+
+        }
+        catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        RequestReconnect message = new RequestReconnect();
+        update(message);
+        listener = new Listen(); // creo un oggetto ascoltatore
+        listener.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
+    }
+
+    @Override
+    public void sendDisconnect() {
+        MessageDisconnect message = new MessageDisconnect();
+        update(message);
+    }
+
+    public void visit(MessagePlayerDisconnect message){
+
+        view.addError(message.getMessage());
+        view.addLog("Per iniziare una nuova partita riavvia il client");
+        condition=false;
+    }
+
+    public void visit(MessageFinalGame message){
+        view.addLog(message.getMessage());
+        view.addLog("Per iniziare una nuova partita riavvia il client");
+        condition=false;
     }
 }

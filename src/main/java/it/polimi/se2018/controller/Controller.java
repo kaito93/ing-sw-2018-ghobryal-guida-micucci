@@ -141,7 +141,23 @@ public class Controller implements Observer<MessageVC> {
      * @param player player disconnected
      */
     public void updatePlayers(Player player) {
-        // TO DO: SE IL GIOCATORE SI DISCONNETTE BISOGNA MODIFICARE TUTTI I CONTATORI DEI GIOCATORI IN GIOCO
+        for (int i = 0; i < playersInRound.size(); i++) {
+            if (player == playersInRound.get(i)) {
+                playersInRound.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < players.size(); i++) {
+            if (player == players.get(i)) {
+                players.remove(i);
+                i--;
+            }
+        }
+        if (players.size() == 1) {
+            view.manageVictoryAbbandon();
+        }
+
+
     }
 
     /**
@@ -149,12 +165,12 @@ public class Controller implements Observer<MessageVC> {
      */
     public void game() {
 
-
+        int round;
         waitw();
         setPlayersInRound(playersInRound);
 
         // CICLO CHE GESTISCE I ROUND
-        for (int round = 0; round < game.getMaxRound(); round++) {
+        for (round = 0; round < game.getMaxRound(); round++) {
             // Resetta i posDice dei giocatori.
             resetDice();
 
@@ -167,41 +183,54 @@ public class Controller implements Observer<MessageVC> {
 
                 playersInRound.get(turno).setSetDice(false);
                 playersInRound.get(turno).setUseTools(false);
-
+                view.setCurrentPlayer(playersInRound.get(turno));
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 for (move = 0; move < 2; move++) {
-                    // Invia a tutti i giocatori le informazioni generali del turno
-                    view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
+                    if (!view.isTerminate()) {
+                        // Invia a tutti i giocatori le informazioni generali del turno
+                        view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
 
-                    // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                    view.sendMessageTurn(playersInRound, turno);
+                        // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
+                        view.sendMessageTurn(playersInRound, turno);
 
-                    b = false;
-                    waitMove();
-                    syncPlayers(playersInRound.get(turno));
-                    LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
-                            + playersInRound.get(turno).getName());
-
+                        b = false;
+                        waitMove();
+                        if (!view.isTerminate())
+                            syncPlayers(playersInRound.get(turno));
+                        LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
+                                + playersInRound.get(turno).getName());
+                    } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
+                        move = 2;
+                        turno = playersInRound.size();
+                        round = game.getMaxRound();
+                    }
                 }
 
             }
 
-            // PIAZZA I DADI RIMANENTI NEL TRACCIATO DEI ROUND.
-            game.getRoundSchemeMap()[round].setDices(game.getStock());
+            if (!view.isTerminate()) {
+                // PIAZZA I DADI RIMANENTI NEL TRACCIATO DEI ROUND.
+                game.getRoundSchemeMap()[round].setDices(game.getStock());
 
-            // aggiorna l'arraylist per i turni dentro al round. quello che era primo diventa ultimo
-            updatePlayersInRound(playersInRound);
+                // aggiorna l'arraylist per i turni dentro al round. quello che era primo diventa ultimo
+                updatePlayersInRound(playersInRound);
+            }
+
         }
 
-        // FINE PARTITA
+        if (!view.isTerminate()) {
+            // FINE PARTITA terminata normalmente
 
-        // CALCOLA PUNTEGGI
-        calcScore();
-        ArrayList<Player> finalPlayers = vsScore(playersInRound);
+            // CALCOLA PUNTEGGI
+            calcScore();
+            ArrayList<Player> finalPlayers = vsScore(playersInRound);
 
-        // INVIA AI GIOCATORI I PUNTEGGI FINALI + MAPPE FINALI + OBIETTIVI PRIVATI DI TUTTI I GIOCATORI
+            // INVIA AI GIOCATORI I PUNTEGGI FINALI + MAPPE FINALI + OBIETTIVI PRIVATI DI TUTTI I GIOCATORI
 
-        view.sendScorePlayers(finalPlayers);
+            view.sendScorePlayers(finalPlayers);
+        } else {
+            LOGGER.log(Level.INFO, "Partita terminata per abbandoni");
+        }
 
     }
 
@@ -256,7 +285,7 @@ public class Controller implements Observer<MessageVC> {
 
     synchronized public void setPos(Dice dice, int row, int column) {
         String error = "ciao";
-        if (this.playersInRound.get(turno).getPosDice()<3){
+        if (this.playersInRound.get(turno).getPosDice() < 3) {
             if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
                 manageError(Map.getErrorBool().getErrorMessage());
             } else {
@@ -265,8 +294,7 @@ public class Controller implements Observer<MessageVC> {
                 this.playersInRound.get(turno).incrementPosDice();
                 notifyAll();
             }
-        }
-        else {
+        } else {
             manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
         }
 
@@ -452,97 +480,106 @@ public class Controller implements Observer<MessageVC> {
         return view;
     }
 
-    public void resetDice(){
-        for (int i=0; i<playersInRound.size();i++)
+    public void resetDice() {
+        for (int i = 0; i < playersInRound.size(); i++)
             playersInRound.get(i).setPosDice(0);
     }
 
-    public void manageCopper(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit){
+    public void manageCopper(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice
-            , rowDest, columnDest, null, false, rowMit,
-            columnMit, null, null, null, 0)) {
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    } else
-        setTools();
+                , rowDest, columnDest, null, false, rowMit,
+                columnMit, null, null, null, 0)) {
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        } else
+            setTools();
     }
 
-    public void manageCork(String title, Dice dice, int rowDest, int columnDest){
+    public void manageCork(String title, Dice dice, int rowDest, int columnDest) {
         if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-            dice, rowDest, columnDest, null, false, 0, 0, null, null,
-            null, 0))
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    else {
-        getGame().getStock().remove(dice);
-        getPlayersInRound().get(getTurno()).incrementPosDice();
-        setTools();
-    }
-    }
-    public void manageEglomise(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit){
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
-            rowDest, columnDest, null, false, rowMit, columnMit, null, null,
-            null, 0))
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    else
-        setTools();
-    }
-    public void manageFluxBrush(String title, Dice dice, int rowDest, int columnDest, Dice diceBefore){
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
-            rowDest, columnDest, getGame().getStock(), false, 0, 0, diceBefore, null,
-            null, 0))
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    else
-    {getPlayersInRound().get(getTurno()).incrementPosDice();
-        getGame().removeDiceStock(diceBefore);
-        setTools();}
-    }
-    public void manageFluxRemover(boolean a, String title, Dice dice, int row, int column){
-        if (a) {
-        if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, getGame().getDiceBag().getBox(),
-                false, row, column, null, null, null, 0)) {
-            getGame().getStock().add(dice);
+                dice, rowDest, columnDest, null, false, 0, 0, null, null,
+                null, 0))
             manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        } else{
+        else {
+            getGame().getStock().remove(dice);
             getPlayersInRound().get(getTurno()).incrementPosDice();
             setTools();
         }
+    }
 
-    } else {
-        getGame().getDiceBag().getBox().add(dice);
-        getGame().removeDiceStock(dice);
-        Collections.shuffle(getGame().getDiceBag().getBox());
-        dice = getGame().getDiceBag().getBox().remove(0);
-        getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurno()));
+    public void manageEglomise(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
+                rowDest, columnDest, null, false, rowMit, columnMit, null, null,
+                null, 0))
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else
+            setTools();
     }
+
+    public void manageFluxBrush(String title, Dice dice, int rowDest, int columnDest, Dice diceBefore) {
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
+                rowDest, columnDest, getGame().getStock(), false, 0, 0, diceBefore, null,
+                null, 0))
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else {
+            getPlayersInRound().get(getTurno()).incrementPosDice();
+            getGame().removeDiceStock(diceBefore);
+            setTools();
+        }
     }
-    public void manageGlazing(String title){
+
+    public void manageFluxRemover(boolean a, String title, Dice dice, int row, int column) {
+        if (a) {
+            if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, getGame().getDiceBag().getBox(),
+                    false, row, column, null, null, null, 0)) {
+                getGame().getStock().add(dice);
+                manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+            } else {
+                getPlayersInRound().get(getTurno()).incrementPosDice();
+                setTools();
+            }
+
+        } else {
+            getGame().getDiceBag().getBox().add(dice);
+            getGame().removeDiceStock(dice);
+            Collections.shuffle(getGame().getDiceBag().getBox());
+            dice = getGame().getDiceBag().getBox().remove(0);
+            getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurno()));
+        }
+    }
+
+    public void manageGlazing(String title) {
         getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-            null,firstOrSecond(),0,getGame().getStock(),
-            getPlayersInRound().get(getTurno()).getSetDice(),0,0,null,
-            null,null,0);
+                null, firstOrSecond(), 0, getGame().getStock(),
+                getPlayersInRound().get(getTurno()).getSetDice(), 0, 0, null,
+                null, null, 0);
         setTools();
     }
-    public void manageGrinding(String title, Dice dice, int row,int column, Dice diceBefore){
-        if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, false,
-            row, column, null, null, null, 0)) {
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
 
-    } else {
-        getGame().getStock().remove(diceBefore);
-        getPlayersInRound().get(getTurno()).incrementPosDice();
-        setTools();
-    }}
-    public void manageGrozing(String title, Dice dice, int rowDest, int colDest){
+    public void manageGrinding(String title, Dice dice, int row, int column, Dice diceBefore) {
+        if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, false,
+                row, column, null, null, null, 0)) {
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+
+        } else {
+            getGame().getStock().remove(diceBefore);
+            getPlayersInRound().get(getTurno()).incrementPosDice();
+            setTools();
+        }
+    }
+
+    public void manageGrozing(String title, Dice dice, int rowDest, int colDest) {
         if (!getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, false, 0, 0,
-            null, null, null, 0)) {
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    } else {
-        getGame().getStock().remove(dice);
-        getPlayersInRound().get(getTurno()).incrementPosDice();
-        setTools();
+                null, null, null, 0)) {
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        } else {
+            getGame().getStock().remove(dice);
+            getPlayersInRound().get(getTurno()).incrementPosDice();
+            setTools();
+        }
     }
-    }
-    public void manageLathekin(String title, int row1Mit,int row2Mit, int col1Mit, int col2Mit, int row1Dest, int column1Dest,
-                               ArrayList<Dice> dices, int row2Dest, int column2Dest){
+
+    public void manageLathekin(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int column1Dest,
+                               ArrayList<Dice> dices, int row2Dest, int column2Dest) {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
         getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
         getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
@@ -554,27 +591,30 @@ public class Controller implements Observer<MessageVC> {
         else
             setTools();
     }
-    public void manageLens(String title, Dice diceStock, int numberRound, int row, int column,Dice diceRound){
+
+    public void manageLens(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
         if (!getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, getGame().getStock(),
-            false, row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    else
-    {
-        getPlayersInRound().get(getTurno()).incrementPosDice();
-        setTools();
+                false, row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else {
+            getPlayersInRound().get(getTurno()).incrementPosDice();
+            setTools();
+        }
     }
-    }
-    public void manageRunning(String title, Dice dice,int rowDest, int columnDest){
+
+    public void manageRunning(String title, Dice dice, int rowDest, int columnDest) {
         if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
-            firstOrSecond(), 0, getGame().getStock(), false, rowDest, columnDest, null,
-            null, getPlayersInRound(), 0))
-        manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-    else
-    {   getPlayersInRound().get(getTurno()).incrementPosDice();
-        setTools();}
+                firstOrSecond(), 0, getGame().getStock(), false, rowDest, columnDest, null,
+                null, getPlayersInRound(), 0))
+            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+        else {
+            getPlayersInRound().get(getTurno()).incrementPosDice();
+            setTools();
+        }
     }
-    public void manageTap(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit,Dice diceRoundScheme, int row1Dest,
-                          int column1Dest, ArrayList<Dice> diceToMove, int row2Dest, int column2Dest, int posDiceinSchemeRound){
+
+    public void manageTap(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, Dice diceRoundScheme, int row1Dest,
+                          int column1Dest, ArrayList<Dice> diceToMove, int row2Dest, int column2Dest, int posDiceinSchemeRound) {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
         getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
         getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);

@@ -10,6 +10,7 @@ import it.polimi.se2018.util.Logger;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
@@ -18,8 +19,8 @@ public class ViewCli extends View {
     Scanner scanner = new Scanner(System.in);
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
-    public ViewCli() {
-        super();
+    public ViewCli(int timer) {
+        super(timer);
     }
 
     @Override
@@ -36,9 +37,10 @@ public class ViewCli extends View {
         int chooseColumn = 0;
         int chooseRow = 0;
         int chooseTool;
+try {
+    while (!valid) {
 
-        while (!valid) {
-
+        if (scanner!=null){
             // SELEZIONE MOSSA
             addLog("E' il tuo turno. Scegli che mossa fare: \n 1 - Posizionare un dado dalla riserva alla tua carta schema " +
                     "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza la tua mappa" +
@@ -70,6 +72,7 @@ public class ViewCli extends View {
                                     finals = true;
                                     cho = true;
                                     client.sendPosDice(gameStatus.getStock().get(chooseDice), chooseColumn, chooseRow);
+                                    a = true;
                                 } else if (finalChoose.equalsIgnoreCase("no")) {
                                     finals = true;
                                 }
@@ -100,6 +103,7 @@ public class ViewCli extends View {
                                 valid = true;
                                 tool = true;
                                 client.sendUseTool(gameStatus.getTitleTools().get(chooseTool));
+                                a = true;
                             }
 
                         } else {
@@ -119,6 +123,7 @@ public class ViewCli extends View {
                 String finalChoose = scanner.nextLine();
                 if (finalChoose.equalsIgnoreCase("Si")) {
                     client.sendPassMove();
+                    a = true;
                     valid = true;
                 }
 
@@ -142,12 +147,19 @@ public class ViewCli extends View {
                 map = true;
             }
 
-            if (!map && !valid) {
+            if (!map && !valid && !isA()) {
+
                 addError("Non hai selezionato una valida mossa");
             }
         }
 
+    }
 
+}
+catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException e){
+    // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
+    addLog("Chiusura mossa precedente");
+}
     }
 
     public String doString(String nome) {
@@ -593,5 +605,19 @@ public class ViewCli extends View {
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
         return obj;
+    }
+
+    @Override
+    public String reconnect() {
+        Scanner scanner2 = new Scanner(System.in);
+        try{
+            addLog("Per riconnetterti scrivi qualsiasi cosa:");
+            scanner.close();
+            scanner = null;
+            return (scanner2.nextLine());
+        }
+        catch (NoSuchElementException e){
+            return "C'è vita dietro lo schermo";
+        }
     }
 }

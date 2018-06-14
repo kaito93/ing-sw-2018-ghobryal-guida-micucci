@@ -41,7 +41,6 @@ public class ConnectionServerSocket extends ConnectionServer {
 
     public Socket getSocket(){
         return this.client;
-
     }
 
     public ObjectInputStream getInput(){
@@ -90,12 +89,16 @@ public class ConnectionServerSocket extends ConnectionServer {
 
     @Override
     public void sendLostConnection(String text) {
-        mex = new Message(Message.SYSTEMEVENT, text); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
+        MessagePlayerDisconnect message= new MessagePlayerDisconnect();
+        message.setMessage(text);
+        mex = new Message(Message.SYSTEMEVENT, message); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
         send(mex);
     }
 
     @Override
     public void tryReconnect() {
+
+
         boolean reconnect=false;
         while (!reconnect){ // fin quando il giocatore non si è riconnesso
             try{
@@ -104,12 +107,8 @@ public class ConnectionServerSocket extends ConnectionServer {
                     reconnect=true;
                 else
                     reconnect=false;
-            } catch (IOException e) {
-                LOGGER.log(Level.OFF, "Il player " + getUsername()+" è ancora disconnesso. Non ho ricevuto nulla", e);
-
-            } catch (ClassNotFoundException e) {
-                LOGGER.log(Level.OFF, "Il player " + getUsername()+" è disconnesso. Non manda dati corretti", e);
-
+            } catch (IOException |ClassNotFoundException e) {
+                    reconnect=false;
             }
 
         }
@@ -268,6 +267,14 @@ public class ConnectionServerSocket extends ConnectionServer {
         message.setDice(dice);
         message.setA(true);
         mex = new Message(Message.CVEVENT,message);
+        send(mex);
+    }
+
+    @Override
+    public void sendVictoryAbbandon() {
+        MessagePlayerDisconnect message = new MessagePlayerDisconnect();
+        message.setMessage("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)");
+        mex = new Message(Message.SYSTEMEVENT,message);
         send(mex);
     }
 }

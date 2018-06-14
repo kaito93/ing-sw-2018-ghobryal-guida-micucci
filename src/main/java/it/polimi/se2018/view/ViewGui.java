@@ -17,8 +17,8 @@ public class ViewGui extends View {
 
     }
 
-    public ViewGui(){
-
+    public ViewGui(int timer){
+        super(timer);
     }
 
     public int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav){
@@ -111,6 +111,11 @@ public class ViewGui extends View {
     @Override
     public ArrayList<Object> manageFluxRemove2(Dice dice) {
         // dice row column
+        return null;
+    }
+
+    @Override
+    public String reconnect() {
         return null;
     }
 }

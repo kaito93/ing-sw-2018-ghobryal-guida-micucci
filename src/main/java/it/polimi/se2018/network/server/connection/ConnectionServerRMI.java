@@ -141,4 +141,9 @@ public class ConnectionServerRMI extends ConnectionServer {
     public void manageFluxRemover2(Dice dice, String title) {
 
     }
+
+    @Override
+    public void sendVictoryAbbandon() {
+
+    }
 }

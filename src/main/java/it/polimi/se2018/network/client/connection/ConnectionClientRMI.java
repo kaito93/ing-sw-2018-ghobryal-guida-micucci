@@ -39,4 +39,14 @@ public class ConnectionClientRMI extends ConnectionClient {
     public void sendPassMove() {
 
     }
+
+    @Override
+    public void sendReconnect() {
+
+    }
+
+    @Override
+    public void sendDisconnect() {
+
+    }
 }
