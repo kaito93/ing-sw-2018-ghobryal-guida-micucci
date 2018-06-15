@@ -48,15 +48,15 @@ public class Lathekin extends ToolCardStrategy {
                 errorBool.setErrorMessage("first dice not valid");
                 return;
             }
-            player.getMap().posDice(null, row3, column3);
+            player.getMap().removeDiceMap(row3, column3);
             b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
             if (!b) {
                 player.getMap().posDice(dicesToMove.get(0), row3, column3);
-                player.getMap().posDice(null, row1, column1);
+                player.getMap().removeDiceMap(row1, column1);
                 errorBool.setErrorMessage("second dice not valid");
                 return;
             }
-            player.getMap().posDice(null, row4, column4);
+            player.getMap().removeDiceMap(row4, column4);
         } else {
             errorBool.setErrorMessage("passed dices aren't exactly two");
             errorBool.setErrBool(true);

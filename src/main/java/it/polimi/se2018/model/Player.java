@@ -27,6 +27,9 @@ public class Player implements Serializable {
      */
     public Player (String user){
         this.name=user;
+        setDice=false;
+        useTools=false;
+        posDice=0;
     }
 
     /** method that return the card private with the private goal
@@ -145,14 +148,25 @@ public class Player implements Serializable {
         return map.posDice(dice,row,column);
     }
 
-    // DA TESTARE
-    public void setPosDice(int posDice) {
-        this.posDice = posDice;
+    /**
+     * resets posDice to 0
+     * helps to count how many dices to count in an entire round
+     */
+    public void resetPosDice() {
+        posDice=0;
     }
+
+    /**
+     * increments posDice every time the player positions one dice on his map
+     */
     public void incrementPosDice(){
         posDice++;
     }
 
+    /**
+     * gets posDice current value
+     * @return posDice integer value
+     */
     public int getPosDice() {
         return posDice;
     }

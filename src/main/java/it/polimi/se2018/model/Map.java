@@ -490,4 +490,14 @@ public class Map implements Serializable {
     public static ErrorBool getErrorBool() {
         return errorBool;
     }
+
+    /**
+     * removes the dice in the specified coordinates
+     * @param row row's coordinate on the map
+     * @param column column's coordinate on the map
+     */
+    public void removeDiceMap(int row, int column){
+        if(!isEmptyCell(row, column))
+            cell[row][column].setDice(null);
+    }
 }

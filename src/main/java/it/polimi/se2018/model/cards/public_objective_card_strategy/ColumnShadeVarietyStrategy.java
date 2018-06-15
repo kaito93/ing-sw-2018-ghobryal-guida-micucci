@@ -45,8 +45,9 @@ public class ColumnShadeVarietyStrategy extends ObjectiveCardStrategy {
                     break;
                 }
             }
-            if(numCounter==map.numColumn()) {
+            if(numCounter==map.numRow()) {
                 counter++;
+                numBool=false;
                 numCounter = 1;
             }
         }

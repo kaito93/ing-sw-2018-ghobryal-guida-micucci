@@ -27,7 +27,6 @@ public class RoundSchemeCell implements Serializable {
      *
      * @return an arraylist of dices not used during the turn
      */
-    //tested
     public List<Dice> getRestOfStock() {
         return restOfStock;
     }
@@ -54,17 +53,14 @@ public class RoundSchemeCell implements Serializable {
      *
      * @param dice the chosen dice
      */
-    //tested
     public void removeDice(Dice dice) {
         restOfStock.remove(dice);
     }
 
     /**
      * method that add an arraylist of dice to a single cell
-     *
      * @param toAdd the arraylist contains the dices not used during the turn
      */
-    //DA TESTARE
     public void setDices(List<Dice> toAdd) {
 
         if (restOfStock.get(0).getValue() == 0)

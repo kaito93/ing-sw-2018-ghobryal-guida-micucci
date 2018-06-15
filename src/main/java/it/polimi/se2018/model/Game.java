@@ -1,7 +1,6 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.model.cards.*;
-import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.util.DeckOfPrivateCards;
 import it.polimi.se2018.util.DiceBox;
 import it.polimi.se2018.util.Deserializer.*;
@@ -9,7 +8,6 @@ import it.polimi.se2018.util.Deserializer.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 
 
 /**
@@ -18,9 +16,6 @@ import java.util.logging.Level;
  * @author Samuele Guida
  */
 public class Game {
-
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
-
 
     private static final int MAXROUND = 10;
 
@@ -36,7 +31,7 @@ public class Game {
 
     private ArrayList<Map> maps;
 
-    PathDeserializer path;
+    private PathDeserializer path;
 
 
     /**
@@ -73,7 +68,7 @@ public class Game {
 
         Dice dice=new Dice();
         dice=dice.diceNull();
-        List<Dice> list = new ArrayList<Dice>();
+        List<Dice> list = new ArrayList<>();
         list.add(dice);
         for (int i=0;i<MAXROUND;i++){
             roundSchemeMap[i] = new RoundSchemeCell();
@@ -302,7 +297,6 @@ public class Game {
      * removes a specified dice from the stock
      * @param dice a chosen dice from the stock
      */
-    //da testare
     public void removeDiceStock(Dice dice) {
         for (int i=0; i<stock.size();i++)
             if (dice.getValue()==stock.get(i).getValue())

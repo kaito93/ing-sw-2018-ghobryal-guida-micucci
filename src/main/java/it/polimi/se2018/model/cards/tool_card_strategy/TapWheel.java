@@ -42,7 +42,7 @@ public class TapWheel extends ToolCardStrategy {
                 if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
                     d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
                     if (d)
-                        player.getMap().posDice(null, row3, column3);
+                        player.getMap().removeDiceMap(row3, column3);
                     else {
                         errorBool.setErrorMessage("posDice method in TapWheel tool card");
                         errorBool.setErrBool(true);

@@ -495,7 +495,7 @@ public class Controller implements Observer<MessageVC> {
 
     public void resetDice() {
         for (int i = 0; i < playersInRound.size(); i++)
-            playersInRound.get(i).setPosDice(0);
+            playersInRound.get(i).resetPosDice();
     }
 
     public void manageCopper(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
