@@ -152,6 +152,8 @@ try {
                 addError("Non hai selezionato una valida mossa");
             }
         }
+        else
+            valid=true;
 
     }
 
