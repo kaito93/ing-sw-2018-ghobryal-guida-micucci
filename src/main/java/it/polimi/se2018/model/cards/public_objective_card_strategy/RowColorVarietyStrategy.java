@@ -52,6 +52,7 @@ public class RowColorVarietyStrategy extends ObjectiveCardStrategy{
             }
             if(colorCounter==map.numColumn()) {
                 counter++;
+                colorBool=false;
                 colorCounter = 1;
             }
         }

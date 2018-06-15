@@ -22,32 +22,33 @@ public class RowShadeVarietyStrategy extends ObjectiveCardStrategy{
     @Override
     public int search(Map map, int score) {
         int counter=0;  //counts how many times the player achieves this card
-        boolean colorBool=false;    //indicates if there isn't 2 dices with the same color on the same row
-        int colorCounter=1;    //counts how many consecutive dices with different colors
+        boolean numBool=false;    //indicates if there isn't 2 dices with the same color on the same row
+        int numCounter=1;    //counts how many consecutive dices with different colors
         for(int i=0; i<map.numRow(); i++){  //iterates on rows
             for(int j=0; j<map.numColumn()-1; j++){ //iterates on column
                 for(int k=j+1; k<map.numColumn(); k++){ try {
                     //iterates on the next column
                     if((!map.isEmptyCell(i, j))&&(!map.isEmptyCell(i, k))){ //controls if there is a dice or not
                         if(map.getCell(i,j).getDice().getValue()==map.getCell(i,k).getDice().getValue()){   //controls if there is two consecutive dices with the same color
-                            colorBool = false;
+                            numBool = false;
                             break;
-                        }else colorBool = true;
+                        }else numBool = true;
                     }else break;
                     } catch (notValidCellException e) {
                     LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class RowShadeVarietyStrategy", e);
                     }
                 }
-                if(colorBool)
-                    colorCounter++;
+                if(numBool)
+                    numCounter++;
                 else {
-                    colorCounter = 1;
+                    numCounter = 1;
                     break;
                 }
             }
-            if(colorCounter==map.numColumn()) {
+            if(numCounter==map.numColumn()) {
                 counter++;
-                colorCounter = 1;
+                numBool=false;
+                numCounter = 1;
             }
         }
         return counter*score;

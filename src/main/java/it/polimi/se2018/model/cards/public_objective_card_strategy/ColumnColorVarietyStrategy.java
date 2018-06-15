@@ -1,9 +1,6 @@
 package it.polimi.se2018.model.cards.public_objective_card_strategy;
 
 import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.exception.notValidCellException;
-
-import java.util.logging.Level;
 
 /**
  * Column Color Variety Public Objective Card
@@ -22,7 +19,7 @@ public class ColumnColorVarietyStrategy extends ObjectiveCardStrategy{
     @Override
     public int search(Map map, int score) {
         int counter=0;  //counts how many times the player achieves this card
-        boolean colorBool=false;    //indicates if there is 2 dices with the same color on the same column
+        boolean colorBool=true;    //indicates if there is 2 dices with the same color on the same column
         int colorCounter=1;    //counts how many consecutive dices with different colors
         for(int i=0; i<map.numColumn(); i++){   //iterates on columns
             for(int j=0; j<map.numRow()-1; j++) {    //iterates on row
@@ -40,6 +37,7 @@ public class ColumnColorVarietyStrategy extends ObjectiveCardStrategy{
             }
             if(colorCounter==map.numRow()) {
                 counter++;
+                colorBool=true;
                 colorCounter = 1;
             }
         }
