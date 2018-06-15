@@ -7,6 +7,7 @@ import it.polimi.se2018.util.DiceBox;
 import it.polimi.se2018.util.Deserializer.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 
@@ -68,6 +69,17 @@ public class Game {
         }
 
         this.roundSchemeMap= new RoundSchemeCell[MAXROUND]; // Crea il tracciato dei round
+
+
+        Dice dice=new Dice();
+        dice=dice.diceNull();
+        List<Dice> list = new ArrayList<Dice>();
+        list.add(dice);
+        for (int i=0;i<MAXROUND;i++){
+            roundSchemeMap[i] = new RoundSchemeCell();
+            roundSchemeMap[i].setDices(list);
+
+        }
 
         ArrayList<ToolCard> tools = loadToolCards(); // carica le carte utensili
 

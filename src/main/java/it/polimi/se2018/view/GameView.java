@@ -20,6 +20,7 @@ public class GameView {
 
     private ArrayList<String> titlePublicObjective;
     private ArrayList<String> descriptionPublicObjective;
+    private ArrayList<Integer> scorePublicObjective;
 
     private String titlePrivateObjective;
     private String descriptionPrivateObjective;
@@ -160,5 +161,13 @@ public class GameView {
 
     public ArrayList<Integer> getFavUser() {
         return favUser;
+    }
+
+    public void setScorePublicObjective(ArrayList<Integer> scorePublicObjective) {
+        this.scorePublicObjective = scorePublicObjective;
+    }
+
+    public ArrayList<Integer> getScorePublicObjective() {
+        return scorePublicObjective;
     }
 }

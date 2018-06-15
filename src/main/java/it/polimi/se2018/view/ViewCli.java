@@ -42,11 +42,14 @@ try {
 
         if (scanner!=null){
             // SELEZIONE MOSSA
-            addLog("E' il tuo turno. Scegli che mossa fare: \n 1 - Posizionare un dado dalla riserva alla tua carta schema " +
-                    "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza la tua mappa" +
-                    "\n 5 - Visualizza le mappe degli avversari");
+            addLog(" ");
+            printBold("E' il tuo turno. Scegli che mossa fare: ");
+            addLog("1 - Posizionare un dado dalla riserva alla tua carta schema " +
+                    "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza il tuo stato" +
+                    "\n 5 - Visualizza lo stato degli avversari" + "\n 6 - Visualizza le informazioni generali della partita");
             String choose = scanner.nextLine();
             map = false;
+            addLog(" ");
             if (choose.equalsIgnoreCase("1")) {
                 // SI VUOLE POSIZIONARE UN DADO
                 if (!posDice) {
@@ -93,9 +96,9 @@ try {
                     boolean tool = false;
                     while (!tool) {
                         if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
-                            addLog("Carte utensili utilizzabili:");
+                            printBold("Carte utensili utilizzabili:");
                             printTools();
-                            addLog("Quali delle carte utensili vuoi usare?");
+                            printBold("Quali delle carte utensili vuoi usare?");
                             chooseTool = Integer.decode(scanner.nextLine()) - 1;
                             if (chooseTool > gameStatus.getUseTools().size() || chooseTool < 0)
                                 addError("Non hai selezionato una carta utensile corretta");
@@ -119,7 +122,7 @@ try {
                     addError("Hai già usato una carta utensile in precedenza");
             }
             if (choose.equalsIgnoreCase("3")) {
-                addLog("Confermi di voler passare il turno? [Si/No]");
+                printBold("Confermi di voler passare il turno? [Si/No]");
                 String finalChoose = scanner.nextLine();
                 if (finalChoose.equalsIgnoreCase("Si")) {
                     client.sendPassMove();
@@ -130,20 +133,49 @@ try {
             }
 
             if (choose.equalsIgnoreCase("4")) {
+                printBold("Carta obiettivo privata: ");
+                printCardPrivate(gameStatus.getTitlePrivateObjective(),gameStatus.getDescriptionPrivateObjective());
+                addLog(" ");
+                printBold("Ecco la tua mappa: ");
                 printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+                addLog(" ");
+                printBold("Segnalini favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(gameStatus.getYourIndex())));
                 map = true;
             }
 
             if (choose.equalsIgnoreCase("5")) {
+
                 for (int i = 0; i < gameStatus.getCells().size(); i++) {
                     if (i == gameStatus.getYourIndex())
                         continue;
                     else {
-                        addLog("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
+                        addLog(" ");
+                        printBold("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
                         addLog("Punti favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(i)));
                         printSchemeMap(gameStatus.getCells().get(i));
                     }
                 }
+                addLog(" ");
+                map = true;
+            }
+            if (choose.equalsIgnoreCase("6")) {
+                printBold("Carte obiettivo pubbliche: ");
+                for (int i=0;i<gameStatus.getTitlePublicObjective().size();i++){
+                    addLog("");
+                    printCors("Carta obiettivo pubblica "+ String.valueOf(i+1)+ ":");
+                    printCardPublic(gameStatus.getTitlePublicObjective().get(i),gameStatus.getDescriptionPublicObjective().get(i)
+                    , gameStatus.getScorePublicObjective().get(i));
+                }
+                addLog(" ");
+                printBold("Schema dei round attuale:");
+                printSchemeRounds();
+                addLog(" ");
+                printBold("Riserva attuale: ");
+                printDicesStock();
+                addLog(" ");
+
+
+
                 map = true;
             }
 
@@ -158,7 +190,7 @@ try {
     }
 
 }
-catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException e){
+catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|NullPointerException e){
     // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
     addLog("Chiusura mossa precedente");
 }
@@ -269,17 +301,17 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException 
         return val - 1;
     }
 
-    public void printDicesStock(ArrayList<Dice> dices) {
-        for (int i = 0; i < dices.size(); i++) {
-            System.out.print(i + 1 + " - ");
-            printColor(dices.get(i).getColor().toString(), String.valueOf(dices.get(i).getValue()));
+    public void printDicesStock() {
+        for (int i = 0; i < gameStatus.getStock().size(); i++) {
+            System.out.print((i + 1) + " - ");
+            printColor(gameStatus.getStock().get(i).getColor().toString(), String.valueOf(gameStatus.getStock().get(i).getValue()));
             System.out.println("");
         }
     }
 
     public void printTools() {
         for (int i = 0; i < gameStatus.getUseTools().size(); i++) {
-            System.out.println(i + 1 + " - Titolo: " + gameStatus.getTitleTools().get(i));
+            printCors(i + 1 + " - Titolo: " + gameStatus.getTitleTools().get(i));
             System.out.println("Descrizione: " + gameStatus.getDescriptionTools().get(i));
             System.out.println("Usata in precedenza: " + (gameStatus.getUseTools().get(i) ? "Sì" : "No"));
         }
@@ -465,7 +497,7 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException 
 
     public int askDiceStock() {
         addLog("Dadi disponibili:");
-        printDicesStock(gameStatus.getStock());
+        printDicesStock();
         addLog("Quale dado vuoi posizionare?");
         return Integer.decode(scanner.nextLine()) - 1;
     }
@@ -530,7 +562,17 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException 
             default:
                 break;
         }
+
     }
+
+    public void printBold(String text){
+        System.out.println("\033[1m"+text);
+    }
+
+    public void printCors(String text){
+        System.out.println("\033[4m"+text);
+    }
+
 
     public ArrayList<Object> askDiceRound() {
         ArrayList<Object> obj = new ArrayList<>();
@@ -554,7 +596,9 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException 
     }
 
     public void printSchemeRound(int round) {
+        addLog("Round "+String.valueOf(round+1)+":");
         for (int dice = 0; dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size(); dice++) {
+            System.out.print(" - ");
             printColor(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
                     gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).toString());
         }
@@ -621,5 +665,14 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException 
         catch (NoSuchElementException e){
             return "C'è vita dietro lo schermo";
         }
+    }
+
+    public void printCardPrivate(String title, String description){
+        addLog("Titolo: "+title);
+        addLog("Descrizione: "+description);
+    }
+    public void printCardPublic(String title, String description, int score){
+        printCardPrivate(title,description);
+        addLog("Punteggio aggiuntivo: +" +score);
     }
 }

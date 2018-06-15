@@ -178,7 +178,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void visit(MessagePublicInformation message) {
         view.setPublicInformation(message.getTitlePublicObjective(), message.getDescriptionPublicObjective(),
-                message.getTitleTools(), message.getDescriptionTools());
+                message.getTitleTools(), message.getDescriptionTools(), message.getScorePublicObjective());
     }
 
     /**

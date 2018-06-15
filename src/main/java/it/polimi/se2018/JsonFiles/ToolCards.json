@@ -1,84 +1,84 @@
 [
   {
     "title": "Alesatore per lamina di rame",
-    "description": "muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore, ma mantenendo le altre",
+    "description": "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di valore, ma mantenendo le altre",
     "id": "3",
     "color":"red",
     "strategy": "CopperFoilBurnisher"
   },
   {
     "title": "Riga di sughero",
-    "description": "dopo aver scelto un dado, piazzalo in una casella non adiacente a un altro dado, rispettando tutte le restrizioni di piazzamento",
+    "description": "Dopo aver scelto un dado, piazzalo in una casella non adiacente a un altro dado, rispettando tutte le restrizioni di piazzamento",
     "id": "9",
     "color": "yellow",
     "strategy": "CorkbackedStraightedge"
   },
   {
     "title": "Pennello per Eglomise",
-    "description": "muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore, ma rispettando le altre",
+    "description": "Muovi un qualsiasi dado nella tua vetrata ignorando le restrizioni di colore, ma rispettando le altre",
     "id": "2",
     "color": "blue",
     "strategy": "EglomiseBrush"
   },
   {
     "title": "Pennello per pasta salda",
-    "description": "dopo aver scelto un dado, tiralo nuovamente. Se non puoi piazzarlo, mettilo nella riserva",
+    "description": "Dopo aver scelto un dado, tiralo nuovamente. Se non puoi piazzarlo, mettilo nella riserva",
     "id": "6",
     "color": "purple",
     "strategy": "FluxBrush"
   },
   {
     "title": "Diluente per pasta salda",
-    "description": "dopo aver scelto un dado, riponilo nel sacchetto, poi prendine uno dal sacchetto; scegli il valore del nuovo dado e piazzalo rispettando tutte le restrizioni di piazzamento",
+    "description": "Dopo aver scelto un dado, riponilo nel sacchetto, poi prendine uno dal sacchetto; scegli il valore del nuovo dado e piazzalo rispettando tutte le restrizioni di piazzamento",
     "id": "11",
     "color": "purple",
     "strategy": "FluxRemover"
   },
   {
     "title": "Martelletto",
-    "description": "tira nuovamente tutti i dadi della riserva. puoi usare questa carta solo nel tuo secondo turno, prima di scegliere il secondo dado",
+    "description": "Tira nuovamente tutti i dadi della riserva. puoi usare questa carta solo nel tuo secondo turno, prima di scegliere il secondo dado",
     "id": "7" ,
     "color": "blue",
     "strategy": "GlazingHammer"
   },
   {
     "title": "Tampone diamantato",
-    "description": "dopo aver scelto un dado, giralo sulla faccia opposta",
+    "description": "Dopo aver scelto un dado, giralo sulla faccia opposta",
     "id": "10",
     "color": "purple",
     "strategy": "GrindingStone"
   },
   {
     "title": "Pinza Sgrossatrice",
-    "description": "dopo aver scelto un dado aumenta o diminuisci il valore del dado di 1",
+    "description": "Dopo aver scelto un dado aumenta o diminuisci il valore del dado di 1",
     "id": "1",
     "color": "purple",
     "strategy": "GrozingPliers"
   },
   {
     "title": "Lathekin",
-    "description": "muovi esattamente due dadi, rispettando tutte le restrizioni di piazzamento",
+    "description": "Muovi esattamente due dadi, rispettando tutte le restrizioni di piazzamento",
     "id": "4",
     "color": "yellow",
     "strategy": "Lathekin"
   },
   {
     "title": "Taglierina circolare",
-    "description": "dopo aver scelto un dado scambia quel dado con un dado sul tracciato dei Round",
+    "description": "Dopo aver scelto un dado scambia quel dado con un dado sul tracciato dei Round",
     "id": "5",
     "color": "green",
     "strategy": "LensCutter"
   },
   {
     "title": "Tenaglia a rotelle",
-    "description": "dopo il tuo primo turno scegli immediatamente un altro dado, e salta il tuo secondo turno",
+    "description": "Dopo il tuo primo turno scegli immediatamente un altro dado, e salta il tuo secondo turno",
     "id": "8",
     "color": "red",
     "strategy": "RunningPliers"
   },
   {
     "title": "Taglierina manuale",
-    "description": "muovi fino a due dadi dello stesso colore di un solo dado nel tracciato dei Round, devi rispettare tutte le restrizioni di piazzamento",
+    "description": "Muovi fino a due dadi dello stesso colore di un solo dado nel tracciato dei Round, devi rispettare tutte le restrizioni di piazzamento",
     "id": "12",
     "color": "blue",
     "strategy": "TapWheel"

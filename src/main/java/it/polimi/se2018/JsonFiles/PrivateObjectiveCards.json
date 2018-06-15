@@ -1,27 +1,27 @@
 [
   {
     "title":"Sfumature rosse",
-    "description": "somma dei valori di tutti i dadi rossi",
+    "description": "Somma dei valori di tutti i dadi rossi",
     "color":"RED"
   },
   {
     "title":"Sfumature gialle",
-    "description": "somma dei valori di tutti i dadi gialli",
+    "description": "Somma dei valori di tutti i dadi gialli",
     "color":"YELLOW"
   },
   {
     "title":"Sfumature verdi",
-    "description": "somma dei valori di tutti i dadi verdi",
+    "description": "Somma dei valori di tutti i dadi verdi",
     "color":"GREEN"
   },
   {
     "title":"Sfumature blu",
-    "description": "somma dei valori di tutti i dadi blu",
+    "description": "Somma dei valori di tutti i dadi blu",
     "color":"BLUE"
   },
   {
     "title":"Sfumature viola",
-    "description": "somma dei valori di tutti i dadi viola",
+    "description": "Somma dei valori di tutti i dadi viola",
     "color":"PURPLE"
   }
 ]

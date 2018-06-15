@@ -38,11 +38,12 @@ public abstract class View {
 
 
     public void setPublicInformation(ArrayList<String> titlePublic, ArrayList<String> descriptionPublic, ArrayList<String> titleTools,
-                                     ArrayList<String> descriptionTools) {
+                                     ArrayList<String> descriptionTools, ArrayList<Integer> scores) {
         gameStatus.setTitlePublicObjective(titlePublic);
         gameStatus.setDescriptionPublicObjective(descriptionPublic);
         gameStatus.setTitleTools(titleTools);
         gameStatus.setDescriptionTools(descriptionTools);
+        gameStatus.setScorePublicObjective(scores);
 
         addLog("Ho aggiornato le informazioni relative alle carte obiettivo pubbliche");
 

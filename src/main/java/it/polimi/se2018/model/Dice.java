@@ -25,6 +25,8 @@ public class Dice implements Serializable, Cloneable {
         color = null;
     }
 
+
+
     /**
      * throw the dice with a value between 1 and 6
      */
@@ -106,5 +108,15 @@ public class Dice implements Serializable, Cloneable {
                 break;
         }
         return a;
+    }
+
+
+    // DA TESTARE
+
+    public Dice diceNull(){
+        Dice dice=new Dice();
+        dice.value=0;
+        dice.color=Color.NULL;
+        return dice;
     }
 }

@@ -12,6 +12,7 @@ public class MessagePublicInformation implements MessageCV{
     private static final long serialVersionUID = -6430841943473871296L;
     ArrayList<String> titlePublicObjective = new ArrayList<>();
     ArrayList<String> descriptionPublicObjective = new ArrayList<>();
+    ArrayList<Integer>scorePublicObjective = new ArrayList<>();
 
     ArrayList<String> titleTools = new ArrayList<>();
     ArrayList<String> descriptionTools = new ArrayList<>();
@@ -29,6 +30,7 @@ public class MessagePublicInformation implements MessageCV{
         for (int i=0; i<publicObjective.size();i++){
             titlePublicObjective.add(publicObjective.get(i).getTitle());
             descriptionPublicObjective.add(publicObjective.get(i).getDescription());
+            scorePublicObjective.add(publicObjective.get(i).getScore());
         }
     }
 
@@ -57,7 +59,7 @@ public class MessagePublicInformation implements MessageCV{
         return titlePublicObjective;
     }
 
-
-
-
+    public ArrayList<Integer> getScorePublicObjective() {
+        return scorePublicObjective;
+    }
 }
