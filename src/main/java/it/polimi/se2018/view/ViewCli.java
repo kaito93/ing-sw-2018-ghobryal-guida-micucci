@@ -362,13 +362,13 @@ public class ViewCli extends View {
 
     @Override
     public String askNewUsername() {
-        boolean sec = false;
+        boolean sec = true;
         String user="";
         while(sec){
             addLog("Inserisci il tuo username:");
             user = scanner.nextLine();
-            if (user!="")
-                sec=true;
+            if (!user.equalsIgnoreCase(""))
+                sec=false;
             else
                 addLog("Non puoi inserire un username vuoto!");
         }
