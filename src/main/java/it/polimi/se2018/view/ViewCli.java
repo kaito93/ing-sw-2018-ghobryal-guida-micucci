@@ -37,163 +37,163 @@ public class ViewCli extends View {
         int chooseColumn = 0;
         int chooseRow = 0;
         int chooseTool;
-try {
-    while (!valid) {
+        try {
+            while (!valid) {
 
-        if (scanner!=null){
-            // SELEZIONE MOSSA
-            addLog(" ");
-            printBold("E' il tuo turno. Scegli che mossa fare: ");
-            addLog("1 - Posizionare un dado dalla riserva alla tua carta schema " +
-                    "\n2 - Usare una carta utensile \n3 - Non fare niente in questa mossa \n4 - Visualizza il tuo stato" +
-                    "\n5 - Visualizza lo stato degli avversari" + "\n6 - Visualizza le informazioni generali della partita");
-            String choose = scanner.nextLine();
-            map = false;
-            addLog(" ");
-            if (choose.equalsIgnoreCase("1")) {
-                // SI VUOLE POSIZIONARE UN DADO
-                if (!posDice) {
-                    valid = true;
-                    boolean cho = false;
-                    while (!cho) {
-                        // SELEZIONE DEL DADO
-                        chooseDice = askDiceStock();
-                        if (chooseDice > gameStatus.getStock().size() - 1 || chooseDice < 0)
+                if (scanner!=null){
+                    // SELEZIONE MOSSA
+                    addLog(" ");
+                    printBold("E' il tuo turno. Scegli che mossa fare: ");
+                    addLog("1 - Posizionare un dado dalla riserva alla tua carta schema " +
+                            "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza il tuo stato" +
+                            "\n 5 - Visualizza lo stato degli avversari" + "\n 6 - Visualizza le informazioni generali della partita");
+                    String choose = scanner.nextLine();
+                    map = false;
+                    addLog(" ");
+                    if (choose.equalsIgnoreCase("1")) {
+                        // SI VUOLE POSIZIONARE UN DADO
+                        if (!posDice) {
+                            valid = true;
+                            boolean cho = false;
+                            while (!cho) {
+                                // SELEZIONE DEL DADO
+                                chooseDice = askDiceStock();
+                                if (chooseDice > gameStatus.getStock().size() - 1 || chooseDice < 0)
 
-                            addError("Non hai selezionato un dado della lista");
-                        else {
-                            ArrayList<Integer> inta = askRowColumn();
-                            chooseRow = inta.get(0);
-                            chooseColumn = inta.get(1);
-                            boolean finals = false;
-                            while (!finals) {
-                                addLog("Confermi di voler inserire il dado: Colore: " + gameStatus.getStock().get(chooseDice).getColor().toString() +
-                                        " e valore: " + gameStatus.getStock().get(chooseDice).getValue() + " in colonna " + (chooseColumn + 1) +
-                                        " e riga " + (chooseRow + 1) + " ? [Si/No]");
-                                String finalChoose = scanner.nextLine();
-                                if (finalChoose.equalsIgnoreCase("si")) {
-                                    finals = true;
-                                    cho = true;
-                                    client.sendPosDice(gameStatus.getStock().get(chooseDice), chooseColumn, chooseRow);
-                                    a = true;
-                                } else if (finalChoose.equalsIgnoreCase("no")) {
-                                    finals = true;
+                                    addError("Non hai selezionato un dado della lista");
+                                else {
+                                    ArrayList<Integer> inta = askRowColumn();
+                                    chooseRow = inta.get(0);
+                                    chooseColumn = inta.get(1);
+                                    boolean finals = false;
+                                    while (!finals) {
+                                        addLog("Confermi di voler inserire il dado: Colore: " + gameStatus.getStock().get(chooseDice).getColor().toString() +
+                                                " e valore: " + gameStatus.getStock().get(chooseDice).getValue() + " in colonna " + (chooseColumn + 1) +
+                                                " e riga " + (chooseRow + 1) + " ? [Si/No]");
+                                        String finalChoose = scanner.nextLine();
+                                        if (finalChoose.equalsIgnoreCase("si")) {
+                                            finals = true;
+                                            cho = true;
+                                            client.sendPosDice(gameStatus.getStock().get(chooseDice), chooseColumn, chooseRow);
+                                            a = true;
+                                        } else if (finalChoose.equalsIgnoreCase("no")) {
+                                            finals = true;
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                        } else
+                            addError("Hai già posizionato un dado in precedenza");
+
+
+                    }
+                    if (choose.equalsIgnoreCase("2")) {
+                        if (!useTools) {
+                            // IL GIOCATORE HA SCELTO DI USARE UNA CARTA TOOLS
+                            boolean tool = false;
+                            while (!tool) {
+                                if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
+                                    printBold("Carte utensili utilizzabili:");
+                                    printTools();
+                                    printBold("Quali delle carte utensili vuoi usare?");
+                                    chooseTool = Integer.decode(scanner.nextLine()) - 1;
+                                    if (chooseTool > gameStatus.getUseTools().size() || chooseTool < 0)
+                                        addError("Non hai selezionato una carta utensile corretta");
+                                    else {
+                                        valid = true;
+                                        tool = true;
+                                        client.sendUseTool(gameStatus.getTitleTools().get(chooseTool));
+                                        a = true;
+                                    }
+
+                                } else {
+                                    addError("Hai 0 segnalini favore!");
+                                    tool = true;
                                 }
 
+
                             }
 
-                        }
+
+                        } else
+                            addError("Hai già usato una carta utensile in precedenza");
                     }
-
-                } else
-                    addError("Hai già posizionato un dado in precedenza");
-
-
-            }
-            if (choose.equalsIgnoreCase("2")) {
-                if (!useTools) {
-                    // IL GIOCATORE HA SCELTO DI USARE UNA CARTA TOOLS
-                    boolean tool = false;
-                    while (!tool) {
-                        if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
-                            printBold("Carte utensili utilizzabili:");
-                            printTools();
-                            printBold("Quali delle carte utensili vuoi usare?");
-                            chooseTool = Integer.decode(scanner.nextLine()) - 1;
-                            if (chooseTool > gameStatus.getUseTools().size() || chooseTool < 0)
-                                addError("Non hai selezionato una carta utensile corretta");
-                            else {
-                                valid = true;
-                                tool = true;
-                                client.sendUseTool(gameStatus.getTitleTools().get(chooseTool));
-                                a = true;
-                            }
-
-                        } else {
-                            addError("Hai 0 segnalini favore!");
-                            tool = true;
+                    if (choose.equalsIgnoreCase("3")) {
+                        printBold("Confermi di voler passare il turno? [Si/No]");
+                        String finalChoose = scanner.nextLine();
+                        if (finalChoose.equalsIgnoreCase("Si")) {
+                            client.sendPassMove();
+                            a = true;
+                            valid = true;
                         }
-
 
                     }
 
-
-                } else
-                    addError("Hai già usato una carta utensile in precedenza");
-            }
-            if (choose.equalsIgnoreCase("3")) {
-                printBold("Confermi di voler passare il turno? [Si/No]");
-                String finalChoose = scanner.nextLine();
-                if (finalChoose.equalsIgnoreCase("Si")) {
-                    client.sendPassMove();
-                    a = true;
-                    valid = true;
-                }
-
-            }
-
-            if (choose.equalsIgnoreCase("4")) {
-                printBold("Carta obiettivo privata: ");
-                printCardPrivate(gameStatus.getTitlePrivateObjective(),gameStatus.getDescriptionPrivateObjective());
-                addLog(" ");
-                printBold("Ecco la tua mappa: ");
-                printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
-                addLog(" ");
-                printBold("Segnalini favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(gameStatus.getYourIndex())));
-                map = true;
-            }
-
-            if (choose.equalsIgnoreCase("5")) {
-
-                for (int i = 0; i < gameStatus.getCells().size(); i++) {
-                    if (i == gameStatus.getYourIndex())
-                        continue;
-                    else {
+                    if (choose.equalsIgnoreCase("4")) {
+                        printBold("Carta obiettivo privata: ");
+                        printCardPrivate(gameStatus.getTitlePrivateObjective(),gameStatus.getDescriptionPrivateObjective());
                         addLog(" ");
-                        printBold("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
-                        addLog("Punti favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(i)));
-                        printSchemeMap(gameStatus.getCells().get(i));
+                        printBold("Ecco la tua mappa: ");
+                        printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+                        addLog(" ");
+                        printBold("Segnalini favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(gameStatus.getYourIndex())));
+                        map = true;
+                    }
+
+                    if (choose.equalsIgnoreCase("5")) {
+
+                        for (int i = 0; i < gameStatus.getCells().size(); i++) {
+                            if (i == gameStatus.getYourIndex())
+                                continue;
+                            else {
+                                addLog(" ");
+                                printBold("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
+                                addLog("Punti favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(i)));
+                                printSchemeMap(gameStatus.getCells().get(i));
+                            }
+                        }
+                        addLog(" ");
+                        map = true;
+                    }
+                    if (choose.equalsIgnoreCase("6")) {
+                        printBold("Carte obiettivo pubbliche: ");
+                        for (int i=0;i<gameStatus.getTitlePublicObjective().size();i++){
+                            addLog("");
+                            printCors("Carta obiettivo pubblica "+ String.valueOf(i+1)+ ":");
+                            printCardPublic(gameStatus.getTitlePublicObjective().get(i),gameStatus.getDescriptionPublicObjective().get(i)
+                                    , gameStatus.getScorePublicObjective().get(i));
+                        }
+                        addLog(" ");
+                        printBold("Schema dei round attuale:");
+                        printSchemeRounds();
+                        addLog(" ");
+                        printBold("Riserva attuale: ");
+                        printDicesStock();
+                        addLog(" ");
+
+
+
+                        map = true;
+                    }
+
+                    if (!map && !valid && !isA()) {
+
+                        addError("Non hai selezionato una valida mossa");
                     }
                 }
-                addLog(" ");
-                map = true;
-            }
-            if (choose.equalsIgnoreCase("6")) {
-                printBold("Carte obiettivo pubbliche: ");
-                for (int i=0;i<gameStatus.getTitlePublicObjective().size();i++){
-                    addLog("");
-                    printCors("Carta obiettivo pubblica "+ String.valueOf(i+1)+ ":");
-                    printCardPublic(gameStatus.getTitlePublicObjective().get(i),gameStatus.getDescriptionPublicObjective().get(i)
-                    , gameStatus.getScorePublicObjective().get(i));
-                }
-                addLog(" ");
-                printBold("Schema dei round attuale:");
-                printSchemeRounds();
-                addLog(" ");
-                printBold("Riserva attuale: ");
-                printDicesStock();
-                addLog(" ");
+                else
+                    valid=true;
 
-
-
-                map = true;
             }
 
-            if (!map && !valid && !isA()) {
-
-                addError("Non hai selezionato una valida mossa");
-            }
         }
-        else
-            valid=true;
-
-    }
-
-}
-catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|NullPointerException e){
-    // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
-    addLog("Chiusura mossa precedente");
-}
+        catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|NullPointerException e){
+            // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
+            addLog("Chiusura mossa precedente");
+        }
     }
 
     public String doString(String nome) {
@@ -364,8 +364,19 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|
 
     @Override
     public String askNewUsername() {
-        addLog("Inserisci il tuo username:");
-        return scanner.nextLine();
+        boolean sec = false;
+        String user="";
+        while(sec){
+            addLog("Inserisci il tuo username:");
+            user = scanner.nextLine();
+            if (user!="")
+                sec=true;
+            else
+                addLog("Non puoi inserire un username vuoto!");
+        }
+        return user;
+
+
     }
 
     @Override
@@ -468,12 +479,21 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|
             obj2.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj4.get(0)][obj4.get(1)].getDice());
             obj.add(obj4.get(0));
             obj.add(obj4.get(1));
-            addLog("Vuoi selezionare un altro dado? [Si/No]");
-            String choose = scanner.nextLine();
-            if (choose.equalsIgnoreCase("si"))
-                a++;
-            else
-                break;
+            boolean sec=false;
+            while (sec){
+                addLog("Vuoi selezionare un altro dado? [Si/No]");
+                String choose = scanner.nextLine();
+                if (choose.equalsIgnoreCase("si")){
+                    a++;
+                    sec=true;
+                }
+
+                else if (choose.equalsIgnoreCase("no")){
+                    a=3;
+                    sec=true;
+                }
+            }
+
         }
         if (a == 2)
             addError("Non puoi selezionare un ulteriore dado! Verranno inviati quelli selezionati precedentemente");
@@ -633,7 +653,7 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|
         int valore = 0;
         boolean ok = false;
         while (!ok) {
-            addLog("Hai estratto un dado di colore " + dice.getColor().toString() + "\nScegli il valore da assegnare a questo dado:");
+            addLog("Hai estratto un dado di colore " + dice.getColor().toString() + "\n Scegli il valore da assegnare a questo dado:");
             valore = Integer.decode(scanner.nextLine());
             if (valore < 7 && valore > 0)
                 ok = true;
