@@ -2,7 +2,6 @@ package it.polimi.se2018.network.server.message;
 
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
-import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 import java.util.ArrayList;
@@ -10,8 +9,8 @@ import java.util.ArrayList;
 public class MessageChooseMap implements MessageCV {
 
     private static final long serialVersionUID = 7757782513072303419L;
-    ArrayList<Map> maps = new ArrayList<>();
-    String username;
+    private ArrayList<Map> maps = new ArrayList<>();
+    private String username;
 
     @Override
     public void accept(ConnectionClientSocket socket) {

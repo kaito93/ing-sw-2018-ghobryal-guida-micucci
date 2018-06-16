@@ -15,12 +15,9 @@ import java.util.Random;
 
 public abstract class ConnectionServer implements Cloneable {
 
-    public static final int MVEVENT=0;
-    public static final int CVEVENT=1;
-    public static final int SYSTEMMESSAGE=2;
 
-    String username;
-    boolean connected=true;
+    protected String username;
+    protected boolean connected=true;
 
     protected abstract void send (Object message);
 

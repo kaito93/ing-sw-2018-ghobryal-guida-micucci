@@ -9,8 +9,6 @@ import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
 import it.polimi.se2018.network.server.message.MessageFinalGame;
-import it.polimi.se2018.network.server.message.MessageNewUsername;
-import it.polimi.se2018.network.server.message.MessagePlayerDisconnect;
 import it.polimi.se2018.util.Deserializer.PathDeserializer;
 import it.polimi.se2018.util.Deserializer.ServerDeserialize;
 import it.polimi.se2018.util.Logger;
@@ -36,18 +34,13 @@ public class Server implements ServerRMI{
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
 
-    ServerSocket socketServer;
-    ServerRMI skeleton;
-    ArrayList<ConnectionServer> clients = new ArrayList<>();
-    boolean active = false;
-    int port;
-    int time;
-    Timer timer = new Timer();
-    ArrayList<Lobby> lobbies = new ArrayList<>();
-
-    public static final int MVEVENT=0;
-    public static final int CVEVENT=1;
-    public static final int SYSTEMMESSAGE=2;
+    private ServerSocket socketServer;
+    private ServerRMI skeleton;
+    private ArrayList<ConnectionServer> clients = new ArrayList<>();
+    private int port;
+    private int time;
+    private Timer timer = new Timer();
+    private ArrayList<Lobby> lobbies = new ArrayList<>();
 
     public Server(int port, int timer) {
         this.time = timer;
@@ -55,6 +48,7 @@ public class Server implements ServerRMI{
     }
 
     public void start(){
+        boolean active;
         try{
             startRMI(); // prova ad avviare il server RMI
 

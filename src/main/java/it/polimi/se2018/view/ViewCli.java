@@ -7,8 +7,6 @@ import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.util.Logger;
 
-import java.awt.image.AreaAveragingScaleFilter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -16,7 +14,7 @@ import java.util.logging.Level;
 
 public class ViewCli extends View {
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
     public ViewCli(int timer) {

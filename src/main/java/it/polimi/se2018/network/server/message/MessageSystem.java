@@ -6,5 +6,5 @@ import java.io.Serializable;
 
 public interface MessageSystem extends Serializable {
 
-    public void accept(ConnectionClientSocket socket);
+     void accept(ConnectionClientSocket socket);
 }

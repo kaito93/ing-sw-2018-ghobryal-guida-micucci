@@ -16,16 +16,16 @@ public class MessageUpdate implements MessageMV {
     private static final long serialVersionUID = 2201748410369437792L;
 
 
-    protected ArrayList<Cell[][]> cells = new ArrayList<>();
-    protected ArrayList<String> users = new ArrayList<>();
-    protected ArrayList<Integer> favUsers = new ArrayList<>();
+    private ArrayList<Cell[][]> cells = new ArrayList<>();
+    private ArrayList<String> users = new ArrayList<>();
+    private ArrayList<Integer> favUsers = new ArrayList<>();
 
-    protected ArrayList<Boolean> useTools;
+    private ArrayList<Boolean> useTools;
 
-    protected ArrayList<Dice> stock;
-    protected RoundSchemeCell roundSchemeMap[];
+    private ArrayList<Dice> stock;
+    private RoundSchemeCell roundSchemeMap[];
 
-    protected String message;
+    private String message;
 
     public RoundSchemeCell[] getRoundSchemeMap() {
         return roundSchemeMap;

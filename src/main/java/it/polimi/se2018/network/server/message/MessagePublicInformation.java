@@ -2,7 +2,6 @@ package it.polimi.se2018.network.server.message;
 
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
-import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 import java.util.ArrayList;
@@ -10,16 +9,11 @@ import java.util.ArrayList;
 public class MessagePublicInformation implements MessageCV{
 
     private static final long serialVersionUID = -6430841943473871296L;
-    ArrayList<String> titlePublicObjective = new ArrayList<>();
-    ArrayList<String> descriptionPublicObjective = new ArrayList<>();
-    ArrayList<Integer>scorePublicObjective = new ArrayList<>();
-
-    ArrayList<String> titleTools = new ArrayList<>();
-    ArrayList<String> descriptionTools = new ArrayList<>();
-
-
-
-
+    private ArrayList<String> titlePublicObjective = new ArrayList<>();
+    private ArrayList<String> descriptionPublicObjective = new ArrayList<>();
+    private ArrayList<Integer>scorePublicObjective = new ArrayList<>();
+    private ArrayList<String> titleTools = new ArrayList<>();
+    private ArrayList<String> descriptionTools = new ArrayList<>();
 
     @Override
     public void accept(ConnectionClientSocket client) {

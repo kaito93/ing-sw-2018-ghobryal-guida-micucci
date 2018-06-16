@@ -2,9 +2,7 @@ package it.polimi.se2018.network.client.connection;
 
 
 import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.client.message.MessageVC;
-import it.polimi.se2018.network.server.message.*;
 
 /**
  * Class ConnectionClientRMI

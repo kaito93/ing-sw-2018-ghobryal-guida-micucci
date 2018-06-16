@@ -4,13 +4,10 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
-
 import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
-import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.ResponseMap;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
-import it.polimi.se2018.network.server.message.MessageFinalScore;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observer;
 
@@ -31,17 +28,17 @@ public class Controller implements Observer<MessageVC> {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private static final boolean A = true;
-    Boolean b;
-    Game game;
-    int move = 0;
-    VirtualView view;
-    ArrayList<Player> players;
-    boolean setDice;
-    boolean useTools;
-    int turno;
-    ArrayList<Player> playersInRound = new ArrayList<>();
-    int mappe = 0;
-    boolean disconnect = false;
+    private Boolean b;
+    private Game game;
+    private int move = 0;
+    private VirtualView view;
+    private ArrayList<Player> players;
+    private boolean setDice;
+    private boolean useTools;
+    private int turno;
+    private ArrayList<Player> playersInRound = new ArrayList<>();
+    private int mappe = 0;
+    private boolean disconnect = false;
 
 
     /**
@@ -188,27 +185,28 @@ public class Controller implements Observer<MessageVC> {
                 playersInRound.get(turno).setUseTools(false);
                 view.setCurrentPlayer(playersInRound.get(turno));
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
-                for (move = 0; move < 2; move++) {
-                    if (!view.isTerminate()) {
-                        // Invia a tutti i giocatori le informazioni generali del turno
-                        view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
+                if (!playersInRound.get(turno).getRunningPliers()){
+                    for (move = 0; move < 2; move++) {
+                        if (!view.isTerminate()) {
+                            // Invia a tutti i giocatori le informazioni generali del turno
+                            view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
 
-                        // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                        view.sendMessageTurn(playersInRound, turno);
+                            // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
+                            view.sendMessageTurn(playersInRound, turno);
 
-                        b = false;
-                        waitMove();
-                        if (!view.isTerminate() && !disconnect) {
-                            LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
-                                    + playersInRound.get(turno).getName());
+                            b = false;
+                            waitMove();
+                            if (!view.isTerminate() && !disconnect) {
+                                LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
+                                        + playersInRound.get(turno).getName());
+                            }
+                        } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
+                            move = 2;
+                            turno = playersInRound.size();
+                            round = game.getMaxRound();
                         }
-                    } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
-                        move = 2;
-                        turno = playersInRound.size();
-                        round = game.getMaxRound();
                     }
                 }
-
             }
 
             if (!view.isTerminate()) {
@@ -237,18 +235,8 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
-    public void syncPlayers(Player playerGame) {
-        for (int i = 0; i < players.size(); i++)
-            if (players.get(i).getName().equalsIgnoreCase(playerGame.getName())) {
-                players.remove(i);
-                players.add(i, playerGame);
-            }
-
-
-    }
-
     /**
-     * method that wait the move of a player
+     * method that wait the map of a player
      */
     synchronized public void waitw() {
 
@@ -259,7 +247,9 @@ public class Controller implements Observer<MessageVC> {
         }
     }
 
-
+    /**
+     * method that wait the move of a player
+     */
     synchronized public void waitMove() {
         try {
             LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turno).getName() + " effettui la sua mossa");
@@ -485,18 +475,42 @@ public class Controller implements Observer<MessageVC> {
             return 2;
     }
 
+    /**
+     * method that send a error's text to a player
+     * @param error the message
+     */
     public void manageError(String error) {
         view.createMessageError(error, players.indexOf(playersInRound.get(turno)));
     }
 
+    /**
+     * method that return the virtual view instance
+     * @return the instance of virtual view
+     */
     public VirtualView getView() {
         return view;
     }
 
+    /**
+     * method that reset the settings of a player
+     */
     public void resetDice() {
-        for (int i = 0; i < playersInRound.size(); i++)
-            playersInRound.get(i).resetPosDice();
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).resetPosDice();
+            players.get(i).setRunningPliers(false);
+        }
+
     }
+
+    /**
+     * method that manage the card Copper
+     * @param title title of the card
+     * @param dice dice needed to be repositioned
+     * @param rowDest row's coordinate on the map where the chosen dice to be positioned
+     * @param columnDest column's coordinate on the map where the chosen dice to be positioned
+     * @param rowMit the row's coordinate of the dice to be repositioned
+     * @param columnMit the column's coordinate of the dice to be repositioned
+     */
 
     public void manageCopper(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice
@@ -507,6 +521,13 @@ public class Controller implements Observer<MessageVC> {
             setTools();
     }
 
+    /**
+     *
+     * @param title title of the card
+     * @param dice dice needed to be repositioned
+     * @param rowDest row's coordinate on the map where the chosen dice to be positioned
+     * @param columnDest column's coordinate on the map where the chosen dice to be positioned
+     */
     public void manageCork(String title, Dice dice, int rowDest, int columnDest) {
         if (this.playersInRound.get(turno).getPosDice() < 2) {
             if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
@@ -523,6 +544,15 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param title of the card
+     * @param dice dice needed to be repositioned
+     * @param rowDest row's coordinate on the map where the chosen dice to be positioned
+     * @param columnDest column's coordinate on the map where the chosen dice to be positioned
+     * @param rowMit the row's coordinate of the dice to be repositioned
+     * @param columnMit the column's coordinate of the dice to be repositioned
+     */
     public void manageEglomise(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
                 rowDest, columnDest, null, false, rowMit, columnMit, null, null,
@@ -532,6 +562,14 @@ public class Controller implements Observer<MessageVC> {
             setTools();
     }
 
+    /**
+     *
+     * @param title of the card
+     * @param dice a stock dice
+     * @param rowDest row's coordinate where to position the dice
+     * @param columnDest column's coordinate where to position the dice
+     * @param diceBefore a stock dice before the throw
+     */
     public void manageFluxBrush(String title, Dice dice, int rowDest, int columnDest, Dice diceBefore) {
 
         if (this.playersInRound.get(turno).getPosDice() < 2) {
@@ -549,6 +587,13 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param a if the card is used
+     * @param title of the card
+     * @param row       row's coordinate where to position the dice
+     * @param column    column's coordinate where to position the dice
+     */
     public void manageFluxRemover(boolean a, String title, Dice dice, int row, int column) {
         if (this.playersInRound.get(turno).getPosDice() < 2) {
             if (a) {
@@ -573,6 +618,10 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param title of the card
+     */
     public void manageGlazing(String title) {
         getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
                 null, firstOrSecond(), 0, getGame().getStock(),
@@ -581,6 +630,14 @@ public class Controller implements Observer<MessageVC> {
         setTools();
     }
 
+    /**
+     *
+     * @param title of the card
+     * @param dice    the chosen dice
+     * @param row     row's coordinate where to position the dice
+     * @param column  column's coordinate where to position the dice
+     * @param diceBefore dice to be removed
+     */
     public void manageGrinding(String title, Dice dice, int row, int column, Dice diceBefore) {
         if (this.playersInRound.get(turno).getPosDice() < 2) {
             if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, false,
@@ -597,6 +654,13 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param title of the card
+     * @param dice the chosen dice
+     * @param rowDest row's coordinate on the map where the chosen dice to be positioned
+     * @param colDest column's coordinate on the map where the chosen dice to be positioned
+     */
     public void manageGrozing(String title, Dice dice, int rowDest, int colDest) {
         if (this.playersInRound.get(turno).getPosDice() < 2) {
 
@@ -614,6 +678,15 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param title of the card
+     * @param row1Dest row's coordinate on the map where the first dice needed to be repositioned
+     * @param column1Dest column's coordinate on the map where the first dice needed to be repositioned
+     * @param dices an array list with the dices to move
+     * @param row2Dest row's coordinate on the map where the second dice needed to be repositioned
+     * @param column2Dest column's coordinate on the map where the second dice needed to be repositioned
+     */
     public void manageLathekin(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int column1Dest,
                                ArrayList<Dice> dices, int row2Dest, int column2Dest) {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
@@ -628,6 +701,15 @@ public class Controller implements Observer<MessageVC> {
             setTools();
     }
 
+    /**
+     *
+     * @param title of the card
+     * @param diceStock a chosen dice from the stock
+     * @param numberRound which round contains the dice on the round scheme
+     * @param row row's coordinate on the map where the chosen dice to be positioned
+     * @param column column's coordinate on the map where the chosen dice to be positioned
+     * @param diceRound a chosen dice from the Round Scheme
+     */
     public void manageLens(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
         if (this.playersInRound.get(turno).getPosDice() < 2) {
             if (!getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, getGame().getStock(),
@@ -642,6 +724,13 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param title of a card
+     * @param dice chose dice
+     * @param rowDest row's coordinate on the map where the dice should be placed
+     * @param columnDest column's coordinate on the map where the dice should be placed
+     */
     public void manageRunning(String title, Dice dice, int rowDest, int columnDest) {
         if (this.playersInRound.get(turno).getPosDice() < 2) {
             if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
@@ -657,6 +746,21 @@ public class Controller implements Observer<MessageVC> {
 
     }
 
+    /**
+     *
+     * @param title of a card
+     * @param diceRoundScheme a chosen dice from the Round Scheme
+     * @param row1Dest row's coordinate on the map where the first chosen dice to be positioned
+     * @param column1Dest column's coordinate on the map where the first chosen dice to be positioned
+     * @param diceToMove an array list of the dices to be moved
+     * @param row2Dest  row's coordinate on the map where the second chosen dice to be positioned (off if numDicesToMove=1)
+     * @param column2Dest column's coordinate on the map where the second chosen dice to be positioned (off if numDicesToMove=1)
+     * @param posDiceinSchemeRound which round contains the dice on the round scheme
+     * @param row1Mit the row's coordinate of the first dice to be repositioned
+     * @param row2Mit the row's coordinate of the second dice to be repositioned
+     * @param col1Mit the column's coordinate of the first dice to be repositioned
+     * @param col2Mit the column's coordinate of the second dice to be repositioned
+     */
     public void manageTap(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, Dice diceRoundScheme, int row1Dest,
                           int column1Dest, ArrayList<Dice> diceToMove, int row2Dest, int column2Dest, int posDiceinSchemeRound) {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);

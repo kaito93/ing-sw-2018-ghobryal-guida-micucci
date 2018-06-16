@@ -2,7 +2,6 @@ package it.polimi.se2018.network.client.message;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.util.Logger;
-
 import java.util.logging.Level;
 
 
@@ -10,8 +9,8 @@ public class RequestConnection implements MessageVC{
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final long serialVersionUID = 762745222969866032L;
 
-    String msg;
-    String username;
+    private String msg;
+    private String username;
 
     public RequestConnection(String user){
         msg="connesso";

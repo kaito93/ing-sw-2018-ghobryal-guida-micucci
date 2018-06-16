@@ -12,8 +12,8 @@ public class RequestReconnect implements MessageVC, MessageCV {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final long serialVersionUID = 2349636460774404003L;
 
-    String message;
-    int newIndex;
+    private String message;
+    private int newIndex;
 
     @Override
     public void accept(Controller controller) {

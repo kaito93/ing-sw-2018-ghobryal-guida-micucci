@@ -16,11 +16,11 @@ import java.util.logging.Level;
 public abstract class View {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    GameView gameStatus;
-    ConnectionClient client;
-    Timer timer = new Timer();
-    int time;
-    boolean a = false;
+    protected GameView gameStatus;
+    protected ConnectionClient client;
+    protected Timer timer = new Timer();
+    protected int time;
+    protected boolean a = false;
 
     public View(int time) {
         gameStatus = new GameView();

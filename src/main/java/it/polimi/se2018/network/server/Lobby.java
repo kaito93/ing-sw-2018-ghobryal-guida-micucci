@@ -13,11 +13,10 @@ public class Lobby extends Thread {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
 
-    int number;
-    Controller controller;
-    ArrayList<ConnectionServer> playerConnection;
-    VirtualView view;
-    ArrayList<Player> players;
+    private int number;
+    private ArrayList<ConnectionServer> playerConnection;
+
+
 
     public Lobby(ArrayList<ConnectionServer> connections, int partita){
 
@@ -29,17 +28,20 @@ public class Lobby extends Thread {
     @Override
     public void run(){
 
-        this.view= new VirtualView(); // crea la virtual view per interfacciarsi con i giocatori
-        players=this.view.setClients(playerConnection); // setta i giocatori
-        this.controller = new Controller(view,players); // crea il controller
-        this.view.setController(this.controller);
+        Controller controller;
+        VirtualView view;
+        ArrayList<Player> players;
+        view= new VirtualView(); // crea la virtual view per interfacciarsi con i giocatori
+        players=view.setClients(playerConnection); // setta i giocatori
+        controller = new Controller(view,players); // crea il controller
+        view.setController(controller);
         view.start();
-        this.view.startServer(); // avvia la view
-        this.controller.startGame(); // fa cominciare effettivamente la partita
+        view.startServer(); // avvia la view
+        controller.startGame(); // fa cominciare effettivamente la partita
         LOGGER.log(Level.INFO,"La partita "+ String.valueOf(number)  +"  è terminata");
         view.disconnect();
-        for (int i=0; i<playerConnection.size();i++){
-            playerConnection.get(i).closeConnection();
+        for (ConnectionServer aPlayerConnection : playerConnection) {
+            aPlayerConnection.closeConnection();
         }
 
     }

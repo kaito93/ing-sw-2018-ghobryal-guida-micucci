@@ -2,7 +2,6 @@ package it.polimi.se2018.network.client.connection;
 
 import it.polimi.se2018.model.Dice;
 
-import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Observable;
@@ -17,10 +16,10 @@ import it.polimi.se2018.view.View;
  */
 public abstract class ConnectionClient extends Observable<MessageMV> implements Observer<MessageVC> {
 
-    String ip;
-    int port;
-    View view;
-    String username;
+    protected String ip;
+    protected int port;
+    protected View view;
+    protected String username;
 
     /**
      * abstract method that create a connection with the server
@@ -36,7 +35,7 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
     public abstract void sendPosDice (Dice dice, int column, int row);
 
     /**
-     * abstract method that send the choise of use a tool card
+     * abstract method that send the choice of use a tool card
      * @param titleCardTool the title of the tool card
      */
     public abstract void sendUseTool(String titleCardTool);
@@ -49,9 +48,18 @@ public abstract class ConnectionClient extends Observable<MessageMV> implements 
         this.username= username;
     }
 
+    /**
+     * abstact method that send a empty move
+     */
     public abstract void sendPassMove ();
 
+    /**
+     * abstract method that send a request to reconnect to the game
+     */
     public abstract void sendReconnect();
 
+    /**
+     * abstact method that send a message of inactivity
+     */
     public abstract void sendDisconnect();
 }

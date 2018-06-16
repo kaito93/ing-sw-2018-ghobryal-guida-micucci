@@ -7,13 +7,10 @@ import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.view.View;
-
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -28,11 +25,11 @@ public class ConnectionClientSocket extends ConnectionClient {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    ObjectInputStream input;
-    ObjectOutputStream output;
-    Socket socket;
-    Listen listener;
-    boolean condition = true;
+    private ObjectInputStream input;
+    private ObjectOutputStream output;
+    private Socket socket;
+    private Listen listener;
+    private boolean condition = true;
 
 
     public static final int MVEVENT = 0;
@@ -172,7 +169,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     /**
-     * abstract method that manage the update of public news
+     * method that manage the update of public news
      *
      * @param message message received by server
      */
@@ -182,7 +179,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     /**
-     * abstract method that manage the update of private news
+     * method that manage the update of private news
      *
      * @param message message received by server
      */
@@ -191,7 +188,7 @@ public class ConnectionClientSocket extends ConnectionClient {
     }
 
     /**
-     * abstract method that manage the update of turn's news.
+     * method that manage the update of turn's news.
      *
      * @param message message received by server
      */
@@ -201,6 +198,13 @@ public class ConnectionClientSocket extends ConnectionClient {
         view.turn(message.isPosDice(), message.isUseTools());
     }
 
+    /**
+     * a
+     * method that send the choice of set a dice
+     * @param dice the dice chosen
+     * @param column the column where set the dice
+     * @param row the row where set the dice
+     */
     public void sendPosDice(Dice dice, int column, int row) {
         MessagePosDice message = new MessagePosDice();
         message.setDiceChoosed(dice);
@@ -209,17 +213,30 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
-    @Override
+    /**
+     * method that send the choice of use a tool card
+     * @param titleCardTool the title of the tool card
+     */
     public void sendUseTool(String titleCardTool) {
         MessageUseTool message = new MessageUseTool();
         message.setTitleCardChoosed(titleCardTool);
         update(message);
     }
 
+    /**
+     * method that manage the error.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageError message) {
         view.manageError(message.getErrorMessage());
     }
 
+    /**
+     * method that manage the tool card CopperFoilBurnisher.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageCopperFoilBurnisher message) {
         ArrayList<Object> obj = view.manageCE();
         message.setDice((Dice) obj.get(0));
@@ -230,6 +247,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card CorkBackedStraightedge.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageCorkBackedStraightedge message) {
         ArrayList<Object> obj = view.manageCork();
         message.setDice((Dice) obj.get(0));
@@ -238,6 +260,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card EglomiseBrush.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageEglomiseBrush message) {
 
         ArrayList<Object> obj = view.manageCE();
@@ -249,6 +276,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card FluxBrush.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageFluxBrush message) {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
 
@@ -260,6 +292,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card FluxRemover.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageFluxRemover message) {
         // TO DO
         if (message.isA()) {
@@ -273,6 +310,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card GrindingStone.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageGrindingStone message) {
         ArrayList<Object> obj = view.manageGrinding();
         message.setDice((Dice) obj.get(0));
@@ -282,6 +324,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card GrozingPliers.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageGrozingPliers message) {
         // Dice dice, int row, int column
         ArrayList<Object> obj = view.manageGrozing();
@@ -291,6 +338,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card Lathekin.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageLathekin message) {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
         ArrayList<Object> obj = view.manageLathekin();
@@ -306,6 +358,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
+    /**
+     * method that manage the tool card LensCutter.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageLensCutter message) {
         ArrayList<Object> obj = view.manageLens();
         message.setDiceStock((Dice) obj.get(0));
@@ -315,7 +372,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         message.setColumn((int) obj.get(4));
         update(message);
     }
-
+    /**
+     * method that manage the tool card RunningPliers.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageRunningPliers message) {
         ArrayList<Object> obj = view.manageCork();
         message.setDice((Dice) obj.get(0));
@@ -323,6 +384,11 @@ public class ConnectionClientSocket extends ConnectionClient {
         message.setColumnDest((int) obj.get(2));
     }
 
+    /**
+     * method that manage the tool card TapWheel.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageTapWheel message) {
         //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
         // in roundscheme
@@ -337,13 +403,18 @@ public class ConnectionClientSocket extends ConnectionClient {
         update(message);
     }
 
-    @Override
+
+    /**
+     * method that send a empty move
+     */
     public void sendPassMove() {
         MessagePassTurn message = new MessagePassTurn();
         update(message);
     }
 
-    @Override
+    /**
+     * method that send a request to reconnect to the game
+     */
     public void sendReconnect() {
 
         RequestReconnect message = new RequestReconnect();
@@ -370,24 +441,41 @@ public class ConnectionClientSocket extends ConnectionClient {
         }
     }
 
-    @Override
+    /**
+     * method that send a message of inactivity
+     */
     public void sendDisconnect() {
         MessageDisconnect message = new MessageDisconnect();
         update(message);
     }
 
+    /**
+     * method that manage the disconnect of a player.
+     *
+     * @param message message received by server
+     */
     public void visit(MessagePlayerDisconnect message) {
         view.updateIndex(message.getIndex());
         view.addError(message.getMessage());
 
     }
 
+    /**
+     * method that manage the end of the game.
+     *
+     * @param message message received by server
+     */
     public void visit(MessageFinalGame message) {
         view.addLog(message.getMessage());
         view.addLog("Per iniziare una nuova partita riavvia il client");
         condition = false;
     }
 
+    /**
+     * method that manage the request of reconnect to the game.
+     *
+     * @param message message received by server
+     */
     public void visit(RequestReconnect message){
         view.updateIndex(message.getNewIndex());
         view.addLog(message.getMessage());

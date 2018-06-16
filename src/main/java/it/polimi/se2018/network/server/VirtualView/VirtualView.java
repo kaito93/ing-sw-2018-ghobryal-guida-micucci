@@ -14,7 +14,6 @@ import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observable;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -22,16 +21,16 @@ public class VirtualView extends Observable<MessageVC> {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    Controller controller;
-    ArrayList<ConnectionServer> connections = new ArrayList<>();
-    ArrayList<Player> playersActive = new ArrayList<>();
-    ArrayList<PlayerPlay> playersPlay = new ArrayList<>();
-    PlayerPlay currentPlayer;
+    private Controller controller;
+    private ArrayList<ConnectionServer> connections = new ArrayList<>();
+    private ArrayList<Player> playersActive = new ArrayList<>();
+    private ArrayList<PlayerPlay> playersPlay = new ArrayList<>();
+    private PlayerPlay currentPlayer;
 
-    ArrayList<Player> playersSuspend = new ArrayList<>();
-    ArrayList<ConnectionServer> connectionsSuspend = new ArrayList<>();
-    ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
-    boolean terminate = false;
+    private ArrayList<Player> playersSuspend = new ArrayList<>();
+    private ArrayList<ConnectionServer> connectionsSuspend = new ArrayList<>();
+    private ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
+    private boolean terminate = false;
 
 
     public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect) {
@@ -89,7 +88,7 @@ public class VirtualView extends Observable<MessageVC> {
 
     class PlayerPlay extends Thread {
 
-        ConnectionServer client;
+        private ConnectionServer client;
         boolean connected;
 
         public PlayerPlay(ConnectionServer player) {
@@ -100,24 +99,23 @@ public class VirtualView extends Observable<MessageVC> {
 
         @Override
         public void run() { // metodo sempre in esecuzione che controlla se il giocatore è ancora connesso
-            boolean connect = true;
-            while (connect) {
+            while (connected) {
                 try {
                     MessageVC message = (MessageVC) client.getInput().readUnshared();
                     if (message instanceof MessageDisconnect) {
-                        connect = false;
+                        connected = false;
                         LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " non ha effettuato una mossa in tempo\n" +
                                 "l'ho messo in sospensione");
                     } else
                         notifyObservers(message);
                 } catch (IOException e) {
-                    connect = false;
+                    connected = false;
                     if (client.isConnected())
                         LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
                     else
                         return;
                 } catch (ClassNotFoundException e) {
-                    connect = false;
+                    connected = false;
                     LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
 
                 }

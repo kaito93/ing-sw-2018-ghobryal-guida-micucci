@@ -4,8 +4,9 @@ import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 public class MessagePlayerDisconnect implements MessageSystem {
 
-    String message;
-    int index;
+    private static final long serialVersionUID = 1948182074052958936L;
+    private String message;
+    private int index;
 
     @Override
     public void accept(ConnectionClientSocket socket) {

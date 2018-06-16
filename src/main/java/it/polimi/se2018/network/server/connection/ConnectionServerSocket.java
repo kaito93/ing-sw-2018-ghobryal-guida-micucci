@@ -26,10 +26,10 @@ import java.util.logging.Level;
 public class ConnectionServerSocket extends ConnectionServer {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    Message mex;
-    Socket client;
-    ObjectOutputStream output;
-    ObjectInputStream input;
+    private Message mex;
+    private Socket client;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
 
 
     public ConnectionServerSocket(Socket client, RequestConnection obj,ObjectOutputStream out, ObjectInputStream inp){
@@ -135,7 +135,7 @@ public class ConnectionServerSocket extends ConnectionServer {
     @Override
     public void sendErrorUser() {
         MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
-        mex= new Message(SYSTEMMESSAGE,message); // creo un messaggio di sistema
+        mex= new Message(Message.SYSTEMEVENT,message); // creo un messaggio di sistema
         send(mex); //invia il messaggio. [nota bene: non si salva conness nell'array]
     }
 

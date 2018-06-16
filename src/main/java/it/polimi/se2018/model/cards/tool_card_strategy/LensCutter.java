@@ -24,15 +24,14 @@ public class LensCutter extends ToolCardStrategy {
      * @param t1 n.a.
      * @param stock round's stock
      * @param t2 n.a.
-     * @param row n.a.
-     * @param column n.a.
+     * @param row row's coordinate on the map where the chosen dice to be positioned
+     * @param column column's coordinate on the map where the chosen dice to be positioned
      * @param t5 n.a.
      * @param t6 n.a.
      * @param roundSchemeDice a chosen dice from the Round Scheme
      * @param roundSchemeMap the Round Scheme
      */
 
-    //non ho posizionato il dado se vuoi dimmelo e te lo posiziono qui
     public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
         if (player.getPosDice()<3){

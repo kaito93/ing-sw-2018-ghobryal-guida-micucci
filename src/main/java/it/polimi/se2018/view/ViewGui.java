@@ -1,7 +1,6 @@
 package it.polimi.se2018.view;
 
 import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.cell.Cell;
 
 import java.util.ArrayList;

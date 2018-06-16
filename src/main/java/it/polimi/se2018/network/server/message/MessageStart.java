@@ -1,14 +1,13 @@
 package it.polimi.se2018.network.server.message;
 
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
-import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 public class MessageStart implements MessageCV {
 
     private static final long serialVersionUID = 7676495002144599825L;
-    String titlePrivateCard;
-    String descriptionPrivateCard;
+    private String titlePrivateCard;
+    private String descriptionPrivateCard;
 
 
     @Override
