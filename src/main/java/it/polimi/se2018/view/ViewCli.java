@@ -45,8 +45,8 @@ try {
             addLog(" ");
             printBold("E' il tuo turno. Scegli che mossa fare: ");
             addLog("1 - Posizionare un dado dalla riserva alla tua carta schema " +
-                    "\n 2 - Usare una carta utensile \n 3 - Non fare niente in questa mossa \n 4 - Visualizza il tuo stato" +
-                    "\n 5 - Visualizza lo stato degli avversari" + "\n 6 - Visualizza le informazioni generali della partita");
+                    "\n2 - Usare una carta utensile \n3 - Non fare niente in questa mossa \n4 - Visualizza il tuo stato" +
+                    "\n5 - Visualizza lo stato degli avversari" + "\n6 - Visualizza le informazioni generali della partita");
             String choose = scanner.nextLine();
             map = false;
             addLog(" ");
@@ -633,7 +633,7 @@ catch (IndexOutOfBoundsException | NoSuchElementException|IllegalStateException|
         int valore = 0;
         boolean ok = false;
         while (!ok) {
-            addLog("Hai estratto un dado di colore " + dice.getColor().toString() + "\n Scegli il valore da assegnare a questo dado:");
+            addLog("Hai estratto un dado di colore " + dice.getColor().toString() + "\nScegli il valore da assegnare a questo dado:");
             valore = Integer.decode(scanner.nextLine());
             if (valore < 7 && valore > 0)
                 ok = true;
