@@ -19,7 +19,7 @@ public class Player implements Serializable {
     private boolean setDice;
     private boolean useTools;
     private int posDice;
-    private boolean grindingPliers;
+    private boolean runningPliers;
 
 
     /**
@@ -31,7 +31,7 @@ public class Player implements Serializable {
         setDice=false;
         useTools=false;
         posDice=0;
-        grindingPliers=false;
+        runningPliers=false;
     }
 
     /** method that return the card private with the private goal
@@ -177,15 +177,15 @@ public class Player implements Serializable {
      * gets grindingPliers boolean that indicates if the tool card grinding pliers is used from this player or not
      * @return a boolean, true if the tool card grinding pliers is used from this player, else false
      */
-    public boolean getGrindingPliers(){
-        return grindingPliers;
+    public boolean getRunningPliers(){
+        return runningPliers;
     }
 
     /**
      * sets grindingPliers boolean that indicates if the tool card grinding pliers is used from this player or not
-     * @param grindingPliers a boolean, true if the tool card grinding pliers is used from this player, else false
+     * @param  runningPliers a boolean, true if the tool card grinding pliers is used from this player, else false
      */
-    public void setGrindingPliers(boolean grindingPliers) {
-        this.grindingPliers = grindingPliers;
+    public void setRunningPliers(boolean runningPliers) {
+        this.runningPliers = runningPliers;
     }
 }
