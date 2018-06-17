@@ -62,7 +62,7 @@ public class Map implements Serializable {
      * @param row where you want to search
      * @param column where you want to search
      * @return an object Cell
-     * @throws notValidCellException: when the indexes of the row and the column not respect the interval number of matrix.
+     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
     public Cell getCell(int row, int column) throws notValidCellException{
         if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1))

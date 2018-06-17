@@ -111,7 +111,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * @helper helps to call the method posDice of class Map from the class Player
+     * helps to call the method posDice of class Map from the class Player
      */
     public boolean posDice(Dice dice, int row, int column){
         return map.posDice(dice,row,column);

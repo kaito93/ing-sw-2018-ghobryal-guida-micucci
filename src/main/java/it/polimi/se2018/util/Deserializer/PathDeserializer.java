@@ -27,7 +27,6 @@ public class PathDeserializer {
      * constructor of the class, that inizialize the buffered reader of the json file
      * which contain all the path of the other json files with all the info about the
      * game
-     * @throws FileNotFoundException if the given path is wrong
      */
     public PathDeserializer(){
         file = new File("src/main/java/it/polimi/se2018/JsonFiles/Pathname.json");

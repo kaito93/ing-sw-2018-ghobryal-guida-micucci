@@ -26,7 +26,7 @@ public class DeckOfPrivateCards {
 
     /**
      * class constructor: create a deck of all the private cards
-     * @throws FileNotFoundException if the json file with all the info about the private cards is not found
+     * @param path of the file to deserialize
      */
     public DeckOfPrivateCards(String path){
         json = new File(path);

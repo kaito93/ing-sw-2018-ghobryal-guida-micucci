@@ -26,7 +26,6 @@ public class ClientDeserializer {
     /**
      * class constructor, initialize the BufferedReader for the json file
      * @param path of the json file
-     * @throws FileNotFoundException if the pathname is wrong
      */
     public ClientDeserializer(String path){
         json = new File(path);

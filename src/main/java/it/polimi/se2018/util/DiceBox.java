@@ -29,7 +29,7 @@ public class DiceBox {
 
     /**
      * class constructor
-     * @throws FileNotFoundException if the json file that contains all the info about the dices don't exists
+     * @param path of the file that have to deserialize
      */
     public DiceBox(String path) {
 

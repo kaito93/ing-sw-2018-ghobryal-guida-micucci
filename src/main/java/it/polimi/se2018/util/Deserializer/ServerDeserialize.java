@@ -25,7 +25,6 @@ public class ServerDeserialize {
 
     /**
      * class constructor: return an object inizialized to deserialize the json file given by the path
-     * @throws FileNotFoundException if the file path name is not correct
      * @param path string that refer to the json file
      */
     public ServerDeserialize(String path){

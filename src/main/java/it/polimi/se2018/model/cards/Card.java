@@ -43,8 +43,10 @@ public abstract class Card implements Serializable {
         return description;
     }
 
+
     /**
-     * Overridden in PrivateObjectiveCard & PublicObjectiveCard
+     * @param map where to search
+     * @return an integer with the points
      */
     public abstract int search(Map map);
 
