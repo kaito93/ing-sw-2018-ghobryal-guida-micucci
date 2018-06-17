@@ -18,7 +18,7 @@ public class LensCutter extends ToolCardStrategy {
     private Dice dice;
     /**
      * Read description of this card for further information
-     * @param player n.a.
+     * @param player player on turn
      * @param stockDice a chosen dice from the stock
      * @param posDice which round contains the dice on the round scheme
      * @param t1 n.a.
@@ -35,25 +35,17 @@ public class LensCutter extends ToolCardStrategy {
     public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
         List<Dice> temp = new ArrayList<>();
-        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stockDice!=null
-                && roundSchemeDice!=null && stock.contains(stockDice)){
+        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stock.contains(stockDice)){
             temp.add(stockDice);
             stock.remove(stockDice);
             roundSchemeMap[posDice].removeDice(roundSchemeDice);
             roundSchemeMap[posDice].setDices(temp);
             dice = roundSchemeDice;
-            if (player.posDice(dice,row,column)){
-                errorBool.setErrorMessage(null);
-                errorBool.setErrBool(false);
-                return;
-            }
-            else {
-                errorBool.setErrorMessage("PosDice fail in Lens Cutter Tool Card");
-                errorBool.setErrBool(true);
-            }
+            posDiceControl(player, dice, row, column);
+            return;
         }
         dice = null;
-        errorBool.setErrorMessage("Invalid Passed Parameters");
+        errorBool.setErrorMessage("Qualche dado non appartiene al suo contenitore");
         errorBool.setErrBool(true);
     }
 

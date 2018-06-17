@@ -93,4 +93,14 @@ public abstract class ToolCardStrategy implements Serializable {
         }
         return true;
     }
+
+    protected void posDiceControl(Player player, Dice dice, int row, int column){
+        if(player.posDice(dice, row, column)) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+            return;
+        }
+        errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
+        errorBool.setErrBool(true);
+    }
 }

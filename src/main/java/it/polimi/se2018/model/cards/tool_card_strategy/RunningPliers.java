@@ -26,26 +26,18 @@ public class RunningPliers extends ToolCardStrategy {
      * @param column column's coordinate on the map where the dice should be placed
      * @param t3 n.a.
      * @param t4 n.a.
-     * @param t5 n.a.
      * @param turns players in order
+     * @param t5 n.a.
      */
     //posiziono solo il dado che viene scelto al posto del secondo turno
     public void useTool(Player playerCurr, Dice dice, int turn, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
-        boolean a;
-        if(turn==1){
-            a = playerCurr.posDice(dice, row, column);
-            if(a) {
-                playerCurr.setRunningPliers(true);
-                errorBool.setErrorMessage(null);
-                errorBool.setErrBool(false);
-            }
-            else {
-                playerCurr.setRunningPliers(false);
-                errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
-                errorBool.setErrBool(true);
-            }
+        if(turn==1) {
+            posDiceControl(playerCurr, dice, row, column);
+            return;
         }
+        errorBool.setErrorMessage("Questa carta si può usare solo al primo turno");
+        errorBool.setErrBool(true);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package it.polimi.se2018.test_model.cards;
 
+import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.cards.Card;
+import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import junit.framework.TestCase;
 
 /**
@@ -26,7 +28,7 @@ public class TestCard extends TestCase {
      */
     @Override
     protected void setUp() throws Exception {
-        //card = new Card("testCard", "testCardDescription");
+        card = new PrivateObjectiveCard("testCard", "testCardDescription", Color.BLUE);
         super.setUp();
     }
 

@@ -112,4 +112,13 @@ public class TestPlayer extends TestCase {
         assertFalse(player.modifyFavorSig(1));
         assertFalse(player.modifyFavorSig(0));
     }
+
+    /**
+     * tests get and set of runningPliers in class player
+     */
+    public void testGetSetRunningPliers(){
+        assertFalse(player.getRunningPliers());
+        player.setRunningPliers(true);
+        assertTrue(player.getRunningPliers());
+    }
 }

@@ -1,5 +1,6 @@
 package it.polimi.se2018.test_model;
 
+import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.exception.InvalidValueException;
 import junit.framework.TestCase;
@@ -28,6 +29,7 @@ public class TestDice extends TestCase {
     @Override
     protected void setUp() throws Exception {
         d = new Dice();
+        d.setColor(Color.BLUE);
         super.setUp();
     }
 
@@ -53,7 +55,7 @@ public class TestDice extends TestCase {
      * tests getColor method in class Dice
      */
     public void testGetColor(){
-        assertNull(d.getColor());
+        assertNotNull(d.getColor());
     }
 
     /**
@@ -74,6 +76,14 @@ public class TestDice extends TestCase {
         } catch (InvalidValueException e) {
             testGetValue();
         }
+    }
+
+    public void testDiceNull(){
+        Dice d1 = Dice.diceNull();
+        assertEquals(d1.getValue(), 0);
+        assertEquals(d1.getColor(), Color.NULL);
+        assertNotSame(d1.getValue(), d.getValue());
+        assertNotSame(d1.getColor(), d.getColor());
     }
 
     /**

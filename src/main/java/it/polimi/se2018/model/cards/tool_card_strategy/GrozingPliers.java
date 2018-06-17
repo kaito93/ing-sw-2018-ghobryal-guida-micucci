@@ -45,32 +45,7 @@ public class GrozingPliers extends ToolCardStrategy {
         // solamente le informazioni del dado da posizionare e delle relative coordinate come in un normalissimo
         // posizionamento di dadi.
         // Il metodo UseTool rimane comunque perchè viene richiamato tramite RMI
-        if (player.posDice(dice, row, column)) {
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
-        } else {
-            errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
-            errorBool.setErrBool(true);
-        }
-    }
-
-
-
-    /**
-     * forces the value into the dice
-     * @param dice the chosen dice
-     * @param value1 the chosen value
-     */
-    public void setChosenValue(Dice dice, int value1){
-
-            if (value1>0 && value1<7) {
-                try {
-                    dice.setValue(value1);
-                } catch (InvalidValueException e) {
-                    LOGGER.log(Level.SEVERE, e.toString(), e);
-                }
-            }
-
+        posDiceControl(player, dice, row, column);
     }
 
     @Override

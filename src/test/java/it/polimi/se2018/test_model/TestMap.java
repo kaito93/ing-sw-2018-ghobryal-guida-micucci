@@ -10,17 +10,15 @@ import it.polimi.se2018.model.exception.InvalidValueException;
 import it.polimi.se2018.model.exception.notValidCellException;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
-
 /**
  * class Map Tester
  * @author Anton Ghobryal
  */
 
 public class TestMap extends TestCase {
-    private Dice d1;
-    private Dice d2;
-    private Dice d3;
+    private Dice b1;
+    private Dice g1;
+    private Dice b2;
     private Game game;
     private Map map;
     private Cell[][] cell;
@@ -39,12 +37,15 @@ public class TestMap extends TestCase {
      */
     @Override
     protected void setUp() throws Exception {
-        d1 = new Dice();
-        d2 = new Dice();
-        d3 = new Dice();
-        d1.setColor(Color.BLUE);
-        d2.setColor(Color.GREEN);
-        d3.setColor(Color.BLUE);
+        b1 = new Dice();
+        g1 = new Dice();
+        b2 = new Dice();
+        b1.setColor(Color.BLUE);
+        b1.setValue(1);
+        g1.setColor(Color.GREEN);
+        g1.setValue(1);
+        b2.setColor(Color.BLUE);
+        b2.setValue(2);
         game = new Game();
         map = game.getThatMap("bellesguard");
         cell=map.getCells();
@@ -57,9 +58,9 @@ public class TestMap extends TestCase {
      */
     @Override
     protected void tearDown() throws Exception {
-        d1=null;
-        d2=null;
-        d3=null;
+        b1 =null;
+        g1 =null;
+        b2 =null;
         cell=null;
         map.finalize();
         map = null;
@@ -135,118 +136,8 @@ public class TestMap extends TestCase {
      */
 
     public void testGetName(){
-        assertEquals(map.getName(), "bellesguard");
-        assertNotSame(map.getName(), "Anton");
-    }
-
-    /**
-     * tests valueAlreadyExistInColumn method in class Map
-     */
-    public void testValueAlreadyExistInColumn() throws notValidCellException {
-        for(int i=0; i<map.numColumn(); i++){
-            try {
-                assertFalse(map.valueAlreadyExistInColumn(i, 6));
-            } catch (notValidCellException e) {
-                fail();
-            }
-        }
-        ArrayList<Dice> dices = new ArrayList<>();
-        getDicesSameValue(dices);
-        assertFalse(map.valueAlreadyExistInColumn(0, 6));
-        map.getCell(0, 0).setDice(dices.get(0));
-        assertTrue(map.valueAlreadyExistInColumn(0, 6));
-        map.getCell(1, 0).setDice(dices.get(0));
-        assertTrue(map.valueAlreadyExistInColumn(0, 6));
-    }
-
-    /**
-     * a helper method that creates two dices
-     * @param dices an array list where to save the created dices
-     */
-    private void getDicesSameValue(ArrayList<Dice> dices) {
-        for (int i=0; i<2; i++) {
-            dices.add(new Dice());
-            try {
-                dices.get(i).setValue(6);
-            } catch (InvalidValueException e) {
-                fail();
-            }
-        }
-    }
-
-    /**
-     * tests colorAlreadyExistInColumn method in class Map
-     */
-    public void testColorAlreadyExistInColumn() throws notValidCellException {
-        for(int i=0; i<map.numColumn(); i++){
-                try {
-                    assertFalse(map.colorAlreadyExistInColumn(i, Color.BLUE));
-                } catch (notValidCellException e) {
-                    fail();
-                }
-            }
-        ArrayList<Dice> dices = new ArrayList<>();
-        getDicesSameColor(dices);
-        assertFalse(map.colorAlreadyExistInColumn(0, Color.BLUE));
-        map.getCell(0, 0).setDice(dices.get(0));
-        assertTrue(map.colorAlreadyExistInColumn(0, Color.BLUE));
-        map.getCell(1, 0).setDice(dices.get(0));
-        assertTrue(map.colorAlreadyExistInColumn(0, Color.BLUE));
-    }
-
-    /**
-     * tests valueAlreadyExistInRow method in class Map
-     */
-    public void testValueAlreadyExistInRow() throws notValidCellException {
-        for(int i=0; i<map.numRow(); i++){
-            try {
-                assertFalse(map.valueAlreadyExistInRow(i, 6));
-            } catch (notValidCellException e) {
-                fail();
-            }
-        }
-        ArrayList<Dice> dices = new ArrayList<>();
-        getDicesSameValue(dices);
-        assertFalse(map.valueAlreadyExistInRow(0, 6));
-        map.getCell(0, 0).setDice(dices.get(0));
-        assertTrue(map.valueAlreadyExistInRow(0, 6));
-        map.getCell(0, 1).setDice(dices.get(0));
-        assertTrue(map.valueAlreadyExistInRow(0, 6));
-    }
-
-    /**
-     * tests colorAlreadyExistInRow method in class Map
-     */
-    public void testColorAlreadyExistInRow() throws notValidCellException {
-        for(int i=0; i<map.numRow(); i++){
-            try {
-                assertFalse(map.colorAlreadyExistInRow(i, Color.BLUE));
-            } catch (notValidCellException e) {
-                fail();
-            }
-        }
-        ArrayList<Dice> dices = new ArrayList<>();
-        getDicesSameColor(dices);
-        assertFalse(map.colorAlreadyExistInRow(0, Color.BLUE));
-        map.getCell(0, 0).setDice(dices.get(0));
-        assertTrue(map.colorAlreadyExistInRow(0, Color.BLUE));
-        map.getCell(0, 1).setDice(dices.get(0));
-        assertTrue(map.colorAlreadyExistInRow(0, Color.BLUE));
-    }
-
-    /**
-     * a helper method that creates two dices
-     * @param dices an array list where to save the created dices
-     */
-    private void getDicesSameColor(ArrayList<Dice> dices) {
-        for (int i=0; i<2; i++) {
-            dices.add(new Dice());
-            try {
-                dices.get(i).setColor(Color.BLUE);
-            } catch (NullPointerException e) {
-                fail();
-            }
-        }
+        assertEquals(map.getName().toLowerCase(), "bellesguard");
+        assertNotSame(map.getName().toLowerCase(), "Anton");
     }
 
     /**
@@ -254,9 +145,9 @@ public class TestMap extends TestCase {
      */
     public void testIsBorderEmpty(){
         assertTrue(map.isBorderEmpty());
-        assertTrue(map.posDice(d1, 1, 4));
+        assertTrue(map.posDice(b1, 1, 4));
         assertFalse(map.isBorderEmpty());
-        assertTrue(map.posDice(d2, 0, 3));
+        assertTrue(map.posDice(g1, 0, 3));
         assertFalse(map.isBorderEmpty());
     }
 
@@ -265,7 +156,7 @@ public class TestMap extends TestCase {
      */
     public void testIsAdjacentDice(){
         assertFalse(map.isAdjacentDice(0, 0));
-        map.posDice(d1, 0, 0);
+        map.posDice(b1, 0, 0);
         assertTrue(map.isAdjacentDice(1,1));
         assertTrue(map.isAdjacentDice(1,0));
         assertTrue(map.isAdjacentDice(0,1));
@@ -280,32 +171,32 @@ public class TestMap extends TestCase {
      */
     public void testDiceCompatibleValueCell(){
         try {
-            d1.setValue(6);
-            d2.setValue(5);
+            b1.setValue(6);
+            g1.setValue(5);
         } catch (InvalidValueException e) {
             fail();
         }
-        assertFalse(map.diceCompatibleValueCell(0, 1, d2.getValue()));
-        assertTrue(map.diceCompatibleValueCell(0, 1, d1.getValue()));
+        assertFalse(map.diceCompatibleValueCell(0, 1, g1.getValue()));
+        assertTrue(map.diceCompatibleValueCell(0, 1, b1.getValue()));
     }
 
     /**
      * tests diceCompatibleColorCell method in class Map
      */
     public void testDiceCompatibleColorCell(){
-        assertFalse(map.diceCompatibleColorCell(0, 0, d2.getColor()));
-        assertTrue(map.diceCompatibleColorCell(0, 0, d1.getColor()));
+        assertFalse(map.diceCompatibleColorCell(0, 0, g1.getColor()));
+        assertTrue(map.diceCompatibleColorCell(0, 0, b1.getColor()));
     }
 
     /**
      * tests posDice method in class Map
      */
     public void testPosDice(){
-        assertFalse(map.posDice(d1, 1, 3));
-        assertFalse(map.posDice(d1, map.numRow()-1, map.numColumn()-1));
-        assertTrue(map.posDice(d1, 0, 0));
-        assertFalse(map.posDice(d3, 1, 0));
-        assertTrue(map.posDice(d2, 1, 0));
+        assertFalse(map.posDice(b1, 1, 3));
+        assertFalse(map.posDice(b1, map.numRow()-1, map.numColumn()-1));
+        assertTrue(map.posDice(b1, 0, 0));
+        assertFalse(map.posDice(b2, 1, 0));
+        assertFalse(map.posDice(g1, 1, 0));
     }
 
     /**
@@ -313,7 +204,7 @@ public class TestMap extends TestCase {
      */
     public void testIsEmptyCell(){
         assertTrue(map.isEmptyCell(0,0));
-        map.posDice(d1, 0, 0);
+        map.posDice(b1, 0, 0);
         assertFalse(map.isEmptyCell(0,0));
     }
 
@@ -323,7 +214,7 @@ public class TestMap extends TestCase {
     public void testEmptyCells(){
         assertEquals(map.emptyCells(), map.numRow()*map.numColumn());
         assertNotSame(map.emptyCells(), (map.numRow()*map.numColumn())-1);
-        map.posDice(d1, 0, 0);
+        map.posDice(b1, 0, 0);
         assertEquals(map.emptyCells(), (map.numRow()*map.numColumn())-1);
         assertNotSame(map.emptyCells(), map.numRow()*map.numColumn());
     }
@@ -339,7 +230,65 @@ public class TestMap extends TestCase {
     /**
      * tests getErrorBool method in class Map
      */
-    public void testgetErrorBool(){
-        assertNotNull(map.getErrorBool());
+    public void testGetErrorBool(){
+        assertNotNull(Map.getErrorBool());
+    }
+
+    /**
+     * tests removeDiceMap method in class Map
+     */
+    public void testRemoveDiceMap(){
+        map.posDice(b1, 0, 0);
+        assertFalse(map.isEmptyCell(0,0));
+        map.removeDiceMap(0, 0);
+        assertTrue(map.isEmptyCell(0,0));
+    }
+
+    /**
+     * tests existDice method in class Map
+     */
+    public void testExistDice(){
+        assertFalse(map.existDice(b1, 0, 0));
+        assertTrue(map.posDice(b1, 0, 0));
+        assertTrue(map.existDice(b1, 0, 0));
+        assertFalse(map.existDice(g1, 0, 0));
+    }
+
+    /**
+     * tests isAdjacentColor method in class Map
+     */
+    public void testIsAdjacentColor(){
+        try {
+            assertFalse(map.isAdjacentColor(map.numRow()-1, map.numColumn()-1, Color.GREEN));
+            assertTrue(map.posDice(g1, map.numRow()-1, map.numColumn()-1));
+            assertFalse(map.isAdjacentColor(map.numRow()-2, map.numColumn()-1, Color.BLUE));
+            assertTrue(map.isAdjacentColor(map.numRow()-2, map.numColumn()-1, Color.GREEN));
+            assertTrue(map.posDice(b2, map.numRow()-2, map.numColumn()-1));
+            assertTrue(map.isAdjacentColor(map.numRow()-3, map.numColumn()-1, Color.BLUE));
+        } catch (notValidCellException e) {
+            fail();
+        }
+    }
+
+    /**
+     * tests isAdjacentValue method in class Map
+     */
+    public void testIsAdjacentValue(){
+        try {
+            assertFalse(map.isAdjacentValue(map.numRow()-1, map.numColumn()-1, 1));
+            assertTrue(map.posDice(g1, map.numRow()-1, map.numColumn()-1));
+            assertFalse(map.isAdjacentValue(map.numRow()-2, map.numColumn()-1, 2));
+            assertTrue(map.isAdjacentValue(map.numRow()-2, map.numColumn()-1, 1));
+            assertTrue(map.posDice(b2, map.numRow()-2, map.numColumn()-1));
+            assertTrue(map.isAdjacentValue(map.numRow()-3, map.numColumn()-1, 2));
+            assertFalse(map.posDice(b1, map.numRow()-1, map.numColumn()-2));
+            assertTrue(map.isAdjacentValue(map.numRow()-1, map.numColumn()-2, 1));
+        } catch (notValidCellException e) {
+            fail();
+        }
+    }
+
+    public void TestIsCellValid(){
+
     }
 }

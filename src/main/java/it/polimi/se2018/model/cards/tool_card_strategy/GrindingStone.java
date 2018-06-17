@@ -33,13 +33,7 @@ public class GrindingStone extends ToolCardStrategy {
      */
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> t
             , boolean t0, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
-        if (player.posDice(dice, row, column)) {
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
-        } else {
-            errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
-            errorBool.setErrBool(true);
-        }
+        posDiceControl(player, dice, row, column);
     }
 
     @Override
