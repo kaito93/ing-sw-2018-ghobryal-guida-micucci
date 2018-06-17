@@ -14,13 +14,14 @@ import java.util.List;
  * @author Anton Ghobryal
  */
 public class TestCorkbackedStraightedge extends TestCase {
-    private Card card1, card2, card3;
-    private ToolCardStrategy strategy1, strategy2, strategy3;
+    private Card card1, card2, card3, card4;
+    private ToolCardStrategy strategy1, strategy2, strategy3, strategy4;
     private Player player;
     private Game game;
     private Map map;
     private Dice b1, g2, g3;
     private List<Dice> stock;
+    private RoundSchemeCell[] roundSchemeCells;
 
     /**
      * Class Constructor
@@ -40,11 +41,14 @@ public class TestCorkbackedStraightedge extends TestCase {
         strategy1 = new CorkbackedStraightedge();
         strategy2 = new GlazingHammer();
         strategy3 = new Lathekin();
+        strategy4 = new LensCutter();
         card1 = new ToolCard("Cork-backed Straightedge", "Test", 0, Color.BLUE, strategy1);
         card2 = new ToolCard("Flux Brush", "Test", 0, Color.PURPLE, strategy2);
         card3 = new ToolCard("Lathekin", "Test", 0, Color.YELLOW, strategy3);
+        card4 = new ToolCard("Lens Cutter", "Test", 0, Color.YELLOW, strategy4);
         player = new Player("Anton");
         map = game.getThatMap("virtus");
+        roundSchemeCells = game.getRoundSchemeMap();
         player.setMap(map);
         player.setFavorSig();
         b1 = new Dice();
@@ -58,6 +62,7 @@ public class TestCorkbackedStraightedge extends TestCase {
         g3.setColor(Color.GREEN);
         stock = new ArrayList<>();
         stock.add(b1);
+        roundSchemeCells[0].getRestOfStock().add(g3);
         map.posDice(b1, 3, 2);
         super.setUp();
     }
@@ -78,7 +83,10 @@ public class TestCorkbackedStraightedge extends TestCase {
         strategy2=null;
         card3=null;
         strategy3=null;
+        card4=null;
+        strategy4=null;
         player=null;
+        roundSchemeCells=null;
         stock.remove(g2);
         stock=null;
         b1=null;
@@ -118,7 +126,14 @@ public class TestCorkbackedStraightedge extends TestCase {
                 null, null, null, -1));
         assertTrue(card3.useTool(player, null, 1, 0, stock, false, 2, 0,
                 null, null, null, -1));
+        assertFalse(card4.useTool(player, g3, 0, -1, stock, false, 1, 1,
+                g2, roundSchemeCells, null, -1));
+        assertFalse(card4.useTool(player, g2, 0, -1, stock, false, 1, 1,
+                g2, roundSchemeCells, null, -1));
+        assertTrue(card4.useTool(player, g2, 0, -1, stock, false, 1, 1,
+                g3, roundSchemeCells, null, -1));
         assertTrue(card2.useTool(player, null, 2, -1, stock, false, -1, -1,
                 null, null, null, -1));
+        stock.remove(g2);
     }
 }

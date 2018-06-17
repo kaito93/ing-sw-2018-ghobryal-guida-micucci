@@ -5,7 +5,6 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
-import it.polimi.se2018.util.Logger;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -20,8 +19,6 @@ public class Lathekin extends ToolCardStrategy {
     private int column3=-1; //poszione colonna iniziale primo dado
     private int row4=-1; //poszione riga iniziale secondo dado
     private int column4=-1; //poszione colonna iniziale secondo dado
-
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
 
     /**

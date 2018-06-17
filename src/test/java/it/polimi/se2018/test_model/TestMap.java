@@ -288,7 +288,8 @@ public class TestMap extends TestCase {
         }
     }
 
+    /*
     public void TestIsCellValid(){
 
-    }
+    }*/
 }
