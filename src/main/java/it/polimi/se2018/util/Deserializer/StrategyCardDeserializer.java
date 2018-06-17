@@ -35,7 +35,6 @@ public abstract class StrategyCardDeserializer extends Observable {
      * class constructor that inizialize the reading of the json file
      *
      * @param pathname path of the json file
-     * @throws FileNotFoundException when  the file doesn't exist
      */
     public StrategyCardDeserializer(String pathname) {
         json = new File(pathname);

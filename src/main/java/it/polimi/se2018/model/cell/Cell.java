@@ -58,11 +58,13 @@ public abstract class Cell implements Serializable {
 
     /**
      * method that return the color of the dice inside the cell
+     * @return color object
      */
     public abstract Color getColor();
 
     /**
      * method that return the value of the dice inside the cell
+     * @return an integer for the value
      */
     public abstract int getValue();
 

@@ -38,7 +38,6 @@ public class MapsDeserializer extends Observable {
     /**
      * class constructor: inizialize all the variable and the buffered reader for the json file
      * @param pathname of the file that has to be deserialize
-     * @throws FileNotFoundException if the path is wrong
      */
     public MapsDeserializer(String pathname) {
         json = new File(pathname);

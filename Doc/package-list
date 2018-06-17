@@ -11,11 +11,13 @@ it.polimi.se2018.network.client.connection
 it.polimi.se2018.network.client.message
 it.polimi.se2018.network.client.message.MessageTools
 it.polimi.se2018.network.server
+it.polimi.se2018.network.server.VirtualView
 it.polimi.se2018.network.server.connection
 it.polimi.se2018.network.server.message
-it.polimi.se2018.network.server.VirtualView
 it.polimi.se2018.test_model
 it.polimi.se2018.test_model.cards
+it.polimi.se2018.test_model.cards.public_objective_card_strategy
+it.polimi.se2018.test_model.cards.tool_card_strategy
 it.polimi.se2018.test_model.cell
 it.polimi.se2018.util
 it.polimi.se2018.util.Deserializer

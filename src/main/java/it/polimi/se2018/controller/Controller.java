@@ -58,7 +58,7 @@ public class Controller implements Observer<MessageVC> {
     /**
      * method that return the players in the game
      *
-     * @return Arraylist<Player>
+     * @return an arraylist of player
      */
     public ArrayList<Player> getPlayersInRound() {
         return playersInRound;
@@ -273,10 +273,13 @@ public class Controller implements Observer<MessageVC> {
         notifyAll();
     }
 
+
     /**
      * method that assign a value to setPos and unlock the waiter
+     * @param dice
+     * @param row
+     * @param column
      */
-
     synchronized public void setPos(Dice dice, int row, int column) {
         if (!setDice) {
             if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
@@ -575,6 +578,7 @@ public class Controller implements Observer<MessageVC> {
      *
      * @param a if the card is used
      * @param title of the card
+     * @param dice
      * @param row       row's coordinate where to position the dice
      * @param column    column's coordinate where to position the dice
      */
@@ -672,6 +676,10 @@ public class Controller implements Observer<MessageVC> {
      * @param row1Dest row's coordinate on the map where the first dice needed to be repositioned
      * @param column1Dest column's coordinate on the map where the first dice needed to be repositioned
      * @param dices an array list with the dices to move
+     * @param col1Mit
+     * @param col2Mit
+     * @param row1Mit
+     * @param row2Mit
      * @param row2Dest row's coordinate on the map where the second dice needed to be repositioned
      * @param column2Dest column's coordinate on the map where the second dice needed to be repositioned
      */
