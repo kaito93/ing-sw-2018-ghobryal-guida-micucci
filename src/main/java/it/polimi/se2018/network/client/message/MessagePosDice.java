@@ -22,10 +22,6 @@ public class MessagePosDice implements MessageVC {
         this.row = row;
     }
 
-    public Dice getDiceChoosed() {
-        return diceChoosed;
-    }
-
     public int getColumn() {
         return column;
     }

@@ -298,7 +298,6 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param message message received by server
      */
     public void visit(MessageFluxRemover message) {
-        // TO DO
         if (message.isA()) {
             ArrayList<Object> obj = view.manageFluxRemove2(message.getDice());
             message.setDice((Dice) obj.get(0));

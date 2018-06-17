@@ -201,13 +201,14 @@ public class VirtualView extends Observable<MessageVC> {
         return i;
     }
 
+    // DA TESTARE
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
-    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno) {
+    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno, boolean posDice, boolean useTool) {
         connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
-                playersInRound.get(turno).getSetDice(), playersInRound.get(turno).getUseTools());
+                posDice,useTool);
     }
 
     public void sendMessageUpdate(int turno, Game model, String name) {
@@ -293,6 +294,7 @@ public class VirtualView extends Observable<MessageVC> {
         connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice, title);
     }
 
+    // DA TESTARE
     public void setCurrentPlayer(Player currentPlayer) {
         for (int i = 0; i < playersActive.size(); i++) {
             if (currentPlayer == playersActive.get(i))

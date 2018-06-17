@@ -32,8 +32,6 @@ public class TestPlayer extends TestCase {
     protected void setUp() throws Exception {
         player = new Player("anton");
         player.setScore(0);
-        player.setSetDice(false);
-        player.setUseTools(false);
         player.setMap(new Map("map", 3, 4, 5));
         player.setFavorSig();
         player.setPrivateObjectiveCard(new PrivateObjectiveCard("Violet", "description", Color.PURPLE));
@@ -47,8 +45,6 @@ public class TestPlayer extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         player.setScore(0);
-        player.setSetDice(false);
-        player.setUseTools(false);
         player.getMap().finalize();
         player.setMap(null);
         player.setPrivateObjectiveCard(null);
@@ -81,26 +77,6 @@ public class TestPlayer extends TestCase {
     public void testSetGetFavSig(){
         assertEquals(player.getFavSig(), player.getMap().getDifficultyLevel());
         assertNotSame(player.getFavSig(), player.getMap().getDifficultyLevel()/2);
-    }
-
-    /**
-     * tests get and set of useTool in class player
-     */
-    public void testGetSetUseTools(){
-        player.setUseTools(true);
-        assertTrue(player.getUseTools());
-        player.setUseTools(false);
-        assertFalse(player.getUseTools());
-    }
-
-    /**
-     * tests get and set of setDice in class player
-     */
-    public void testGetSetSetDice(){
-        player.setSetDice(true);
-        assertTrue(player.getSetDice());
-        player.setSetDice(false);
-        assertFalse(player.getSetDice());
     }
 
     /**

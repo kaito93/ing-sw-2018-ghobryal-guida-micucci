@@ -39,6 +39,7 @@ public class Controller implements Observer<MessageVC> {
     private ArrayList<Player> playersInRound = new ArrayList<>();
     private int mappe = 0;
     private boolean disconnect = false;
+    private static final String ERR="Hai già piazzato il massimo numero di dadi per questo turno [1]";
 
 
     /**
@@ -165,15 +166,15 @@ public class Controller implements Observer<MessageVC> {
      */
     public void game() {
 
+        boolean posDice;
+        boolean useTool;
         int round;
         waitw();
         setPlayersInRound(playersInRound);
 
         // CICLO CHE GESTISCE I ROUND
         for (round = 0; round < game.getMaxRound(); round++) {
-            // Resetta i posDice dei giocatori.
-            resetDice();
-
+            resetRunning();
             // ESTRAI I DADI DAL SACCHETTO E METTILI NELLA RISERVA. #DADI ESTRATTI = (2*giocatori)+1
             game.setStock(game.getDiceBag().extractDice(playersInRound.size() + 1));
 
@@ -181,8 +182,8 @@ public class Controller implements Observer<MessageVC> {
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
             for (turno = 0; turno < playersInRound.size(); turno++) {
                 disconnect = false;
-                playersInRound.get(turno).setSetDice(false);
-                playersInRound.get(turno).setUseTools(false);
+                posDice=false;
+                useTool=false;
                 view.setCurrentPlayer(playersInRound.get(turno));
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 if (!playersInRound.get(turno).getRunningPliers()){
@@ -192,7 +193,7 @@ public class Controller implements Observer<MessageVC> {
                             view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
 
                             // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                            view.sendMessageTurn(playersInRound, turno);
+                            view.sendMessageTurn(playersInRound, turno,posDice,useTool);
 
                             b = false;
                             waitMove();
@@ -268,7 +269,7 @@ public class Controller implements Observer<MessageVC> {
      */
 
     synchronized public void setTools() {
-        this.playersInRound.get(turno).setUseTools(A);
+        this.setDice=A;
         notifyAll();
     }
 
@@ -277,18 +278,16 @@ public class Controller implements Observer<MessageVC> {
      */
 
     synchronized public void setPos(Dice dice, int row, int column) {
-        String error = "ciao";
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
             if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
                 manageError(Map.getErrorBool().getErrorMessage());
             } else {
                 game.removeDiceStock(dice);
-                this.playersInRound.get(turno).setSetDice(A);
-                this.playersInRound.get(turno).incrementPosDice();
+                setDice=A;
                 notifyAll();
             }
         } else {
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
         }
 
     }
@@ -444,21 +443,11 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that assign a value to useTools
-     *
-     * @param useTools a boolean value
-     */
-
-    public void setUseTools(boolean useTools) {
-        this.useTools = useTools;
-    }
-
-    /**
      * method that simulate a fake move from the player that have been disconnected and unlock the waiter
      */
     synchronized public void fakeMove() {
-        setSetDice(true);
-        setUseTools(true);
+        setSetDice(A);
+        useTools=A;
         move++;
         notifyAll();
     }
@@ -491,15 +480,10 @@ public class Controller implements Observer<MessageVC> {
         return view;
     }
 
-    /**
-     * method that reset the settings of a player
-     */
-    public void resetDice() {
-        for (int i = 0; i < players.size(); i++) {
-            players.get(i).resetPosDice();
-            players.get(i).setRunningPliers(false);
-        }
 
+    public void resetRunning(){
+        for (int i=0; i<players.size();i++)
+            players.get(i).setRunningPliers(false);
     }
 
     /**
@@ -529,18 +513,18 @@ public class Controller implements Observer<MessageVC> {
      * @param columnDest column's coordinate on the map where the chosen dice to be positioned
      */
     public void manageCork(String title, Dice dice, int rowDest, int columnDest) {
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
             if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
                     dice, rowDest, columnDest, null, false, 0, 0, null, null,
                     null, 0))
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             else {
-                getGame().getStock().remove(dice);
-                getPlayersInRound().get(getTurno()).incrementPosDice();
+                getGame().removeDiceStock(dice);
+                setSetDice(A);
                 setTools();
             }
         } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
 
     }
 
@@ -572,18 +556,18 @@ public class Controller implements Observer<MessageVC> {
      */
     public void manageFluxBrush(String title, Dice dice, int rowDest, int columnDest, Dice diceBefore) {
 
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
             if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
                     rowDest, columnDest, getGame().getStock(), false, 0, 0, diceBefore, null,
                     null, 0))
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             else {
-                getPlayersInRound().get(getTurno()).incrementPosDice();
                 getGame().removeDiceStock(diceBefore);
+                setSetDice(A);
                 setTools();
             }
         } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
 
     }
 
@@ -595,14 +579,14 @@ public class Controller implements Observer<MessageVC> {
      * @param column    column's coordinate where to position the dice
      */
     public void manageFluxRemover(boolean a, String title, Dice dice, int row, int column) {
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
             if (a) {
-                if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, getGame().getDiceBag().getBox(),
-                        false, row, column, null, null, null, 0)) {
+                if (!getGame().searchToolCard(title).useTool(null, dice, row, column, getGame().getDiceBag().getBox(),
+                        false, 0, 0, null, null, null, 0)) {
                     getGame().getStock().add(dice);
                     manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
                 } else {
-                    getPlayersInRound().get(getTurno()).incrementPosDice();
+                    setSetDice(A);
                     setTools();
                 }
 
@@ -614,7 +598,7 @@ public class Controller implements Observer<MessageVC> {
                 getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurno()));
             }
         } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
 
     }
 
@@ -625,7 +609,7 @@ public class Controller implements Observer<MessageVC> {
     public void manageGlazing(String title) {
         getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
                 null, firstOrSecond(), 0, getGame().getStock(),
-                getPlayersInRound().get(getTurno()).getSetDice(), 0, 0, null,
+                setDice, 0, 0, null,
                 null, null, 0);
         setTools();
     }
@@ -639,18 +623,18 @@ public class Controller implements Observer<MessageVC> {
      * @param diceBefore dice to be removed
      */
     public void manageGrinding(String title, Dice dice, int row, int column, Dice diceBefore) {
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
             if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, false,
                     row, column, null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
 
             } else {
                 getGame().getStock().remove(diceBefore);
-                getPlayersInRound().get(getTurno()).incrementPosDice();
+                setSetDice(A);
                 setTools();
             }
         } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
 
     }
 
@@ -662,18 +646,18 @@ public class Controller implements Observer<MessageVC> {
      * @param colDest column's coordinate on the map where the chosen dice to be positioned
      */
     public void manageGrozing(String title, Dice dice, int rowDest, int colDest) {
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
 
             if (!getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, false, 0, 0,
                     null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             } else {
                 getGame().getStock().remove(dice);
-                getPlayersInRound().get(getTurno()).incrementPosDice();
+                setSetDice(A);
                 setTools();
             }
         } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
 
 
     }
@@ -711,16 +695,19 @@ public class Controller implements Observer<MessageVC> {
      * @param diceRound a chosen dice from the Round Scheme
      */
     public void manageLens(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
+        if (!setDice) {
             if (!getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, getGame().getStock(),
                     false, row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
+            {
+                getGame().getStock().add(diceRound);
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+            }
             else {
-                getPlayersInRound().get(getTurno()).incrementPosDice();
+                setSetDice(A);
                 setTools();
             }
         } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
+            manageError(ERR);
 
     }
 
@@ -732,18 +719,14 @@ public class Controller implements Observer<MessageVC> {
      * @param columnDest column's coordinate on the map where the dice should be placed
      */
     public void manageRunning(String title, Dice dice, int rowDest, int columnDest) {
-        if (this.playersInRound.get(turno).getPosDice() < 2) {
             if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
                     firstOrSecond(), 0, getGame().getStock(), false, rowDest, columnDest, null,
                     null, getPlayersInRound(), 0))
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             else {
-                getPlayersInRound().get(getTurno()).incrementPosDice();
+                setSetDice(A);
                 setTools();
             }
-        } else
-            manageError("Hai già piazzato il massimo numero di dadi per questo round [2]");
-
     }
 
     /**

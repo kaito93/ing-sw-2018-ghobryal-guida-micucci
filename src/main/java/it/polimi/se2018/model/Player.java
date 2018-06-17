@@ -16,9 +16,6 @@ public class Player implements Serializable {
     private int favorSig;
     private PrivateObjectiveCard privateObj;
     private int score;
-    private boolean setDice;
-    private boolean useTools;
-    private int posDice;
     private boolean runningPliers;
 
 
@@ -28,9 +25,6 @@ public class Player implements Serializable {
      */
     public Player (String user){
         this.name=user;
-        setDice=false;
-        useTools=false;
-        posDice=0;
         runningPliers=false;
     }
 
@@ -63,34 +57,7 @@ public class Player implements Serializable {
     {
         return favorSig;
     }
-    
-    /** method that set the value of the boolean firstAction as boolval
-     * @param boolval a boolean that can be true-false
-     */
-    public void setUseTools(boolean boolval){
-        this.useTools = boolval;
-    }
-    /** method that set the value of the boolean secondAction as boolval
-     * @param boolval a boolean that can be true-false
-     */
-    public void setSetDice(boolean boolval){
-        this.setDice = boolval;
-    }
-    
-    /** method that return the value of the boolean firstTurn
-     * @return the value of the boolean firstTurn
-     */
-    public boolean getSetDice(){
-        return this.setDice;
-    }
 
-     /** method that return the value of the boolean firstTurn
-     * @return the value of the boolean firstTurn
-     */
-    public boolean getUseTools(){
-        return this.useTools;
-    }
-    
     /** method that return the map of the player
      * @return a map object that is the martix of the player's glasswindow
      */
@@ -148,29 +115,6 @@ public class Player implements Serializable {
      */
     public boolean posDice(Dice dice, int row, int column){
         return map.posDice(dice,row,column);
-    }
-
-    /**
-     * resets posDice to 0
-     * helps to count how many dices to count in an entire round
-     */
-    public void resetPosDice() {
-        posDice=0;
-    }
-
-    /**
-     * increments posDice every time the player positions one dice on his map
-     */
-    public void incrementPosDice(){
-        posDice++;
-    }
-
-    /**
-     * gets posDice current value
-     * @return posDice integer value
-     */
-    public int getPosDice() {
-        return posDice;
     }
 
     /**
