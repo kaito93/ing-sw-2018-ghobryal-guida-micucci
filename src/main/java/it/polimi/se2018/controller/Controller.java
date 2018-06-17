@@ -607,11 +607,15 @@ public class Controller implements Observer<MessageVC> {
      * @param title of the card
      */
     public void manageGlazing(String title) {
-        getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-                null, firstOrSecond(), 0, getGame().getStock(),
-                setDice, 0, 0, null,
-                null, null, 0);
-        setTools();
+        if (!setDice){
+            getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
+                    null, firstOrSecond(), 0, getGame().getStock(),
+                    setDice, 0, 0, null,
+                    null, null, 0);
+            setTools();
+        }
+        else manageError("Hai già piazzato un dado in questo turno! Non puoi attivare questa carta utensile");
+
     }
 
     /**
