@@ -73,11 +73,20 @@ public class Dice implements Serializable, Cloneable {
         this.color = color;
     }
 
+    /**
+     * clones the dice
+     * @return a cloned dice with the same status
+     * @throws CloneNotSupportedException when it isn't possible to clone this object
+     */
     @Override
     public Dice clone() throws CloneNotSupportedException {
         return (Dice) super.clone();
     }
 
+    /**
+     * makes a number that occupies two spaces on the cli
+     * @return a unicode number from one to six
+     */
     @Override
     public String toString() {
         String a;
@@ -110,10 +119,11 @@ public class Dice implements Serializable, Cloneable {
         return a;
     }
 
-
-    // DA TESTARE
-
-    public Dice diceNull(){
+    /**
+     * creates a symbolic null dice
+     * @return a symbolic null dice
+     */
+    public static Dice diceNull(){
         Dice dice=new Dice();
         dice.value=0;
         dice.color=Color.NULL;

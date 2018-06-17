@@ -19,10 +19,10 @@ public class GlazingHammer extends ToolCardStrategy {
 
     /**
      * Read description of this card for further information
-     * @param player n.a.
-     * @param dice1 n.a.
+     * @param t n.a.
+     * @param t0 n.a.
      * @param turn player's turn number
-     * @param a n.a.
+     * @param t7 n.a.
      * @param stock Round's Stock
      * @param posDice a boolean verifies if the player has chosen a dice from the stock or not on his second turn
      * @param t1 n.a.
@@ -34,8 +34,8 @@ public class GlazingHammer extends ToolCardStrategy {
      */
 
     //non posiziono nessun dado perché non c'entra con la descrizione della carta
-    public void useTool(Player player, Dice dice1, int turn, int a, List<Dice> stock
-            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player t, Dice t0, int turn, int t7, List<Dice> stock, boolean posDice, int t1, int t2
+            , Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(turn==2 && !posDice)
             for (Dice dice : stock)
                 dice.throwDice();

@@ -1,10 +1,7 @@
 package it.polimi.se2018.network.server.connection;
 
 
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.RoundSchemeCell;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
@@ -18,6 +15,7 @@ public abstract class ConnectionServer implements Cloneable {
 
     protected String username;
     protected boolean connected=true;
+    private Game game;
 
     protected abstract void send (Object message);
 
@@ -34,21 +32,12 @@ public abstract class ConnectionServer implements Cloneable {
     public void sendMap(ArrayList<Map> maps, Player player){
         ArrayList<Map> mapsToPlayer= new ArrayList<>();
         for (int j=0; j<2;j++){ // sceglie 2 carte schema
-            Map m = randomMap(maps);
-            mapsToPlayer.add(m); // aggiunge la mappa estratta al messaggio da inviare
+            mapsToPlayer.add(game.randomMap()); // aggiunge la mappa estratta al messaggio da inviare
         }
         sendMapConn(mapsToPlayer,player);
     }
 
     public abstract void sendMapConn(ArrayList<Map> maps, Player player);
-
-    public Map randomMap(ArrayList<Map> ma){
-        Random random = new Random();
-        int j = random.nextInt(ma.size()); // estrai un numero casuale tra tutte le mappe disponibili
-        Map val= ma.get(j); // salvati la mappa
-        ma.remove(j); // rimuovi la mappa dall array di mappe
-        return val; // ritorna la mappa estratta
-    }
 
     public abstract void sendPrivateInformation(PrivateObjectiveCard card);
 

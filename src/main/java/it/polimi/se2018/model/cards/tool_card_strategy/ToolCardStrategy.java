@@ -71,4 +71,26 @@ public abstract class ToolCardStrategy implements Serializable {
 
     public void setColumn4(int column4) {}
 
+    /**
+     * verifies if the dice is positioned on the passed coordinates or not
+     * @param map player's map
+     * @param dice a dice that is supposed to be on the map
+     * @param row row's coordinate on the map where there should be the passed dice
+     * @param column column's coordinate on the map where there should be the passed dice
+     * @return a boolean, true if the dice is really positioned on the map, else false
+     */
+    protected boolean diceExistOnCell(Map map, Dice dice, int row, int column){
+        try {
+            if(!map.existDice(dice, row, column)){
+                errorBool.setErrorMessage("Il dado passato non c'è nelle coordinate ("+row+","+column+")");
+                errorBool.setErrBool(true);
+                return false;
+            }
+        }catch (NullPointerException e){
+            errorBool.setErrorMessage("non c'è un dado nelle coordinate ("+row+","+column+")");
+            errorBool.setErrBool(true);
+            return false;
+        }
+        return true;
+    }
 }

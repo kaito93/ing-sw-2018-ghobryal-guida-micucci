@@ -104,4 +104,5 @@ public class ToolCard extends Card{
     public ToolCardStrategy getStrategy() {
         return strategy;
     }
+
 }

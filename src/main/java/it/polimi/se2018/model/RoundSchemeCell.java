@@ -63,7 +63,7 @@ public class RoundSchemeCell implements Serializable {
      */
     public void setDices(List<Dice> toAdd) {
 
-        if(restOfStock.size()==0){
+        if(restOfStock.isEmpty()){
             restOfStock.addAll(toAdd);
         }
         else{

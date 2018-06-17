@@ -34,35 +34,27 @@ public class LensCutter extends ToolCardStrategy {
 
     public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
-        if (player.getPosDice()<3){
-            List<Dice> temp = new ArrayList<>();
-            if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stockDice!=null
-                    && roundSchemeDice!=null && stock.contains(stockDice)){
-                temp.add(stockDice);
-                stock.remove(stockDice);
-                roundSchemeMap[posDice].removeDice(roundSchemeDice);
-                roundSchemeMap[posDice].setDices(temp);
-                dice = roundSchemeDice;
-                if (player.posDice(dice,row,column)){
-                    errorBool.setErrorMessage(null);
-                    errorBool.setErrBool(false);
-                    return;
-                }
-                else {
-                    errorBool.setErrorMessage("PosDice fail in Lens Cutter Tool Card");
-                    errorBool.setErrBool(true);
-                }
+        List<Dice> temp = new ArrayList<>();
+        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stockDice!=null
+                && roundSchemeDice!=null && stock.contains(stockDice)){
+            temp.add(stockDice);
+            stock.remove(stockDice);
+            roundSchemeMap[posDice].removeDice(roundSchemeDice);
+            roundSchemeMap[posDice].setDices(temp);
+            dice = roundSchemeDice;
+            if (player.posDice(dice,row,column)){
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+                return;
             }
-            dice = null;
-            errorBool.setErrorMessage("Invalid Passed Parameters");
-            errorBool.setErrBool(true);
+            else {
+                errorBool.setErrorMessage("PosDice fail in Lens Cutter Tool Card");
+                errorBool.setErrBool(true);
+            }
         }
-        else{
-            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
-            errorBool.setErrBool(true);
-        }
-
-
+        dice = null;
+        errorBool.setErrorMessage("Invalid Passed Parameters");
+        errorBool.setErrBool(true);
     }
 
     /**

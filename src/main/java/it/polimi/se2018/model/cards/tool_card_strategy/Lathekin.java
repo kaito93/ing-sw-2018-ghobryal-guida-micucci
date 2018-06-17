@@ -23,11 +23,11 @@ public class Lathekin extends ToolCardStrategy {
     /**
      * Read description of this card for further information
      * @param player who plays this turn
-     * @param dice n.a.
+     * @param t1 n.a.
      * @param row1 row's coordinate on the map where the first dice needed to be repositioned
      * @param column1 column's coordinate on the map where the first dice needed to be repositioned
      * @param dicesToMove an array list with the dices to move
-     * @param temp n.a.
+     * @param t2 n.a.
      * @param row2 row's coordinate on the map where the second dice needed to be repositioned
      * @param column2 column's coordinate on the map where the second dice needed to be repositioned
      * @param t3 n.a.
@@ -38,25 +38,31 @@ public class Lathekin extends ToolCardStrategy {
     //qui ti metto 4 attributi in questa classe con i loro set e get perché non c'è voglia di aggiungere 4 parametri in più
     //a tutti i metodi di tutte le carte, già superiamo il limite di un bel po'
     //in ogni caso ti posiziono i dadi
-    public void useTool(Player player, Dice dice, int row1, int column1, List<Dice> dicesToMove,
-            boolean temp, int row2, int column2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player player, Dice t1, int row1, int column1, List<Dice> dicesToMove,
+            boolean t2, int row2, int column2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         boolean a;
         boolean b;
         if(dicesToMove.size()==2){
-            a = player.getMap().posDice(dicesToMove.get(0), row1, column1);
-            if (!a) {
-                errorBool.setErrorMessage("first dice not valid");
+            try {
+                if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row1, column1) || !diceExistOnCell(player.getMap(), dicesToMove.get(1), row2, column2)){
+                    return;
+                }
+            }catch (NullPointerException e){
                 return;
             }
             player.getMap().removeDiceMap(row3, column3);
-            b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
-            if (!b) {
-                player.getMap().posDice(dicesToMove.get(0), row3, column3);
-                player.getMap().removeDiceMap(row1, column1);
-                errorBool.setErrorMessage("second dice not valid");
-                return;
-            }
             player.getMap().removeDiceMap(row4, column4);
+            a = player.getMap().posDice(dicesToMove.get(0), row1, column1);
+            b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
+            if (!a || !b) {
+                player.getMap().posDice(dicesToMove.get(0), row3, column3);
+                player.getMap().posDice(dicesToMove.get(1), row4, column4);
+                errorBool.setErrorMessage("posizionamento non valido del primo o del secondo dado");
+                errorBool.setErrBool(true);
+            }else {
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+            }
         } else {
             errorBool.setErrorMessage("passed dices aren't exactly two");
             errorBool.setErrBool(true);

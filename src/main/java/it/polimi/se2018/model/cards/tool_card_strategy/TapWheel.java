@@ -1,11 +1,9 @@
 package it.polimi.se2018.model.cards.tool_card_strategy;
 
 import it.polimi.se2018.model.*;
-import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Tap Wheel Tool Card
@@ -38,12 +36,23 @@ public class TapWheel extends ToolCardStrategy {
             int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
         boolean d;
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
-            if (dicesToMove.size() == 1) {
+            if (dicesToMove.size() == 1  && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
+                try {
+                    if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row1, column1)){
+                        return;
+                    }
+                }catch (NullPointerException e){
+                    return;
+                }
+                player.getMap().removeDiceMap(row3, column3);
                 if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
                     d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
-                    if (d)
-                        player.getMap().removeDiceMap(row3, column3);
-                    else {
+                    if (d){
+                        errorBool.setErrorMessage(null);
+                        errorBool.setErrBool(false);
+                        return;
+                    } else {
+                        player.getMap().posDice(dicesToMove.get(0), row3, column3);
                         errorBool.setErrorMessage("posDice method in TapWheel tool card");
                         errorBool.setErrBool(true);
                         return;
@@ -58,6 +67,7 @@ public class TapWheel extends ToolCardStrategy {
                 x.setColumn4(column4);
                 x.useTool(player, roundSchemeMapDice, row1, column1, dicesToMove, t1, row2, column2, t2,
                         roundSchemeMap, t3, posDice);
+                return;
             }
         }
         errorBool.setErrorMessage("the round scheme doesn't contain the chosen dice from the round scheme");

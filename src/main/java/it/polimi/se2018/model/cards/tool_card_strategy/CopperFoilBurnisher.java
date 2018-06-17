@@ -1,6 +1,5 @@
 package it.polimi.se2018.model.cards.tool_card_strategy;
 
-import it.polimi.se2018.model.Color;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
@@ -37,20 +36,32 @@ public class CopperFoilBurnisher extends ToolCardStrategy {
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int row0, int column0, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         try {
-            if ((player.getMap().isBorderEmpty() && ((column>0 && row>0) && (row<player.getMap().numRow()-1 && column<player.getMap().numColumn()-1)))
-                    || ((!player.getMap().isBorderEmpty() && player.getMap().isAdjacentDice(row, column))
-                    && (player.getMap().colorAlreadyExistInColumn(column, dice.getColor())
-                    || player.getMap().colorAlreadyExistInRow(row, dice.getColor()))
+            if(!diceExistOnCell(player.getMap(), dice, row0, column0)){
+                return;
+            }
+        }catch (NullPointerException e){
+            return;
+        }
+        try {
+            player.getMap().getCell(row0, column0).setDice(null);
+            if (((player.getMap().isBorderEmpty() && column>0 && row>0 && row<player.getMap().numRow()-1 && column<player.getMap().numColumn()-1)
+                    || (!player.getMap().isBorderEmpty() && !player.getMap().isAdjacentDice(row, column)))
+                    && (player.getMap().isAdjacentColor(row, column, dice.getColor())
                     || !player.getMap().diceCompatibleColorCell(row, column, dice.getColor()))) {
-                errorBool.setErrorMessage("Player doesn't respect color restrictions");
+                player.getMap().getCell(row0, column0).setDice(dice);
+                errorBool.setErrorMessage("il giocatore non rispetta le restrizioni di posizionamento");
                 errorBool.setErrBool(true);
                 return;
             }
             player.getMap().getCell(row, column).setDice(dice);
-            player.getMap().getCell(row0, column0).setDice(null);
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
         } catch (notValidCellException e) {
+            try {
+                player.getMap().getCell(row0, column0).setDice(dice);
+            } catch (notValidCellException e1) {
+                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class CopperFoilBurnisher Tool Card", e);
+            }
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class CopperFoilBurnisher Tool Card", e);
         }
     }

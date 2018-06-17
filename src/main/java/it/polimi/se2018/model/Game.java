@@ -23,7 +23,7 @@ public class Game {
 
     private ArrayList<Dice> stock;
 
-    private static ArrayList<PublicObjectiveCard> publicObjCard;
+    private ArrayList<PublicObjectiveCard> publicObjCard;
 
     private RoundSchemeCell[] roundSchemeMap;
 
@@ -65,9 +65,7 @@ public class Game {
 
         this.roundSchemeMap= new RoundSchemeCell[MAXROUND]; // Crea il tracciato dei round
 
-
-        Dice dice=new Dice();
-        dice=dice.diceNull();
+        Dice dice=Dice.diceNull();
         List<Dice> list = new ArrayList<>();
         list.add(dice);
         for (int i=0;i<MAXROUND;i++){
@@ -262,7 +260,7 @@ public class Game {
      */
     public Map getThatMap(String name){
         for (Map map : maps){
-            if(map.getName().equals(name))
+            if(map.getName().equalsIgnoreCase(name))
                 return map;
         }
         return null;
@@ -302,5 +300,15 @@ public class Game {
             if (dice.getValue()==stock.get(i).getValue())
                 if (dice.getColor().equalsColor(stock.get(i).getColor()))
                     stock.remove(i);
+    }
+
+    /**
+     * chooses a random map from maps array list
+     * @return a random map form maps array list
+     */
+    public Map randomMap(){
+        Random random = new Random();
+        int j = random.nextInt(maps.size());// estrai un numero casuale tra tutte le mappe disponibili
+        return maps.remove(j); // ritorna la mappa estratta dall'array list di mappe
     }
 }

@@ -77,64 +77,92 @@ public class Map implements Serializable {
         return name;
     }
 
-    /** method that verify if a number exist already in a column of the matrix
-     * @param column of the matrix where you want to search the number
-     * @param value that you are searching for
+    /** method that verify if there is an Adjacent dice with the same value
+     * @param row row of the matrix where you want to search the value
+     * @param column row of the matrix where you want to search the value
+     * @param value the value that you are searching
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
-     * @return a boolean that is true if value already exist in the column of matrix, else false
+     * @return a boolean that is true if there is an Adjacent dice with the same value, else false
      */
-    public boolean valueAlreadyExistInColumn(int column, int value) throws notValidCellException{
-        int index;
-        int counter=0;
-        for(index = 0; index < numRow(); index++)
-            if(!isEmptyCell(index, column) && getCell(index, column).getDice().getValue() == value)
-                counter++;
-        return counter>0;
+    public boolean isAdjacentValue(int row, int column, int value) throws notValidCellException{
+        if(row < 1 && column < 1)
+            return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value);
+        else if(row < 1 && column > numColumn() - 2)
+            return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value);
+        else if(row < 1 && column > 0 && column <= numColumn() - 2)
+            return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value);
+        else if(row > numRow() - 2 && column < 1)
+            return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
+        else if(row > numRow() - 2 && column > numColumn() - 2)
+            return (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value);
+        else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2)
+            return (!isEmptyCell(row-1, column)  && getCell(row-1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
+                    || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value);
+        else if(row > 0 && row <= numRow() - 2 && column < 1)
+            return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
+        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2)
+            return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
+        else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1)
+            return (!isEmptyCell(row, column+1)  && getCell(row, column+1).getDice().getValue()==value)
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value)
+                    || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value);
+        return false;
     }
 
-    /** method that verify if a color exist already in a column of the matrix
-     * @param column of the matrix where you want to search the number
-     * @param color that you are searching for
+    /** method that verify if there is an Adjacent dice with the same color
+     * @param row row of the matrix where you want to search the color
+     * @param column row of the matrix where you want to search the color
+     * @param color the color that you are searching
      * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
-     * @return a boolean that is true if color already exist in the column of matrix, else false
+     * @return a boolean that is true if there is an Adjacent dice with the same color, else false
      */
-    public boolean colorAlreadyExistInColumn(int column, Color color) throws notValidCellException{
-        int index;
-        int counter=0;
-        for(index = 0; index < numRow(); index++)
-            if(!isEmptyCell(index, column) && getCell(index, column).getDice().getColor().equalsColor(color))
-                counter++;
-        return counter>0;
-    }
-    
-    /** method that verify if a number exist already in a row of the matrix
-     * @param row of the matrix where you want to search the number
-     * @param value that you are searching
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
-     * @return a boolean that is true if the value already exist in the row of matrix, else false
-     */
-    public boolean valueAlreadyExistInRow(int row, int value) throws notValidCellException{
-        int index;
-        int counter=0;
-        for(index = 0; index < numRow(); index++)
-            if(!isEmptyCell(row, index) && getCell(row, index).getDice().getValue() == value)
-                counter++;
-        return counter>0;
-    }
-
-    /** method that verify if a color exist already in a row of the matrix
-     * @param row of the matrix where you want to search the number
-     * @param color that you are searching
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
-     * @return a boolean that is true if the color already exist in the row of matrix, else false
-     */
-    public boolean colorAlreadyExistInRow(int row, Color color) throws notValidCellException{
-        int index;
-        int counter=0;
-        for(index = 0; index < numRow(); index++)
-            if(!isEmptyCell(row, index) && getCell(row, index).getDice().getColor().equalsColor(color))
-                counter++;
-        return counter>0;
+    public boolean isAdjacentColor(int row, int column, Color color) throws notValidCellException{
+        if(row < 1 && column < 1)
+            return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color));
+        else if(row < 1 && column > numColumn() - 2)
+            return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color));
+        else if(row < 1 && column > 0 && column <= numColumn() - 2)
+            return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color));
+        else if(row > numRow() - 2 && column < 1)
+            return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color));
+        else if(row > numRow() - 2 && column > numColumn() - 2)
+            return (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color));
+        else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2)
+            return (!isEmptyCell(row-1, column)  && getCell(row-1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color));
+        else if(row > 0 && row <= numRow() - 2 && column < 1)
+            return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color));
+        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2)
+            return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color));
+        else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1)
+            return (!isEmptyCell(row, column+1)  && getCell(row, column+1).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color))
+                    || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color));
+        return false;
     }
 
     /**
@@ -327,7 +355,7 @@ public class Map implements Serializable {
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, if the dice respects the cell restriction else false
      */
-    private boolean isCellValid(Dice dice, int row, int column){
+    public boolean isCellValid(Dice dice, int row, int column){
         if(!isEmptyCell(row, column)){
             errorBool.setErrorMessage("There's a dice on the same cell");
             errorBool.setErrBool(true);
@@ -419,9 +447,8 @@ public class Map implements Serializable {
         }
         else if(!isBorderEmpty() && isAdjacentDice(row, column)) {
             try {
-                if(isCellValid(dice, row, column) && !colorAlreadyExistInColumn(column, dice.getColor())
-                        && !colorAlreadyExistInRow(row, dice.getColor()) && !valueAlreadyExistInColumn(column, dice.getValue())
-                        && !valueAlreadyExistInRow(row, dice.getValue())) {
+                if(isCellValid(dice, row, column) && !isAdjacentColor(row, column, dice.getColor())
+                        && !isAdjacentValue(row, column, dice.getValue())) {
                     cell[row][column].setDice(dice);
                     errorBool.setErrorMessage(null);
                     errorBool.setErrBool(false);
@@ -499,5 +526,20 @@ public class Map implements Serializable {
     public void removeDiceMap(int row, int column){
         if(!isEmptyCell(row, column))
             cell[row][column].setDice(null);
+    }
+
+    /**
+     * controls if the passed dice is really in the passed coordinates or not
+     * @param dice the supposed dice on cell
+     * @param row row's coordinate on the map where there should be the passed dice
+     * @param column column's coordinate on the map where there should be the passed dice
+     * @return a boolean, true if the dice is compatible with the dice on the cell, else false
+     */
+    public boolean existDice(Dice dice, int row, int column){
+        try {
+            return cell[row][column].getDice().getValue()== dice.getValue() && cell[row][column].getDice().getColor().equalsColor(dice.getColor());
+        }catch (NullPointerException e){
+            return false;
+        }
     }
 }

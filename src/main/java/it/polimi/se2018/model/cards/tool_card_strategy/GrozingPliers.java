@@ -21,40 +21,37 @@ public class GrozingPliers extends ToolCardStrategy {
 
     /**
      * Read description of this card for further information
-     * @param player n.a.
-     * @param dice the chosen dice
-     * @param row row's coordinate on the map where the chosen dice to be positioned
-     * @param column column's coordinate on the map where the chosen dice to be positioned
-     * @param stock n.a.
-     * @param posDice n.a.
-     * @param t1 n.a.
-     * @param t2 n.a.
-     * @param t3 n.a.
-     * @param t4 n.a.
-     * @param t5 n.a.
-     * @param t6 n.a.
+     *
+     * @param player player on turn
+     * @param dice a chosen dice from the stock
+     * @param row  row's coordinate where to position the dice
+     * @param column column's coordinate where to position the dice
+     * @param t     n.a.
+     * @param t0    n.a.
+     * @param t1    n.a.
+     * @param t2    n.a.
+     * @param t3    n.a.
+     * @param t4    n.a.
+     * @param t5    n.a.
+     * @param t6    n.a.
      */
 
     //qui non posso posizonarti il dado perché ci sono 2 valori diversi, quindi mandi un nuovo messaggio di tipo
     // posizionamento dado con le coordinate e il dado da mettere e hai i metodi qui che i servono
-    public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
-            , boolean posDice, int t1, int t2, Dice t3, RoundSchemeCell[] t4,  List<Player> t5, int t6){
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t
+            , boolean t0, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         // L'algoritmo di questa carta è stato spostato nella View (nel metodo ManageGrozing()) per evitare un continuo
         // invio di messaggi contenenti una singola e elementare informazione. In questo modo l'utente invia al server
         // solamente le informazioni del dado da posizionare e delle relative coordinate come in un normalissimo
         // posizionamento di dadi.
         // Il metodo UseTool rimane comunque perchè viene richiamato tramite RMI
-        if (player.getPosDice()<3){
-            if (player.getMap().posDice(dice,row,column)) {
-                errorBool.setErrorMessage(null);
-                errorBool.setErrBool(false);
-            }
-        }
-        else{
-            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
+        if (player.posDice(dice, row, column)) {
+            errorBool.setErrorMessage(null);
+            errorBool.setErrBool(false);
+        } else {
+            errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
             errorBool.setErrBool(true);
         }
-
     }
 
 
@@ -66,7 +63,7 @@ public class GrozingPliers extends ToolCardStrategy {
      */
     public void setChosenValue(Dice dice, int value1){
 
-            if (value1 != 0) {
+            if (value1>0 && value1<7) {
                 try {
                     dice.setValue(value1);
                 } catch (InvalidValueException e) {

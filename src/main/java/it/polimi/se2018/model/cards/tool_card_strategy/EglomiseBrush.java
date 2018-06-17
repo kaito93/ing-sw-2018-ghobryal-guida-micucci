@@ -37,20 +37,32 @@ public class EglomiseBrush extends ToolCardStrategy {
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
             , boolean a, int row0, int column0, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         try {
-            if ((player.getMap().isBorderEmpty() && ((column>0 && row>0) && (row<player.getMap().numRow()-1 && column<player.getMap().numColumn()-1)))
-                    || ((!player.getMap().isBorderEmpty() && player.getMap().isAdjacentDice(row, column))
-                    && (player.getMap().valueAlreadyExistInColumn(column, dice.getValue())
-                    || player.getMap().valueAlreadyExistInRow(row, dice.getValue()))
+            if(!diceExistOnCell(player.getMap(), dice, row0, column0)){
+                return;
+            }
+        }catch (NullPointerException e){
+            return;
+        }
+        try {
+            player.getMap().getCell(row0, column0).setDice(null);
+            if (((player.getMap().isBorderEmpty() && (column>0 && row>0) && row<player.getMap().numRow()-1 && column<player.getMap().numColumn()-1)
+                    || (!player.getMap().isBorderEmpty() && !player.getMap().isAdjacentDice(row, column)))
+                    && (player.getMap().isAdjacentValue(row, column, dice.getValue())
                     || !player.getMap().diceCompatibleValueCell(row, column, dice.getValue()))) {
-                errorBool.setErrorMessage("Player doesn't respect value restrictions");
+                player.getMap().getCell(row0, column0).setDice(dice);
+                errorBool.setErrorMessage("il giocatore non rispetta le restrizioni di posizionamento");
                 errorBool.setErrBool(true);
                 return;
             }
             player.getMap().getCell(row, column).setDice(dice);
-            player.getMap().getCell(row0, column0).setDice(null);
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
         } catch (notValidCellException e) {
+            try {
+                player.getMap().getCell(row0, column0).setDice(dice);
+            } catch (notValidCellException e1) {
+                LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class CopperFoilBurnisher Tool Card", e);
+            }
             LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in class ElgomiseBrush Tool Card", e);
         }
     }

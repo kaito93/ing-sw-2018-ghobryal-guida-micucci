@@ -34,7 +34,7 @@ public class RunningPliers extends ToolCardStrategy {
             , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
         boolean a;
         if(turn==1){
-            a = playerCurr.getMap().posDice(dice, row, column);
+            a = playerCurr.posDice(dice, row, column);
             if(a) {
                 playerCurr.setRunningPliers(true);
                 errorBool.setErrorMessage(null);
