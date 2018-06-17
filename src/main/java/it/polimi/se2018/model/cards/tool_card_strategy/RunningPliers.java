@@ -3,11 +3,9 @@ package it.polimi.se2018.model.cards.tool_card_strategy;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.RoundSchemeCell;
-import it.polimi.se2018.model.exception.notValidCellException;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Glazing Hammer Tool Card
@@ -35,26 +33,19 @@ public class RunningPliers extends ToolCardStrategy {
     public void useTool(Player playerCurr, Dice dice, int turn, int t1, List<Dice> stock, boolean t2
             , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> turns, int t5){
         boolean a;
-        if (playerCurr.getPosDice()<3){
-            if(turns.indexOf(playerCurr)==0 && stock.contains(dice) && turn==1){
-                a = playerCurr.getMap().posDice(dice, row, column);
-                turns.remove(0);
-                if(a) {
-                    stock.remove(dice);
-                    errorBool.setErrorMessage(null);
-                    errorBool.setErrBool(false);
-                }
-                else {
-                    errorBool.setErrorMessage("posDice method in RunningPliers tool card");
-                    errorBool.setErrBool(true);
-                }
+        if(turn==1){
+            a = playerCurr.getMap().posDice(dice, row, column);
+            if(a) {
+                playerCurr.setRunningPliers(true);
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+            }
+            else {
+                playerCurr.setRunningPliers(false);
+                errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
+                errorBool.setErrBool(true);
             }
         }
-        else{
-            errorBool.setErrorMessage("Hai già piazzato il massimo numero di dadi per questo round [2]");
-            errorBool.setErrBool(true);
-        }
-
     }
 
     @Override
