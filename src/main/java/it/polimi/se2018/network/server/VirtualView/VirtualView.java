@@ -48,6 +48,7 @@ public class VirtualView extends Observable<MessageVC> {
             playersActive.add(new Player(connections.get(i).getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
 
         }
+        setView();
         return playersActive;
 
     }
@@ -314,5 +315,13 @@ public class VirtualView extends Observable<MessageVC> {
     public void disconnect(){
         for (int i=0; i<this.connections.size();i++)
             connections.get(i).setConnected(false);
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setView(){
+        for (ConnectionServer connection : connections) connection.setView(this);
     }
 }

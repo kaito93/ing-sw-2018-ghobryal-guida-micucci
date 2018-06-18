@@ -5,17 +5,16 @@ import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
+import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class ConnectionServer implements Cloneable {
 
-
+    protected VirtualView view;
     protected String username;
     protected boolean connected=true;
-    private Game game;
 
     protected abstract void send (Object message);
 
@@ -32,7 +31,7 @@ public abstract class ConnectionServer implements Cloneable {
     public void sendMap(ArrayList<Map> maps, Player player){
         ArrayList<Map> mapsToPlayer= new ArrayList<>();
         for (int j=0; j<2;j++){ // sceglie 2 carte schema
-            mapsToPlayer.add(game.randomMap()); // aggiunge la mappa estratta al messaggio da inviare
+            mapsToPlayer.add(view.getController().getGame().randomMap()); // aggiunge la mappa estratta al messaggio da inviare
         }
         sendMapConn(mapsToPlayer,player);
     }
@@ -89,4 +88,8 @@ public abstract class ConnectionServer implements Cloneable {
     public abstract void sendGainConnection(String text);
 
     public abstract void sendAcceptReconnection(String text, int index);
+
+    public void setView(VirtualView view) {
+        this.view = view;
+    }
 }
