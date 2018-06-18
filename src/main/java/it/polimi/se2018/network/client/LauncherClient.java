@@ -9,7 +9,10 @@ import it.polimi.se2018.view.View;
 import it.polimi.se2018.view.ViewCli;
 import it.polimi.se2018.view.ViewGui;
 
-
+/**
+ * class that launch the client
+ * @author Samuele Guida
+ */
 public class LauncherClient {
 
     public static void main(String[] args) {
@@ -44,7 +47,7 @@ public class LauncherClient {
             client = new ConnectionClientRMI();
         }
         view.setClient(client);
-        view.startView(); // visualizza la view
+        view.startView(); // visualizza la vView
         client.run();
 
 

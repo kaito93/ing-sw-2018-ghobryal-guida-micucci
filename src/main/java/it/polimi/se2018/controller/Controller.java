@@ -45,7 +45,7 @@ public class Controller implements Observer<MessageVC> {
     /**
      * class constructor initialize the object controller
      *
-     * @param view    an occurence of virtual view
+     * @param view    an occurence of virtual vView
      * @param players arraylist of players in game
      */
     public Controller(VirtualView view, ArrayList<Player> players) {
@@ -474,8 +474,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that return the virtual view instance
-     * @return the instance of virtual view
+     * method that return the virtual vView instance
+     * @return the instance of virtual vView
      */
     public VirtualView getView() {
         return view;

@@ -8,19 +8,35 @@ public class ResponseMap implements MessageVC {
     private Map mapChoose;
     private String username;
 
+    /**
+     * method constructor
+     * @param map the map that user have choose
+     * @param user the username of this player
+     */
     public ResponseMap(Map map, String user ){
         this.mapChoose=map;
         this.username=user;
     }
 
+    /**
+     * method that get the map that user have choose
+     * @return a Map
+     */
     public Map getMapChoose() {
         return mapChoose;
     }
 
+    /**
+     * method that get the username of this player
+     * @return a string
+     */
     public String getUsername() {
         return username;
     }
-
+    /**
+     * method that accept this message server side
+     * @param controller controller server side
+     */
     @Override
     public void accept(Controller controller) {
         controller.visit(this);

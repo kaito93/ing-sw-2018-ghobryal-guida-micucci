@@ -162,7 +162,7 @@ public class VirtualView extends Observable<MessageVC> {
                 playersSuspend.remove(ind2); // rimuovi il giocatore riconnesso tra quelli in sospeso
                 connections.add(connectionsSuspend.get(ind2)); //aggiungi la connessione del giocatore tra quelle attive
                 connectionsSuspend.remove(ind2); // rimuovi la connessione del giocatore da quelle sospese
-                this.run();// riavvio l'ascolto della view
+                this.run();// riavvio l'ascolto della vView
             } else
                 this.interrupt();
 
@@ -322,6 +322,6 @@ public class VirtualView extends Observable<MessageVC> {
     }
 
     public void setView(){
-        for (ConnectionServer connection : connections) connection.setView(this);
+        for (ConnectionServer connection : connections) connection.setvView(this);
     }
 }

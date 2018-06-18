@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public abstract class ConnectionServer implements Cloneable {
 
-    protected VirtualView view;
+    protected VirtualView vView;
     protected String username;
     protected boolean connected=true;
 
@@ -31,7 +31,7 @@ public abstract class ConnectionServer implements Cloneable {
     public void sendMap(ArrayList<Map> maps, Player player){
         ArrayList<Map> mapsToPlayer= new ArrayList<>();
         for (int j=0; j<2;j++){ // sceglie 2 carte schema
-            mapsToPlayer.add(view.getController().getGame().randomMap()); // aggiunge la mappa estratta al messaggio da inviare
+            mapsToPlayer.add(vView.getController().getGame().randomMap()); // aggiunge la mappa estratta al messaggio da inviare
         }
         sendMapConn(mapsToPlayer,player);
     }
@@ -89,7 +89,7 @@ public abstract class ConnectionServer implements Cloneable {
 
     public abstract void sendAcceptReconnection(String text, int index);
 
-    public void setView(VirtualView view) {
-        this.view = view;
+    public void setvView(VirtualView vView) {
+        this.vView = vView;
     }
 }

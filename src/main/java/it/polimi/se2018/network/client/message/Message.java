@@ -13,16 +13,30 @@ public class Message implements Serializable {
     private int type;
     private Object event;
 
+    /**
+     * method constructor
+     * @param type the type of event
+     * @param event the event/message
+     */
     public Message(int type, Object event){
 
         this.event=event;
         this.type=type;
 
     }
+
+    /**
+     * method that get the message
+     * @return message
+     */
     public Object getEvent(){
         return event;
     }
 
+    /**
+     * method that get the type of the message
+     * @return an integer
+     */
     public int getType(){
         return type;
     }

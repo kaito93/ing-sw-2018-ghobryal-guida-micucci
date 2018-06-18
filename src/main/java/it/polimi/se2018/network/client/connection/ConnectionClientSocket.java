@@ -41,7 +41,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      *
      * @param port integer of the port for the connection
      * @param ip   integer of the ip for the connection
-     * @param view the view for the interaction with the player
+     * @param view the vView for the interaction with the player
      */
     public ConnectionClientSocket(int port, String ip, View view) {
 
@@ -163,7 +163,7 @@ public class ConnectionClientSocket extends ConnectionClient {
             names.add(message.getMaps().get(i).getName());
             fav.add(message.getMaps().get(i).getDifficultyLevel());
         }
-        Cell[][] mapPlayer = view.chooseMap(cells, username, names, fav); // invoco la view per scegliere la mappa
+        Cell[][] mapPlayer = view.chooseMap(cells, username, names, fav); // invoco la vView per scegliere la mappa
         int i = cells.indexOf(mapPlayer);
         update(new ResponseMap(message.getMaps().get(i), username)); // invio la risposta al server
     }
@@ -207,7 +207,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void sendPosDice(Dice dice, int column, int row) {
         MessagePosDice message = new MessagePosDice();
-        message.setDiceChoosed(dice);
+        message.setDice(dice);
         message.setColumn(column);
         message.setRow(row);
         update(message);
@@ -219,7 +219,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void sendUseTool(String titleCardTool) {
         MessageUseTool message = new MessageUseTool();
-        message.setTitleCardChoosed(titleCardTool);
+        message.setTitle(titleCardTool);
         update(message);
     }
 

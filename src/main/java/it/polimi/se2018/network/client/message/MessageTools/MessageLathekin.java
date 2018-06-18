@@ -8,6 +8,11 @@ import it.polimi.se2018.network.server.message.MessageCV;
 
 import java.util.ArrayList;
 
+/**
+ * class that manage the tool card "Lathekin"
+ * @author Samuele Guida
+ */
+
 public class MessageLathekin implements MessageCV, MessageVC {
 
     private static final long serialVersionUID = -6323405125564666679L;
@@ -23,57 +28,100 @@ public class MessageLathekin implements MessageCV, MessageVC {
     private int row2Mit;
     private int col2Mit;
 
+    /**
+     * method that accept this message client side
+     * @param client connection socket client side
+     */
     @Override
     public void accept(ConnectionClientSocket client) {
         client.visit(this);
     }
-
+    /**
+     * method that accept this message server side
+     * @param controller controller server side
+     */
     @Override
     public void accept(Controller controller) {
         controller.manageLathekin(title,row1Mit,row2Mit,col1Mit,col2Mit,row1Dest,column1Dest,dices,row2Dest,column2Dest);
 
     }
-
+    /**
+     * method that set the title of a card
+     * @param title a string
+     */
     public void setTitle(String title) {
         this.title = title;
     }
-
+    /**
+     * method that return the title of the card
+     * @return a string
+     */
     public String getTitle() {
         return title;
     }
-
+    /**
+     * method that set the row of the first dice
+     * @param row1Dest an integer
+     */
     public void setRow1Dest(int row1Dest) {
         this.row1Dest = row1Dest;
     }
-
+    /**
+     * method that set the initial column of the first dice
+     * @param col1Mit an integer
+     */
     public void setCol1Mit(int col1Mit) {
         this.col1Mit = col1Mit;
     }
-
+    /**
+     * method that set the initial column of the second dice
+     * @param col2Mit an integer
+     */
     public void setCol2Mit(int col2Mit) {
         this.col2Mit = col2Mit;
     }
-
+    /**
+     * method that set the final column of the first dice
+     * @param column1Dest an integer
+     */
     public void setColumn1Dest(int column1Dest) {
         this.column1Dest = column1Dest;
     }
-
+    /**
+     * method that set the final column of the second dice
+     * @param column2Dest an integer
+     */
     public void setColumn2Dest(int column2Dest) {
         this.column2Dest = column2Dest;
     }
 
+    /**
+     * method that set the arrayList of all dices to be repositioned
+     * @param dices arrayList of Dice
+     */
     public void setDices(ArrayList<Dice> dices) {
         this.dices = dices;
     }
 
+    /**
+     * method that set the initial row of the first dice
+     * @param row1Mit an integer
+     */
     public void setRow1Mit(int row1Mit) {
         this.row1Mit = row1Mit;
     }
 
+    /**
+     * method that set the final row of the second dice
+     * @param row2Dest an integer
+     */
     public void setRow2Dest(int row2Dest) {
         this.row2Dest = row2Dest;
     }
-
+    /**
+     * method that set the initial row of the second dice
+     * @param row2Mit an integer
+     */
     public void setRow2Mit(int row2Mit) {
         this.row2Mit = row2Mit;
     }

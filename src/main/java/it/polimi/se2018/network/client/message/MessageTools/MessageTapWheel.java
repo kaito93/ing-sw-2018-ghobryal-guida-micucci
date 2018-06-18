@@ -7,6 +7,11 @@ import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.server.message.MessageCV;
 import java.util.ArrayList;
 
+/**
+ * class that manage the tool card "Tap Wheel"
+ * @author Samuele Guida
+ */
+
 public class MessageTapWheel implements MessageCV, MessageVC {
 
     private static final long serialVersionUID = 6570985689428029947L;
@@ -24,67 +29,86 @@ public class MessageTapWheel implements MessageCV, MessageVC {
     private int row2Mit;
     private int col2Mit;
 
-    // altre info: giocatore in gioco, lo schema dei round.
-
+    /**
+     * method that accept this message client side
+     * @param client connection socket client side
+     */
     @Override
     public void accept(ConnectionClientSocket client) {
         client.visit(this);
     }
-
+    /**
+     * method that accept this message server side
+     * @param controller controller server side
+     */
     @Override
     public void accept(Controller controller) {
         controller.manageTap(title,row1Mit,row2Mit,col1Mit,col2Mit,diceRoundScheme,row1Dest,column1Dest,diceToMove,
                 row2Dest,column2Dest,posDiceinSchemeRound);
     }
-
+    /**
+     * method that set the title of a card
+     * @param title a string
+     */
     public void setTitle(String title) {
         this.title = title;
     }
-
+    /**
+     * method that return the title of the card
+     * @return a string
+     */
     public String getTitle() {
         return title;
     }
-
-    public void setRow2Dest(int row2Dest) {
-        this.row2Dest = row2Dest;
-    }
-
+    /**
+     * method that set the initial row of the second dice
+     * @param row2Mit an integer
+     */
     public void setRow2Mit(int row2Mit) {
         this.row2Mit = row2Mit;
     }
-
+    /**
+     * method that set the initial row of the first dice
+     * @param row1Mit an integer
+     */
     public void setRow1Mit(int row1Mit) {
         this.row1Mit = row1Mit;
     }
-
-    public void setColumn2Dest(int column2Dest) {
-        this.column2Dest = column2Dest;
-    }
-
-    public void setColumn1Dest(int column1Dest) {
-        this.column1Dest = column1Dest;
-    }
-
+    /**
+     * method that set the initial column of the second dice
+     * @param col2Mit an integer
+     */
     public void setCol2Mit(int col2Mit) {
         this.col2Mit = col2Mit;
     }
-
+    /**
+     * method that set the initial column of the first dice
+     * @param col1Mit an integer
+     */
     public void setCol1Mit(int col1Mit) {
         this.col1Mit = col1Mit;
     }
 
-    public void setRow1Dest(int row1Dest) {
-        this.row1Dest = row1Dest;
-    }
-
+    /**
+     * method that set the dice from the Round Scheme
+     * @param diceRoundScheme a dice
+     */
     public void setDiceRoundScheme(Dice diceRoundScheme) {
         this.diceRoundScheme = diceRoundScheme;
     }
 
+    /**
+     * method that set the arrayList of the dice to moved
+     * @param diceToMove arrayList of dices
+     */
     public void setDiceToMove(ArrayList<Dice> diceToMove) {
         this.diceToMove = diceToMove;
     }
 
+    /**
+     * method that set the round of the dice choosed from Round Scheme
+     * @param posDiceinSchemeRound an integer
+     */
     public void setPosDiceinSchemeRound(int posDiceinSchemeRound) {
         this.posDiceinSchemeRound = posDiceinSchemeRound;
     }

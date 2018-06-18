@@ -64,7 +64,7 @@ public class ConnectionServerSocket extends ConnectionServer {
         for (int j=0; j<maps.size();j++){ // sceglie 2 carte schema
             message.addMap(maps.get(j)); // aggiunge la mappa estratta al messaggio da inviare
         }
-        message.setPlayer(player); // invio alla view il giocatore proprietario
+        message.setPlayer(player); // invio alla vView il giocatore proprietario
         mex= new Message(Message.CVEVENT, message);
         send(mex); // viene inviato il messaggio al giocatore per scegliere la carta
 

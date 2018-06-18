@@ -31,12 +31,12 @@ public class Lobby extends Thread {
         Controller controller;
         VirtualView view;
         ArrayList<Player> players;
-        view= new VirtualView(); // crea la virtual view per interfacciarsi con i giocatori
+        view= new VirtualView(); // crea la virtual vView per interfacciarsi con i giocatori
         players=view.setClients(playerConnection); // setta i giocatori
         controller = new Controller(view,players); // crea il controller
         view.setController(controller);
         view.start();
-        view.startServer(); // avvia la view
+        view.startServer(); // avvia la vView
         controller.startGame(); // fa cominciare effettivamente la partita
         LOGGER.log(Level.INFO,"La partita "+ String.valueOf(number)  +"  è terminata");
         view.disconnect();
