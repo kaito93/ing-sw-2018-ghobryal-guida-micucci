@@ -28,7 +28,7 @@ public class ViewCli extends View {
     }
 
     @Override
-    public void myTurn(boolean posDice, boolean useTools) {
+    public void myTurn() {
         boolean valid = false;
         boolean map = false;
         int chooseDice;
@@ -50,7 +50,7 @@ public class ViewCli extends View {
                     addLog(" ");
                     if (choose.equalsIgnoreCase("1")) {
                         // SI VUOLE POSIZIONARE UN DADO
-                        if (!posDice) {
+                        if (!gameStatus.isPosDice()) {
                             valid = true;
                             boolean cho = false;
                             while (!cho) {
@@ -90,13 +90,14 @@ public class ViewCli extends View {
 
                     }
                     if (choose.equalsIgnoreCase("2")) {
-                        if (!useTools) {
+                        if (!gameStatus.isUseTool()) {
                             // IL GIOCATORE HA SCELTO DI USARE UNA CARTA TOOLS
                             boolean tool = false;
                             while (!tool) {
                                 if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
                                     printBold("Carte utensili utilizzabili:");
                                     printTools();
+                                    addLog(" ");
                                     printBold("Quali delle carte utensili vuoi usare?");
                                     chooseTool = Integer.decode(scanner.nextLine()) - 1;
                                     if (chooseTool > gameStatus.getUseTools().size() || chooseTool < 0)
@@ -585,11 +586,11 @@ public class ViewCli extends View {
     }
 
     public void printBold(String text){
-        System.out.println("\033[1m"+text);
+        System.out.println("\033[1m"+text+"\033[0m");
     }
 
     public void printCors(String text){
-        System.out.println("\033[4m"+text);
+        System.out.println("\033[4m"+text+"\033[0m");
     }
 
 

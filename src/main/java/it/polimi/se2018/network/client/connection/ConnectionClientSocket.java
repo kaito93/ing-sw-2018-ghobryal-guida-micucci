@@ -195,7 +195,7 @@ public class ConnectionClientSocket extends ConnectionClient {
 
     public void visit(MessageYourTurn message) {
         view.updateFavor(message.isPosDice(), message.isUseTools());
-        view.turn(message.isPosDice(), message.isUseTools());
+        view.turn();
     }
 
     /**

@@ -79,13 +79,13 @@ public abstract class View {
 
     public abstract void addLog(String message);
 
-    public void turn(boolean posDice, boolean useTools) {
+    public void turn() {
         TimerCount count = new TimerCount(); //inizializza il timer
         this.timer.schedule(count, 0, time / 20);
-        myTurn(posDice, useTools);
+        myTurn();
     }
 
-    public abstract void myTurn(boolean posDice, boolean useTools);
+    public abstract void myTurn();
 
     public void accept(MessageUpdate message) {
         updateUsers(message.getUsers(), message.getCells(), message.getUseTools(), message.getRoundSchemeMap(),
@@ -97,7 +97,7 @@ public abstract class View {
 
     public void manageError(String message) {
         addError(message);
-        myTurn(gameStatus.isPosDice(), gameStatus.isUseTool());
+        myTurn();
     }
 
     public abstract void addError(String Message);
@@ -146,6 +146,7 @@ public abstract class View {
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+        addLog("Il valore del dado scelto è " +dice.toString());
         ArrayList<Integer> obj2 = manageGrozing3();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(dice);

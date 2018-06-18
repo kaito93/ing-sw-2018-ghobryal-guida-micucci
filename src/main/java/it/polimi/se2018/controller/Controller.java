@@ -166,8 +166,6 @@ public class Controller implements Observer<MessageVC> {
      */
     public void game() {
 
-        boolean posDice;
-        boolean useTool;
         int round;
         waitw();
         setPlayersInRound(playersInRound);
@@ -182,8 +180,8 @@ public class Controller implements Observer<MessageVC> {
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
             for (turno = 0; turno < playersInRound.size(); turno++) {
                 disconnect = false;
-                posDice=false;
-                useTool=false;
+                setDice=false;
+                useTools=false;
                 view.setCurrentPlayer(playersInRound.get(turno));
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 if (!playersInRound.get(turno).getRunningPliers()){
@@ -193,7 +191,7 @@ public class Controller implements Observer<MessageVC> {
                             view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
 
                             // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                            view.sendMessageTurn(playersInRound, turno,posDice,useTool);
+                            view.sendMessageTurn(playersInRound, turno,setDice,useTools);
 
                             b = false;
                             waitMove();

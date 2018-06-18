@@ -12,7 +12,7 @@ public class ViewGui extends View {
     }
 
     @Override
-    public void myTurn(boolean posDice, boolean useTools) {
+    public void myTurn() {
 
     }
 
