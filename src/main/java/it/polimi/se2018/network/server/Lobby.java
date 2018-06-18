@@ -9,6 +9,10 @@ import it.polimi.se2018.controller.Controller;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+/**
+ * Class that manage a single game
+ * @author Samuele Guida
+ */
 public class Lobby extends Thread {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Message.class.getName());
@@ -17,7 +21,11 @@ public class Lobby extends Thread {
     private ArrayList<ConnectionServer> playerConnection;
 
 
-
+    /**
+     * class constructor
+     * @param connections an arraylist of connections of all clients
+     * @param partita an Id for this game
+     */
     public Lobby(ArrayList<ConnectionServer> connections, int partita){
 
         this.playerConnection=connections; // salvo le connessioni dei giocatori
@@ -25,6 +33,9 @@ public class Lobby extends Thread {
 
     }
 
+    /**
+     * method that let's start the game in a new thread
+     */
     @Override
     public void run(){
 

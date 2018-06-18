@@ -29,6 +29,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 
+/**
+ * Class that manage the main Server.
+ * @author Samuele Guida
+ */
 public class Server implements ServerRMI{
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -42,11 +46,19 @@ public class Server implements ServerRMI{
     private Timer timer = new Timer();
     private ArrayList<Lobby> lobbies = new ArrayList<>();
 
+    /**
+     * constructor class
+     * @param port an integer used for the port where the server can listen new request
+     * @param timer an integer used for to wait a new player
+     */
     public Server(int port, int timer) {
         this.time = timer;
         this.port = port;
     }
 
+    /**
+     * method that create the server and listen socket requests
+     */
     public void start(){
         boolean active;
         try{
@@ -122,6 +134,10 @@ public class Server implements ServerRMI{
 
     }
 
+    /**
+     * method that start the RMI Server
+     * @throws RemoteException
+     */
     private void startRMI() throws RemoteException {
         LocateRegistry.createRegistry(1099);
         skeleton = (ServerRMI) UnicastRemoteObject.exportObject(this, 0);
@@ -135,6 +151,11 @@ public class Server implements ServerRMI{
 
     }
 
+    /**
+     * method that check if an username is alreasy taken
+     * @param userNewPlayer a string used for a new username
+     * @return false if is not possible for the new user use this username, else true.
+     */
     public boolean checkUsername(String userNewPlayer){
 
         for (int i=0; i<this.clients.size();i++) // Per ogni client già registrato
@@ -149,18 +170,27 @@ public class Server implements ServerRMI{
 
     }
 
-
+    /**
+     * method that create a new connection RMI
+     * @param client
+     */
     public void connect(Remote client) {
         ConnectionServer connection = new ConnectionServerRMI();
 
     }
 
+    /**
+     * Internal class used for manage the timer to wait a new player
+     */
     class TimerCount extends TimerTask {
 
         int numPlayers;
         int counter;
 
 
+        /**
+         * method that check if a game can starts.
+         */
         @Override
         public void run() {
 
@@ -206,6 +236,10 @@ public class Server implements ServerRMI{
         }
     }
 
+    /**
+     * the main of this project server side
+     * @param args a matrix of strings
+     */
     public static void main (String[] args) {
         PathDeserializer path = new PathDeserializer();
         path.Deserializing();
