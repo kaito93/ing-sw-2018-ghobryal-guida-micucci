@@ -442,7 +442,7 @@ public class VirtualView extends Observable<MessageVC> {
      * method that returns true if the game is terminated
      * @return a boolean
      */
-    public boolean isTerminated() {
+    public boolean isTerminate() {
         return terminate;
     }
 
