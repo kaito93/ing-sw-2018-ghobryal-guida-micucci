@@ -25,7 +25,11 @@ public enum Color {
      */
 
     public boolean equalsColor(Color color){
-        return this.toString().equals(color.toString());
+        try {
+            return this.toString().equals(color.toString());
+        }catch (NullPointerException e){
+            return color.toString().equals(this.toString());
+        }
     }
 
     /**

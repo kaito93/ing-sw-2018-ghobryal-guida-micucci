@@ -288,8 +288,16 @@ public class TestMap extends TestCase {
         }
     }
 
-    /*
-    public void TestIsCellValid(){
-
-    }*/
+    /**
+     * tests isCellValid method in class Map
+     */
+    public void testIsCellValid(){
+        map.posDice(b1, 0, 0);
+        assertFalse(map.isCellValid(b2, 0, 0)); //c'è già un dado
+        assertTrue(map.isCellValid(b2, 1, 0)); //blank cell
+        assertFalse(map.isCellValid(b2, 0, 1)); //value cell con valore diverso
+        assertTrue(map.isCellValid(b2, 2, 3)); //value cell con lo stesso valore
+        assertTrue(map.isCellValid(b2, 1, 2)); //colored cell con lo stesso colore
+        assertFalse(map.isCellValid(b2, 0, 4)); //colored cell con colore diverso
+    }
 }

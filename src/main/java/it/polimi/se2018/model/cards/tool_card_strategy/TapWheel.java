@@ -33,14 +33,14 @@ public class TapWheel extends ToolCardStrategy {
      * @param t3 n.a.
      * @param posDice which round contains the dice on the round scheme
      */
-    //guarda il commento su Lathekin ma qui è variablile sul numero di dadi passato
+    //guarda il commento su Lathekin ma qui è variablile sul numero di dadi passati
     public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove, boolean t1,
             int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
         boolean d;
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
             if (dicesToMove.size() == 1  && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
                 try {
-                    if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row1, column1)){
+                    if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row3, column3)){
                         return;
                     }
                 }catch (NullPointerException e){
@@ -76,7 +76,7 @@ public class TapWheel extends ToolCardStrategy {
                 return;
             }
         }
-        errorBool.setErrorMessage("the round scheme doesn't contain the chosen dice from the round scheme");
+        errorBool.setErrorMessage("Lo schema dei round non contiene il dado passato");
         errorBool.setErrBool(true);
     }
 

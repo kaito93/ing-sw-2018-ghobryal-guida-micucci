@@ -4,6 +4,7 @@ import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.cards.Card;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.model.cards.tool_card_strategy.*;
+import it.polimi.se2018.model.exception.InvalidValueException;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class TestCopperEglomise extends TestCase {
     private Map map;
     private Dice b1, g2, p3, r4;
     private List<Dice> diceList;
+    private RoundSchemeCell[] roundSchemeCells;
 
     /**
      * Class Constructor
@@ -37,6 +39,7 @@ public class TestCopperEglomise extends TestCase {
     @Override
     protected void setUp() throws Exception{
         game = new Game();
+        roundSchemeCells = game.getRoundSchemeMap();
         strategy1 = new CopperFoilBurnisher();
         strategy2 = new EglomiseBrush();
         strategy3 = new RunningPliers();
@@ -87,6 +90,11 @@ public class TestCopperEglomise extends TestCase {
         player=null;
         b1 =null;
         g2 =null;
+        diceList.clear();
+        diceList=null;
+        for(int i=0; i<roundSchemeCells.length; i++)
+            roundSchemeCells[i].getRestOfStock().clear();
+        roundSchemeCells=null;
         System.gc();
         super.tearDown();
     }
@@ -109,5 +117,52 @@ public class TestCopperEglomise extends TestCase {
                 null, null, null, -1));
         assertTrue(card3.useTool(player, r4, 1, -1, null, false, 3, 3,
                 null, null, null, -1));
+        assertFalse(card4.useTool(player, r4, 2, 0, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        roundSchemeCells[0].getRestOfStock().add(r4);
+        assertFalse(card4.useTool(player, r4, 2, 0, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        diceList.add(p3);
+        assertFalse(card4.useTool(player, r4, 2, 0, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        diceList.add(b1);
+        assertFalse(card4.useTool(player, r4, 2, 0, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        diceList.clear();
+        Dice r1 = new Dice();
+        try {
+            r1.setValue(1);
+        } catch (InvalidValueException e) {
+            fail();
+        }
+        r1.setColor(Color.RED);
+        assertTrue(map.posDice(r1, 2, 4));
+        Dice r2 = new Dice();
+        try {
+            r2.setValue(2);
+        } catch (InvalidValueException e) {
+            fail();
+        }
+        r2.setColor(Color.RED);
+        assertTrue(map.posDice(r2, 2, 0));
+        diceList.add(r1);
+        card4.getStrategy().setRow3(2);
+        card4.getStrategy().setColumn3(4);
+        card4.getStrategy().setRow4(-1);
+        card4.getStrategy().setColumn4(-1);
+        assertFalse(card4.useTool(player, r4, 0, 0, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        assertFalse(card4.useTool(player, r4, 0, 1, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        assertTrue(card4.useTool(player, r4, 1, 1, diceList, false, -1, -1,
+                null, roundSchemeCells, null, 0));
+        diceList.add(r2);
+        card4.getStrategy().setRow3(1);
+        card4.getStrategy().setColumn3(1);
+        card4.getStrategy().setRow4(2);
+        card4.getStrategy().setColumn4(0);
+        player.setFavorSig();
+        assertTrue(card4.useTool(player, r4, 2, 4, diceList, false, 1, 1,
+                null, roundSchemeCells, null, 0));
     }
 }

@@ -272,7 +272,7 @@ public class Game {
     @Override
     @SuppressWarnings("Deprecated")
     public void finalize(){
-        diceBag.eraseDices(diceBag.getBox().size());
+        //diceBag.eraseDices(diceBag.getBox().size());
         diceBag=null;
         publicObjCard.clear();
         publicObjCard=null;

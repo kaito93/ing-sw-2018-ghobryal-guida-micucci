@@ -60,7 +60,7 @@ public class Controller implements Observer<MessageVC> {
      *
      * @return an arraylist of player
      */
-    public ArrayList<Player> getPlayersInRound() {
+    private ArrayList<Player> getPlayersInRound() {
         return playersInRound;
     }
 
@@ -69,7 +69,7 @@ public class Controller implements Observer<MessageVC> {
      *
      * @return an integer between 1 and #players*2
      */
-    public int getTurno() {
+    private int getTurno() {
         return turno;
     }
 
@@ -88,7 +88,7 @@ public class Controller implements Observer<MessageVC> {
      *
      * @param message message received
      */
-    synchronized public void visit(ResponseMap message) {
+    public synchronized void visit(ResponseMap message) {
         int index = searchUser(message.getUsername());
         if (index >= 0) {
             this.players.get(index).setMap(message.getMapChoose());
@@ -101,13 +101,13 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that research a player throws his username
+     * method that searches a player throw his username
      *
      * @param user username of a player
-     * @return the number in the arralist of players where is the username searched
+     * @return the number in the array list of players where the username is being searched
      */
 
-    public int searchUser(String user) {
+    private int searchUser(String user) {
         for (int i = 0; i < this.players.size(); i++) {
             if (players.get(i).getName().equalsIgnoreCase(user))
                 return i;
@@ -135,7 +135,7 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that manage the disconnession of a player during the game
+     * method that manage the disconnection of a player during the game
      *
      * @param player player disconnected
      */
@@ -157,8 +157,6 @@ public class Controller implements Observer<MessageVC> {
             view.manageVictoryAbbandon();
         }
         disconnect = true;
-
-
     }
 
     /**
