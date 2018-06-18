@@ -90,7 +90,7 @@ public class Server implements ServerRMI{
                 if (obj instanceof RequestConnection) {
                     LOGGER.log(Level.FINE,"Richiesta di connessione da parte di un giocatore. Username richiesto: "+((RequestConnection) obj).getUser());
 
-                    ConnectionServer conness = new ConnectionServerSocket(socket, (RequestConnection) obj, outputSocket, inputSocket); // crea connessione
+                    ConnectionServer conness = new ConnectionServerSocket(socket, ((RequestConnection) obj).getUser(), outputSocket, inputSocket); // crea connessione
                     if (clients.isEmpty()) {
                         clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
                         TimerCount count = new TimerCount(); //inizializza il timer

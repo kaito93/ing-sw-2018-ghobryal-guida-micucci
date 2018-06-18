@@ -10,7 +10,6 @@ import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.network.client.message.MessageTools.*;
 import it.polimi.se2018.network.client.message.MessageVC;
-import it.polimi.se2018.network.client.message.RequestConnection;
 import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
@@ -22,7 +21,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-
+/**
+ * class that manage the connection between Server and Client throws Socket, Server side
+ * @author Samuele Guida
+ */
 public class ConnectionServerSocket extends ConnectionServer {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
@@ -31,45 +33,71 @@ public class ConnectionServerSocket extends ConnectionServer {
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
-
-    public ConnectionServerSocket(Socket client, RequestConnection obj,ObjectOutputStream out, ObjectInputStream inp){
+    /**
+     * Constructor class
+     * @param client socket connection
+     * @param user username of player
+     * @param out output stream
+     * @param inp input stream
+     */
+    public ConnectionServerSocket(Socket client, String user,ObjectOutputStream out, ObjectInputStream inp){
         this.client=client;
-        this.setUsername(obj.getUser());
+        this.setUsername(user);
         input= inp;
         output = out;
     }
 
+    /**
+     * method that return the socket
+     * @return a socket
+     */
     public Socket getSocket(){
         return this.client;
     }
 
+    /**
+     * method that return the input object
+     * @return the object input stream
+     */
     public ObjectInputStream getInput(){
         return this.input;
     }
 
+    /**
+     * method that send an object to the Client
+     * @param message an object
+     */
     synchronized public void send(Object message) {
         try {
-            this.output.writeUnshared(message);
-            this.output.flush();
-            this.output.reset();
+            output.writeUnshared(message);
+            output.flush();
+            output.reset();
         }
         catch (IOException e){
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
+    /**
+     * method that send the maps set before
+     * @param maps an arraylist of maps
+     * @param player a player
+     */
     @Override
     public void sendMapConn(ArrayList<Map> maps, Player player) {
         MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
-        for (int j=0; j<maps.size();j++){ // sceglie 2 carte schema
-            message.addMap(maps.get(j)); // aggiunge la mappa estratta al messaggio da inviare
+        for (Map map : maps) { // sceglie 2 carte schema
+            message.addMap(map); // aggiunge la mappa estratta al messaggio da inviare
         }
         message.setPlayer(player); // invio alla vView il giocatore proprietario
         mex= new Message(Message.CVEVENT, message);
         send(mex); // viene inviato il messaggio al giocatore per scegliere la carta
 
     }
-
+    /**
+     * method that send the private information of a player
+     * @param card private objective card
+     */
     @Override
     public void sendPrivateInformation(PrivateObjectiveCard card) {
         MessageStart message = new MessageStart(); //crea un nuovo messaggio
@@ -77,7 +105,11 @@ public class ConnectionServerSocket extends ConnectionServer {
         message.setCard(card);
         send(mex);
     }
-
+    /**
+     * method that send the public information of the game
+     * @param cards arraylist of public objective cards
+     * @param tools arraylist of tool cards
+     */
     @Override
     public void sendPublicInformation(ArrayList<PublicObjectiveCard> cards, ArrayList<ToolCard> tools) {
         MessagePublicInformation messag = new MessagePublicInformation();
@@ -86,7 +118,11 @@ public class ConnectionServerSocket extends ConnectionServer {
         messag.setToolCards(tools);
         send(mex);
     }
-
+    /**
+     * method that send a warning to other players that a player has left the game for disconnection
+     * @param text a string
+     * @param index new index of player in the array
+     */
     @Override
     public void sendLostConnection(String text, int index) {
         MessagePlayerDisconnect message= new MessagePlayerDisconnect();
@@ -95,26 +131,28 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.SYSTEMEVENT, message); //crea un messaggio per avvisare tutti i giocatori ancora in gioco
         send(mex);
     }
-
+    /**
+     * method that listen request of reconnection of a disconnected player
+     */
     @Override
     public void tryReconnect() {
 
 
         boolean reconnect=false;
-        while (!reconnect){ // fin quando il giocatore non si è riconnesso
-            try{
+        // fin quando il giocatore non si è riconnesso
+        while (!reconnect) {
+            try {
                 MessageVC reconn = (MessageVC) getInput().readObject();
-                if (reconn instanceof RequestReconnect)
-                    reconnect=true;
-                else
-                    reconnect=false;
-            } catch (IOException |ClassNotFoundException e) {
-                    reconnect=false;
-            }
+                reconnect = reconn instanceof RequestReconnect;
+            } catch (IOException | ClassNotFoundException ignored) {
 
+            }
         }
     }
-
+    /**
+     * method that send the final message to a player
+     * @param players a player
+     */
     @Override
     public void sendFinalPlayers(ArrayList<Player> players) {
         MessageFinalScore messag = new MessageFinalScore();
@@ -122,7 +160,11 @@ public class ConnectionServerSocket extends ConnectionServer {
         Message mex = new Message(Message.CVEVENT,messag);
         send(mex);
     }
-
+    /**
+     * method that send the information of a turn for a player
+     * @param dice boolean TRUE if the player have already positioned a dice, else False
+     * @param tool boolean True if the player gave already used a tool card, else false
+     */
     @Override
     public void sendIsYourTurn(boolean dice, boolean tool) {
         MessageYourTurn mes = new MessageYourTurn();
@@ -131,32 +173,45 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,mes);
         send(mex);
     }
-
+    /**
+     * method that send a error to a player at the choose of username
+     */
     @Override
     public void sendErrorUser() {
         MessageNewUsername message = new MessageNewUsername(); // crea un nuovo messaggio
         mex= new Message(Message.SYSTEMEVENT,message); // creo un messaggio di sistema
         send(mex); //invia il messaggio. [nota bene: non si salva conness nell'array]
     }
-
+    /**
+     * method that send update of the client with a new news
+     * @param maps an arraylist of maps of all players in game
+     * @param users an arraylist of string of username of all players in game
+     * @param messa a generic message
+     * @param tools an arraylist of boolean that manage the use of tool cards
+     * @param roundSchemeMap a matrix of the round scheme map
+     * @param stock a matrix of dices
+     * @param favor an arraylist of integer
+     */
     @Override
     public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String messa, ArrayList<Boolean> tools,
-                           RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock, ArrayList<Integer> favors) {
+                           RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock, ArrayList<Integer> favor) {
         MessageUpdate message= new MessageUpdate();
         message.setMessage(messa);
         message.setCells(maps);
         message.setStock(stock);
         message.setUseTools(tools);
         message.setUsers(users);
-        message.setFavUsers(favors);
+        message.setFavUsers(favor);
         message.setRoundSchemeMap(roundSchemeMap);
         mex = new Message(Message.MVEVENT,message);
-
         send(mex);
     }
 
     // METODI PER LA GESTIONE DELLE CARTE UTENSILI
-
+    /**
+     * method that manage the send for the tool card "Tap Wheel
+     * @param title the title of this card
+     */
     @Override
     public void manageTap(String title) {
         MessageTapWheel message = new MessageTapWheel();
@@ -164,7 +219,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that manage the send for the tool card "Running Pliers"
+     * @param title the title of this card
+     */
     @Override
     public void manageRunning(String title) {
         MessageRunningPliers message = new MessageRunningPliers();
@@ -172,7 +230,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that manage the send for the tool card "Lens Cutter"
+     * @param title the title of this card
+     */
     @Override
     public void manageLens(String title) {
         MessageLensCutter message= new MessageLensCutter();
@@ -181,7 +242,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the send for the tool card "Lathekin"
+     * @param title the title of this card
+     */
     @Override
     public void manageLathekin(String title) {
         MessageLathekin message= new MessageLathekin();
@@ -190,7 +254,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the send for the tool card "Grozing Pliers"
+     * @param title the title of this card
+     */
     @Override
     public void manageGrozing(String title) {
         MessageGrozingPliers message = new MessageGrozingPliers();
@@ -199,7 +266,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * abstract method that manage the send for the tool card "Grinding Stone"
+     * @param title the title of this card
+     */
     @Override
     public void manageGrinding(String title) {
         MessageGrindingStone message = new MessageGrindingStone();
@@ -208,7 +278,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the first send for the tool card "Flux Remover"
+     * @param title the title of this card
+     */
     @Override
     public void manageFluxRemover(String title) {
         MessageFluxRemover message = new MessageFluxRemover();
@@ -217,7 +290,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the send for the tool card "Flux Brush"
+     * @param title the title of this card
+     */
     @Override
     public void manageFluxBrush(String title) {
         MessageFluxBrush message= new MessageFluxBrush();
@@ -226,7 +302,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the send for the tool card "CEglomise Brush"
+     * @param title the title of this card
+     */
     @Override
     public void manageEglomise(String title) {
         MessageEglomiseBrush message = new MessageEglomiseBrush();
@@ -235,7 +314,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the send for the tool card "Cork Backed Straiightedge"
+     * @param title the title of this card
+     */
     @Override
     public void manageCork(String title) {
         MessageCorkBackedStraightedge message = new MessageCorkBackedStraightedge();
@@ -244,7 +326,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         send(mex);
 
     }
-
+    /**
+     * method that manage the send for the tool card "Copper Foil Burnisher"
+     * @param title the title of this card
+     */
     @Override
     public void manageCopper(String title) {
         MessageCopperFoilBurnisher message = new MessageCopperFoilBurnisher();
@@ -252,7 +337,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that send a generic error to the client
+     * @param error a string
+     */
     @Override
     public void manageError(String error) {
         MessageError message= new MessageError();
@@ -260,7 +348,10 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.SYSTEMEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that manage the second send for the tool card "Flux Remover"
+     * @param title the title of this card
+     */
     @Override
     public void manageFluxRemover2(Dice dice, String title) {
         MessageFluxRemover message = new MessageFluxRemover();
@@ -270,7 +361,9 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that send a communication of victory with disconnection of others players
+     */
     @Override
     public void sendVictoryAbbandon() {
         MessagePlayerDisconnect message = new MessagePlayerDisconnect();
@@ -278,7 +371,9 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.SYSTEMEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that close the connection between server and client
+     */
     @Override
     public void closeConnection() {
         try {
@@ -287,7 +382,10 @@ public class ConnectionServerSocket extends ConnectionServer {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
-
+    /**
+     * method that send a news: a player has been reconnected
+     * @param text a string of text
+     */
     @Override
     public void sendGainConnection(String text) {
         MessagePlayerDisconnect message = new MessagePlayerDisconnect();
@@ -295,7 +393,11 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.SYSTEMEVENT,message);
         send(mex);
     }
-
+    /**
+     * method that send a confirm of reconnection
+     * @param text a string
+     * @param index an integer for manage the new index of this player
+     */
     @Override
     public void sendAcceptReconnection(String text, int index) {
         RequestReconnect message = new RequestReconnect();
@@ -304,4 +406,6 @@ public class ConnectionServerSocket extends ConnectionServer {
         mex = new Message(Message.CVEVENT,message);
         send(mex);
     }
+
+
 }

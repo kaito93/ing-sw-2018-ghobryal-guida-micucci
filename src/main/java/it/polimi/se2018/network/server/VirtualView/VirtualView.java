@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+/**
+ * Class that talk between connection Server and Controller
+ * @author Samuele Guida
+ */
 public class VirtualView extends Observable<MessageVC> {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -32,20 +36,24 @@ public class VirtualView extends Observable<MessageVC> {
     private ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
     private boolean terminate = false;
 
-
+    /**
+     * method that set the connections and create the instance of all players and create listener of message
+     * @param connect arraylist of connections
+     * @return an arraylist of player
+     */
     public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect) {
-        for (int i = 0; i < connect.size(); i++) {
+        for (ConnectionServer aConnect : connect) {
             try {
-                connections.add(connect.get(i).clone());
+                connections.add(aConnect.clone());
             } catch (CloneNotSupportedException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }
 
-        for (int i = 0; i < connections.size(); i++) { // per ogni connessione creata
-            PlayerPlay player = new PlayerPlay(connections.get(i));// crea un thread per il giocatore
+        for (ConnectionServer connection : connections) { // per ogni connessione creata
+            PlayerPlay player = new PlayerPlay(connection);// crea un thread per il giocatore
             playersPlay.add(player); // aggiungi il thread all'elenco
-            playersActive.add(new Player(connections.get(i).getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
+            playersActive.add(new Player(connection.getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
 
         }
         setView();
@@ -53,11 +61,14 @@ public class VirtualView extends Observable<MessageVC> {
 
     }
 
+    /**
+     * method that send to players the maps
+     */
     public void start() {
 
         for (int i = 0; i < this.connections.size(); i++) { // per ogni giocatore
             try {
-                connections.get(i).sendMap(controller.getGame().getMaps(), playersActive.get(i));
+                connections.get(i).sendMap(playersActive.get(i));
             } catch (NullPointerException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
@@ -66,11 +77,18 @@ public class VirtualView extends Observable<MessageVC> {
         LOGGER.log(Level.INFO, "Tutto è pronto! Si cominciaaaaaaaa");
     }
 
+    /**
+     * method that let's start to listen the listener of message
+     */
+
     public void startServer() {
-        for (int i = 0; i < this.playersPlay.size(); i++)
-            this.playersPlay.get(i).start(); // avvia i thread ascoltatori dei giocatori
+        for (PlayerPlay aPlayersPlay : this.playersPlay)
+            aPlayersPlay.start(); // avvia i thread ascoltatori dei giocatori
     }
 
+    /**
+     * method that send the private information to all players
+     */
     public void startGame() {
         // invia le informazioni al singolo giocatore delle SUE caratteristiche
         for (int i = 0; i < playersActive.size(); i++) { // per ogni giocatore
@@ -78,26 +96,40 @@ public class VirtualView extends Observable<MessageVC> {
         }
     }
 
+    /**
+     * method that send the public information to all players
+     * @param publicCards the arraylist of public cards
+     */
     public void publicInformation(ArrayList<PublicObjectiveCard> publicCards) {
         // invia le informazioni a tutti i giocatori delle informazioni GENERALI della partita.
 
         ArrayList<ToolCard> tools = controller.getGame().getToolCards();
-        for (int i = 0; i < this.connections.size(); i++) { // per ogni giocatore
-            connections.get(i).sendPublicInformation(publicCards, tools);
+        for (ConnectionServer connection : this.connections) { // per ogni giocatore
+            connection.sendPublicInformation(publicCards, tools);
         }
     }
 
+    /**
+     * Internal class that manage the listener of message throws Socket
+     */
     class PlayerPlay extends Thread {
 
         private ConnectionServer client;
         boolean connected;
 
-        public PlayerPlay(ConnectionServer player) {
+        /**
+         * class constructor
+         * @param player the connection for this player
+         */
+        private PlayerPlay(ConnectionServer player) {
             this.client = player;
             this.connected = true;
 
         }
 
+        /**
+         * method that listen for a new message
+         */
         @Override
         public void run() { // metodo sempre in esecuzione che controlla se il giocatore è ancora connesso
             while (connected) {
@@ -123,14 +155,15 @@ public class VirtualView extends Observable<MessageVC> {
 
             }
             reconn();
-            for (int i = 0; i < playersPlay.size(); i++)
-                playersPlay.get(i).closeThread();
-            for (int i = 0; i < playerNotPlay.size(); i++)
-                playerNotPlay.get(i).closeThread();
+            for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
+            for (PlayerPlay aPlayerNotPlay : playerNotPlay) aPlayerNotPlay.closeThread();
 
         }
 
-        public void reconn() {
+        /**
+         * method that manage the reconnection for this player
+         */
+        private void reconn() {
             Player temp = connectionLost();
             controller.updatePlayers(temp);
             if (currentPlayer == this) { // se toccava al giocatore sospeso
@@ -149,8 +182,8 @@ public class VirtualView extends Observable<MessageVC> {
 
                 this.client.tryReconnect();
                 text = "Il giocatore " + client.getUsername() + " si è riconnesso. Tornerà in gioco dal prossimo round.";
-                for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
-                    connections.get(i).sendGainConnection(text);
+                for (ConnectionServer connection : connections) { // per ogni giocatore
+                    connection.sendGainConnection(text);
                 }
                client.sendAcceptReconnection(
                         "Ti sei riconnesso. Ricomincerai a giocare al prossimo turno.",playersPlay.size());
@@ -168,7 +201,11 @@ public class VirtualView extends Observable<MessageVC> {
 
         }
 
-        public Player connectionLost() {
+        /**
+         * method that update the arraylist with the player that has been reconnected
+         * @return the player
+         */
+        private Player connectionLost() {
 
             this.connected = false; // il giocatore non è connesso
 
@@ -183,14 +220,21 @@ public class VirtualView extends Observable<MessageVC> {
             return temp;
         }
 
-        public void closeThread() {
+        /**
+         * close this thread
+         */
+        private void closeThread() {
             this.interrupt();
         }
     }
 
-
+    /**
+     * method that search a player
+     * @param user the username of a player
+     * @return an integer, index of the user in arraylist Connections
+     */
     // metodo che cerca l'username nelle connessioni
-    public int searchUser(String user) {
+    private int searchUser(String user) {
         boolean trovato = false;
         int i = 0;
         while (!trovato) {
@@ -202,17 +246,33 @@ public class VirtualView extends Observable<MessageVC> {
         return i;
     }
 
+    /**
+     * method that set the controller
+     * @param controller an instance of controller
+     */
     // DA TESTARE
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * method that send to a player the information that is his turn
+     * @param playersInRound arraylist of players in round
+     * @param turno the turn's game
+     * @param posDice if a player has positioned a dice before
+     * @param useTool if a player has used a tool card before
+     */
     public void sendMessageTurn(ArrayList<Player> playersInRound, int turno, boolean posDice, boolean useTool) {
         connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
                 posDice,useTool);
     }
 
-    public void sendMessageUpdate(int turno, Game model, String name) {
+    /**
+     * method that send to a player the update of the game
+     * @param model an instance of game
+     * @param name an username
+     */
+    public void sendMessageUpdate(Game model, String name) {
         // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
         ArrayList<Map> maps = new ArrayList<>();
         ArrayList<String> users = new ArrayList<>();
@@ -221,10 +281,10 @@ public class VirtualView extends Observable<MessageVC> {
         String message = "E' il turno di " + name;
 
 
-        for (int i = 0; i < playersActive.size(); i++) {
-            maps.add(playersActive.get(i).getMap());
-            users.add(playersActive.get(i).getName());
-            fav.add(playersActive.get(i).getFavSig());
+        for (Player aPlayersActive : playersActive) {
+            maps.add(aPlayersActive.getMap());
+            users.add(aPlayersActive.getName());
+            fav.add(aPlayersActive.getFavSig());
         }
         for (int i = 0; i < model.getToolCards().size(); i++)
             tools.add(model.getToolCards().get(i).isUsed());
@@ -234,67 +294,134 @@ public class VirtualView extends Observable<MessageVC> {
 
     }
 
+    /**
+     * method that send a message for use the tool card "Copper Foil Burnisher"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageCopper(String title, int player) {
         connections.get(player).manageCopper(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Corkbacked Straightedge"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageCork(String title, int player) {
         connections.get(player).manageCork(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Eglomise Brush"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageEglomise(String title, int player) {
         connections.get(player).manageEglomise(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Flux Brush"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageFluxBrush(String title, int player) {
         connections.get(player).manageFluxBrush(title);
     }
-
+    /**
+     * method that send a first message for use the tool card "Flux Remover"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageFluxRemover(String title, int player) {
         connections.get(player).manageFluxRemover(title);
     }
-
+    /**
+     * method that call a method for use the tool card "Glazing Hammer"
+     * @param title title of card
+     */
     public void createMessageGlazing(String title) {
         controller.manageGlazing(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Grinding Stone"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageGrinding(String title, int player) {
         connections.get(player).manageGrinding(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Grozing Pliers"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageGrozing(String title, int player) {
         connections.get(player).manageGrozing(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Lathekin"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageLathekin(String title, int player) {
         connections.get(player).manageLathekin(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Lens Cutter"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageLens(String title, int player) {
         connections.get(player).manageLens(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Running Pliers"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageRunning(String title, int player) {
         connections.get(player).manageRunning(title);
     }
-
+    /**
+     * method that send a message for use the tool card "Tap Wheel"
+     * @param title title of card
+     * @param player a player
+     */
     public void createMessageTap(String title, int player) {
         connections.get(player).manageTap(title);
     }
 
+    /**
+     * method that send to a player the final score of all players
+     * @param players arraylist of all players
+     */
     public void sendScorePlayers(ArrayList<Player> players) {
         for (int i = 0; i < playersActive.size(); i++)
             connections.get(i).sendFinalPlayers(players);
     }
 
+    /**
+     * method that send a generic error to a player
+     * @param error an error string
+     * @param player a player
+     */
     public void createMessageError(String error, int player) {
         connections.get(player).manageError(error);
     }
 
+    /**
+     * method that send a second message for use the tool card "Flux Remover"
+     * @param title title of card
+     * @param player a player
+     * @param dice a choose dice
+     */
     public void manageFluxRemover2(Dice dice, String title, Player player) {
         connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice, title);
     }
 
+    /**
+     * method that set the current Player
+     * @param currentPlayer a player
+     */
     // DA TESTARE
     public void setCurrentPlayer(Player currentPlayer) {
         for (int i = 0; i < playersActive.size(); i++) {
@@ -303,25 +430,42 @@ public class VirtualView extends Observable<MessageVC> {
         }
     }
 
+    /**
+     * method that send message of victory for left of others players
+     */
     public void manageVictoryAbbandon() {
         connections.get(0).sendVictoryAbbandon();
         terminate = true;
     }
 
-    public boolean isTerminate() {
+    /**
+     * method that returns true if the game is terminated
+     * @return a boolean
+     */
+    public boolean isTerminated() {
         return terminate;
     }
 
+    /**
+     * method that disconnect all connections
+     */
     public void disconnect(){
-        for (int i=0; i<this.connections.size();i++)
-            connections.get(i).setConnected(false);
+        for (ConnectionServer connection : this.connections) connection.setConnected(false);
     }
 
+    /**
+     * method that returns an instance of controller
+     * @return the controller
+     */
     public Controller getController() {
         return controller;
     }
 
-    public void setView(){
+    /**
+     * method that set the Virtual view in every ConnectionServer
+     */
+    private void setView(){
         for (ConnectionServer connection : connections) connection.setvView(this);
     }
+
 }
