@@ -84,14 +84,14 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that manage the choose of the scheme of one player
-     *
-     * @param message message received
+     * method that set the map for a player
+     * @param username a username
+     * @param map a map
      */
-    public synchronized void visit(ResponseMap message) {
-        int index = searchUser(message.getUsername());
+    public synchronized void map(String username, Map map) {
+        int index = searchUser(username);
         if (index >= 0) {
-            this.players.get(index).setMap(message.getMapChoose());
+            this.players.get(index).setMap(map);
             this.players.get(index).setFavorSig();
             mappe++;
             if (mappe == players.size())
