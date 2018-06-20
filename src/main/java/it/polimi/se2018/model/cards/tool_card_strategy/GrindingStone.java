@@ -31,8 +31,8 @@ public class GrindingStone extends ToolCardStrategy {
      * @param t5    n.a.
      * @param t6    n.a.
      */
-    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t
-            , boolean t0, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t, int t1, int t2, Dice t3,
+                        RoundSchemeCell[] t4, List<Player> t5, int t6) {
         posDiceControl(player, dice, row, column);
     }
 

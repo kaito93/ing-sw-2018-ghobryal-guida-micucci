@@ -9,7 +9,7 @@ import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.*;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Most public objective cards Tester
@@ -19,7 +19,7 @@ public class TestSomeCards extends TestCase {
     private Map map;
     private Card card1, card2, card3, card4, card5, card6, card7;
     private Game game;
-    private ArrayList<Map> maps;
+    private List<Map> maps;
     private Dice g6, y5, b1, r4, g1, r3, y6, p5, b2, r2, p3, g4, p1;
 
     /**
@@ -113,10 +113,14 @@ public class TestSomeCards extends TestCase {
         card5=null;
         card6=null;
         card7=null;
-        for(Map map1: maps)
-            map1.finalize();
-        map.finalize();
-        game.finalize();
+        try {
+            for(Map map1: maps)
+                map1.finalize();
+            map.finalize();
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         System.gc();
         super.tearDown();
     }

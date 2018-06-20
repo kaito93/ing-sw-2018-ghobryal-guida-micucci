@@ -3,8 +3,8 @@ package it.polimi.se2018.network.client;
 import it.polimi.se2018.network.client.connection.ConnectionClient;
 import it.polimi.se2018.network.client.connection.ConnectionClientRMI;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
-import it.polimi.se2018.util.Deserializer.ClientDeserializer;
-import it.polimi.se2018.util.Deserializer.PathDeserializer;
+import it.polimi.se2018.util.deserializer.ClientDeserializer;
+import it.polimi.se2018.util.deserializer.PathDeserializer;
 import it.polimi.se2018.view.View;
 import it.polimi.se2018.view.ViewCli;
 import it.polimi.se2018.view.ViewGui;
@@ -22,7 +22,7 @@ public class LauncherClient {
         PathDeserializer path = new PathDeserializer();
         path.Deserializing();
         ClientDeserializer clien = new ClientDeserializer(path.getPathFromType("client"));
-        clien.Deserializing();
+        clien.deserializing();
 
         int port = clien.getCs().getPort();
         String ip = clien.getCs().getIp();

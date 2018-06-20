@@ -8,7 +8,7 @@ import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.network.client.message.Message;
-import it.polimi.se2018.network.client.message.MessageTools.*;
+import it.polimi.se2018.network.client.message.message_tools.*;
 import it.polimi.se2018.network.client.message.MessageVC;
 import it.polimi.se2018.network.client.message.RequestReconnect;
 import it.polimi.se2018.network.server.message.*;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -84,7 +84,7 @@ public class ConnectionServerSocket extends ConnectionServer {
      * @param player a player
      */
     @Override
-    public void sendMapConn(ArrayList<Map> maps, Player player) {
+    public void sendMapConn(List<Map> maps, Player player) {
         MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
         for (Map map : maps) { // sceglie 2 carte schema
             message.addMap(map); // aggiunge la mappa estratta al messaggio da inviare
@@ -111,7 +111,7 @@ public class ConnectionServerSocket extends ConnectionServer {
      * @param tools arraylist of tool cards
      */
     @Override
-    public void sendPublicInformation(ArrayList<PublicObjectiveCard> cards, ArrayList<ToolCard> tools) {
+    public void sendPublicInformation(List<PublicObjectiveCard> cards, List<ToolCard> tools) {
         MessagePublicInformation messag = new MessagePublicInformation();
         mex= new Message(Message.CVEVENT,messag);
         messag.setPublicObjective(cards);
@@ -154,7 +154,7 @@ public class ConnectionServerSocket extends ConnectionServer {
      * @param players a player
      */
     @Override
-    public void sendFinalPlayers(ArrayList<Player> players) {
+    public void sendFinalPlayers(List<Player> players) {
         MessageFinalScore messag = new MessageFinalScore();
         messag.setPlayersFinal(players);
         Message mex = new Message(Message.CVEVENT,messag);
@@ -193,8 +193,8 @@ public class ConnectionServerSocket extends ConnectionServer {
      * @param favor an arraylist of integer
      */
     @Override
-    public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String messa, ArrayList<Boolean> tools,
-                           RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock, ArrayList<Integer> favor) {
+    public void sendUpdate(List<Map> maps, List<String> users, String messa, List<Boolean> tools,
+                           RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor) {
         MessageUpdate message= new MessageUpdate();
         message.setMessage(messa);
         message.setCells(maps);

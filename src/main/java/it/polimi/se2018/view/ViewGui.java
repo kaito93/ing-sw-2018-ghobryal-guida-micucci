@@ -4,6 +4,7 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.cell.Cell;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewGui extends View {
     @Override
@@ -20,7 +21,7 @@ public class ViewGui extends View {
         super(timer);
     }
 
-    public int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav){
+    public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
         // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
         return 0;
     }

@@ -45,7 +45,11 @@ public class TestPlayer extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         player.setScore(0);
-        player.getMap().finalize();
+        try {
+            player.getMap().finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         player.setMap(null);
         player.setPrivateObjectiveCard(null);
         player.setPrivateObjectiveCard(null);

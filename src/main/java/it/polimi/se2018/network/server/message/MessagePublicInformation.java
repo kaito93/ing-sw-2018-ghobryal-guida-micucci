@@ -5,6 +5,7 @@ import it.polimi.se2018.model.cards.ToolCard;
 import it.polimi.se2018.network.client.connection.ConnectionClientSocket;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class that manage the public news in the game
@@ -32,7 +33,7 @@ public class MessagePublicInformation implements MessageCV{
      * method that set the information of the public cards
      * @param publicObjective arraylist of public cards
      */
-    public void setPublicObjective(ArrayList<PublicObjectiveCard> publicObjective) {
+    public void setPublicObjective(List<PublicObjectiveCard> publicObjective) {
         for (int i=0; i<publicObjective.size();i++){
             titlePublicObjective.add(publicObjective.get(i).getTitle());
             descriptionPublicObjective.add(publicObjective.get(i).getDescription());
@@ -44,7 +45,7 @@ public class MessagePublicInformation implements MessageCV{
      * method that set the information of the tool cards
      * @param toolCards arraylist of tool cards
      */
-    public void setToolCards(ArrayList<ToolCard> toolCards) {
+    public void setToolCards(List<ToolCard> toolCards) {
         for (int i=0; i<toolCards.size();i++){
             titleTools.add(toolCards.get(i).getTitle());
             descriptionTools.add(toolCards.get(i).getDescription());

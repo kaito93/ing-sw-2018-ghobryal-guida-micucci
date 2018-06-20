@@ -3,7 +3,7 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.model.cards.*;
 import it.polimi.se2018.util.DeckOfPrivateCards;
 import it.polimi.se2018.util.DiceBox;
-import it.polimi.se2018.util.Deserializer.*;
+import it.polimi.se2018.util.deserializer.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Game {
 
     private static DiceBox diceBag;
 
-    private ArrayList<Dice> stock;
+    private List<Dice> stock;
 
     private ArrayList<PublicObjectiveCard> publicObjCard;
 
@@ -29,7 +29,7 @@ public class Game {
 
     private ArrayList<ToolCard> toolCards;
 
-    private ArrayList<Map> maps;
+    private List<Map> maps;
 
     private PathDeserializer path;
 
@@ -131,7 +131,7 @@ public class Game {
      * @return a list with the cards red
      */
 
-    private ArrayList<PrivateObjectiveCard> loadPrivateObjectiveCard(){
+    private List<PrivateObjectiveCard> loadPrivateObjectiveCard(){
 
 
         DeckOfPrivateCards cards = new DeckOfPrivateCards(path.getPathFromType("private"));
@@ -195,9 +195,9 @@ public class Game {
      * method that extracts one private objective for every player in game and set it
      * @param players the list of players in game
      */
-    public void setPrivateObjectiveCard(ArrayList<Player> players){
+    public void setPrivateObjectiveCard(List<Player> players){
 
-        ArrayList<PrivateObjectiveCard> cards = loadPrivateObjectiveCard();
+        List<PrivateObjectiveCard> cards = loadPrivateObjectiveCard();
         for (Player player : players) {
 
             Random random = new Random();
@@ -216,7 +216,7 @@ public class Game {
      * method that returns the stock of dices
      * @return the stock
      */
-    public ArrayList<Dice> getStock() {
+    public List<Dice> getStock() {
         return stock;
     }
 
@@ -224,7 +224,7 @@ public class Game {
      * method that setup the stock in every round
      * @param stocks the stock that have been created
      */
-    public void setStock(ArrayList<Dice> stocks) {
+    public void setStock(List<Dice> stocks) {
         stock = stocks;
     }
 
@@ -232,7 +232,7 @@ public class Game {
      * method that returns all the maps
      * @return all the maps
      */
-    public ArrayList<Map> getMaps() {
+    public List<Map> getMaps() {
         return maps;
     }
 
@@ -247,7 +247,7 @@ public class Game {
      * method that loads all the maps from the file Json directly
      * @return an array list of all the maps
      */
-    private ArrayList<Map> loadMaps() {
+    private List<Map> loadMaps() {
 
         MapsDeserializer mapscegia = new MapsDeserializer(path.getPathFromType("maps"));
         return mapscegia.totalDeserialize();
@@ -271,17 +271,15 @@ public class Game {
      */
     @Override
     @SuppressWarnings("Deprecated")
-    public void finalize(){
+    public void finalize() throws Throwable{
         //diceBag.eraseDices(diceBag.getBox().size());
-        diceBag=null;
         publicObjCard.clear();
-        publicObjCard=null;
         for (int i=0; i<roundSchemeMap.length; i++)
             try{
                 if(roundSchemeMap[i].getRestOfStock()!=null)
                     roundSchemeMap[i].getRestOfStock().clear();
             }catch (NullPointerException e){
-                continue;
+                //salta
             }
         roundSchemeMap=null;
         toolCards.clear();
@@ -289,6 +287,7 @@ public class Game {
         for (Map map: maps)
             map.finalize();
         System.gc();
+        super.finalize();
     }
 
     /**

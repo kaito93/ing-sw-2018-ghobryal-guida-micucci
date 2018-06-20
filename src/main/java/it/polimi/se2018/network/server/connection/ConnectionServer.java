@@ -9,6 +9,7 @@ import it.polimi.se2018.network.server.VirtualView.VirtualView;
 
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * abstract class that manage the connections between Server and Client server side
@@ -65,7 +66,7 @@ public abstract class ConnectionServer implements Cloneable {
      * @param maps an arraylist of maps
      * @param player a player
      */
-    public abstract void sendMapConn(ArrayList<Map> maps, Player player);
+    abstract void sendMapConn(List<Map> maps, Player player);
 
     /**
      * abstract method that send the private information of a player
@@ -78,7 +79,7 @@ public abstract class ConnectionServer implements Cloneable {
      * @param cards arraylist of public objective cards
      * @param tools arraylist of tool cards
      */
-    public abstract void sendPublicInformation(ArrayList<PublicObjectiveCard> cards, ArrayList<ToolCard> tools);
+    public abstract void sendPublicInformation(List<PublicObjectiveCard> cards, List<ToolCard> tools);
 
     /**
      * abstract method that send a warning to other players that a player has left the game for disconnection
@@ -96,7 +97,7 @@ public abstract class ConnectionServer implements Cloneable {
      * abstract method that send the final message to a player
      * @param players a player
      */
-    public abstract void sendFinalPlayers(ArrayList<Player> players);
+    public abstract void sendFinalPlayers(List<Player> players);
 
     /**
      * abstract methot that send the information of a turn for a player
@@ -120,8 +121,8 @@ public abstract class ConnectionServer implements Cloneable {
      * @param stock a matrix of dices
      * @param favor an arraylist of integer
      */
-    public abstract void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String message, ArrayList<Boolean> tools,
-                                    RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock, ArrayList<Integer> favor);
+    public abstract void sendUpdate(List<Map> maps, List<String> users, String message, List<Boolean> tools,
+                                    RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor);
 
     /**
      * abstract method that manage the send for the tool card "Copper Foil Burnisher"

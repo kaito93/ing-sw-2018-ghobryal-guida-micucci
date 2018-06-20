@@ -15,6 +15,7 @@ import it.polimi.se2018.util.Observable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -394,7 +395,7 @@ public class VirtualView extends Observable<MessageVC> {
      * method that send to a player the final score of all players
      * @param players arraylist of all players
      */
-    public void sendScorePlayers(ArrayList<Player> players) {
+    public void sendScorePlayers(List<Player> players) {
         for (int i = 0; i < playersActive.size(); i++)
             connections.get(i).sendFinalPlayers(players);
     }

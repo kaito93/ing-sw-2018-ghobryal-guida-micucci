@@ -3,7 +3,7 @@ package it.polimi.se2018.network.client.connection;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.cell.Cell;
 import it.polimi.se2018.network.client.message.*;
-import it.polimi.se2018.network.client.message.MessageTools.*;
+import it.polimi.se2018.network.client.message.message_tools.*;
 import it.polimi.se2018.network.server.message.*;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.view.View;
@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 
@@ -238,7 +239,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param message message received by server
      */
     public void visit(MessageCopperFoilBurnisher message) {
-        ArrayList<Object> obj = view.manageCE();
+        List<Object> obj = view.manageCE();
         message.setDice((Dice) obj.get(0));
         message.setRow((int) obj.get(1));
         message.setColumn((int) obj.get(2));
@@ -253,7 +254,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param message message received by server
      */
     public void visit(MessageCorkBackedStraightedge message) {
-        ArrayList<Object> obj = view.manageCork();
+        List<Object> obj = view.manageCork();
         message.setDice((Dice) obj.get(0));
         message.setRowDest((int) obj.get(1));
         message.setColumnDest((int) obj.get(2));
@@ -267,7 +268,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void visit(MessageEglomiseBrush message) {
 
-        ArrayList<Object> obj = view.manageCE();
+        List<Object> obj = view.manageCE();
         message.setDice((Dice) obj.get(0));
         message.setRowDest((int) obj.get(1));
         message.setColumnDest((int) obj.get(2));
@@ -283,8 +284,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void visit(MessageFluxBrush message) {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
-
-        ArrayList<Object> obj = view.managefluxBrush();
+        List<Object> obj = view.managefluxBrush();
         message.setDiceBefore((Dice) obj.get(0));
         message.setDice((Dice) obj.get(1));
         message.setRowDest((int) obj.get(2));
@@ -299,7 +299,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void visit(MessageFluxRemover message) {
         if (message.isA()) {
-            ArrayList<Object> obj = view.manageFluxRemove2(message.getDice());
+            List<Object> obj = view.manageFluxRemove2(message.getDice());
             message.setDice((Dice) obj.get(0));
             message.setRow((int) obj.get(1));
             message.setColumn((int) obj.get(2));
@@ -315,7 +315,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param message message received by server
      */
     public void visit(MessageGrindingStone message) {
-        ArrayList<Object> obj = view.manageGrinding();
+        List<Object> obj = view.manageGrinding();
         message.setDice((Dice) obj.get(0));
         message.setRow((int) obj.get(1));
         message.setColumn((int) obj.get(2));
@@ -330,7 +330,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void visit(MessageGrozingPliers message) {
         // Dice dice, int row, int column
-        ArrayList<Object> obj = view.manageGrozing();
+        List<Object> obj = view.manageGrozing();
         message.setDice((Dice) obj.get(0));
         message.setRowDest((int) obj.get(1));
         message.setColDest((int) obj.get(2));
@@ -344,7 +344,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
     public void visit(MessageLathekin message) {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
-        ArrayList<Object> obj = view.manageLathekin();
+        List<Object> obj = view.manageLathekin();
         message.setRow1Mit((int) obj.get(0));
         message.setCol1Mit((int) obj.get(1));
         message.setRow1Dest((int) obj.get(2));
@@ -353,7 +353,7 @@ public class ConnectionClientSocket extends ConnectionClient {
         message.setCol2Mit((int) obj.get(5));
         message.setRow2Dest((int) obj.get(6));
         message.setColumn2Dest((int) obj.get(7));
-        message.setDices((ArrayList<Dice>) obj.get(8));
+        message.setDices((List<Dice>) obj.get(8));
         update(message);
     }
 
@@ -363,7 +363,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param message message received by server
      */
     public void visit(MessageLensCutter message) {
-        ArrayList<Object> obj = view.manageLens();
+        List<Object> obj = view.manageLens();
         message.setDiceStock((Dice) obj.get(0));
         message.setDiceRound((Dice) obj.get(1));
         message.setNumberRound((int) obj.get(2));
@@ -377,7 +377,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param message message received by server
      */
     public void visit(MessageRunningPliers message) {
-        ArrayList<Object> obj = view.manageCork();
+        List<Object> obj = view.manageCork();
         message.setDice((Dice) obj.get(0));
         message.setRowDest((int) obj.get(1));
         message.setColumnDest((int) obj.get(2));
@@ -391,9 +391,9 @@ public class ConnectionClientSocket extends ConnectionClient {
     public void visit(MessageTapWheel message) {
         //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
         // in roundscheme
-        ArrayList<Object> obj = view.manageTap();
+        List<Object> obj = view.manageTap();
         message.setDiceRoundScheme((Dice) obj.get(0));
-        message.setDiceToMove((ArrayList<Dice>) obj.get(5));
+        message.setDiceToMove((List<Dice>) obj.get(5));
         message.setRow1Mit((int) obj.get(1));
         message.setRow2Mit((int) obj.get(3));
         message.setCol1Mit((int) obj.get(2));
@@ -436,6 +436,7 @@ public class ConnectionClientSocket extends ConnectionClient {
             }
             update(message);
             listener = new Listen(); // creo un oggetto ascoltatore
+            condition=true;
             listener.run(); // metto il client ad ascoltare i messaggi in arrivo dal server
         }
     }

@@ -9,8 +9,8 @@ import it.polimi.se2018.network.server.connection.ConnectionServer;
 import it.polimi.se2018.network.server.connection.ConnectionServerRMI;
 import it.polimi.se2018.network.server.connection.ConnectionServerSocket;
 import it.polimi.se2018.network.server.message.MessageFinalGame;
-import it.polimi.se2018.util.Deserializer.PathDeserializer;
-import it.polimi.se2018.util.Deserializer.ServerDeserialize;
+import it.polimi.se2018.util.deserializer.PathDeserializer;
+import it.polimi.se2018.util.deserializer.ServerDeserialize;
 import it.polimi.se2018.util.Logger;
 
 import java.io.IOException;

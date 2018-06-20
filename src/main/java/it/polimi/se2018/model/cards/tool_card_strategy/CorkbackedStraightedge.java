@@ -24,7 +24,6 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
      * @param row row's coordinate on the map where the chosen dice to be positioned
      * @param column column's coordinate on the map where the chosen dice to be positioned
      * @param stock n.a.
-     * @param a n.a.
      * @param t1 n.a.
      * @param t2 n.a.
      * @param t3 n.a.
@@ -33,8 +32,8 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
      * @param t6 n.a.
      */
     //posiziono io il dado
-    public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
-            , boolean a, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock, int t1, int t2, Dice t3,
+                        RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(player.getMap().isAdjacentDice(row, column)) {
             errorBool.setErrorMessage("C'è un dado adiacente alla posizione scelta quindi non combacia con le restrizioni della carta");
             errorBool.setErrBool(true);

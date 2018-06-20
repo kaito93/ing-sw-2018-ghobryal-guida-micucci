@@ -1,17 +1,16 @@
 package it.polimi.se2018.util;
 
 import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 
 /**
  * class to make the data structure to deserialize the toolcards
  * derives from jsontransiction
  */
-public class toolCardTransfer extends jsonTransiction {
+public class toolCardTransfer extends JsonTransition {
 
-    private String strategy;
-    private String color;
-    private String id;
+    private String strategy=null;
+    private String color=null;
+    private String id=null;
 
     /**
      * getter method to obtain the strategy

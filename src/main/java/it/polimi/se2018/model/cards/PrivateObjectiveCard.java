@@ -79,10 +79,7 @@ public class PrivateObjectiveCard extends Card {
     }
 
     @Override
-    public void setUsed(boolean used1) {}
-
-    @Override
-    public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock, boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> turns, int posDice1) {
+    public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> turns, int posDice1) {
         return false;
     }
 

@@ -80,15 +80,8 @@ public abstract class Card implements Serializable {
 
     /**
      * Overridden in ToolCard
-     * @param used1 pass true if it's used
-     */
-
-    public abstract void setUsed(boolean used1);
-
-    /**
-     * Overridden in ToolCard
      */
     public abstract boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock
-            , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
+            , int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
             , List<Player> turns, int posDice1);
 }

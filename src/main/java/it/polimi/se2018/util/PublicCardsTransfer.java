@@ -4,10 +4,10 @@ package it.polimi.se2018.util;
 /**
  * class to create data structure to deserialize the json file of the public cards
  */
-public class PublicCardsTransfer extends jsonTransiction{
+public class PublicCardsTransfer extends JsonTransition {
 
-    private String score;
-    private String strategy;
+    private String score=null;
+    private String strategy=null;
 
 
     /**

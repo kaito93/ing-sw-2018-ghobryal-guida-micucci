@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -19,8 +20,6 @@ public class DeckOfPrivateCards {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private Gson gson = new Gson();
-    private File json;
     private BufferedReader br;
     private ArrayList<PrivateObjectiveCard> privCards;
 
@@ -29,34 +28,22 @@ public class DeckOfPrivateCards {
      * @param path of the file to deserialize
      */
     public DeckOfPrivateCards(String path){
-        json = new File(path);
+        File json = new File(path);
         try {
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.SEVERE, "File non trovato", e);
         }
         Type listPrivCards = new TypeToken<ArrayList<PrivateObjectiveCard>>(){}.getType();
+        Gson gson = new Gson();
         privCards = gson.fromJson(br, listPrivCards);
     }
 
     /**
-     * method that erase a card with a choosen index in the deck of private cards
-     * @param index of the card that has to be eliminated
+     * method that return all the private cards in the array list
+     * @return an list of private objective cards
      */
-    public void eraseChoosenCard(int index){
-        int i = 0;
-        while (i<privCards.size()){
-            if (i==index)
-                privCards.remove(i);
-            i++;
-        }
-    }
-
-    /**
-     * method that return all the private cards in the arraylist
-     * @return an arraylist of private objective cards
-     */
-    public ArrayList<PrivateObjectiveCard> getPrivCards() {
+    public List<PrivateObjectiveCard> getPrivCards() {
         return privCards;
     }
 

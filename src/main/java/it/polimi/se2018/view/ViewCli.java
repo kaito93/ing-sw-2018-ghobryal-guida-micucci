@@ -8,6 +8,7 @@ import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.util.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -204,7 +205,7 @@ public class ViewCli extends View {
         return sb.toString();
     }
 
-    public int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav) {
+    public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav) {
 
 
         int val = 9;

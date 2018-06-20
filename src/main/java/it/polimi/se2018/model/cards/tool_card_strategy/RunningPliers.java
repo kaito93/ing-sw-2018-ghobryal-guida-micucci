@@ -21,7 +21,6 @@ public class RunningPliers extends ToolCardStrategy {
      * @param turn the player's turn number
      * @param t0 n.a.
      * @param t1 n.a.
-     * @param t2 n.a.
      * @param row row's coordinate on the map where the dice should be placed
      * @param column column's coordinate on the map where the dice should be placed
      * @param t3 n.a.
@@ -30,8 +29,8 @@ public class RunningPliers extends ToolCardStrategy {
      * @param t6 n.a.
      */
     //posiziono solo il dado che viene scelto al posto del secondo turno
-    public void useTool(Player playerCurr, Dice dice, int turn, int t0, List<Dice> t1, boolean t2
-            , int row, int column, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player playerCurr, Dice dice, int turn, int t0, List<Dice> t1, int row, int column,
+                        Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(turn==1) {
             posDiceControl(playerCurr, dice, row, column);
             return;

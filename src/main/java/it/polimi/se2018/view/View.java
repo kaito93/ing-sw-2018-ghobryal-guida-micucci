@@ -9,6 +9,7 @@ import it.polimi.se2018.network.server.message.MessageUpdate;
 import it.polimi.se2018.util.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import java.util.logging.Level;
 public abstract class View {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    protected GameView gameStatus;
+    GameView gameStatus;
     protected ConnectionClient client;
     protected Timer timer = new Timer();
     protected int time;
@@ -29,16 +30,16 @@ public abstract class View {
 
     public abstract void startView();
 
-    public Cell[][] chooseMap(ArrayList<Cell[][]> maps, String username, ArrayList<String> names, ArrayList<Integer> fav) {
+    public Cell[][] chooseMap(List<Cell[][]> maps, String username, List<String> names, List<Integer> fav) {
         gameStatus.setMyUsername(username);
         return maps.get(chooseSingleMap(maps, names, fav));
     }
 
-    public abstract int chooseSingleMap(ArrayList<Cell[][]> maps, ArrayList<String> names, ArrayList<Integer> fav);
+    abstract int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav);
 
 
-    public void setPublicInformation(ArrayList<String> titlePublic, ArrayList<String> descriptionPublic, ArrayList<String> titleTools,
-                                     ArrayList<String> descriptionTools, ArrayList<Integer> scores) {
+    public void setPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTools,
+                                     List<String> descriptionTools, List<Integer> scores) {
         gameStatus.setTitlePublicObjective(titlePublic);
         gameStatus.setDescriptionPublicObjective(descriptionPublic);
         gameStatus.setTitleTools(titleTools);
@@ -55,8 +56,8 @@ public abstract class View {
         addLog("Ho aggiornato le informazioni relative alla tua carta obiettivo privata");
     }
 
-    public void updateUsers(ArrayList<String> users, ArrayList<Cell[][]> cells, ArrayList<Boolean> useTools,
-                            RoundSchemeCell roundSchemeMap[], ArrayList<Dice> stock, ArrayList<Integer> favors) {
+    private void updateUsers(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
+                             RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
         gameStatus.setUsers(users);
         gameStatus.setCells(cells);
         gameStatus.setUseTools(useTools);
@@ -100,19 +101,19 @@ public abstract class View {
         myTurn();
     }
 
-    public abstract void addError(String Message);
+    public abstract void addError(String message);
 
-    public abstract ArrayList<Object> manageCE();
+    public abstract List<Object> manageCE();
 
-    public abstract ArrayList<Object> managefluxBrush();
+    public abstract List<Object> managefluxBrush();
 
     public Dice managefluxRemove() {
         return manageGrozing1();
     }
 
-    public abstract ArrayList<Object> manageFluxRemove2(Dice dice);
+    public abstract List<Object> manageFluxRemove2(Dice dice);
 
-    public ArrayList<Object> manageGrinding() {
+    public List<Object> manageGrinding() {
         // dice, row, column
         Dice dice = manageGrozing1();
         Dice diceBefore = null;
@@ -125,7 +126,6 @@ public abstract class View {
             switch (dice.getValue()) {
                 case 1:
                     dice.setValue(6);
-
                     break;
                 case 2:
                     dice.setValue(5);
@@ -142,12 +142,14 @@ public abstract class View {
                 case 6:
                     dice.setValue(1);
                     break;
+                default:
+                    break;
             }
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         addLog("Il valore del dado scelto è " +dice.toString());
-        ArrayList<Integer> obj2 = manageGrozing3();
+        List<Integer> obj2 = manageGrozing3();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(dice);
         obj.add(obj2.get(0));
@@ -157,17 +159,16 @@ public abstract class View {
     }
 
 
-    public ArrayList<Object> manageGrozing() {
-        int minus = 0, major = 0;
+    public List<Object> manageGrozing() {
+        int minus = 0;
+        int major = 0;
         Dice dice = manageGrozing1();
         if (dice.getValue() > 1 && dice.getValue() < 6) {
             major = dice.getValue() + 1;
             minus = dice.getValue() - 1;
         } else if (dice.getValue() == 1) {
             major = dice.getValue() + 1;
-            minus = 0;
         } else {
-            major = 0;
             minus = dice.getValue() - 1;
         }
         try {
@@ -175,7 +176,7 @@ public abstract class View {
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
-        ArrayList<Integer> obj2 = manageGrozing3();
+        List<Integer> obj2 = manageGrozing3();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(dice);
         obj.add(obj2.get(0));
@@ -187,15 +188,15 @@ public abstract class View {
 
     public abstract int manageGrozing2(int minus, int major);
 
-    public abstract ArrayList<Integer> manageGrozing3();
+    public abstract List<Integer> manageGrozing3();
 
-    public abstract ArrayList<Object> manageLathekin();
+    public abstract List<Object> manageLathekin();
 
-    public abstract ArrayList<Object> manageLens();
+    public abstract List<Object> manageLens();
 
-    public abstract ArrayList<Object> manageTap();
+    public abstract List<Object> manageTap();
 
-    public abstract ArrayList<Object> manageCork();
+    public abstract List<Object> manageCork();
 
     class TimerCount extends TimerTask {
 

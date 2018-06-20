@@ -25,7 +25,6 @@ public class EglomiseBrush extends ToolCardStrategy {
      * @param row row's coordinate on the map where the chosen dice to be positioned
      * @param column column's coordinate on the map where the chosen dice to be positioned
      * @param stock n.a.
-     * @param a n.a.
      * @param row0 the row's coordinate of the dice to be repositioned
      * @param column0 the column's coordinate of the dice to be repositioned
      * @param t3 n.a.
@@ -34,8 +33,8 @@ public class EglomiseBrush extends ToolCardStrategy {
      * @param t6 n.a.
      */
     //posiziono io il dado
-    public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock
-            , boolean a, int row0, int column0, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock, int row0, int column0, Dice t3,
+                        RoundSchemeCell[] t4, List<Player> t5, int t6){
         try {
             if(!diceExistOnCell(player.getMap(), dice, row0, column0)){
                 return;

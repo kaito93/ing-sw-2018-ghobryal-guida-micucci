@@ -33,8 +33,8 @@ public class FluxBrush extends ToolCardStrategy {
      */
     //posiziono il dado nuovo e tolgo dalla riserva il dado vecchio
     //perché si passa t3 come parametro?
-    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t
-            , boolean t0, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t, int t1, int t2, Dice t3,
+                        RoundSchemeCell[] t4, List<Player> t5, int t6){
         posDiceControl(player, dice, row, column);
     }
 

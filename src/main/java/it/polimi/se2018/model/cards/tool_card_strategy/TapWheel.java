@@ -25,7 +25,6 @@ public class TapWheel extends ToolCardStrategy {
      * @param row1 row's coordinate on the map where the first chosen dice to be positioned
      * @param column1 column's coordinate on the map where the first chosen dice to be positioned
      * @param dicesToMove an array list of the dices to be moved
-     * @param t1 n.a.
      * @param row2  row's coordinate on the map where the second chosen dice to be positioned (off if numDicesToMove=1)
      * @param column2 column's coordinate on the map where the second chosen dice to be positioned (off if numDicesToMove=1)
      * @param t2 n.a.
@@ -34,7 +33,7 @@ public class TapWheel extends ToolCardStrategy {
      * @param posDice which round contains the dice on the round scheme
      */
     //guarda il commento su Lathekin ma qui è variablile sul numero di dadi passati
-    public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove, boolean t1,
+    public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove,
             int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
         boolean d;
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
@@ -71,7 +70,7 @@ public class TapWheel extends ToolCardStrategy {
                 x.setRow4(row4);
                 x.setColumn3(column3);
                 x.setColumn4(column4);
-                x.useTool(player, roundSchemeMapDice, row1, column1, dicesToMove, t1, row2, column2, t2,
+                x.useTool(player, roundSchemeMapDice, row1, column1, dicesToMove, row2, column2, t2,
                         roundSchemeMap, t3, posDice);
                 return;
             }

@@ -8,7 +8,7 @@ import it.polimi.se2018.model.cards.Card;
 import it.polimi.se2018.model.cards.PrivateObjectiveCard;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class PrivateObjectiveCard Tester
@@ -19,7 +19,7 @@ public class TestPrivateObjectiveCard extends TestCase {
     private Map map;
     private Card card;
     private Game game;
-    private ArrayList<Map> maps;
+    private List<Map> maps;
     private Dice d1, d2, d3;
 
     /**
@@ -68,10 +68,14 @@ public class TestPrivateObjectiveCard extends TestCase {
         d2=null;
         d3=null;
         card=null;
-        for(Map map1: maps)
-            map1.finalize();
-        map.finalize();
-        game.finalize();
+        try {
+            for(Map map1: maps)
+                map1.finalize();
+            map.finalize();
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         System.gc();
         super.tearDown();
     }

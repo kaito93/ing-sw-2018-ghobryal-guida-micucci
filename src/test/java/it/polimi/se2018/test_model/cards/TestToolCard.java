@@ -60,9 +60,12 @@ public class TestToolCard extends TestCase {
      */
     @Override
     protected void tearDown() throws Exception {
-        game.finalize();
-        game=null;
-        map.finalize();
+        try {
+            map.finalize();
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         map=null;
         card=null;
         strategy=null;
@@ -107,14 +110,14 @@ public class TestToolCard extends TestCase {
      */
     public void testUseTool(){
         assertEquals(player.getFavSig(), map.getDifficultyLevel());
-        assertTrue(card.useTool(player, d1, 0, 0, null, false, 0, 0, null, null, null, 0));
+        assertTrue(card.useTool(player, d1, 0, 0, null, 0, 0, null, null, null, 0));
         assertNotSame(player.getFavSig(), map.getDifficultyLevel());
         assertEquals(player.getFavSig(), map.getDifficultyLevel()-1);
-        assertTrue(card.useTool(player, d2, 1, 0, null, false, 0, 0, null, null, null, 0));
+        assertTrue(card.useTool(player, d2, 1, 0, null, 0, 0, null, null, null, 0));
         assertNotSame(player.getFavSig(), map.getDifficultyLevel());
         assertNotSame(player.getFavSig(), map.getDifficultyLevel()-1);
         assertEquals(player.getFavSig(), map.getDifficultyLevel()-3);
-        assertFalse(card.useTool(player, d3, 1, 0, null, false, 0, 0, null, null, null, 0));
+        assertFalse(card.useTool(player, d3, 1, 0, null, 0, 0, null, null, null, 0));
     }
 
 }

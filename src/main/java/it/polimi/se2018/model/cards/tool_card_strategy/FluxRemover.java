@@ -23,7 +23,6 @@ public class FluxRemover extends ToolCardStrategy {
      * @param row  row's coordinate where to position the dice
      * @param column column's coordinate where to position the dice
      * @param t     n.a.
-     * @param t0    n.a.
      * @param t1    n.a.
      * @param t2    n.a.
      * @param t3    n.a.
@@ -34,8 +33,8 @@ public class FluxRemover extends ToolCardStrategy {
     //posiziono io il dado
     //se il giocatore non riesce a posizionare il dado perde comunque i punti perché ha scambiato un
     //dado dalla riserva con un'altro del DiceBox e perciò gli tolgo i punti a prescindere
-    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t
-            , boolean t0, int t1, int t2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6) {
+    public void useTool(Player player, Dice dice, int row, int column, List<Dice> t, int t1, int t2, Dice t3,
+                        RoundSchemeCell[] t4, List<Player> t5, int t6) {
         posDiceControl(player, dice, row, column);
     }
 

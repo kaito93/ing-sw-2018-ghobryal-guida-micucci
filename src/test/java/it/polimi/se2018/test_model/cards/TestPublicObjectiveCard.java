@@ -9,7 +9,7 @@ import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.ColumnColorVarietyStrategy;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class PublicObjectiveCard Tester
@@ -19,7 +19,7 @@ public class TestPublicObjectiveCard extends TestCase {
     private Map map;
     private Card card;
     private Game game;
-    private ArrayList<Map> maps;
+    private List<Map> maps;
     private Dice d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11;
 
     /**
@@ -108,10 +108,14 @@ public class TestPublicObjectiveCard extends TestCase {
         d10=null;
         d11=null;
         card=null;
-        for(Map map1: maps)
-            map1.finalize();
-        map.finalize();
-        game.finalize();
+        try {
+            for(Map map1: maps)
+                map1.finalize();
+            map.finalize();
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         System.gc();
         super.tearDown();
     }

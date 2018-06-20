@@ -5,36 +5,37 @@ import it.polimi.se2018.model.RoundSchemeCell;
 import it.polimi.se2018.model.cell.Cell;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameView {
 
     private String myUsername;
     private int yourIndex;
 
-    private ArrayList<String> users;
-    private ArrayList<Cell[][]> cells = new ArrayList<>();
+    private List<String> users;
+    private List<Cell[][]> cells = new ArrayList<>();
 
-    private ArrayList<String> titleTools;
-    private ArrayList<String> descriptionTools;
-    private ArrayList<Boolean> useTools;
+    private List<String> titleTools;
+    private List<String> descriptionTools;
+    private List<Boolean> useTools;
 
-    private ArrayList<String> titlePublicObjective;
-    private ArrayList<String> descriptionPublicObjective;
-    private ArrayList<Integer> scorePublicObjective;
+    private List<String> titlePublicObjective;
+    private List<String> descriptionPublicObjective;
+    private List<Integer> scorePublicObjective;
 
     private String titlePrivateObjective;
     private String descriptionPrivateObjective;
 
-    private RoundSchemeCell roundSchemeMap[];
-    private ArrayList<Dice> stock;
+    private RoundSchemeCell[] roundSchemeMap;
+    private List<Dice> stock;
 
-    private ArrayList<Integer> favUser;
+    private List<Integer> favUser;
 
     private boolean useTool;
     private boolean posDice;
 
 
-    public ArrayList<Dice> getStock() {
+    public List<Dice> getStock() {
         return stock;
     }
 
@@ -42,7 +43,7 @@ public class GameView {
         return roundSchemeMap;
     }
 
-    public void setStock(ArrayList<Dice> stock) {
+    public void setStock(List<Dice> stock) {
         this.stock = stock;
     }
 
@@ -50,92 +51,92 @@ public class GameView {
         this.roundSchemeMap = roundSchemeMap;
     }
 
-    public ArrayList<String> getTitleTools() {
+    List<String> getTitleTools() {
         return titleTools;
     }
 
-    public ArrayList<String> getTitlePublicObjective() {
+    List<String> getTitlePublicObjective() {
         return titlePublicObjective;
     }
 
-    public ArrayList<String> getDescriptionTools() {
+    List<String> getDescriptionTools() {
         return descriptionTools;
     }
 
-    public ArrayList<String> getDescriptionPublicObjective() {
+    List<String> getDescriptionPublicObjective() {
         return descriptionPublicObjective;
     }
 
-    public ArrayList<String> getUsers() {
+    public List<String> getUsers() {
         return users;
     }
 
-    public String getDescriptionPrivateObjective() {
+    String getDescriptionPrivateObjective() {
         return descriptionPrivateObjective;
     }
 
-    public String getTitlePrivateObjective() {
+    String getTitlePrivateObjective() {
         return titlePrivateObjective;
     }
 
-    public void setUsers(ArrayList<String> users) {
+    public void setUsers(List<String> users) {
         this.users = users;
         setYourIndex(users.indexOf(getMyUsername()));
     }
 
-    public String getMyUsername() {
+    private String getMyUsername() {
         return myUsername;
     }
 
-    public void setMyUsername(String myUsername) {
+    void setMyUsername(String myUsername) {
         this.myUsername = myUsername;
     }
 
-    public void setDescriptionPrivateObjective(String descriptionPrivateObjective) {
+    void setDescriptionPrivateObjective(String descriptionPrivateObjective) {
         this.descriptionPrivateObjective = descriptionPrivateObjective;
     }
 
-    public void setDescriptionPublicObjective(ArrayList<String> descriptionPublicObjective) {
+    void setDescriptionPublicObjective(List<String> descriptionPublicObjective) {
         this.descriptionPublicObjective = descriptionPublicObjective;
     }
 
-    public void setDescriptionTools(ArrayList<String> descriptionTools) {
+    void setDescriptionTools(List<String> descriptionTools) {
         this.descriptionTools = descriptionTools;
     }
 
-    public void setTitlePrivateObjective(String titlePrivateObjective) {
+    void setTitlePrivateObjective(String titlePrivateObjective) {
         this.titlePrivateObjective = titlePrivateObjective;
     }
 
-    public void setTitlePublicObjective(ArrayList<String> titlePublicObjective) {
+    void setTitlePublicObjective(List<String> titlePublicObjective) {
         this.titlePublicObjective = titlePublicObjective;
     }
 
-    public void setTitleTools(ArrayList<String> titleTools) {
+    void setTitleTools(List<String> titleTools) {
         this.titleTools = titleTools;
     }
 
-    public void setCells(ArrayList<Cell[][]> cells) {
+    public void setCells(List<Cell[][]> cells) {
         this.cells = cells;
     }
 
-    public ArrayList<Cell[][]> getCells() {
+    public List<Cell[][]> getCells() {
         return cells;
     }
 
-    public void setUseTools(ArrayList<Boolean> useTools) {
+    public void setUseTools(List<Boolean> useTools) {
         this.useTools = useTools;
     }
 
-    public ArrayList<Boolean> getUseTools() {
+    public List<Boolean> getUseTools() {
         return useTools;
     }
 
-    public void setYourIndex(int yourIndex) {
+    void setYourIndex(int yourIndex) {
         this.yourIndex = yourIndex;
     }
 
-    public int getYourIndex() {
+    int getYourIndex() {
         return yourIndex;
     }
 
@@ -155,19 +156,19 @@ public class GameView {
         return posDice;
     }
 
-    public void setFavUser(ArrayList<Integer> favUser) {
+    void setFavUser(List<Integer> favUser) {
         this.favUser = favUser;
     }
 
-    public ArrayList<Integer> getFavUser() {
+    List<Integer> getFavUser() {
         return favUser;
     }
 
-    public void setScorePublicObjective(ArrayList<Integer> scorePublicObjective) {
+    void setScorePublicObjective(List<Integer> scorePublicObjective) {
         this.scorePublicObjective = scorePublicObjective;
     }
 
-    public ArrayList<Integer> getScorePublicObjective() {
+    List<Integer> getScorePublicObjective() {
         return scorePublicObjective;
     }
 }

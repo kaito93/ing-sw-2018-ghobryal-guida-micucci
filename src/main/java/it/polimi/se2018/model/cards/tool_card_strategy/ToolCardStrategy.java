@@ -28,7 +28,7 @@ public abstract class ToolCardStrategy implements Serializable {
     }
 
     public abstract void useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock
-        , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
+        , int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
         , List<Player> turns, int posDice1);
 
     public abstract void requestMessage(VirtualView view, String title, int player);

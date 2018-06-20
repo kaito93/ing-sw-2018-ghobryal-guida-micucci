@@ -503,11 +503,14 @@ public class Map implements Serializable {
      */
     @Override
     @SuppressWarnings("Deprecated")
-    public void finalize(){
-        name = null;
-        difficultyLevel = 0;
-        cell = null;
+    public void finalize() throws Throwable{
+        for(int i=0; i<numRow(); i++)
+            for(int j=0; j<numColumn(); j++) {
+                cell[i][j].setDice(null);
+                cell[i][j]=null;
+            }
         System.gc();
+        super.finalize();
     }
 
     /**

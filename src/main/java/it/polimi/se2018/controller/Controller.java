@@ -6,7 +6,6 @@ import it.polimi.se2018.model.Map;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.network.client.message.MessageVC;
-import it.polimi.se2018.network.client.message.ResponseMap;
 import it.polimi.se2018.network.server.VirtualView.VirtualView;
 import it.polimi.se2018.util.Logger;
 import it.polimi.se2018.util.Observer;
@@ -14,6 +13,7 @@ import it.polimi.se2018.util.Observer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 
 
@@ -32,51 +32,48 @@ public class Controller implements Observer<MessageVC> {
     private Game game;
     private int move = 0;
     private VirtualView view;
-    private ArrayList<Player> players;
+    private List<Player> players;
     private boolean setDice;
     private boolean useTools;
-    private int turno;
-    private ArrayList<Player> playersInRound = new ArrayList<>();
+    private int turn;
+    private ArrayList<Player> playersInRound;
     private int mappe = 0;
     private boolean disconnect = false;
-    private static final String ERR="Hai già piazzato il massimo numero di dadi per questo turno [1]";
+    private static final String ERR="Hai già piazzato il massimo numero di dadi per questo turn [1]";
 
 
     /**
-     * class constructor initialize the object controller
-     *
-     * @param view    an occurence of virtual vView
-     * @param players arraylist of players in game
+     * class constructor
+     * @param view    an instance of virtual vView
+     * @param players array list of players in game
      */
-    public Controller(VirtualView view, ArrayList<Player> players) {
+    public Controller(VirtualView view, List<Player> players) {
         this.game = new Game();
+        playersInRound = new ArrayList<>();
         this.view = view;
         this.players = players;
         view.addObservers(this);
     }
 
     /**
-     * method that return the players in the game
-     *
-     * @return an arraylist of player
+     * method that returns the players in the game, in an entire round order
+     * @return an array list of player
      */
     private ArrayList<Player> getPlayersInRound() {
         return playersInRound;
     }
 
     /**
-     * method that return the turn of the game in a round
-     *
+     * method that returns the turn of the game in a round
      * @return an integer between 1 and #players*2
      */
-    private int getTurno() {
-        return turno;
+    private int getTurn() {
+        return turn;
     }
 
     /**
-     * method that accept the message of type Socket
-     *
-     * @param message the message received
+     * method that accepts the message of type Socket
+     * @param message the received message
      */
     public void update(MessageVC message) {
         message.accept(this);
@@ -84,9 +81,9 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that set the map for a player
-     * @param username a username
-     * @param map a map
+     * method that sets the map for a player
+     * @param username the player's username
+     * @param map player's passed map
      */
     public synchronized void map(String username, Map map) {
         int index = searchUser(username);
@@ -102,8 +99,7 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that searches a player throw his username
-     *
-     * @param user username of a player
+     * @param user username of the player
      * @return the number in the array list of players where the username is being searched
      */
 
@@ -126,9 +122,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that return the object with the proprieties of the game
-     *
-     * @return the class Game
+     * method that returns the object with the proprieties of the game
+     * @return an instance of the class Game
      */
     public Game getGame() {
         return game;
@@ -136,37 +131,26 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that manage the disconnection of a player during the game
-     *
      * @param player player disconnected
      */
     public void updatePlayers(Player player) {
-        for (int i = 0; i < playersInRound.size(); i++) {
-            if (player == playersInRound.get(i)) {
-                playersInRound.remove(i);
-                i--;
-            }
-        }
-        for (int i = 0; i < players.size(); i++) {
-            if (player == players.get(i)) {
-                players.remove(i);
-                i--;
-            }
-        }
-        turno--;
-        if (players.size() == 1) {
+        playersInRound.remove(player);
+        playersInRound.remove(player);
+        players.remove(player);
+        turn--;
+        if (players.size() == 1)
             view.manageVictoryAbbandon();
-        }
         disconnect = true;
     }
 
     /**
-     * method that managed the whole game
+     * method that manages the whole game
      */
     public void game() {
 
         int round;
         waitw();
-        setPlayersInRound(playersInRound);
+        setPlayersInRound();
 
         // CICLO CHE GESTISCE I ROUND
         for (round = 0; round < game.getMaxRound(); round++) {
@@ -176,30 +160,30 @@ public class Controller implements Observer<MessageVC> {
 
             // CICLO CHE GESTISCE I TURNI INTERNI AL ROUND...
             // PS. ATTENZIONE ALLA GESTIONE DELLE RICONNESSIONI CHE POTREBBE FAR SBALLARE IL CONTATORE DEI TURNI
-            for (turno = 0; turno < playersInRound.size(); turno++) {
+            for (turn = 0; turn < playersInRound.size(); turn++) {
                 disconnect = false;
                 setDice=false;
                 useTools=false;
-                view.setCurrentPlayer(playersInRound.get(turno));
+                view.setCurrentPlayer(playersInRound.get(turn));
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
-                if (!playersInRound.get(turno).getRunningPliers()){
+                if (!playersInRound.get(turn).getRunningPliers()){
                     for (move = 0; move < 2; move++) {
                         if (!view.isTerminate()) {
-                            // Invia a tutti i giocatori le informazioni generali del turno
-                            view.sendMessageUpdate(turno, getGame(), playersInRound.get(turno).getName());
+                            // Invia a tutti i giocatori le informazioni generali del turn
+                            view.sendMessageUpdate(getGame(), playersInRound.get(turn).getName());
 
                             // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                            view.sendMessageTurn(playersInRound, turno,setDice,useTools);
+                            view.sendMessageTurn(playersInRound, turn,setDice,useTools);
 
                             b = false;
                             waitMove();
                             if (!view.isTerminate() && !disconnect) {
                                 LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
-                                        + playersInRound.get(turno).getName());
+                                        + playersInRound.get(turn).getName());
                             }
                         } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
                             move = 2;
-                            turno = playersInRound.size();
+                            turn = playersInRound.size();
                             round = game.getMaxRound();
                         }
                     }
@@ -221,7 +205,7 @@ public class Controller implements Observer<MessageVC> {
 
             // CALCOLA PUNTEGGI
             calcScore();
-            ArrayList<Player> finalPlayers = vsScore(playersInRound);
+            List<Player> finalPlayers = vsScore(playersInRound);
 
             // INVIA AI GIOCATORI I PUNTEGGI FINALI + MAPPE FINALI + OBIETTIVI PRIVATI DI TUTTI I GIOCATORI
 
@@ -233,9 +217,9 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that wait the map of a player
+     * method that waits the map of a player
      */
-    synchronized public void waitw() {
+    private synchronized void waitw() {
 
         try {
             this.wait();
@@ -245,11 +229,11 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that wait the move of a player
+     * method that waits the move of a player
      */
-    synchronized public void waitMove() {
+    private synchronized void waitMove() {
         try {
-            LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turno).getName() + " effettui la sua mossa");
+            LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turn).getName() + " effettui la sua mossa");
 
             while (!b) {
                 this.wait();
@@ -261,24 +245,24 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that assign a value to setTool and unlock the waiter
+     * method that assigns a value to setTool and notify the waiting methods
      */
 
-    synchronized public void setTools() {
+    private synchronized void setTools() {
         this.setDice=A;
         notifyAll();
     }
 
 
     /**
-     * method that assign a value to setPos and unlock the waiter
-     * @param dice
-     * @param row
-     * @param column
+     * method that assigns a value to setPos and unlock the waiter
+     * @param dice a chosen dice to be positioned on the map
+     * @param row row's coordinate on the map where the dice will be positioned
+     * @param column column's coordinate on the map where the dice will be positioned
      */
-    synchronized public void setPos(Dice dice, int row, int column) {
+    public synchronized void setPos(Dice dice, int row, int column) {
         if (!setDice) {
-            if (!this.playersInRound.get(turno).posDice(dice, row, column)) {
+            if (!this.playersInRound.get(turn).posDice(dice, row, column)) {
                 manageError(Map.getErrorBool().getErrorMessage());
             } else {
                 game.removeDiceStock(dice);
@@ -292,39 +276,38 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that build the array of players that can play in a round
-     *
-     * @param players the list with all players
+     * method that builds the array of players in order for an entire round
      */
-    public void setPlayersInRound(ArrayList<Player> players) {
+    private void setPlayersInRound() {
         // inizializza la prima metà dell'array
-        for (int i = 0; i < this.players.size(); i++)
-            players.add(this.players.get(i));
+        playersInRound.addAll(players);
         // inizializza la seconda metà dell'array
         for (int i = this.players.size(); i > 0; i--)
-            players.add(this.players.get(i - 1));
+            playersInRound.add(players.get(i - 1));
     }
 
     /**
-     * method that move the first player in the last place to play
-     *
+     * method that moves the first player in the last place to play
      * @param players the list of players that play in a round (x2)
      */
 
-    public void updatePlayersInRound(ArrayList<Player> players) {
+    private void updatePlayersInRound(List<Player> players) {
         Player exFirst = players.get(0); // salvo il giocatore da spostare
         players.remove(players.size() - 1); // elimino il giocatore che si trova in fondo
         players.remove(0); // elimino il giocatore che si trova in prima posizione
-        players.add(this.players.size() - 1, exFirst); // aggiungi il primo turno del giocatore
-        players.add(this.players.size(), exFirst); // aggiungi il secondo turno del giocatore
+        players.add(this.players.size() - 1, exFirst); // aggiungi il primo turn del giocatore
+        players.add(this.players.size(), exFirst); // aggiungi il secondo turn del giocatore
         checkPlayerRound();// controlla che non si siano riconnessi giocatori. Se sì, li aggiunge come ultimi giocatori.
     }
 
-    public void checkPlayerRound() {
-        for (int i = 0; i < players.size(); i++) {
-            if (!playersInRound.contains(players.get(i))) {
-                playersInRound.add(this.playersInRound.size() - 1, players.get(i)); // aggiungi il primo turno del giocatore che non era presente
-                playersInRound.add(this.playersInRound.size(), players.get(i)); // aggiungi il secondo turno del giocatore che non era presente
+    /**
+     * method that verifies if there's a player that is not present in the array list playersInRound
+     */
+    private void checkPlayerRound() {
+        for (Player player : players) {
+            if (!playersInRound.contains(player)) {
+                playersInRound.add(this.playersInRound.size() - 1, player); // aggiungi il primo turn del giocatore che non era presente
+                playersInRound.add(this.playersInRound.size(), player); // aggiungi il secondo turn del giocatore che non era presente
             }
         }
     }
@@ -333,30 +316,29 @@ public class Controller implements Observer<MessageVC> {
      * method for the calculus of score for every players
      */
 
-    public void calcScore() {
+    private void calcScore() {
         // cicla i giocatori
-        for (int i = 0; i < this.players.size(); i++) {
+        for (Player player : this.players) {
             // cicla le carte obiettivo pubbliche
             for (int j = 0; j < game.getPublicObjCard().size(); j++) {
                 // calcola il punteggio ottenuto tramite la carta obiettivo pubblica
-                players.get(i).setScore(players.get(i).getScore() + game.getPublicObjCard().get(j).search(players.get(i).getMap()));
+                player.setScore(player.getScore() + game.getPublicObjCard().get(j).search(player.getMap()));
             }
             // calcola il punteggio ottenuto tramite la carta obiettivo privata
-            players.get(i).setScore(players.get(i).getScore() + players.get(i).getCardPrivateObj().search(players.get(i).getMap()));
+            player.setScore(player.getScore() + player.getCardPrivateObj().search(player.getMap()));
             // calcola il punteggio ottenuto tramite i segnalini favore rimasti
-            players.get(i).setScore(players.get(i).getScore() + players.get(i).getFavSig());
+            player.setScore(player.getScore() + player.getFavSig());
             // calcola il punteggio ottenuto sottraendo gli spazi liberi nella mappa
-            players.get(i).setScore(players.get(i).getScore() - players.get(i).getMap().emptyCells());
+            player.setScore(player.getScore() - player.getMap().emptyCells());
         }
     }
 
     /**
-     * method that compare the score of the player
-     *
+     * method that compares the score of the players
      * @param playersInLastRound list of players in order that play the last game
      * @return a list of player ordered by score
      */
-    public ArrayList<Player> vsScore(ArrayList<Player> playersInLastRound) {
+    private List<Player> vsScore(ArrayList<Player> playersInLastRound) {
         boolean set;
         int j;
         ArrayList<Player> playersFinal = new ArrayList<>();
@@ -429,7 +411,7 @@ public class Controller implements Observer<MessageVC> {
      * @param titleCard Title of tool card that player wants to use
      */
     public void useTools(String titleCard) {
-        game.searchToolCard(titleCard).getStrategy().requestMessage(view, titleCard, players.indexOf(playersInRound.get(turno)));
+        game.searchToolCard(titleCard).getStrategy().requestMessage(view, titleCard, players.indexOf(playersInRound.get(turn)));
     }
 
     /**
@@ -442,9 +424,9 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     * method that simulate a fake move from the player that have been disconnected and unlock the waiter
+     * method that simulates a fake move from the player that have been disconnected and unlock the waiter
      */
-    synchronized public void fakeMove() {
+    public synchronized void fakeMove() {
         setSetDice(A);
         useTools=A;
         move++;
@@ -453,11 +435,10 @@ public class Controller implements Observer<MessageVC> {
 
     /**
      * method that compare turn with the number of players in game
-     *
      * @return a number between 1 and 2
      */
-    public int firstOrSecond() {
-        if ((turno + 1) < (players.size()))
+    private int firstOrSecond() {
+        if ((turn + 1) < (players.size()))
             return 1;
         else
             return 2;
@@ -468,7 +449,7 @@ public class Controller implements Observer<MessageVC> {
      * @param error the message
      */
     public void manageError(String error) {
-        view.createMessageError(error, players.indexOf(playersInRound.get(turno)));
+        view.createMessageError(error, players.indexOf(playersInRound.get(turn)));
     }
 
     /**
@@ -479,14 +460,15 @@ public class Controller implements Observer<MessageVC> {
         return view;
     }
 
-
-    public void resetRunning(){
-        for (int i=0; i<players.size();i++)
-            players.get(i).setRunningPliers(false);
+    /**
+     * method that decides that all players didn't use the card Running Pliers yet
+     */
+    private void resetRunning(){
+        for (Player player : players) player.setRunningPliers(false);
     }
 
     /**
-     * method that manage the card Copper
+     * method that manages the card Copper
      * @param title title of the card
      * @param dice dice needed to be repositioned
      * @param rowDest row's coordinate on the map where the chosen dice to be positioned
@@ -496,8 +478,8 @@ public class Controller implements Observer<MessageVC> {
      */
 
     public void manageCopper(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice
-                , rowDest, columnDest, null, false, rowMit,
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice
+                , rowDest, columnDest, null, rowMit,
                 columnMit, null, null, null, 0)) {
             manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
         } else
@@ -505,7 +487,7 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
+     * method that manages the card Cork-backed
      * @param title title of the card
      * @param dice dice needed to be repositioned
      * @param rowDest row's coordinate on the map where the chosen dice to be positioned
@@ -513,8 +495,8 @@ public class Controller implements Observer<MessageVC> {
      */
     public void manageCork(String title, Dice dice, int rowDest, int columnDest) {
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-                    dice, rowDest, columnDest, null, false, 0, 0, null, null,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()),
+                    dice, rowDest, columnDest, null, 0, 0, null, null,
                     null, 0))
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             else {
@@ -528,8 +510,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card Eglomise
+     * @param title title of the card
      * @param dice dice needed to be repositioned
      * @param rowDest row's coordinate on the map where the chosen dice to be positioned
      * @param columnDest column's coordinate on the map where the chosen dice to be positioned
@@ -537,8 +519,8 @@ public class Controller implements Observer<MessageVC> {
      * @param columnMit the column's coordinate of the dice to be repositioned
      */
     public void manageEglomise(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
-                rowDest, columnDest, null, false, rowMit, columnMit, null, null,
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice,
+                rowDest, columnDest, null,  rowMit, columnMit, null, null,
                 null, 0))
             manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
         else
@@ -546,8 +528,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card FluxBrush
+     * @param title title of the card
      * @param dice a stock dice
      * @param rowDest row's coordinate where to position the dice
      * @param columnDest column's coordinate where to position the dice
@@ -556,8 +538,8 @@ public class Controller implements Observer<MessageVC> {
     public void manageFluxBrush(String title, Dice dice, int rowDest, int columnDest, Dice diceBefore) {
 
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
-                    rowDest, columnDest, getGame().getStock(), false, 0, 0, diceBefore, null,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice,
+                    rowDest, columnDest, getGame().getStock(),  0, 0, diceBefore, null,
                     null, 0))
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             else {
@@ -571,10 +553,10 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
+     * method that manages the card Flux Remover
      * @param a if the card is used
      * @param title of the card
-     * @param dice
+     * @param dice the chosen dice
      * @param row       row's coordinate where to position the dice
      * @param column    column's coordinate where to position the dice
      */
@@ -582,7 +564,7 @@ public class Controller implements Observer<MessageVC> {
         if (!setDice) {
             if (a) {
                 if (!getGame().searchToolCard(title).useTool(null, dice, row, column, getGame().getDiceBag().getBox(),
-                        false, 0, 0, null, null, null, 0)) {
+                       0, 0, null, null, null, 0)) {
                     getGame().getStock().add(dice);
                     manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
                 } else {
@@ -595,7 +577,7 @@ public class Controller implements Observer<MessageVC> {
                 getGame().removeDiceStock(dice);
                 Collections.shuffle(getGame().getDiceBag().getBox());
                 dice = getGame().getDiceBag().getBox().remove(0);
-                getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurno()));
+                getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurn()));
             }
         } else
             manageError(ERR);
@@ -603,24 +585,23 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card Glazing
+     * @param title title of the card
      */
     public void manageGlazing(String title) {
         if (!setDice){
-            getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-                    null, firstOrSecond(), 0, getGame().getStock(),
-                    setDice, 0, 0, null,
-                    null, null, 0);
+            getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()),
+                    null, firstOrSecond(), 0, getGame().getStock(), 0, 0,
+                    null, null, null, 0);
             setTools();
         }
-        else manageError("Hai già piazzato un dado in questo turno! Non puoi attivare questa carta utensile");
+        else manageError("Hai già piazzato un dado in questo turn! Non puoi attivare questa carta utensile");
 
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card Grinding
+     * @param title title of the card
      * @param dice    the chosen dice
      * @param row     row's coordinate where to position the dice
      * @param column  column's coordinate where to position the dice
@@ -628,8 +609,8 @@ public class Controller implements Observer<MessageVC> {
      */
     public void manageGrinding(String title, Dice dice, int row, int column, Dice diceBefore) {
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, false,
-                    row, column, null, null, null, 0)) {
+            if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, row,
+                    column, null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
 
             } else {
@@ -643,8 +624,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card Grozing
+     * @param title title of the card
      * @param dice the chosen dice
      * @param rowDest row's coordinate on the map where the chosen dice to be positioned
      * @param colDest column's coordinate on the map where the chosen dice to be positioned
@@ -652,7 +633,7 @@ public class Controller implements Observer<MessageVC> {
     public void manageGrozing(String title, Dice dice, int rowDest, int colDest) {
         if (!setDice) {
 
-            if (!getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, false, 0, 0,
+            if (!getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, 0, 0,
                     null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             } else {
@@ -667,26 +648,26 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card Lathekin
+     * @param title title of the card
      * @param row1Dest row's coordinate on the map where the first dice needed to be repositioned
      * @param column1Dest column's coordinate on the map where the first dice needed to be repositioned
      * @param dices an array list with the dices to move
-     * @param col1Mit
-     * @param col2Mit
-     * @param row1Mit
-     * @param row2Mit
+     * @param col1Mit column's coordinate on the map where the first dice is first
+     * @param col2Mit column's coordinate on the map where the second dice is first
+     * @param row1Mit row's coordinate on the map where the first dice is first
+     * @param row2Mit row's coordinate on the map where the second dice is first
      * @param row2Dest row's coordinate on the map where the second dice needed to be repositioned
      * @param column2Dest column's coordinate on the map where the second dice needed to be repositioned
      */
     public void manageLathekin(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int column1Dest,
-                               ArrayList<Dice> dices, int row2Dest, int column2Dest) {
+                               List<Dice> dices, int row2Dest, int column2Dest) {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
         getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
         getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
         getGame().searchToolCard(title).getStrategy().setRow3(col2Mit);
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-                null, row1Dest, column1Dest, dices, false, row2Dest, column2Dest, null, null, null,
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()),
+                null, row1Dest, column1Dest, dices, row2Dest, column2Dest, null, null, null,
                 0))
             manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
         else
@@ -694,8 +675,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of the card
+     * method that manages the card Lens Cutter
+     * @param title title of the card
      * @param diceStock a chosen dice from the stock
      * @param numberRound which round contains the dice on the round scheme
      * @param row row's coordinate on the map where the chosen dice to be positioned
@@ -705,7 +686,7 @@ public class Controller implements Observer<MessageVC> {
     public void manageLens(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
         if (!setDice) {
             if (!getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, getGame().getStock(),
-                    false, row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
+                    row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
             {
                 getGame().getStock().add(diceRound);
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
@@ -720,15 +701,15 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of a card
+     * method that manages the card RunningPliers
+     * @param title title of a card
      * @param dice chose dice
      * @param rowDest row's coordinate on the map where the dice should be placed
      * @param columnDest column's coordinate on the map where the dice should be placed
      */
     public void manageRunning(String title, Dice dice, int rowDest, int columnDest) {
-            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()), dice,
-                    firstOrSecond(), 0, getGame().getStock(), false, rowDest, columnDest, null,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice,
+                    firstOrSecond(), 0, getGame().getStock(), rowDest, columnDest, null,
                     null, getPlayersInRound(), 0))
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             else {
@@ -738,8 +719,8 @@ public class Controller implements Observer<MessageVC> {
     }
 
     /**
-     *
-     * @param title of a card
+     * method that manages the card Tap Wheels
+     * @param title title of a card
      * @param diceRoundScheme a chosen dice from the Round Scheme
      * @param row1Dest row's coordinate on the map where the first chosen dice to be positioned
      * @param column1Dest column's coordinate on the map where the first chosen dice to be positioned
@@ -753,17 +734,30 @@ public class Controller implements Observer<MessageVC> {
      * @param col2Mit the column's coordinate of the second dice to be repositioned
      */
     public void manageTap(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, Dice diceRoundScheme, int row1Dest,
-                          int column1Dest, ArrayList<Dice> diceToMove, int row2Dest, int column2Dest, int posDiceinSchemeRound) {
+                          int column1Dest, List<Dice> diceToMove, int row2Dest, int column2Dest, int posDiceinSchemeRound) {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
         getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
         getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
         getGame().searchToolCard(title).getStrategy().setRow3(col2Mit);
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurno()),
-                diceRoundScheme, row1Dest, column1Dest, diceToMove, false, row2Dest, column2Dest, null,
+        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()),
+                diceRoundScheme, row1Dest, column1Dest, diceToMove, row2Dest, column2Dest, null,
                 getGame().getRoundSchemeMap(), null, posDiceinSchemeRound))
             manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
         else
             setTools();
+    }
+
+    /**
+     * destroys all controller data
+     */
+    @SuppressWarnings("Deprecated")
+    @Override
+    public void finalize() throws Throwable {
+        game.finalize();
+        players.clear();
+        playersInRound.clear();
+        System.gc();
+        super.finalize();
     }
 
 }

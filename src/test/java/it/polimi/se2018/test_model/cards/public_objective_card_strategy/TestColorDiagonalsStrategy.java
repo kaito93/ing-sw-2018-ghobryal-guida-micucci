@@ -10,7 +10,7 @@ import it.polimi.se2018.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.model.cards.public_objective_card_strategy.ColorDiagonalsStrategy;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class ColorDiagonalsStrategy Tester
@@ -20,7 +20,7 @@ public class TestColorDiagonalsStrategy extends TestCase {
     private Map map;
     private Card card;
     private Game game;
-    private ArrayList<Map> maps;
+    private List<Map> maps;
     private Dice y1, y2, y3, y4, y5, g2, g5, g1, g3;
 
     /**
@@ -87,10 +87,14 @@ public class TestColorDiagonalsStrategy extends TestCase {
         g1 =null;
         g3 =null;
         card=null;
-        for(Map map1: maps)
-            map1.finalize();
-        map.finalize();
-        game.finalize();
+        try {
+            for(Map map1: maps)
+                map1.finalize();
+            map.finalize();
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         System.gc();
         super.tearDown();
     }

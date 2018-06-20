@@ -1,0 +1,22 @@
+package it.polimi.se2018.util.deserializer.public_cards;
+
+import it.polimi.se2018.model.cards.public_objective_card_strategy.MediumShadesStrategy;
+import it.polimi.se2018.model.cards.public_objective_card_strategy.ObjectiveCardStrategy;
+
+/**
+ * class to deserialize the medium shade strategy card
+ * extends Builder
+ */
+public class MediumShadesStrategyBuilder extends Builder{
+    ObjectiveCardStrategy mss;
+
+    /**
+     * class constructor that inizialize the string and the strategy
+     */
+    public MediumShadesStrategyBuilder(){
+        super();
+        mss = new MediumShadesStrategy();
+        this.setStrategy(mss);
+        this.setToBeCompared("MediumShadesStrategy");
+    }
+}

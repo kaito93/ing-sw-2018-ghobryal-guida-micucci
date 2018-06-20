@@ -62,9 +62,13 @@ public class TestMap extends TestCase {
         g1 =null;
         b2 =null;
         cell=null;
-        map.finalize();
+        try {
+            map.finalize();
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         map = null;
-        game.finalize();
         game= null;
         System.gc();
         super.tearDown();

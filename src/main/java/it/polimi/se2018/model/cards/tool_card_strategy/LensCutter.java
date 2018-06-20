@@ -23,7 +23,6 @@ public class LensCutter extends ToolCardStrategy {
      * @param posDice which round contains the dice on the round scheme
      * @param t1 n.a.
      * @param stock round's stock
-     * @param t2 n.a.
      * @param row row's coordinate on the map where the chosen dice to be positioned
      * @param column column's coordinate on the map where the chosen dice to be positioned
      * @param t5 n.a.
@@ -32,8 +31,8 @@ public class LensCutter extends ToolCardStrategy {
      * @param roundSchemeMap the Round Scheme
      */
 
-    public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, boolean t2
-            , int row, int column, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
+    public void useTool(Player player, Dice stockDice, int posDice, int t1, List<Dice> stock, int row, int column,
+                        Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap, List<Player> t5, int t6){
         List<Dice> temp = new ArrayList<>();
         if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeDice) && stock.contains(stockDice)){
             temp.add(stockDice);

@@ -51,34 +51,29 @@ public class ToolCard extends Card{
         return color;
     }
 
-    @Override
-    public void setUsed(boolean used1) {
-
-    }
-
     /**
      * implements the card algorithm in a specific way
      * for parameters' description go to card's strategy
      * @return a boolean which is true if the player respects the rules of using this card else false
      */
     @Override
-    public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock
-            , boolean posDice, int row2, int column2, Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
+    public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock, int row2, int column2,
+                           Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
             , List<Player> turns, int posDice1){
         if((!isUsed() && player.getFavSig()<1) || (isUsed() && player.getFavSig()<2)){
             ToolCardStrategy.getErrorBool().setErrorMessage("Player doesn't have enough favor signals");
             ToolCardStrategy.getErrorBool().setErrBool(true);
             return false;
         }else if(!isUsed() && player.getFavSig()>0){
-            strategy.useTool(player, dice, row1, column1, stock,
-                    posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1);
+            strategy.useTool(player, dice, row1, column1, stock, row2, column2, roundSchemeDice, roundSchemeMap,
+                    turns, posDice1);
             if(!ToolCardStrategy.getErrorBool().getErrBool()) {
                 used = true;
                 return player.modifyFavorSig(1);
             }
         }else if(isUsed() && player.getFavSig()>1){
-            strategy.useTool(player, dice, row1, column1, stock,
-                    posDice, row2, column2, roundSchemeDice, roundSchemeMap, turns, posDice1);
+            strategy.useTool(player, dice, row1, column1, stock, row2, column2, roundSchemeDice, roundSchemeMap,
+                    turns, posDice1);
             if(!ToolCardStrategy.getErrorBool().getErrBool()){
                 return player.modifyFavorSig(2);
             }

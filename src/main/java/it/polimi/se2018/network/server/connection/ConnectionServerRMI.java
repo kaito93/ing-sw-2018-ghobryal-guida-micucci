@@ -10,6 +10,7 @@ import it.polimi.se2018.model.cards.ToolCard;
 
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConnectionServerRMI extends ConnectionServer {
 
@@ -24,7 +25,7 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendMapConn(ArrayList<Map> maps, Player player) {
+    public void sendMapConn(List<Map> maps, Player player) {
         // METODO PER INVIARE LA SCELTA DELLE MAPPE AI GIOCATORI
     }
 
@@ -34,7 +35,7 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendPublicInformation(ArrayList<PublicObjectiveCard> cards, ArrayList<ToolCard> tools) {
+    public void sendPublicInformation(List<PublicObjectiveCard> cards, List<ToolCard> tools) {
         // METODO PER INVIARE I TITOLI E LE DESCRIZIONI DELLE CARTE OBIETTIVO PUBBLICHE E DEI TOOLS
 
     }
@@ -50,7 +51,7 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendFinalPlayers(ArrayList<Player> players) {
+    public void sendFinalPlayers(List<Player> players) {
         // METODO CHE INVIA TUTTI I GIOCATORI A TUTTI I GIOCATORE
     }
 
@@ -68,8 +69,8 @@ public class ConnectionServerRMI extends ConnectionServer {
 
 
     @Override
-    public void sendUpdate(ArrayList<Map> maps, ArrayList<String> users, String message, ArrayList<Boolean> tools,
-                           RoundSchemeCell[] roundSchemeMap, ArrayList<Dice> stock, ArrayList<Integer> favors) {
+    public void sendUpdate(List<Map> maps, List<String> users, String message, List<Boolean> tools,
+                           RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
         // METODO CHE INVIA LE MATRICI DEI GIOCATORI, LA LISTA DEI GIOCATORI AGGIORNATA [Vedesi disconnessioni]
         // IL MESSAGGIO DA MOSTRARE A SCHERMO DI CHI TOCCA, ARRAYLIST DI BOOLEANI CHE SI RIFERISCONO ALLE CARTE TOOL,
         // LO SCHEMA DEI ROUND E LA RISERVA e l'elenco dei punti favore rimanenti ai giocatori

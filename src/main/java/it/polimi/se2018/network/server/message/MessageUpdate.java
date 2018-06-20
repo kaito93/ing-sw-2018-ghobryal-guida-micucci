@@ -8,6 +8,7 @@ import it.polimi.se2018.network.client.message.Message;
 import it.polimi.se2018.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -20,14 +21,14 @@ public class MessageUpdate implements MessageMV {
     private static final long serialVersionUID = 2201748410369437792L;
 
 
-    private ArrayList<Cell[][]> cells = new ArrayList<>();
-    private ArrayList<String> users = new ArrayList<>();
-    private ArrayList<Integer> favUsers = new ArrayList<>();
+    private List<Cell[][]> cells = new ArrayList<>();
+    private List<String> users = new ArrayList<>();
+    private List<Integer> favUsers = new ArrayList<>();
 
-    private ArrayList<Boolean> useTools;
+    private List<Boolean> useTools;
 
-    private ArrayList<Dice> stock;
-    private RoundSchemeCell roundSchemeMap[];
+    private List<Dice> stock;
+    private RoundSchemeCell[] roundSchemeMap;
 
     private String message;
 
@@ -43,7 +44,7 @@ public class MessageUpdate implements MessageMV {
      * method that return the new Stock
      * @return an arraylist of dice
      */
-    public ArrayList<Dice> getStock() {
+    public List<Dice> getStock() {
         return stock;
     }
 
@@ -59,7 +60,7 @@ public class MessageUpdate implements MessageMV {
      * method that set the new stock
      * @param stock an arraylist of dice
      */
-    public void setStock(ArrayList<Dice> stock) {
+    public void setStock(List<Dice> stock) {
         this.stock = stock;
     }
 
@@ -75,7 +76,7 @@ public class MessageUpdate implements MessageMV {
      * method that returns the users in game
      * @return an arraylist of strings
      */
-    public ArrayList<String> getUsers() {
+    public List<String> getUsers() {
         return users;
     }
 
@@ -91,7 +92,7 @@ public class MessageUpdate implements MessageMV {
      * method that returns the maps of all players
      * @return an arraylist of matrix of cells
      */
-    public ArrayList<Cell[][]> getCells() {
+    public List<Cell[][]> getCells() {
         return cells;
     }
 
@@ -99,7 +100,7 @@ public class MessageUpdate implements MessageMV {
      * method that returns the usage of all tool cards in game
      * @return an arraylist of boolean
      */
-    public ArrayList<Boolean> getUseTools() {
+    public List<Boolean> getUseTools() {
         return useTools;
     }
     /**
@@ -115,7 +116,7 @@ public class MessageUpdate implements MessageMV {
      * method that set the usage of all tool cards in game
      * @param useTools an arraylist of boolean
      */
-    public void setUseTools(ArrayList<Boolean> useTools) {
+    public void setUseTools(List<Boolean> useTools) {
         this.useTools = useTools;
     }
 
@@ -123,7 +124,7 @@ public class MessageUpdate implements MessageMV {
      * method that set the users in game
      * @param users an arraylist of strings
      */
-    public void setUsers(ArrayList<String> users) {
+    public void setUsers(List<String> users) {
         this.users = users;
     }
 
@@ -134,7 +135,7 @@ public class MessageUpdate implements MessageMV {
      * method that set the map of all players
      * @param maps an arraylist of maps
      */
-    public void setCells(ArrayList<Map> maps) {
+    public void setCells(List<Map> maps) {
         try {
             for (int i=0; i<maps.size();i++)
                 cells.add(maps.get(i).getCells());
@@ -149,7 +150,7 @@ public class MessageUpdate implements MessageMV {
      * method that returns the number of favor that is not used in this game by all players
      * @return an arraylist of integer
      */
-    public ArrayList<Integer> getFavUsers() {
+    public List<Integer> getFavUsers() {
         return favUsers;
     }
 
@@ -157,7 +158,7 @@ public class MessageUpdate implements MessageMV {
      * method that set the number of favor that is not used in this game by all players
      * @param favUsers an arraylist of integer
      */
-    public void setFavUsers(ArrayList<Integer> favUsers) {
+    public void setFavUsers(List<Integer> favUsers) {
         this.favUsers = favUsers;
     }
 }

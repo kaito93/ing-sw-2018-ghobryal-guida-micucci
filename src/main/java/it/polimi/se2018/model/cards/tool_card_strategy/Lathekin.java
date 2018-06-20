@@ -28,7 +28,6 @@ public class Lathekin extends ToolCardStrategy {
      * @param row1 row's coordinate on the map where the first dice needed to be repositioned
      * @param column1 column's coordinate on the map where the first dice needed to be repositioned
      * @param dicesToMove an array list with the dices to move
-     * @param t2 n.a.
      * @param row2 row's coordinate on the map where the second dice needed to be repositioned
      * @param column2 column's coordinate on the map where the second dice needed to be repositioned
      * @param t3 n.a.
@@ -39,8 +38,8 @@ public class Lathekin extends ToolCardStrategy {
     //qui ti metto 4 attributi in questa classe con i loro set e get perché non c'è voglia di aggiungere 4 parametri in più
     //a tutti i metodi di tutte le carte, già superiamo il limite di un bel po'
     //in ogni caso ti posiziono i dadi
-    public void useTool(Player player, Dice t1, int row1, int column1, List<Dice> dicesToMove,
-            boolean t2, int row2, int column2, Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
+    public void useTool(Player player, Dice t1, int row1, int column1, List<Dice> dicesToMove, int row2, int column2,
+                        Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         boolean a;
         boolean b;
         if(dicesToMove.size()==2){

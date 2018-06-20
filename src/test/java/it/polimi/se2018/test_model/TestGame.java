@@ -22,10 +22,10 @@ public class TestGame extends TestCase {
     private List<PublicObjectiveCard> publicObjectiveCards;
     private DiceBox diceBox;
     private RoundSchemeCell[] roundSchemeMap;
-    private ArrayList<Player> players;
-    private ArrayList<Dice> stock;
-    private ArrayList<Map> maps;
-    private ArrayList<Dice> dices;
+    private List<Player> players;
+    private List<Dice> stock;
+    private List<Map> maps;
+    private List<Dice> dices;
 
     /**
      * Class Constructor
@@ -71,7 +71,11 @@ public class TestGame extends TestCase {
         stock=null;
         maps=null;
         dices=null;
-        game.finalize();
+        try {
+            game.finalize();
+        } catch (Throwable throwable) {
+            //salta
+        }
         game=null;
         System.gc();
         super.tearDown();

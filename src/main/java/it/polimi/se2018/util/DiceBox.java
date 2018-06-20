@@ -10,8 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 
 /** class DiceBox
@@ -22,9 +22,6 @@ public class DiceBox {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private Gson gson = new Gson();
-    private File json;
-    private BufferedReader br = null;
     private ArrayList<Dice> box;
 
     /**
@@ -33,17 +30,20 @@ public class DiceBox {
      */
     public DiceBox(String path) {
 
+        BufferedReader br=null;
         try{
-            json = new File(path);
+            File json = new File(path);
             br = new BufferedReader(new FileReader(json));
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.SEVERE, "File non trovato", e);
         }
         Type listType = new TypeToken<ArrayList<Dice>>(){}.getType();
-        box = gson.fromJson(br, listType);
+        Gson gson = new Gson();
+        if (br != null)
+            box = gson.fromJson(br, listType);
 
-        for (int index = 0; index<box.size(); index++){
-            box.get(index).throwDice();
+        for (Dice aBox : box) {
+            aBox.throwDice();
         }
         initDiceBox();
     }
@@ -52,21 +52,8 @@ public class DiceBox {
      * get method that return the ArrayList of dices
      * @return ArrayList of dices from Json file
      */
-    public ArrayList<Dice> getBox(){
+    public List<Dice> getBox(){
         return this.box;
-    }
-
-    /**
-     * method that erase all the dice until a choosen index
-     * @param index number of dice that has to been deleted
-     */
-    public void eraseDices(int index){
-        int i=0;
-        while (i<index){
-            box.remove(0);
-            i++;
-        }
-
     }
 
     /**
@@ -74,7 +61,7 @@ public class DiceBox {
      * @param dicesNumber number of dices that need to be extract
      * @return arraylist of dices that contain all the dices extracted
      */
-    public ArrayList<Dice> extractDice(int dicesNumber){
+    public List<Dice> extractDice(int dicesNumber){
         ArrayList<Dice> toBeReturned = new ArrayList<>();
         for(int i = 0; i < dicesNumber; i++)
         {
@@ -88,7 +75,7 @@ public class DiceBox {
     /**
      * method that shuffle all the dice in the arraylist
      */
-    public void initDiceBox(){
+    private void initDiceBox(){
         Collections.shuffle(box);
     }
 
