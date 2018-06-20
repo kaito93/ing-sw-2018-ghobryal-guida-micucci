@@ -1,10 +1,13 @@
 package it.polimi.se2018.test_model.cards.tool_card_strategy;
 
-import it.polimi.se2018.model.*;
-import it.polimi.se2018.model.cards.Card;
-import it.polimi.se2018.model.cards.ToolCard;
-import it.polimi.se2018.model.cards.tool_card_strategy.*;
-import it.polimi.se2018.model.exception.InvalidValueException;
+import it.polimi.se2018.server.model.*;
+import it.polimi.se2018.server.model.cards.Card;
+import it.polimi.se2018.server.model.cards.ToolCard;
+import it.polimi.se2018.server.controller.tool_card_strategy.*;
+import it.polimi.se2018.shared.exception.InvalidValueException;
+import it.polimi.se2018.shared.model_shared.Color;
+import it.polimi.se2018.shared.model_shared.Dice;
+import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
 package it.polimi.se2018.test_controller;
 
-import it.polimi.se2018.controller.Controller;
-import it.polimi.se2018.model.Game;
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.network.server.VirtualView.VirtualView;
+import it.polimi.se2018.server.controller.Controller;
+import it.polimi.se2018.server.model.Game;
+import it.polimi.se2018.server.model.Map;
+import it.polimi.se2018.server.model.Player;
+import it.polimi.se2018.server.network.VirtualView;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

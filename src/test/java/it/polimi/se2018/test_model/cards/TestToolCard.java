@@ -1,11 +1,13 @@
 package it.polimi.se2018.test_model.cards;
 
 
-import it.polimi.se2018.model.*;
-import it.polimi.se2018.model.cards.Card;
-import it.polimi.se2018.model.cards.ToolCard;
-import it.polimi.se2018.model.cards.tool_card_strategy.GrozingPliers;
-import it.polimi.se2018.model.cards.tool_card_strategy.ToolCardStrategy;
+import it.polimi.se2018.server.model.*;
+import it.polimi.se2018.server.model.cards.Card;
+import it.polimi.se2018.server.model.cards.ToolCard;
+import it.polimi.se2018.server.controller.tool_card_strategy.GrozingPliers;
+import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
+import it.polimi.se2018.shared.model_shared.Color;
+import it.polimi.se2018.shared.model_shared.Dice;
 import junit.framework.TestCase;
 
 /**

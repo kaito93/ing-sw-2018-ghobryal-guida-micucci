@@ -2863,7 +2863,7 @@ var Z_DEFLATED  = 8;
 /**
  * Deflate.msg -> String
  *
- * Error message, if [[Deflate.err]] != 0
+ * Error message_socket, if [[Deflate.err]] != 0
  **/
 
 
@@ -2938,7 +2938,7 @@ var Deflate = function(options) {
   }
 
   this.err    = 0;      // error code, if happens (0 = Z_OK)
-  this.msg    = '';     // error message
+  this.msg    = '';     // error message_socket
   this.ended  = false;  // used to avoid multiple onEnd() calls
   this.chunks = [];     // chunks of compressed data
 
@@ -3207,7 +3207,7 @@ var gzheader = _dereq_('./zlib/gzheader');
 /**
  * Inflate.msg -> String
  *
- * Error message, if [[Inflate.err]] != 0
+ * Error message_socket, if [[Inflate.err]] != 0
  **/
 
 
@@ -3285,7 +3285,7 @@ var Inflate = function(options) {
   }
 
   this.err    = 0;      // error code, if happens (0 = Z_OK)
-  this.msg    = '';     // error message
+  this.msg    = '';     // error message_socket
   this.ended  = false;  // used to avoid multiple onEnd() calls
   this.chunks = [];     // chunks of compressed data
 
@@ -9139,7 +9139,7 @@ function ZStream() {
   this.avail_out = 0;
   /* total number of bytes output so far */
   this.total_out = 0;
-  /* last error message, NULL if no error */
+  /* last error message_socket, NULL if no error */
   this.msg = ''/*Z_NULL*/;
   /* not visible by applications */
   this.state = null;

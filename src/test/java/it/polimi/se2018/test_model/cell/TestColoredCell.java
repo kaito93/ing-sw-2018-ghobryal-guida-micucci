@@ -1,8 +1,8 @@
 package it.polimi.se2018.test_model.cell;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.cell.Cell;
-import it.polimi.se2018.model.cell.ColoredCell;
+import it.polimi.se2018.shared.model_shared.Color;
+import it.polimi.se2018.shared.model_shared.Cell;
+import it.polimi.se2018.server.model.cell.ColoredCell;
 import junit.framework.TestCase;
 
 /**

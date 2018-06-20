@@ -1,8 +1,8 @@
 package it.polimi.se2018.test_model;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.exception.InvalidValueException;
+import it.polimi.se2018.shared.model_shared.Color;
+import it.polimi.se2018.shared.model_shared.Dice;
+import it.polimi.se2018.shared.exception.InvalidValueException;
 import junit.framework.TestCase;
 
 /**

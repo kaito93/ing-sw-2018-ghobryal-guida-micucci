@@ -1,11 +1,11 @@
 package it.polimi.se2018.test_model.cards;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.Game;
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.cards.Card;
-import it.polimi.se2018.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.shared.model_shared.Color;
+import it.polimi.se2018.shared.model_shared.Dice;
+import it.polimi.se2018.server.model.Game;
+import it.polimi.se2018.server.model.Map;
+import it.polimi.se2018.server.model.cards.Card;
+import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
 import junit.framework.TestCase;
 
 import java.util.List;

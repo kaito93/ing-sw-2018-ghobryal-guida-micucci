@@ -1,7 +1,7 @@
 package it.polimi.se2018.test_model;
 
 
-import it.polimi.se2018.model.Color;
+import it.polimi.se2018.shared.model_shared.Color;
 import junit.framework.TestCase;
 
 /**

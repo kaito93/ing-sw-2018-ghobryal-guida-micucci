@@ -1,6 +1,6 @@
 package it.polimi.se2018.test_model;
 
-import it.polimi.se2018.model.ErrorBool;
+import it.polimi.se2018.server.util.ErrorBool;
 import junit.framework.TestCase;
 
 /**
@@ -20,7 +20,7 @@ public class TestErrorBool extends TestCase {
     }
 
     /**
-     * setup a new Error message with a boolean
+     * setup a new Error message_socket with a boolean
      * @throws Exception setup general exception
      */
     @Override

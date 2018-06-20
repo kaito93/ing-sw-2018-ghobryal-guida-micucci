@@ -1,0 +1,26 @@
+[
+  {
+    "type": "dice",
+    "path": "src/main/java/it/polimi/se2018/server/json_server/Dices.json"
+  },
+  {
+    "type": "private",
+    "path": "src/main/java/it/polimi/se2018/server/json_server/PrivateObjectiveCards.json"
+  },
+  {
+    "type": "server",
+    "path": "src/main/java/it/polimi/se2018/server/json_server/Server.json"
+  },
+  {
+    "type": "maps",
+    "path": "src/main/java/it/polimi/se2018/server/json_server/Maps.json"
+  },
+  {
+    "type": "public",
+    "path": "src/main/java/it/polimi/se2018/server/json_server/PublicCards.json"
+  },
+  {
+    "type": "tool",
+    "path": "src/main/java/it/polimi/se2018/server/json_server/ToolCards.json"
+  }
+]

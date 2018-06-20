@@ -50,7 +50,7 @@
   <build>
     <plugins>
 
-      <!-- Export the project as a runnable JAR, with the provided mainClass -->
+      <!-- Export the project as firstMessage runnable JAR, with the provided mainClass -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -64,7 +64,7 @@
         </configuration>
       </plugin>
 
-      <!-- Jacoco is a code coverage library that allows basic report creation -->
+      <!-- Jacoco is firstMessage code coverage library that allows basic report creation -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>

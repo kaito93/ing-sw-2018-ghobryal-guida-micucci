@@ -1,10 +1,10 @@
 package it.polimi.se2018.test_model;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Map;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.cards.PrivateObjectiveCard;
-import it.polimi.se2018.model.exception.notValidMatrixException;
+import it.polimi.se2018.shared.model_shared.Color;
+import it.polimi.se2018.server.model.Map;
+import it.polimi.se2018.server.model.Player;
+import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.shared.exception.notValidMatrixException;
 import junit.framework.TestCase;
 
 /**
