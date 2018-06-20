@@ -46,7 +46,7 @@ public class TestSomeCards2 extends TestCase {
         strategy3 = new Lathekin();
         strategy4 = new LensCutter();
         card1 = new ToolCard("Cork-backed Straightedge", "Test", 0, Color.BLUE, strategy1);
-        card2 = new ToolCard("Flux Brush", "Test", 0, Color.PURPLE, strategy2);
+        card2 = new ToolCard("Glazing Hummer", "Test", 0, Color.PURPLE, strategy2);
         card3 = new ToolCard("Lathekin", "Test", 0, Color.YELLOW, strategy3);
         card4 = new ToolCard("Lens Cutter", "Test", 0, Color.YELLOW, strategy4);
         player = new Player("Anton");
@@ -117,8 +117,6 @@ public class TestSomeCards2 extends TestCase {
         assertFalse(card1.useTool(player, g2, 3, 0, null, 3, 2,
                 null, null, null, -1));
         assertFalse(card2.useTool(player, null, 1, -1, stock, -1, -1,
-                null, null, null, -1));
-        assertFalse(card2.useTool(player, null, 2, -1, stock, -1, -1,
                 null, null, null, -1));
         assertFalse(card3.useTool(player, null, 1, 0, stock, 2, 0,
                 null, null, null, -1));
