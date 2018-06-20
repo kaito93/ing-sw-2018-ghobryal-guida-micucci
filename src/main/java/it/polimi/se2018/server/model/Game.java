@@ -105,7 +105,7 @@ public class Game {
      * @return list of tool card
      */
 
-    public ArrayList<ToolCard> getToolCards() {
+    public List<ToolCard> getToolCards() {
         return toolCards;
     }
 
@@ -186,7 +186,7 @@ public class Game {
      * method that returns the list of public objective cards
      * @return a list of public cards
      */
-    public ArrayList<PublicObjectiveCard> getPublicObjCard() {
+    public List<PublicObjectiveCard> getPublicObjCard() {
         return publicObjCard;
     }
 
@@ -279,18 +279,15 @@ public class Game {
     @Override
     @SuppressWarnings("Deprecated")
     public void finalize() throws Throwable{
-        //diceBag.eraseDices(diceBag.getBox().size());
         publicObjCard.clear();
-        for (int i=0; i<roundSchemeMap.length; i++)
-            try{
-                if(roundSchemeMap[i].getRestOfStock()!=null)
-                    roundSchemeMap[i].getRestOfStock().clear();
-            }catch (NullPointerException e){
+        for (RoundSchemeCell aRoundSchemeMap : roundSchemeMap)
+            try {
+                if (aRoundSchemeMap.getRestOfStock() != null)
+                    aRoundSchemeMap.getRestOfStock().clear();
+            } catch (NullPointerException e) {
                 //salta
             }
-        roundSchemeMap=null;
         toolCards.clear();
-        toolCards=null;
         for (Map map: maps)
             map.finalize();
         System.gc();
@@ -303,9 +300,8 @@ public class Game {
      */
     public void removeDiceStock(Dice dice) {
         for (int i=0; i<stock.size();i++)
-            if (dice.getValue()==stock.get(i).getValue())
-                if (dice.getColor().equalsColor(stock.get(i).getColor()))
-                    stock.remove(i);
+            if (dice.getValue()==stock.get(i).getValue() && dice.getColor().equalsColor(stock.get(i).getColor()))
+                stock.remove(i);
     }
 
     /**

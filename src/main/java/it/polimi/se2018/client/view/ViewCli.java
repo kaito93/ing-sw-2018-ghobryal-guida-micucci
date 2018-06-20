@@ -479,24 +479,21 @@ public class ViewCli extends View {
             obj2.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj4.get(0)][obj4.get(1)].getDice());
             obj.add(obj4.get(0));
             obj.add(obj4.get(1));
-            boolean sec=false;
-            while (sec){
+            while (true){
                 addLog("Vuoi selezionare un altro dado? [Si/No]");
                 String choose = scanner.nextLine();
                 if (choose.equalsIgnoreCase("si")){
                     a++;
-                    sec=true;
+                    if (a == 2)
+                        addError("Non puoi selezionare un ulteriore dado! Verranno inviati quelli selezionati precedentemente");
+                    break;
                 }
-
                 else if (choose.equalsIgnoreCase("no")){
                     a=3;
-                    sec=true;
+                    break;
                 }
             }
-
         }
-        if (a == 2)
-            addError("Non puoi selezionare un ulteriore dado! Verranno inviati quelli selezionati precedentemente");
 
         obj.add(obj2);
         obj.add(obj3.get(1));
@@ -632,10 +629,10 @@ public class ViewCli extends View {
         Dice diceAfter = null;
         try {
             diceAfter = diceBefore.clone();
-        } catch (CloneNotSupportedException e) {
+            diceAfter.throwDice();
+        } catch (CloneNotSupportedException | NullPointerException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
-        diceAfter.throwDice();
         addLog("Ecco il risultato del lancio del dado precedentemente scelto: ");
         printColor(diceAfter.getColor().toString(), diceAfter.toString());
         addLog("Scegli dove posizionare il dado: ");

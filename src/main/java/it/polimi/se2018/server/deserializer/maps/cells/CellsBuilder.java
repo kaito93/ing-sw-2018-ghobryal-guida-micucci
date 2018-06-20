@@ -14,15 +14,15 @@ import java.util.Observer;
 public abstract class CellsBuilder implements Observer {
 
     private String toBeCompared;
-    it.polimi.se2018.shared.model_shared.Cell cell;
+    private it.polimi.se2018.shared.model_shared.Cell cell;
     private TransitionForMaps trans;
     private ArrayList<Cell> cells;
-    public EntireMap mappaIntera;
+    private EntireMap mappaIntera;
 
     /**
      * class constructor: build the object in the class
      */
-    public CellsBuilder(){
+    CellsBuilder(){
         trans = new TransitionForMaps();
         cells = new ArrayList<>();
         mappaIntera = new EntireMap();
@@ -87,5 +87,13 @@ public abstract class CellsBuilder implements Observer {
      */
     public int getEntireMapLevel(){
         return mappaIntera.getLevel();
+    }
+
+    /**
+     * getter method for EntireMap type of the array list of cells
+     * @return EntireMap object of the array list of cells
+     */
+    public EntireMap getMappaIntera() {
+        return mappaIntera;
     }
 }

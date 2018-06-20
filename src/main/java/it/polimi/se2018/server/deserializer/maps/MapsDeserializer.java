@@ -191,9 +191,9 @@ public class MapsDeserializer extends Observable {
     private List<Cell> mergeArraylist() {
         ArrayList<Cell> mergiato = new ArrayList<>();
 
-        mergiato.addAll(blank.mappaIntera.getMatrix());
-        mergiato.addAll(coloured.mappaIntera.getMatrix());
-        mergiato.addAll(value.mappaIntera.getMatrix());
+        mergiato.addAll(blank.getMappaIntera().getMatrix());
+        mergiato.addAll(coloured.getMappaIntera().getMatrix());
+        mergiato.addAll(value.getMappaIntera().getMatrix());
         return mergiato;
     }
 }

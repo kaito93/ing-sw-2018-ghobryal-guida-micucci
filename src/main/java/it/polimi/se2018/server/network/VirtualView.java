@@ -101,10 +101,10 @@ public class VirtualView extends Observable<MessageVC> {
      * method that send the public information to all players
      * @param publicCards the arraylist of public cards
      */
-    public void publicInformation(ArrayList<PublicObjectiveCard> publicCards) {
+    public void publicInformation(List<PublicObjectiveCard> publicCards) {
         // invia le informazioni a tutti i giocatori delle informazioni GENERALI della partita.
 
-        ArrayList<ToolCard> tools = controller.getGame().getToolCards();
+        List<ToolCard> tools = controller.getGame().getToolCards();
         for (ConnectionServer connection : this.connections) { // per ogni giocatore
             connection.sendPublicInformation(publicCards, tools);
         }
