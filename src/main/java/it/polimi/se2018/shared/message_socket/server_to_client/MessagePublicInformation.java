@@ -34,10 +34,10 @@ public class MessagePublicInformation implements MessageCV{
      * @param publicObjective arraylist of public cards
      */
     public void setPublicObjective(List<PublicObjectiveCard> publicObjective) {
-        for (int i=0; i<publicObjective.size();i++){
-            titlePublicObjective.add(publicObjective.get(i).getTitle());
-            descriptionPublicObjective.add(publicObjective.get(i).getDescription());
-            scorePublicObjective.add(publicObjective.get(i).getScore());
+        for (PublicObjectiveCard aPublicObjective : publicObjective) {
+            titlePublicObjective.add(aPublicObjective.getTitle());
+            descriptionPublicObjective.add(aPublicObjective.getDescription());
+            scorePublicObjective.add(aPublicObjective.getScore());
         }
     }
 
@@ -46,9 +46,9 @@ public class MessagePublicInformation implements MessageCV{
      * @param toolCards arraylist of tool cards
      */
     public void setToolCards(List<ToolCard> toolCards) {
-        for (int i=0; i<toolCards.size();i++){
-            titleTools.add(toolCards.get(i).getTitle());
-            descriptionTools.add(toolCards.get(i).getDescription());
+        for (ToolCard toolCard : toolCards) {
+            titleTools.add(toolCard.getTitle());
+            descriptionTools.add(toolCard.getDescription());
         }
     }
 
@@ -56,7 +56,7 @@ public class MessagePublicInformation implements MessageCV{
      * method that return the titles of the tool cards
      * @return an arraylist of strings
      */
-    public ArrayList<String> getTitleTools() {
+    public List<String> getTitleTools() {
         return titleTools;
     }
 
@@ -64,7 +64,7 @@ public class MessagePublicInformation implements MessageCV{
      * method that return the descriptions of the tool cards
      * @return an arraylist of strings
      */
-    public ArrayList<String> getDescriptionTools() {
+    public List<String> getDescriptionTools() {
         return descriptionTools;
     }
 
@@ -73,7 +73,7 @@ public class MessagePublicInformation implements MessageCV{
      * @return an arraylist of strings
      */
 
-    public ArrayList<String> getDescriptionPublicObjective() {
+    public List<String> getDescriptionPublicObjective() {
         return descriptionPublicObjective;
     }
 
@@ -82,7 +82,7 @@ public class MessagePublicInformation implements MessageCV{
      * @return an arraylist of strings
      */
 
-    public ArrayList<String> getTitlePublicObjective() {
+    public List<String> getTitlePublicObjective() {
         return titlePublicObjective;
     }
 
@@ -90,7 +90,7 @@ public class MessagePublicInformation implements MessageCV{
      * method that return the scores from the public objective cards
      * @return an arraylist of integers
      */
-    public ArrayList<Integer> getScorePublicObjective() {
+    public List<Integer> getScorePublicObjective() {
         return scorePublicObjective;
     }
 }

@@ -67,7 +67,7 @@ public class ConnectionServerSocket extends ConnectionServer {
      * method that send an object to the Client
      * @param message an object
      */
-    synchronized public void send(Object message) {
+     public synchronized void send(Object message) {
         try {
             output.writeUnshared(message);
             output.flush();
@@ -144,8 +144,8 @@ public class ConnectionServerSocket extends ConnectionServer {
             try {
                 MessageVC reconn = (MessageVC) getInput().readObject();
                 reconnect = reconn instanceof RequestReconnect;
-            } catch (IOException | ClassNotFoundException ignored) {
-
+            } catch (IOException | ClassNotFoundException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }
     }
@@ -157,7 +157,7 @@ public class ConnectionServerSocket extends ConnectionServer {
     public void sendFinalPlayers(List<Player> players) {
         MessageFinalScore messag = new MessageFinalScore();
         messag.setPlayersFinal(players);
-        Message mex = new Message(Message.CVEVENT,messag);
+        mex = new Message(Message.CVEVENT,messag);
         send(mex);
     }
     /**

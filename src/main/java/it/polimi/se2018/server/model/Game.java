@@ -26,7 +26,7 @@ public class Game {
 
     private static final int MAXROUND = 10;
 
-    private static DiceBox diceBag;
+    private DiceBox diceBag;
 
     private List<Dice> stock;
 
@@ -56,7 +56,7 @@ public class Game {
 
         publicObjCard =new ArrayList <>();
 
-        ArrayList<PublicObjectiveCard> cards = loadPublicObjCard(); // carica tutte le carte obiettivo pubblico
+        List<PublicObjectiveCard> cards = loadPublicObjCard(); // carica tutte le carte obiettivo pubblico
 
         for (int i=0; i<3;i++) // estrae 3 numeri casuali e inserisce le rispettive carte pubbliche nell'arraylist per la partita
 
@@ -81,7 +81,7 @@ public class Game {
 
         }
 
-        ArrayList<ToolCard> tools = loadToolCards(); // carica le carte utensili
+        List<ToolCard> tools = loadToolCards(); // carica le carte utensili
 
         toolCards = new ArrayList<>();
 
@@ -113,11 +113,11 @@ public class Game {
      * method that loads the tool cards from a Json file
      * @return a list with the cards red
      */
-    private ArrayList<ToolCard> loadToolCards(){
+    private List<ToolCard> loadToolCards(){
 
 
         toolCardDeserializer tool= new toolCardDeserializer(path.getPathFromType("tool"));
-        tool.TotalDeserializing();
+        tool.totalDeserializing();
         return tool.getDeck();
     }
 
@@ -125,12 +125,12 @@ public class Game {
      * method that loads the public objective cards from a Json file
      * @return a list with the cards red
      */
-    private ArrayList<PublicObjectiveCard> loadPublicObjCard(){
+    private List<PublicObjectiveCard> loadPublicObjCard(){
 
 
         PublicCardDeserializer cards =  new PublicCardDeserializer(path.getPathFromType("public"));
-        cards.TotalDeserializing();
-        return cards.getPublicObjectivetransfer();
+        cards.totalDeserializing();
+        return cards.getPublicObjectiveTransfer();
     }
 
     /**
@@ -142,7 +142,7 @@ public class Game {
 
 
         DeckOfPrivateCards cards = new DeckOfPrivateCards(path.getPathFromType("private"));
-        return cards.getPrivCards();
+        return cards.getObjectiveCards();
 
     }
 

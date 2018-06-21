@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends Tool Builder
  */
 public class CopperFoilBurnisherBuilder extends ToolBuilder {
-    private ToolCardStrategy cfb;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public CopperFoilBurnisherBuilder(){
         super();
-        cfb = new CopperFoilBurnisher();
+        ToolCardStrategy cfb = new CopperFoilBurnisher();
         this.setToBeCompared("CopperFoilBurnisher");
         this.setStrategy(cfb);
     }

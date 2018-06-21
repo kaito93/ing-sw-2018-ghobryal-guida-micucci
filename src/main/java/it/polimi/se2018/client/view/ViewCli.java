@@ -61,7 +61,7 @@ public class ViewCli extends View {
 
                                     addError("Non hai selezionato un dado della lista");
                                 else {
-                                    ArrayList<Integer> inta = askRowColumn();
+                                    List<Integer> inta = askRowColumn();
                                     chooseRow = inta.get(0);
                                     chooseColumn = inta.get(1);
                                     boolean finals = false;
@@ -139,19 +139,17 @@ public class ViewCli extends View {
                         printBold("Ecco la tua mappa: ");
                         printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
                         addLog(" ");
-                        printBold("Segnalini favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(gameStatus.getYourIndex())));
+                        printBold("Segnalini favore rimanenti: " + gameStatus.getFavUser().get(gameStatus.getYourIndex()));
                         map = true;
                     }
 
                     if (choose.equalsIgnoreCase("5")) {
 
                         for (int i = 0; i < gameStatus.getCells().size(); i++) {
-                            if (i == gameStatus.getYourIndex())
-                                continue;
-                            else {
+                            if (i != gameStatus.getYourIndex()) {
                                 addLog(" ");
                                 printBold("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
-                                addLog("Punti favore rimanenti: " + String.valueOf(gameStatus.getFavUser().get(i)));
+                                addLog("Punti favore rimanenti: " + gameStatus.getFavUser().get(i));
                                 printSchemeMap(gameStatus.getCells().get(i));
                             }
                         }
@@ -162,7 +160,7 @@ public class ViewCli extends View {
                         printBold("Carte obiettivo pubbliche: ");
                         for (int i=0;i<gameStatus.getTitlePublicObjective().size();i++){
                             addLog("");
-                            printCors("Carta obiettivo pubblica "+ String.valueOf(i+1)+ ":");
+                            printCors("Carta obiettivo pubblica "+ (i+1)+ ":");
                             printCardPublic(gameStatus.getTitlePublicObjective().get(i),gameStatus.getDescriptionPublicObjective().get(i)
                                     , gameStatus.getScorePublicObjective().get(i));
                         }
@@ -196,7 +194,7 @@ public class ViewCli extends View {
         }
     }
 
-    public String doString(String nome) {
+    private String doString(String nome) {
         StringBuilder sb = new StringBuilder(19);
         sb.append(nome);
         for (int i = sb.length(); i < sb.capacity(); i++)
@@ -284,8 +282,8 @@ public class ViewCli extends View {
             }
             System.out.println();
             System.out.println();
-            for (int i = 0; i < fav.size(); i++) {
-                System.out.print("    Difficoltà: " + String.valueOf(fav.get(i)) + "                                ");
+            for (Integer aFav : fav) {
+                System.out.print("    Difficoltà: " + aFav + "                                ");
             }
 
             System.out.println();
@@ -301,7 +299,7 @@ public class ViewCli extends View {
         return val - 1;
     }
 
-    public void printDicesStock() {
+    private void printDicesStock() {
         for (int i = 0; i < gameStatus.getStock().size(); i++) {
             System.out.print((i + 1) + " - ");
             printColor(gameStatus.getStock().get(i).getColor().toString(), String.valueOf(gameStatus.getStock().get(i).getValue()));
@@ -309,7 +307,7 @@ public class ViewCli extends View {
         }
     }
 
-    public void printTools() {
+    private void printTools() {
         for (int i = 0; i < gameStatus.getUseTools().size(); i++) {
             printCors(i + 1 + " - Titolo: " + gameStatus.getTitleTools().get(i));
             System.out.println("Descrizione: " + gameStatus.getDescriptionTools().get(i));
@@ -317,7 +315,7 @@ public class ViewCli extends View {
         }
     }
 
-    public void printSchemeMap(Cell[][] cells) {
+    private void printSchemeMap(Cell[][] cells) {
         System.out.print("  ");
         for (int j = 0; j < cells[0].length; j++) {
             // scrivo il numero della colonna
@@ -385,12 +383,12 @@ public class ViewCli extends View {
     }
 
     @Override
-    public ArrayList<Object> manageCE() {
+    public List<Object> manageCE() {
         // Dice, RowDest, ColumnDect, rowMit, ColumnMit
         ArrayList<Object> obj = new ArrayList<>();
-        ArrayList<Integer> obj2 = askDiceMap();
+        List<Integer> obj2 = askDiceMap();
         addLog("Seleziona dove vuoi piazzare il dado scelto:");
-        ArrayList<Integer> obj3 = askRowColumn();
+        List<Integer> obj3 = askRowColumn();
         obj.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj2.get(0)][obj2.get(1)].getDice());
         obj.add(obj3.get(0));
         obj.add(obj3.get(1));
@@ -414,24 +412,23 @@ public class ViewCli extends View {
             return major;
         else if (major == 0)
             return minus;
-        addLog(String.valueOf(minus) + " o " + String.valueOf(major) + " ?");
+        addLog(String.valueOf(minus) + " o " + major + " ?");
         return (Integer.decode(scanner.nextLine()));
     }
 
-    public ArrayList<Integer> manageGrozing3() {
-        ArrayList<Integer> obj = new ArrayList<>();
+    public List<Integer> manageGrozing3() {
         addLog("Seleziona dove inserire il dado");
         return askRowColumn();
     }
 
 
-    public ArrayList<Object> manageLathekin() {
+    public List<Object> manageLathekin() {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
         ArrayList<Object> obj = new ArrayList<>();
         ArrayList<Dice> dices = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             addLog("Scegli il " + (i + 1) + "° dado da riposizionare:");
-            ArrayList<Integer> obj2 = askDiceMap();
+            List<Integer> obj2 = askDiceMap();
             obj.add(obj2.get(0));
             obj.add(obj2.get(1));
             try {
@@ -441,7 +438,7 @@ public class ViewCli extends View {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
             addLog("Scegli dove riposizionare il dado scelto:");
-            ArrayList<Integer> obj3 = askDiceMap();
+            List<Integer> obj3 = askDiceMap();
             obj.add(obj3.get(0));
             obj.add(obj3.get(1));
         }
@@ -450,83 +447,84 @@ public class ViewCli extends View {
     }
 
     @Override
-    public ArrayList<Object> manageLens() {
+    public List<Object> manageLens() {
         //Dice dicStock2,Dice diceRound, int numberRound,row,column
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(gameStatus.getStock().get(askDiceStock()));
-        ArrayList<Object> obj2 = askDiceRound();
+        List<Object> obj2 = askDiceRound();
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
-        ArrayList<Integer> obj3 = askDiceMap();
+        List<Integer> obj3 = askDiceMap();
         obj.add(obj3.get(0));
         obj.add(obj3.get(1));
         return obj;
     }
 
     @Override
-    public ArrayList<Object> manageTap() {
+    public List<Object> manageTap() {
         //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
         // in roundscheme
         ArrayList<Object> obj = new ArrayList<>();
         ArrayList<Dice> obj2 = new ArrayList<>();
-        ArrayList<Object> obj3;
+        List<Object> obj3;
         obj3 = askDiceRound();
         obj.add(obj3.get(0));
         int a = 0;
         while (a < 2) {
             addLog("Seleziona il dado da spostare: ");
-            ArrayList<Integer> obj4 = askDiceMap();
+            List<Integer> obj4 = askDiceMap();
             obj2.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj4.get(0)][obj4.get(1)].getDice());
             obj.add(obj4.get(0));
             obj.add(obj4.get(1));
-            while (true){
+            boolean sec=true;
+            while (sec){
                 addLog("Vuoi selezionare un altro dado? [Si/No]");
                 String choose = scanner.nextLine();
                 if (choose.equalsIgnoreCase("si")){
                     a++;
                     if (a == 2)
                         addError("Non puoi selezionare un ulteriore dado! Verranno inviati quelli selezionati precedentemente");
-                    break;
+                    sec=false;
                 }
                 else if (choose.equalsIgnoreCase("no")){
                     a=3;
-                    break;
+                    sec=false;
                 }
             }
         }
-
         obj.add(obj2);
         obj.add(obj3.get(1));
         return obj;
     }
 
     @Override
-    public ArrayList<Object> manageCork() {
+    public List<Object> manageCork() {
         // Dice, row, column
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(gameStatus.getStock().get(askDiceStock()));
         addLog("Seleziona le coordinate dove posizionare il dado:");
-        ArrayList<Integer> obj2 = askRowColumn();
+        List<Integer> obj2 = askRowColumn();
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
         return obj;
     }
 
-    public int askDiceStock() {
+    private int askDiceStock() {
         addLog("Dadi disponibili:");
         printDicesStock();
         addLog("Quale dado vuoi posizionare?");
         return Integer.decode(scanner.nextLine()) - 1;
     }
 
-    public ArrayList<Integer> askDiceMap() {
+    private List<Integer> askDiceMap() {
         addLog("La tua mappa:");
         addLog("Inserisci le cordinate:");
         return askRowColumn();
     }
 
-    public ArrayList<Integer> askRowColumn() {
-        int chooseColumn = 0, chooseRow = 0;
+    private List<Integer> askRowColumn() {
+        int chooseColumn = 0;
+        int chooseRow = 0;
         boolean column = false;
         while (!column) {
             // SELEZIONE DELLA COLONNA
@@ -556,7 +554,7 @@ public class ViewCli extends View {
         return inta;
     }
 
-    public void printColor(String color, String number) {
+    private void printColor(String color, String number) {
         switch (color) {
             case "red":
                 Logger.red(number);
@@ -582,16 +580,16 @@ public class ViewCli extends View {
 
     }
 
-    public void printBold(String text){
+    private void printBold(String text){
         System.out.println("\033[1m"+text+"\033[0m");
     }
 
-    public void printCors(String text){
+    private void printCors(String text){
         System.out.println("\033[4m"+text+"\033[0m");
     }
 
 
-    public ArrayList<Object> askDiceRound() {
+    private List<Object> askDiceRound() {
         ArrayList<Object> obj = new ArrayList<>();
         addLog("Seleziona il dado dallo schema dei round:");
         printSchemeRounds();
@@ -599,12 +597,13 @@ public class ViewCli extends View {
         int round = Integer.decode(scanner.nextLine()) - 1;
         addLog("Seleziona il dado da questo round:");
         printSchemeRound(round);
+        addLog("");
         obj.add(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(Integer.decode(scanner.nextLine()) - 1));
         obj.add(round);
         return obj;
     }
 
-    public void printSchemeRounds() {
+    private void printSchemeRounds() {
         // cicla i round
         for (int round = 0; round < gameStatus.getRoundSchemeMap().length; round++) {
             // cicla i dadi all'interno di ogni round
@@ -612,8 +611,8 @@ public class ViewCli extends View {
         }
     }
 
-    public void printSchemeRound(int round) {
-        addLog("Round "+String.valueOf(round+1)+":");
+    private void printSchemeRound(int round) {
+        addLog("Round "+(round+1)+":");
         for (int dice = 0; dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size(); dice++) {
             System.out.print(" - ");
             printColor(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
@@ -622,7 +621,7 @@ public class ViewCli extends View {
     }
 
     @Override
-    public ArrayList<Object> managefluxBrush() {
+    public List<Object> managefluxBrush() {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
         ArrayList<Object> obj = new ArrayList<>();
         Dice diceBefore = gameStatus.getStock().get(askDiceStock());
@@ -634,9 +633,10 @@ public class ViewCli extends View {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         addLog("Ecco il risultato del lancio del dado precedentemente scelto: ");
+        assert diceAfter != null;
         printColor(diceAfter.getColor().toString(), diceAfter.toString());
         addLog("Scegli dove posizionare il dado: ");
-        ArrayList<Integer> obj2 = askRowColumn();
+        List<Integer> obj2 = askRowColumn();
         obj.add(diceBefore);
         obj.add(diceAfter);
         obj.add(obj2.get(0));
@@ -646,7 +646,7 @@ public class ViewCli extends View {
 
 
     @Override
-    public ArrayList<Object> manageFluxRemove2(Dice dice) {
+    public List<Object> manageFluxRemove2(Dice dice) {
         int valore = 0;
         boolean ok = false;
         while (!ok) {
@@ -662,7 +662,7 @@ public class ViewCli extends View {
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
-        ArrayList<Integer> obj2 = askRowColumn();
+        List<Integer> obj2 = askRowColumn();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(dice);
         obj.add(obj2.get(0));
@@ -684,11 +684,20 @@ public class ViewCli extends View {
         }
     }
 
-    public void printCardPrivate(String title, String description){
+    @Override
+    public void seeScore(List<Integer> scores) {
+        addLog("Ecco i punteggi di tutti i giocatori: ");
+        for (int i=0; i<scores.size();i++){
+            printBold("\"Giocatore 1 - \" + gameStatus.getUsers().get(i)");
+            addLog("Punteggio finale: " +scores.get(i));
+        }
+    }
+
+    private void printCardPrivate(String title, String description){
         addLog("Titolo: "+title);
         addLog("Descrizione: "+description);
     }
-    public void printCardPublic(String title, String description, int score){
+    private void printCardPublic(String title, String description, int score){
         printCardPrivate(title,description);
         addLog("Punteggio aggiuntivo: +" +score);
     }

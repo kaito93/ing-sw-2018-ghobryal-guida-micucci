@@ -1,9 +1,7 @@
 package it.polimi.se2018.server.controller.public_objective_card_strategy;
 
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.exception.notValidCellException;
 
-import java.util.logging.Level;
 
 /**
  * Shade Variety Public Objective Card
@@ -30,7 +28,6 @@ public class ShadeVarietyStrategy extends ObjectiveCardStrategy{
         //counts how many dices of each value
         for(int i=0; i<map.numRow(); i++){
             for(int j=0; j<map.numColumn(); j++){
-                try {
                     if(!map.isEmptyCell(i, j)){
                         if(map.getCell(i,j).getDice().getValue()==1)
                             counter1++;
@@ -45,9 +42,7 @@ public class ShadeVarietyStrategy extends ObjectiveCardStrategy{
                         else if(map.getCell(i,j).getDice().getValue()==6)
                             counter6++;
                         }
-                } catch (notValidCellException e) {
-                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ShadeVarietyStrategy", e);
-                }
+
             }
         }
         // the minimum of the counters is how many times the player achieved this card

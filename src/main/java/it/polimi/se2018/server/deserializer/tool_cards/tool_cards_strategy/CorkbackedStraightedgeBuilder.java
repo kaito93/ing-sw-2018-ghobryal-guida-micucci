@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class CorkbackedStraightedgeBuilder extends ToolBuilder{
-    private ToolCardStrategy cbs;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public CorkbackedStraightedgeBuilder(){
         super();
-        cbs = new CorkbackedStraightedge();
+        ToolCardStrategy cbs = new CorkbackedStraightedge();
         this.setStrategy(cbs);
         this.setToBeCompared("CorkbackedStraightedge");
     }

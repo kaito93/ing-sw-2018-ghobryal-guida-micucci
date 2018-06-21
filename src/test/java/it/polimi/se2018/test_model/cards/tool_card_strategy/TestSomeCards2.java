@@ -6,6 +6,7 @@ import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.server.controller.tool_card_strategy.*;
 import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.shared.model_shared.Dice;
+import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 import junit.framework.TestCase;
 

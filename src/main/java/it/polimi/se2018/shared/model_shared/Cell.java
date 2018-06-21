@@ -1,9 +1,11 @@
 package it.polimi.se2018.shared.model_shared;
 
+import it.polimi.se2018.shared.exception.InvalidValueException;
+
 import java.io.Serializable;
 
 /**
- * abstract class Cell
+ * abstract class CellBuilder
  * contains methods and datas about the cell of the matrix
  *
  * @author Andrea Micucci, Anton Ghobryal
@@ -99,33 +101,12 @@ public abstract class Cell implements Serializable {
 
     @Override
     public String toString() {
-        String a;
-        switch (value) {
-            case 0:
-                a="\u2718";
-                break;
-            case 1:
-                a = "\u0031";
-                break;
-            case 2:
-                a = "\u0032";
-                break;
-            case 3:
-                a = "\u0033";
-                break;
-            case 4:
-                a = "\u0034";
-                break;
-            case 5:
-                a = "\u0035";
-                break;
-            case 6:
-                a = "\u0036";
-                break;
-            default:
-                a=null;
-                break;
+        Dice tempDice = Dice.diceNull();
+        try {
+            tempDice.setValue(value);
+        } catch (InvalidValueException e) {
+            // ignored
         }
-        return a;
+        return tempDice.toString();
     }
 }

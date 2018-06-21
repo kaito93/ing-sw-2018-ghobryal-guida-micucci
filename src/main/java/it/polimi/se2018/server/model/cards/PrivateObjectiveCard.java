@@ -4,14 +4,11 @@ package it.polimi.se2018.server.model.cards;
 import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.Player;
-import it.polimi.se2018.shared.exception.notValidCellException;
-import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * a generic private objective card
@@ -20,8 +17,6 @@ import java.util.logging.Level;
 
 public class PrivateObjectiveCard extends Card {
     private Color color;
-
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     /**
      * Class Constructor
@@ -45,34 +40,42 @@ public class PrivateObjectiveCard extends Card {
         int score=0;
         for(int i=0; i<map.numRow(); i++){  //iterates on rows
             for (int j=0; j<map.numColumn(); j++){
-                try {
                     //iterates on columns
                     if(map.getCell(i, j).getDice()!=null   //there has to be a Dice
                             && map.getCell(i, j).getDice().getColor().equals(color))   //the card's color should match the Dice's color
                         score += map.getCell(i, j).getDice().getValue();    //sums the Dice's value
-                }catch (notValidCellException e) {
-                    LOGGER.log(Level.SEVERE, e.toString()+"PrivateObjectiveCards", e);
-                }
             }
         }
         return score;
     }
 
+    /**
+     * Overridden in PublicObjectiveCard
+     */
     @Override
     public int getScore() {
         return 0;
     }
 
+    /**
+     * Overridden in ToolCard
+     */
     @Override
     public ToolCardStrategy getStrategy() {
         return null;
     }
 
+    /**
+     * Overridden in ToolCard
+     */
     @Override
     public boolean isUsed() {
         return false;
     }
 
+    /**
+     * Overridden in ToolCard
+     */
     @Override
     public int getId() {
         return 0;

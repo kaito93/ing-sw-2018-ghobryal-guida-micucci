@@ -11,7 +11,7 @@ public class MessageDisconnect implements MessageVC {
      */
     @Override
     public void accept(Controller controller) {
-
+        // non viene usato.
     }
 }
 

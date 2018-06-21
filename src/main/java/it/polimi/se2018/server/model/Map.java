@@ -1,8 +1,8 @@
 package it.polimi.se2018.server.model;
 
 import it.polimi.se2018.server.util.ErrorBool;
-import it.polimi.se2018.shared.exception.notValidMatrixException;
-import it.polimi.se2018.shared.exception.notValidCellException;
+import it.polimi.se2018.shared.exception.NotValidMatrixException;
+import it.polimi.se2018.shared.exception.NotValidCellException;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Color;
@@ -30,14 +30,14 @@ public class Map implements Serializable {
      * @param difficulty level of difficulty of the matrix
      * @param row number of row of the matrix
      * @param column number of column of the matrix
-     * @throws notValidMatrixException when the values of row and column are not valid to construct the matrix
+     * @throws NotValidMatrixException when the values of row and column are not valid to construct the matrix
      */
-    public Map(String glassWindowName, int difficulty, int row, int column) throws notValidMatrixException{
+    public Map(String glassWindowName, int difficulty, int row, int column) throws NotValidMatrixException {
         difficultyLevel = difficulty;
         name = glassWindowName;
         cell = new Cell[row][column];
         if ((row < 0) || (column < 0))
-            throw new notValidMatrixException();
+            throw new NotValidMatrixException();
     }
     
     /** method that return the difficulty level of the match
@@ -64,12 +64,14 @@ public class Map implements Serializable {
     /** method that return a single cell of a matrix that represent the glasswindow
      * @param row where you want to search
      * @param column where you want to search
-     * @return an object Cell
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
+     * @return an object CellBuilder
+     * @throws NotValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
-    public Cell getCell(int row, int column) throws notValidCellException{
-        if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1))
-            throw new notValidCellException();
+    public Cell getCell(int row, int column) {
+        if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1)){
+            LOGGER.log(Level.SEVERE,"Riga o colonna non valida");
+            return null;
+        }
         return cell[row][column];
     }
     
@@ -84,10 +86,10 @@ public class Map implements Serializable {
      * @param row row of the matrix where you want to search the value
      * @param column row of the matrix where you want to search the value
      * @param value the value that you are searching
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
+     * @throws NotValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if there is an Adjacent dice with the same value, else false
      */
-    public boolean isAdjacentValue(int row, int column, int value) throws notValidCellException{
+    public boolean isAdjacentValue(int row, int column, int value) {
         if(row < 1 && column < 1)
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value);
@@ -128,10 +130,10 @@ public class Map implements Serializable {
      * @param row row of the matrix where you want to search the color
      * @param column row of the matrix where you want to search the color
      * @param color the color that you are searching
-     * @throws notValidCellException when the indexes of the row and the column not respect the interval number of matrix.
+     * @throws NotValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if there is an Adjacent dice with the same color, else false
      */
-    public boolean isAdjacentColor(int row, int column, Color color) throws notValidCellException{
+    public boolean isAdjacentColor(int row, int column, Color color) {
         if(row < 1 && column < 1)
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color));
@@ -441,31 +443,24 @@ public class Map implements Serializable {
             errorBool.setErrBool(true);
             return false;
         }
-        else if(isCellValid(dice, row, column) && isBorderEmpty()
-                && ((column==0 || row==0) || (row==numRow()-1 || column==numColumn()-1))){
-            cell[row][column].setDice(dice);
-            errorBool.setErrorMessage(null);
-            errorBool.setErrBool(false);
+        else if((isCellValid(dice, row, column) && isBorderEmpty()
+                && ((column==0 || row==0) || (row==numRow()-1 || column==numColumn()-1)))||
+                (!isBorderEmpty() && isAdjacentDice(row, column) && isCellValid(dice, row, column) && !isAdjacentColor(row, column, dice.getColor())
+                && !isAdjacentValue(row, column, dice.getValue()))){
+            setBoolFalse(row,column,dice);
             return true;
-        }
-        else if(!isBorderEmpty() && isAdjacentDice(row, column)) {
-            try {
-                if(isCellValid(dice, row, column) && !isAdjacentColor(row, column, dice.getColor())
-                        && !isAdjacentValue(row, column, dice.getValue())) {
-                    cell[row][column].setDice(dice);
-                    errorBool.setErrorMessage(null);
-                    errorBool.setErrBool(false);
-                    return true;
-                }
-            } catch (notValidCellException e) {
-                LOGGER.log(Level.SEVERE, e.toString()+"\nposDice method in Map class", e);
-                return false;
-            }
         }
         errorBool.setErrorMessage("Player doesn't respect the positioning rules");
         errorBool.setErrBool(true);
         return false;
     }
+
+    private void setBoolFalse(int row, int column, Dice dice){
+        cell[row][column].setDice(dice);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
+    }
+
 
     /**
      * controls if the cell's empty or not

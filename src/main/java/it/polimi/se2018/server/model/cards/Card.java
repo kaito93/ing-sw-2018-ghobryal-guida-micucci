@@ -20,6 +20,8 @@ import java.util.List;
 public abstract class Card implements Serializable {
     private String title;
     private String description;
+    private static final int ZERO=0;
+
 
     /**
      * Class Constructor
@@ -58,24 +60,32 @@ public abstract class Card implements Serializable {
     /**
      * Overridden in PublicObjectiveCard
      */
-    public abstract int getScore();
+    public int getScore(){
+        return getId();
+    }
 
     /**
      * Overridden in ToolCard
      */
-    public abstract ToolCardStrategy getStrategy();
+    public ToolCardStrategy getStrategy(){
+        return null;
+    }
 
     /**
      * Overridden in ToolCard
      */
 
-    public abstract boolean isUsed();
+    public boolean isUsed(){
+        return false;
+    }
 
     /**
      * Overridden in ToolCard
      */
 
-    public abstract int getId();
+    public int getId(){
+        return ZERO;
+    }
 
     /**
      * Overridden in ToolCard

@@ -21,7 +21,6 @@ public abstract class StrategyCardDeserializer extends Observable {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private Gson gson = new Gson();
-    private File json;
     private BufferedReader br;
 
 
@@ -31,6 +30,7 @@ public abstract class StrategyCardDeserializer extends Observable {
      * @param pathname path of the json file
      */
     public StrategyCardDeserializer(String pathname) {
+        File json;
         json = new File(pathname);
 
         try {
@@ -43,14 +43,7 @@ public abstract class StrategyCardDeserializer extends Observable {
     /**
      * method that deserializer the json file to an json transiction data structure, that is used to create the card objects
      */
-    public abstract void Deserializing();
-
-
-    /**
-     * getter method to return the arraylist of json transiction data structure
-     * @return
-     */
-
+    public abstract void deserializing();
 
     /**
      * method that extract a cell from the arraylist of jsontransiction
@@ -63,12 +56,7 @@ public abstract class StrategyCardDeserializer extends Observable {
     /**
      * abstract method to set-up the observers of this class
      */
-    public abstract void SetUpObserver();
-
-    /**
-     * method to notify to all the observers that a cell of arraylist is readen, and need to create the cards
-     * @param publCardsingle single cell of json transiction arraylist
-     */
+    public abstract void setUpObserver();
 
     /**
      * getter method that return json deserializer from file

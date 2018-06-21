@@ -123,28 +123,7 @@ public abstract class View {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         try {
-            switch (dice.getValue()) {
-                case 1:
-                    dice.setValue(6);
-                    break;
-                case 2:
-                    dice.setValue(5);
-                    break;
-                case 3:
-                    dice.setValue(4);
-                    break;
-                case 4:
-                    dice.setValue(3);
-                    break;
-                case 5:
-                    dice.setValue(2);
-                    break;
-                case 6:
-                    dice.setValue(1);
-                    break;
-                default:
-                    break;
-            }
+            dice.setValue(7-dice.getValue());
         } catch (InvalidValueException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
@@ -242,5 +221,7 @@ public abstract class View {
     public void updateIndex(int newIndex){
         gameStatus.setYourIndex(newIndex);
     }
+
+    public abstract void seeScore(List<Integer> scores);
 }
 

@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class LathekinBuilder extends ToolBuilder {
-    private ToolCardStrategy lath;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public LathekinBuilder(){
         super();
-        lath = new Lathekin();
+        ToolCardStrategy lath = new Lathekin();
         this.setStrategy(lath);
         this.setToBeCompared("Lathekin");
     }

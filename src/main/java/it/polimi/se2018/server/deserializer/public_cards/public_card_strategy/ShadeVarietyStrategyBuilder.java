@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.ShadeVa
  * extends Builder
  */
 public class ShadeVarietyStrategyBuilder extends Builder {
-    ObjectiveCardStrategy svs;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public ShadeVarietyStrategyBuilder(){
         super();
-        svs = new ShadeVarietyStrategy();
+        ObjectiveCardStrategy svs = new ShadeVarietyStrategy();
         this.setStrategy(svs);
         this.setToBeCompared("ShadeVarietyStrategy");
     }

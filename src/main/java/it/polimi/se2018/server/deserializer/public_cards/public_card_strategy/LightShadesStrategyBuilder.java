@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
  * extends Builder
  */
 public class LightShadesStrategyBuilder extends Builder{
-    ObjectiveCardStrategy lss;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public LightShadesStrategyBuilder(){
         super();
-        lss = new LightShadesStrategy();
+        ObjectiveCardStrategy lss = new LightShadesStrategy();
         this.setStrategy(lss);
         this.setToBeCompared("LightShadesStrategy");
     }

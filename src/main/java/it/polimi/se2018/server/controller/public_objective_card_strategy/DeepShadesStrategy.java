@@ -1,9 +1,7 @@
 package it.polimi.se2018.server.controller.public_objective_card_strategy;
 
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.exception.notValidCellException;
 
-import java.util.logging.Level;
 
 /**
  * Deep Shades Public Objective Card
@@ -24,7 +22,7 @@ public class DeepShadesStrategy extends ObjectiveCardStrategy {
         int counter5=0;
         int counter6=0;
         for(int i=0; i<map.numRow(); i++){  //iterates on rows
-            for(int j=0; j<map.numColumn(); j++){   try {
+            for(int j=0; j<map.numColumn(); j++){
                 //iterates on columns
                 if(!map.isEmptyCell(i, j)){   //contols if there is a dice
                     if(map.getCell(i,j).getDice().getValue()==5)
@@ -32,9 +30,7 @@ public class DeepShadesStrategy extends ObjectiveCardStrategy {
                     else if(map.getCell(i,j).getDice().getValue()==6)
                         counter6++;
                 }
-                } catch (notValidCellException e) {
-                LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class DeepShadesStrategy", e);
-                }
+
             }
         }
         // the minimum of the counters is how many times the player achieved this card

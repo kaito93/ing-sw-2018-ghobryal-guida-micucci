@@ -6,8 +6,8 @@ package it.polimi.se2018.server.deserializer.server_deserializer;
  */
 public class ServerStructure {
 
-    int time;
-    int port;
+    private int time;
+    private int port;
 
     /**
      * method to set the port number

@@ -8,7 +8,7 @@ import it.polimi.se2018.server.deserializer.maps.cells.ValueCellBuilder;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
-import it.polimi.se2018.shared.exception.notValidMatrixException;
+import it.polimi.se2018.shared.exception.NotValidMatrixException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,7 +34,7 @@ public class MapsDeserializer extends Observable {
     private ValueCellBuilder value;
     private ColoredCellBuilder coloured;
     private ArrayList<EntireMap> definitive;
-    private EntireMap transiction;
+    private EntireMap transition;
 
     /**
      * class constructor: inizialize all the variable and the buffered reader for the json file
@@ -53,7 +53,7 @@ public class MapsDeserializer extends Observable {
         value = new ValueCellBuilder();
         coloured = new ColoredCellBuilder();
         definitive = new ArrayList<>();
-        transiction = new EntireMap();
+        transition = new EntireMap();
     }
 
     /**
@@ -67,7 +67,7 @@ public class MapsDeserializer extends Observable {
     }
 
     /**
-     * method that set all the observer class to build the Cell object of the
+     * method that set all the observer class to build the CellBuilder object of the
      * GlassWindow
      */
     private void setUpObservers() {
@@ -96,7 +96,7 @@ public class MapsDeserializer extends Observable {
     }
 
     /**
-     * method that takes all the maps with the Cell Arraylist and build the map object with the matrix
+     * method that takes all the maps with the CellBuilder Arraylist and build the map object with the matrix
      */
     private void setUpArraylistMatrix() {
         int indexOfCell;
@@ -133,15 +133,15 @@ public class MapsDeserializer extends Observable {
         this.setUpObservers();
         for (int index = 0; index < mapsJsonJava.size(); index++) {
             this.startMapBuilding(this.extractTransition(index));
-            transiction.setTitle(blank.getEntireMapTitle());
-            transiction.setLevel(blank.getEntireMapLevel());
-            transiction.setAllMatrix(mergeArraylist());
+            transition.setTitle(blank.getEntireMapTitle());
+            transition.setLevel(blank.getEntireMapLevel());
+            transition.setAllMatrix(mergeArraylist());
             // richiamare un metodo per ordinare l'arraylist di celle per numero di cella
-            definitive.add(transiction);
+            definitive.add(transition);
             blank = new BlankCellBuilder();
             coloured = new ColoredCellBuilder();
             value = new ValueCellBuilder();
-            transiction = new EntireMap();
+            transition = new EntireMap();
             this.setUpObservers();
         }
         this.setUpArraylistMatrix();
@@ -151,7 +151,7 @@ public class MapsDeserializer extends Observable {
                 Map nmap = new Map(definitive.get(i).getTitle(), definitive.get(i).getLevel(), 4, 5);
                 setUpMatrix(i, nmap.getCells());
                 definitiveMap.add(nmap);
-            } catch (notValidMatrixException e) {
+            } catch (NotValidMatrixException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }

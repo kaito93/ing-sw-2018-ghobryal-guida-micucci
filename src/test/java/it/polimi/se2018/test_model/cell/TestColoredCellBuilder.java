@@ -2,31 +2,30 @@ package it.polimi.se2018.test_model.cell;
 
 import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.shared.model_shared.Cell;
-import it.polimi.se2018.server.model.cell.ValueCell;
+import it.polimi.se2018.server.model.cell.ColoredCell;
 import junit.framework.TestCase;
 
 /**
- * class Cell Tester
+ * class CellBuilder Tester
  * @author Anton Ghobryal
  */
-public class TestValueCell extends TestCase {
-
-    private Cell valueCell;
+public class TestColoredCellBuilder extends TestCase {
+    private Cell colorCell;
     /**
      * class Constructor
      * @param name test method name
      */
-    public TestValueCell(String name){
+    public TestColoredCellBuilder(String name){
         super(name);
     }
 
     /**
-     * create a value cell
+     * create a colored cell
      * @throws Exception setup general exception
      */
     @Override
     protected void setUp() throws Exception {
-        valueCell = new ValueCell();
+        colorCell = new ColoredCell();
         super.setUp();
     }
 
@@ -36,7 +35,7 @@ public class TestValueCell extends TestCase {
      */
     @Override
     protected void tearDown() throws Exception {
-        valueCell=null;
+        colorCell=null;
         System.gc();
         super.tearDown();
     }
@@ -45,21 +44,19 @@ public class TestValueCell extends TestCase {
      * test get and set Value methods in ValueCell class
      */
     public void testGetSetValue(){
-        assertEquals(valueCell.getValue(), 0);
-        valueCell.setValue(1);
-        assertNotSame(valueCell.getValue(), 0);
-        assertEquals(valueCell.getValue(), 1);
+        assertEquals(colorCell.getValue(), 0);
+        colorCell.setValue(1);
+        assertEquals(colorCell.getValue(), 0);
+        assertNotSame(colorCell.getValue(), 1);
     }
 
     /**
      * test get and set Color methods in ValueCell class
      */
     public void testGetSetColor(){
-        assertEquals(valueCell.getColor(), Color.NULL);
-        valueCell.setColor(Color.BLUE);
-        assertNotSame(valueCell.getColor(), Color.BLUE);
-        assertEquals(valueCell.getColor(), Color.NULL);
+        assertEquals(colorCell.getColor(), Color.NULL);
+        colorCell.setColor(Color.BLUE);
+        assertEquals(colorCell.getColor(), Color.BLUE);
+        assertNotSame(colorCell.getColor(), Color.NULL);
     }
-
-
 }

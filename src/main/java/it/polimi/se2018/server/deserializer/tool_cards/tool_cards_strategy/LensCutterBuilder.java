@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolCard
  */
 public class LensCutterBuilder extends ToolBuilder {
-    private ToolCardStrategy lc;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public LensCutterBuilder(){
         super();
-        lc = new LensCutter();
+        ToolCardStrategy lc = new LensCutter();
         this.setStrategy(lc);
         this.setToBeCompared("LensCutter");
     }

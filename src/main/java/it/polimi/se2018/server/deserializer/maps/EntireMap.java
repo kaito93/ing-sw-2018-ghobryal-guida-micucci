@@ -43,7 +43,7 @@ public class EntireMap {
 
 
     /**
-     * getter method that return a cell of the arraylist of Cell
+     * getter method that return a cell of the arraylist of CellBuilder
      * @param index of the cell that need to return
      * @return a cell object included into the arraylist
      */

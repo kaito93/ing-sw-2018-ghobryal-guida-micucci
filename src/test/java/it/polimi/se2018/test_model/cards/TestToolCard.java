@@ -8,6 +8,7 @@ import it.polimi.se2018.server.controller.tool_card_strategy.GrozingPliers;
 import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.shared.model_shared.Dice;
+import it.polimi.se2018.server.model.Player;
 import junit.framework.TestCase;
 
 /**

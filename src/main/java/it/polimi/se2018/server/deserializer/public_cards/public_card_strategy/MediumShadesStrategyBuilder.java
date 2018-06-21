@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
  * extends Builder
  */
 public class MediumShadesStrategyBuilder extends Builder{
-    ObjectiveCardStrategy mss;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public MediumShadesStrategyBuilder(){
         super();
-        mss = new MediumShadesStrategy();
+        ObjectiveCardStrategy mss = new MediumShadesStrategy();
         this.setStrategy(mss);
         this.setToBeCompared("MediumShadesStrategy");
     }

@@ -6,10 +6,10 @@ import it.polimi.se2018.server.model.cell.ValueCell;
 import junit.framework.TestCase;
 
 /**
- * class Cell Tester
+ * class CellBuilder Tester
  * @author Anton Ghobryal
  */
-public class TestCell extends TestCase {
+public class TestCellBuilder extends TestCase {
 
     private Cell valueCell;
 
@@ -17,7 +17,7 @@ public class TestCell extends TestCase {
      * class Constructor
      * @param name test method name
      */
-    public TestCell(String name){
+    public TestCellBuilder(String name){
         super(name);
     }
 
@@ -43,7 +43,7 @@ public class TestCell extends TestCase {
     }
 
     /**
-     * test get and set Dice methods in Cell class
+     * test get and set Dice methods in CellBuilder class
      */
     public void testGetSetDice(){
         assertNull(valueCell.getDice());
@@ -52,7 +52,7 @@ public class TestCell extends TestCase {
     }
 
     /**
-     * test get and set Number methods in Cell class
+     * test get and set Number methods in CellBuilder class
      */
     public void testGetSetNumber(){
         assertEquals(valueCell.getNumberCell(), 0);

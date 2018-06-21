@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * class Round Scheme Cell
+ * class Round Scheme CellBuilder
  * contains all the information about the dices stored because they are not used during the match
  *
  * @author Andrea Micucci

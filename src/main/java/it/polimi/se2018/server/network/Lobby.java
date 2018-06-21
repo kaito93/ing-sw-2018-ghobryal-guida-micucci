@@ -2,10 +2,9 @@ package it.polimi.se2018.server.network;
 
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.shared.Logger;
-import it.polimi.se2018.shared.message_socket.server_to_client.Message;
 import it.polimi.se2018.server.controller.Controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -17,7 +16,7 @@ public class Lobby extends Thread {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private int number;
-    private ArrayList<ConnectionServer> playerConnection;
+    private List<ConnectionServer> playerConnection;
 
 
     /**
@@ -25,7 +24,7 @@ public class Lobby extends Thread {
      * @param connections an arraylist of connections of all clients
      * @param partita an Id for this game
      */
-    public Lobby(ArrayList<ConnectionServer> connections, int partita){
+    public Lobby(List<ConnectionServer> connections, int partita){
 
         this.playerConnection=connections; // salvo le connessioni dei giocatori
         number=partita;
@@ -40,7 +39,7 @@ public class Lobby extends Thread {
 
         Controller controller;
         VirtualView view;
-        ArrayList<Player> players;
+        List<Player> players;
         view= new VirtualView(); // crea la virtual vView per interfacciarsi con i giocatori
         players=view.setClients(playerConnection); // setta i giocatori
         controller = new Controller(view,players); // crea il controller
@@ -48,7 +47,7 @@ public class Lobby extends Thread {
         view.start();
         view.startServer(); // avvia la vView
         controller.startGame(); // fa cominciare effettivamente la partita
-        LOGGER.log(Level.INFO,"La partita "+ String.valueOf(number)  +"  è terminata");
+        LOGGER.log(Level.INFO,"La partita {0} ", String.valueOf(number)  +"  è terminata");
         view.disconnect();
         for (ConnectionServer aPlayerConnection : playerConnection) {
             aPlayerConnection.closeConnection();

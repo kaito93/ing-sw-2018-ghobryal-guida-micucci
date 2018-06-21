@@ -2,9 +2,7 @@ package it.polimi.se2018.server.controller.public_objective_card_strategy;
 
 import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.exception.notValidCellException;
 
-import java.util.logging.Level;
 
 /**
  * Color Variety Public Objective Card
@@ -31,7 +29,6 @@ public class ColorVarietyStrategy extends ObjectiveCardStrategy{
         //counts how many dices of each color
         for(int i=0; i<map.numRow(); i++){
             for(int j=0; j<map.numColumn(); j++){
-                try {
                     if(!map.isEmptyCell(i, j)){
                         if(map.getCell(i,j).getDice().getColor().equals(Color.BLUE))
                             counterBlue++;
@@ -44,9 +41,7 @@ public class ColorVarietyStrategy extends ObjectiveCardStrategy{
                         else if(map.getCell(i,j).getDice().getColor().equals(Color.PURPLE))
                             counterPurble++;
                     }
-                } catch (notValidCellException e) {
-                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ColorVarietyStrategy", e);
-                }
+
             }
         }
 

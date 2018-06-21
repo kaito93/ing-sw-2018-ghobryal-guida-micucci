@@ -9,14 +9,12 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
  */
 public class ColumnColorVarietyStrategyBuilder extends Builder{
 
-    ObjectiveCardStrategy ccvs;
-
     /**
      * class constructor that inizialize the string and the strategy
      */
     public ColumnColorVarietyStrategyBuilder(){
         super();
-        ccvs = new ColumnColorVarietyStrategy();
+        ObjectiveCardStrategy ccvs = new ColumnColorVarietyStrategy();
         this.setStrategy(ccvs);
         this.setToBeCompared("ColumnColorVarietyStrategy");
     }

@@ -6,6 +6,7 @@ import it.polimi.se2018.server.deserializer.public_cards.PublicCardsTransfer;
 import it.polimi.se2018.server.model.cards.Card;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,7 +18,7 @@ public class Builder implements Observer{
     private ArrayList<Card> poc;
     private ObjectiveCardStrategy strategy;
     private String toBeCompared;
-    private PublicCardsTransfer jT = null;
+    private PublicCardsTransfer jT;
 
     /**
      * class constructor: build the arraylist where created cards are stored
@@ -27,11 +28,11 @@ public class Builder implements Observer{
         poc = new ArrayList<>();
     }
 
-    @Override
     /**
      * update method that compare the type of cards, that are two strings, and return the card object
      * created, if the type is the same
      */
+    @Override
     public void update(Observable o, Object arg) {
         jT = (PublicCardsTransfer) arg;
        if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
@@ -43,7 +44,7 @@ public class Builder implements Observer{
      * setter method for the json transiction structure
      * @param jT that need to be modified
      */
-    public void setjT(PublicCardsTransfer jT) {
+    public void setjt(PublicCardsTransfer jT) {
         this.jT = jT;
     }
 
@@ -59,7 +60,7 @@ public class Builder implements Observer{
      * getter method to obtain the arraylist of created cards
      * @return the arraylist of cards
      */
-    public ArrayList<Card> getPoc() {
+    public List<Card> getPoc() {
         return poc;
     }
 
@@ -83,12 +84,9 @@ public class Builder implements Observer{
      * setter method for the deck of cards
      * @param deck that has to be setted
      */
-    public void setDeck(ArrayList deck){
+    public void setDeck(List deck){
         int i;
         for(i=0; i<poc.size(); i++){
-         //   if (poc.size() == 0)
-            //    break;
-            //else
             deck.add(poc.get(i));
         }
     }

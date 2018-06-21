@@ -168,7 +168,7 @@ public class Controller implements Observer<MessageVC> {
                 // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
                 if (!playersInRound.get(turn).getRunningPliers()){
                     for (move = 0; move < 2; move++) {
-                        if (!view.isTerminate()) {
+                        if (view.isTermi()) {
                             // Invia a tutti i giocatori le informazioni generali del turn
                             view.sendMessageUpdate(getGame(), playersInRound.get(turn).getName());
 
@@ -177,8 +177,8 @@ public class Controller implements Observer<MessageVC> {
 
                             b = false;
                             waitMove();
-                            if (!view.isTerminate() && !disconnect) {
-                                LOGGER.log(Level.INFO, "Termine mossa " + String.valueOf(move) + " del giocatore "
+                            if (view.isTermi() && !disconnect) {
+                                LOGGER.log(Level.INFO, "Termine mossa {0}",  String.valueOf(move) + " del giocatore "
                                         + playersInRound.get(turn).getName());
                             }
                         } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
@@ -190,7 +190,7 @@ public class Controller implements Observer<MessageVC> {
                 }
             }
 
-            if (!view.isTerminate()) {
+            if (view.isTermi()) {
                 // PIAZZA I DADI RIMANENTI NEL TRACCIATO DEI ROUND.
                 game.getRoundSchemeMap()[round].setDices(game.getStock());
 
@@ -200,7 +200,7 @@ public class Controller implements Observer<MessageVC> {
 
         }
 
-        if (!view.isTerminate()) {
+        if (view.isTermi()) {
             // FINE PARTITA terminata normalmente
 
             // CALCOLA PUNTEGGI
@@ -220,11 +220,17 @@ public class Controller implements Observer<MessageVC> {
      * method that waits the map of a player
      */
     private synchronized void waitw() {
-
+        boolean condition=true;
         try {
-            this.wait();
+            while(condition){
+                if (mappe != players.size())
+                    this.wait();
+                else
+                    condition=false;
+            }
         } catch (InterruptedException e1) {
             LOGGER.log(Level.SEVERE, e1.toString(), e1);
+            Thread.currentThread().interrupt();
         }
     }
 

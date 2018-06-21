@@ -2,7 +2,7 @@ package it.polimi.se2018.server.controller.public_objective_card_strategy;
 
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.exception.notValidCellException;
+import it.polimi.se2018.shared.exception.NotValidCellException;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -39,7 +39,7 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                 }
             for(int i=0; i<temp.size(); i++)
             counter = temp.size();
-        } catch (notValidCellException e) {
+        } catch (NotValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ColorDiagonalStrategy", e);
         }
         temp = null;
@@ -53,7 +53,7 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
      * @param column column's coordinate on the map
      */
 
-    private void visitor(Map map, int row, int column) throws notValidCellException{
+    private void visitor(Map map, int row, int column) throws NotValidCellException {
         try {
             if(!map.isEmptyCell(row, column)) {
                 if (row < 1 && column < 1 ) { //up left control
@@ -83,14 +83,14 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                     downrightcontrol(map, row, column);
                 }
             }
-            } catch (notValidCellException e) {
+            } catch (NotValidCellException e) {
                 LOGGER.log(Level.SEVERE, e.toString()+"\nvisitor method in class ColorDiagonalStrategy", e);
-                throw new notValidCellException();
+                throw new NotValidCellException();
             }
     }
 
 
-    private void uprightcontrol(Map map, int row, int column) throws notValidCellException{
+    private void uprightcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column + 1).getDice().getColor())) {
                 if(!temp.contains(map.getCell(row, column).getDice()))
@@ -100,10 +100,13 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                     visitor(map, row - 1, column + 1);
                 }
             }
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            // va bene così
+
+        }
     }
 
-    private void downrightcontrol(Map map, int row, int column) throws notValidCellException {
+    private void downrightcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())) {
                 if(!temp.contains(map.getCell(row, column).getDice()))
@@ -113,10 +116,13 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                     visitor(map, row + 1, column + 1);
                 }
             }
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            // va bene così
+
+        }
     }
 
-    private void upleftcontrol(Map map, int row, int column) throws notValidCellException {
+    private void upleftcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column - 1).getDice().getColor())) {
                 if(!temp.contains(map.getCell(row, column).getDice()))
@@ -126,10 +132,12 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                     visitor(map, row - 1, column - 1);
                 }
             }
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            // va bene così
+        }
     }
 
-    private void downleftcontrol(Map map, int row, int column) throws notValidCellException{
+    private void downleftcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column - 1).getDice().getColor())) {
                 if(!temp.contains(map.getCell(row, column).getDice()))
@@ -139,6 +147,8 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                     visitor(map, row + 1, column - 1);
                 }
             }
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+            // va bene così
+        }
     }
 }

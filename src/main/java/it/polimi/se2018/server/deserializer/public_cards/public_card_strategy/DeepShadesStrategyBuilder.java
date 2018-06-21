@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
  * extends Builder
  */
 public class DeepShadesStrategyBuilder extends Builder{
-    ObjectiveCardStrategy dss;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public DeepShadesStrategyBuilder(){
         super();
-        dss = new DeepShadesStrategy();
+        ObjectiveCardStrategy dss = new DeepShadesStrategy();
         this.setStrategy(dss);
         this.setToBeCompared("DeepShadesStrategy");
     }

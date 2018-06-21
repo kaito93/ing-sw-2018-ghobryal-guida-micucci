@@ -9,9 +9,9 @@ package it.polimi.se2018.shared.exception;
  *
  * @author Andrea
  */
-public class notValidCellException extends Exception {
+public class NotValidCellException extends Exception {
 
-    public notValidCellException() {
+    public NotValidCellException() {
         super();
     }
     

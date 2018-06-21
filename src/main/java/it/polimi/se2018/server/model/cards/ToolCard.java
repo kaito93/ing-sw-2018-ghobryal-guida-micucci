@@ -90,6 +90,9 @@ public class ToolCard extends Card{
         return 0;
     }
 
+    /**
+     * Overridden in PublicObjectiveCard
+     */
     @Override
     public int getScore() {
         return 0;

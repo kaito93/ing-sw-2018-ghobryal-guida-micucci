@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Anton Ghobryal
  */
 
-public class TestRoundSchemeCell extends TestCase {
+public class TestRoundSchemeCellBuilder extends TestCase {
     private RoundSchemeCell roundSchemeCell;
     private ArrayList<Dice> roundSchemeCellDices;
 
@@ -20,12 +20,12 @@ public class TestRoundSchemeCell extends TestCase {
      * Class Constructor
      * @param name test method name
      */
-    public TestRoundSchemeCell(String name){
+    public TestRoundSchemeCellBuilder(String name){
         super(name);
     }
 
     /**
-     * setup a new round Scheme Cell and a new dice set
+     * setup a new round Scheme CellBuilder and a new dice set
      * @throws Exception setup general exception
      */
     @Override

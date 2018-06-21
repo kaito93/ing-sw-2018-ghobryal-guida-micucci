@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
  * extends Builder
  */
 public class ColorDiagonalsStrategyBuilder extends Builder{
-    ObjectiveCardStrategy cds;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public ColorDiagonalsStrategyBuilder(){
         super();
-        cds = new ColorDiagonalsStrategy();
+        ObjectiveCardStrategy cds = new ColorDiagonalsStrategy();
         this.setStrategy(cds);
         this.setToBeCompared("ColorDiagonalsStrategy");
     }

@@ -9,9 +9,9 @@ package it.polimi.se2018.shared.exception;
  *
  * @author Andrea
  */
-public class notValidMatrixException extends Exception {
+public class NotValidMatrixException extends Exception {
 
-    public notValidMatrixException() {
+    public NotValidMatrixException() {
         super();
     }
     

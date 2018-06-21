@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class TapWheelBuilder extends ToolBuilder {
-    private ToolCardStrategy tw;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public TapWheelBuilder(){
         super();
-        tw = new TapWheel();
+        ToolCardStrategy tw = new TapWheel();
         this.setStrategy(tw);
         this.setToBeCompared("TapWheel");
     }

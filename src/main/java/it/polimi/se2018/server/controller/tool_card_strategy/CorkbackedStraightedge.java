@@ -3,11 +3,10 @@ package it.polimi.se2018.server.controller.tool_card_strategy;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
-import it.polimi.se2018.shared.exception.notValidCellException;
 import it.polimi.se2018.server.network.VirtualView;
 
 import java.util.List;
-import java.util.logging.Level;
+
 
 /**
  * Cork-backed Straightedge Tool Card
@@ -39,7 +38,6 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
             errorBool.setErrBool(true);
             return;
         }
-        try {
             if (player.getMap().isAdjacentDice(row, column) || player.getMap().isAdjacentValue(row, column, dice.getValue())
                     || player.getMap().isAdjacentColor(row, column, dice.getColor())
                     || !player.getMap().isCellValid(dice, row, column)){
@@ -48,9 +46,6 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
                 return;
             }
             player.getMap().getCell(row, column).setDice(dice);
-        } catch (notValidCellException e) {
-            LOGGER.log(Level.SEVERE, e.toString()+"\nuseTool method in CorkbackedStraightedge tool card", e);
-        }
         errorBool.setErrorMessage(null);
         errorBool.setErrBool(false);
     }

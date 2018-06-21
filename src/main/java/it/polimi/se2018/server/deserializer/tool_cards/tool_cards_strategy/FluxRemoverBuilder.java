@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class FluxRemoverBuilder extends ToolBuilder {
-    private ToolCardStrategy fr;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public FluxRemoverBuilder(){
         super();
-        fr = new FluxRemover();
+        ToolCardStrategy fr = new FluxRemover();
         this.setToBeCompared("FluxRemover");
         this.setStrategy(fr);
     }

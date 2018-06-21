@@ -5,6 +5,7 @@ import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class that manage the information send by Server for the choose of a Map
@@ -44,15 +45,15 @@ public class MessageChooseMap implements MessageCV {
 
     /**
      * method that return an arrayList of maps
-     * @return
+     * @return a list of map
      */
-    public ArrayList<Map> getMaps() {
+    public List<Map> getMaps() {
         return maps;
     }
 
     /**
      * method that return the username of the client
-     * @return
+     * @return a string
      */
     public String getUsername() {
         return username;

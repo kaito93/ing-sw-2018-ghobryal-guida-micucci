@@ -5,6 +5,7 @@ import it.polimi.se2018.server.network.VirtualView;
 import it.polimi.se2018.server.util.ErrorBool;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Dice;
+import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.io.Serializable;
@@ -18,7 +19,12 @@ import java.util.List;
 public abstract class ToolCardStrategy implements Serializable {
 
     protected static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private static final int ZERO = 0;
     protected static ErrorBool errorBool = new ErrorBool(null, false);
+    int column3;
+    int column4;
+    int row3;
+    int row4;
 
 
 
@@ -41,7 +47,7 @@ public abstract class ToolCardStrategy implements Serializable {
      */
 
     public int getFirstValue() {
-        return 0;
+        return ZERO;
     }
 
     /**
@@ -49,30 +55,8 @@ public abstract class ToolCardStrategy implements Serializable {
      */
 
     public int getSecondValue() {
-        return 0;
+        return getFirstValue();
     }
-
-    public void setRow3(int row3) {}
-
-    public void setRow4(int row4) {}
-
-    public int getRow3() {
-        return 0;
-    }
-
-    public int getRow4() {
-        return 0;
-    }
-
-    public int getColumn3() {
-        return 0;
-    }
-
-    public void setColumn3(int column3) {}
-
-    public int getColumn4() { return 0; }
-
-    public void setColumn4(int column4) {}
 
     /**
      * verifies if the dice is positioned on the passed coordinates or not
@@ -104,6 +88,99 @@ public abstract class ToolCardStrategy implements Serializable {
             return;
         }
         errorBool.setErrorMessage("Il dado non è stato posizionato correttamente");
+        errorBool.setErrBool(true);
+    }
+
+    /**
+     * gets the column's first position of the first dice
+     * @return column's coordinate initially of the first dice
+     */
+    protected int getColumn3() {
+        return column3;
+    }
+
+    /**
+     * sets the column's first position of the first dice
+     * @param column3 column's coordinate initially of the first dice
+     */
+    public void setColumn3(int column3) {
+        this.column3 = column3;
+    }
+
+    /**
+     * sets the row's first position of the first dice
+     * @param row3 row's coordinate initially of the first dice
+     */
+
+    public void setRow3(int row3) {
+        this.row3 = row3;
+    }
+
+    /**
+     * sets the row's first position of the second dice
+     * @param row4 row's coordinate initially of the second dice
+     */
+
+    public void setRow4(int row4) {
+        this.row4 = row4;
+    }
+
+    /**
+     * gets the row's first position of the first dice
+     * @return row's coordinate initially of the first dice
+     */
+    public int getRow3() {
+        return row3;
+    }
+
+    /**
+     * gets the row's first position of the second dice
+     * @return row's coordinate initially of the second dice
+     */
+    public int getRow4() {
+        return row4;
+    }
+
+    /**
+     * gets the column's first position of the second dice
+     * @return column's coordinate initially of the second dice
+     */
+    public int getColumn4() {
+        return column4;
+    }
+
+    /**
+     * sets the column's first position of the second dice
+     * @param column4 column's coordinate initially of the second dice
+     */
+    public void setColumn4(int column4) {
+        this.column4 = column4;
+    }
+
+    boolean checkExists(Player player, Dice dice, int row, int column){
+        try {
+            if(!diceExistOnCell(player.getMap(), dice, row, column)){
+                return true;
+            }
+        }catch (NullPointerException e){
+            return true;
+        }
+        return false;
+    }
+
+    void setBool(Player player, int row, int column, Dice dice){
+        player.getMap().getCell(row, column).setDice(dice);
+        errorBool.setErrorMessage(null);
+        errorBool.setErrBool(false);
+    }
+
+    void setDice(Player player, int row0, int column0){
+            player.getMap().getCell(row0, column0).setDice(null);
+    }
+
+    void setErrPos(Player player, int row0, int column0, Dice dice){
+        player.getMap().getCell(row0, column0).setDice(dice);
+        errorBool.setErrorMessage("il giocatore non rispetta le restrizioni di posizionamento");
         errorBool.setErrBool(true);
     }
 }

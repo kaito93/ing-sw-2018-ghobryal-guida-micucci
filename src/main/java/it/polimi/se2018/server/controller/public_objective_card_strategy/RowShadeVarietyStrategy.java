@@ -1,56 +1,45 @@
 package it.polimi.se2018.server.controller.public_objective_card_strategy;
 
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.exception.notValidCellException;
-
-import java.util.logging.Level;
 
 /**
  * Row Shade Variety Public Objective Card
+ *
  * @author Anton Ghobryal
  */
 
-public class RowShadeVarietyStrategy extends ObjectiveCardStrategy{
+public class RowShadeVarietyStrategy extends ObjectiveCardStrategy {
 
     /**
      * Read description of this card for further information
-     * @param map player's map
+     *
+     * @param map   player's map
      * @param score the score the player achieves out of this card
      * @return how many times the player achieves this card multiplied to its score
      */
 
     @Override
     public int search(Map map, int score) {
-        int counter=0;  //counts how many times the player achieves this card
-        boolean numBool=false;    //indicates if there isn't 2 dices with the same color on the same row
-        int numCounter=1;    //counts how many consecutive dices with different colors
-        for(int i=0; i<map.numRow(); i++){  //iterates on rows
-            for(int j=0; j<map.numColumn()-1; j++){ //iterates on column
-                for(int k=j+1; k<map.numColumn(); k++){ try {
-                    //iterates on the next column
-                    if((!map.isEmptyCell(i, j))&&(!map.isEmptyCell(i, k))){ //controls if there is a dice or not
-                        if(map.getCell(i,j).getDice().getValue()==map.getCell(i,k).getDice().getValue()){   //controls if there is two consecutive dices with the same color
-                            numBool = false;
-                            break;
-                        }else numBool = true;
-                    }else break;
-                    } catch (notValidCellException e) {
-                    LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class RowShadeVarietyStrategy", e);
-                    }
-                }
-                if(numBool)
+        int counter = 0;  //counts how many times the player achieves this card
+        boolean numBool;    //indicates if there isn't 2 dices with the same color on the same row
+        int numCounter = 1;    //counts how many consecutive dices with different colors
+        for (int i = 0; i < map.numRow(); i++) {  //iterates on rows
+            for (int j = 0; j < map.numColumn() - 1; j++) { //iterates on column
+
+                numBool = check(map, i, j, false, map.numColumn(), j + 1);
+
+                if (numBool)
                     numCounter++;
                 else {
                     numCounter = 1;
                     break;
                 }
             }
-            if(numCounter==map.numColumn()) {
+            if (numCounter == map.numColumn()) {
                 counter++;
-                numBool=false;
                 numCounter = 1;
             }
         }
-        return counter*score;
+        return counter * score;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class MessageFinalScore implements MessageCV {
 
     private static final long serialVersionUID = 904971391781721581L;
-    private List<Player> playersFinal = new ArrayList<>();
+    private List<Integer> scoresFinal = new ArrayList<>();
 
     /**
      * method that accept this message_socket client side
@@ -21,7 +21,7 @@ public class MessageFinalScore implements MessageCV {
      */
     @Override
     public void accept(ConnectionClientSocket client) {
-
+        client.visit(this);
     }
 
     /**
@@ -29,6 +29,14 @@ public class MessageFinalScore implements MessageCV {
      * @param playersFinal the Arraylist of players
      */
     public void setPlayersFinal(List<Player> playersFinal) {
-        this.playersFinal = playersFinal;
+        for (Player aPlayersFinal : playersFinal) scoresFinal.add(aPlayersFinal.getScore());
+    }
+
+    /**
+     * method that return the players
+     * @return a list of player
+     */
+    public List<Integer> getPlayersFinal() {
+        return scoresFinal;
     }
 }

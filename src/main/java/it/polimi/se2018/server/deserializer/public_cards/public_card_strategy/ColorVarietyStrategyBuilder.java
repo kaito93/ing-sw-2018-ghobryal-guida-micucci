@@ -9,14 +9,12 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
  */
 public class ColorVarietyStrategyBuilder extends Builder {
 
-    private ObjectiveCardStrategy cvs;
-
     /**
      * class constructor that inizialize the string and the strategy
      */
     public ColorVarietyStrategyBuilder(){
         super();
-        cvs = new ColorVarietyStrategy();
+        ObjectiveCardStrategy cvs = new ColorVarietyStrategy();
         this.setStrategy(cvs);
         this.setToBeCompared("ColorVarietyStrategy");
     }

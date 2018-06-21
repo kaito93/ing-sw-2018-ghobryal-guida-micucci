@@ -42,7 +42,7 @@ public class ViewGui extends View {
     }
 
     @Override
-    public ArrayList<Object> manageCE() {
+    public List<Object> manageCE() {
         // Dice, RowDest, ColumnDect, rowMit, ColumnMit
         return null;
     }
@@ -66,50 +66,50 @@ public class ViewGui extends View {
     }
 
     @Override
-    public ArrayList<Integer> manageGrozing3() {
+    public List<Integer> manageGrozing3() {
         // ritorna row e column di destinazione
         return null;
     }
 
     @Override
-    public ArrayList<Object> manageGrinding() {
+    public List<Object> manageGrinding() {
         return null;
     }
 
-    public ArrayList<Object> manageLathekin() {
+    public List<Object> manageLathekin() {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
 
         return null;
     }
 
     @Override
-    public ArrayList<Object> manageLens() {
+    public List<Object> manageLens() {
         //Dice dicStock2,Dice diceRound, int numberRound,row,column
         return null;
     }
 
     @Override
-    public ArrayList<Object> manageTap() {
+    public List<Object> manageTap() {
         //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
         // in roundscheme
         return null;
     }
 
     @Override
-    public ArrayList<Object> manageCork() {
+    public List<Object> manageCork() {
         // Dice, row, column
 
         return null;
     }
 
     @Override
-    public ArrayList<Object> managefluxBrush() {
+    public List<Object> managefluxBrush() {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
         return null;
     }
 
     @Override
-    public ArrayList<Object> manageFluxRemove2(Dice dice) {
+    public List<Object> manageFluxRemove2(Dice dice) {
         // dice row column
         return null;
     }
@@ -117,5 +117,10 @@ public class ViewGui extends View {
     @Override
     public String reconnect() {
         return null;
+    }
+
+    @Override
+    public void seeScore(List<Integer> scores) {
+
     }
 }

@@ -18,16 +18,16 @@ public class ServerDeserialize {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
 
-    Gson gson;
-    File file;
-    BufferedReader br;
-    ServerStructure ss;
+    private Gson gson;
+    private BufferedReader br;
+    private ServerStructure ss;
 
     /**
      * class constructor: return an object inizialized to deserializer the json file given by the path
      * @param path string that refer to the json file
      */
     public ServerDeserialize(String path){
+        File file;
         gson = new Gson();
         file = new File(path);
         try {
@@ -41,7 +41,7 @@ public class ServerDeserialize {
      * method that make the deserializing of the json file with the servers information.
      * it put it in the ss data structure
      */
-    public void Deserializing(){
+    public void deserializing(){
         Type server = new TypeToken<ServerStructure>(){}.getType();
         ss = gson.fromJson(br, server);
     }

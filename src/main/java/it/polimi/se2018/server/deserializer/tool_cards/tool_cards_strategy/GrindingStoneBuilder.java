@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class GrindingStoneBuilder extends ToolBuilder {
-    private ToolCardStrategy gs;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public GrindingStoneBuilder(){
         super();
-        gs = new GrindingStone();
+        ToolCardStrategy gs = new GrindingStone();
         this.setStrategy(gs);
         this.setToBeCompared("GrindingStone");
     }

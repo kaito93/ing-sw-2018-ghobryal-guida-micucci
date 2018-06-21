@@ -4,19 +4,19 @@ package it.polimi.se2018.server.deserializer.maps.cells;
  * class of support to deserializer the cell in json file
  * like strings
  */
-public class Cell {
+public class CellBuilder {
 
-    private int numbercell;
+    private int numberCell;
     private String type;
     private String color;
     private int value;
 
     /**
-     * class constructor: set the numbercell and the value of cell to default value
+     * class constructor: set the numberCell and the value of cell to default value
      * 0
      */
-    public Cell(){
-        numbercell = 0;
+    public CellBuilder(){
+        numberCell = 0;
         value = 0;
     }
 
@@ -29,15 +29,15 @@ public class Cell {
     }
 
     /**
-     * setter method for numbercell
+     * setter method for numberCell
      * @param numberCell an integer that represent the number of the cell
      */
     public void setNumberCell(int numberCell) {
-        this.numbercell = numberCell;
+        this.numberCell = numberCell;
     }
 
     /**
-     * setter method for the type of Cell
+     * setter method for the type of CellBuilder
      * @param type a string that represent the type of cell
      */
     public void setType(String type) {
@@ -81,6 +81,6 @@ public class Cell {
      * @return an integer represent the number of cell
      */
     public int getNumberCell() {
-        return numbercell;
+        return numberCell;
     }
 }

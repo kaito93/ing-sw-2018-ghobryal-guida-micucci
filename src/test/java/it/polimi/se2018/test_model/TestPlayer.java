@@ -4,7 +4,7 @@ import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
-import it.polimi.se2018.shared.exception.notValidMatrixException;
+import it.polimi.se2018.shared.exception.NotValidMatrixException;
 import junit.framework.TestCase;
 
 /**
@@ -91,7 +91,7 @@ public class TestPlayer extends TestCase {
             Map map = new Map("a", 3, 4, 5);
             player.setMap(map);
             assertSame(player.getMap(), map);
-        } catch (notValidMatrixException e) {
+        } catch (NotValidMatrixException e) {
             fail();
         }
     }

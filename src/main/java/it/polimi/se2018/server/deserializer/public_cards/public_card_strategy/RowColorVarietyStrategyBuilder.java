@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.RowColo
  * extends Builder
  */
 public class RowColorVarietyStrategyBuilder extends Builder {
-    ObjectiveCardStrategy rcvs;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public RowColorVarietyStrategyBuilder(){
         super();
-        rcvs = new RowColorVarietyStrategy();
+        ObjectiveCardStrategy rcvs = new RowColorVarietyStrategy();
         this.setStrategy(rcvs);
         this.setToBeCompared("RowColorVarietyStrategy");
     }

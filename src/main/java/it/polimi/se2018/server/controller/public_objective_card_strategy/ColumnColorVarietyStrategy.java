@@ -23,8 +23,10 @@ public class ColumnColorVarietyStrategy extends ObjectiveCardStrategy{
         int colorCounter=1;    //counts how many consecutive dices with different colors
         for(int i=0; i<map.numColumn(); i++){   //iterates on columns
             for(int j=0; j<map.numRow()-1; j++) {    //iterates on row
-                for (int k = j + 1; k < map.numRow(); k++) { //iterates on the next row
-                    if (colorBool = isColorDuplicated(map, i, j, k)){
+                for (int k = j + 1; k < map.numRow(); k++) {
+                    colorBool = isColorDuplicated(map, i, j, k);
+                    //iterates on the next row
+                    if (colorBool){
                         break;
                     }
                 }

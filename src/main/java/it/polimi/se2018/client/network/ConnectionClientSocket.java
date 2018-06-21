@@ -8,6 +8,7 @@ import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.message_socket.message_tools.*;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.client.view.View;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -32,11 +33,6 @@ public class ConnectionClientSocket extends ConnectionClient {
     private Socket socket;
     private Listen listener;
     private boolean condition = true;
-
-
-    public static final int MVEVENT = 0;
-    public static final int CVEVENT = 1;
-    public static final int SYSTEMMESSAGE = 2;
 
     /**
      * class constructor
@@ -91,7 +87,7 @@ public class ConnectionClientSocket extends ConnectionClient {
         /**
          * method that listen the request for the whole game
          */
-        synchronized public void run() {
+        public synchronized void run() {
 
             //message_socket message_socket; // crea una variabile per contenere il messaggio ricevuto
             while (condition) {
@@ -99,13 +95,13 @@ public class ConnectionClientSocket extends ConnectionClient {
                 try {
                     Message message = (Message) input.readObject(); // leggi il messaggio
 
-                    if (message.getType() == CVEVENT) {// se il tipo di messaggio viene dal controller
+                    if (message.getType() == Message.CVEVENT) {// se il tipo di messaggio viene dal controller
                         MessageCV messag = (MessageCV) message.getEvent(); // casta il messaggio
                         messag.accept(ConnectionClientSocket.this); // accetta il messaggio e svolgi le azioni
 
                     }
 
-                    if (message.getType() == SYSTEMMESSAGE) { // se il tipo di messaggio è di Sistema
+                    if (message.getType() == Message.SYSTEMEVENT) { // se il tipo di messaggio è di Sistema
                         MessageSystem mess = (MessageSystem) message.getEvent();
                         mess.accept(ConnectionClientSocket.this);
                     }
@@ -130,7 +126,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      *
      * @param message the message_socket that has sent
      */
-    synchronized public void update(MessageVC message) {
+     public synchronized void update(MessageVC message) {
         try {
             this.output.writeUnshared(message);
             this.output.flush();
@@ -481,5 +477,9 @@ public class ConnectionClientSocket extends ConnectionClient {
         view.updateIndex(message.getNewIndex());
         view.addLog(message.getMessage());
 
+    }
+
+    public void visit(MessageFinalScore message){
+        view.seeScore(message.getPlayersFinal());
     }
 }

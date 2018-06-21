@@ -7,7 +7,7 @@ import it.polimi.se2018.server.model.Game;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.exception.InvalidValueException;
-import it.polimi.se2018.shared.exception.notValidCellException;
+import it.polimi.se2018.shared.exception.NotValidCellException;
 import junit.framework.TestCase;
 
 /**
@@ -102,37 +102,24 @@ public class TestMap extends TestCase {
      * tests getCell method in class Map
      */
     public void testGetCell(){
-        try {
             assertNotNull(map.getCell(0,0));
             assertNotNull(map.getCell(3,4));
             assertNotNull(map.getCell(2,3));
-        }catch (notValidCellException e){
+
+
+           /* assertNotNull(map.getCell(-1,0));
             fail();
-        }
-        try {
-            assertNotNull(map.getCell(-1,0));
-            fail();
-        }catch (notValidCellException e){
-            testNumRow();
-        }
-        try {
+
+
             assertNotNull(map.getCell(0,5));
             fail();
-        }catch (notValidCellException e){
-            testNumColumn();
-        }
-        try {
+
             assertNotNull(map.getCell(4,0));
             fail();
-        }catch (notValidCellException e){
-            testNumRow();
-        }
-        try {
+
             assertNotNull(map.getCell(0, -1));
-            fail();
-        }catch (notValidCellException e){
-            testNumColumn();
-        }
+            fail();*/
+
     }
 
     /**
@@ -262,23 +249,19 @@ public class TestMap extends TestCase {
      * tests isAdjacentColor method in class Map
      */
     public void testIsAdjacentColor(){
-        try {
             assertFalse(map.isAdjacentColor(map.numRow()-1, map.numColumn()-1, Color.GREEN));
             assertTrue(map.posDice(g1, map.numRow()-1, map.numColumn()-1));
             assertFalse(map.isAdjacentColor(map.numRow()-2, map.numColumn()-1, Color.BLUE));
             assertTrue(map.isAdjacentColor(map.numRow()-2, map.numColumn()-1, Color.GREEN));
             assertTrue(map.posDice(b2, map.numRow()-2, map.numColumn()-1));
             assertTrue(map.isAdjacentColor(map.numRow()-3, map.numColumn()-1, Color.BLUE));
-        } catch (notValidCellException e) {
-            fail();
-        }
+
     }
 
     /**
      * tests isAdjacentValue method in class Map
      */
     public void testIsAdjacentValue(){
-        try {
             assertFalse(map.isAdjacentValue(map.numRow()-1, map.numColumn()-1, 1));
             assertTrue(map.posDice(g1, map.numRow()-1, map.numColumn()-1));
             assertFalse(map.isAdjacentValue(map.numRow()-2, map.numColumn()-1, 2));
@@ -287,9 +270,7 @@ public class TestMap extends TestCase {
             assertTrue(map.isAdjacentValue(map.numRow()-3, map.numColumn()-1, 2));
             assertFalse(map.posDice(b1, map.numRow()-1, map.numColumn()-2));
             assertTrue(map.isAdjacentValue(map.numRow()-1, map.numColumn()-2, 1));
-        } catch (notValidCellException e) {
-            fail();
-        }
+
     }
 
     /**

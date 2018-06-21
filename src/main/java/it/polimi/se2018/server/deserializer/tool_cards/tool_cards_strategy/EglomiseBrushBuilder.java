@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class EglomiseBrushBuilder extends ToolBuilder {
-    private ToolCardStrategy eb;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public EglomiseBrushBuilder(){
         super();
-        eb = new EglomiseBrush();
+        ToolCardStrategy eb = new EglomiseBrush();
         this.setToBeCompared("EglomiseBrush");
         this.setStrategy(eb);
     }

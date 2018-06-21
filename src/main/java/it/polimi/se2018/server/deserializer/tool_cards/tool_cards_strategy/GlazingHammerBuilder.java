@@ -8,14 +8,13 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
  * extends ToolBuilder
  */
 public class GlazingHammerBuilder extends ToolBuilder{
-    private ToolCardStrategy gh;
 
     /**
      * class constructor that inizialize the string and the strategy
      */
     public GlazingHammerBuilder(){
         super();
-        gh = new GlazingHammer();
+        ToolCardStrategy gh = new GlazingHammer();
         this.setStrategy(gh);
         this.setToBeCompared("GlazingHammer");
     }

@@ -22,7 +22,7 @@ public class DeckOfPrivateCards {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private BufferedReader br;
-    private ArrayList<PrivateObjectiveCard> privCards;
+    private ArrayList<PrivateObjectiveCard> objectiveCards;
 
     /**
      * class constructor: create a deck of all the private cards
@@ -37,15 +37,15 @@ public class DeckOfPrivateCards {
         }
         Type listPrivCards = new TypeToken<ArrayList<PrivateObjectiveCard>>(){}.getType();
         Gson gson = new Gson();
-        privCards = gson.fromJson(br, listPrivCards);
+        objectiveCards = gson.fromJson(br, listPrivCards);
     }
 
     /**
      * method that return all the private cards in the array list
      * @return an list of private objective cards
      */
-    public List<PrivateObjectiveCard> getPrivCards() {
-        return privCards;
+    public List<PrivateObjectiveCard> getObjectiveCards() {
+        return objectiveCards;
     }
 
 }

@@ -5,121 +5,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -132,121 +132,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "red",
         "value": 0
@@ -259,121 +259,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "green",
         "value": 0
@@ -386,121 +386,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "yellow",
         "value": 0
@@ -513,121 +513,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 4
@@ -640,121 +640,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "purple",
         "value": 0
@@ -767,121 +767,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 3
@@ -894,121 +894,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -1021,121 +1021,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 4
@@ -1148,121 +1148,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 3
@@ -1275,121 +1275,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "red",
         "value": 0
@@ -1402,121 +1402,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -1529,121 +1529,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 6
@@ -1656,121 +1656,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "color",
         "color": "purple",
         "value": 5
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -1783,121 +1783,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 1
@@ -1910,121 +1910,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -2037,121 +2037,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "green",
         "value": 2
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 4
@@ -2164,121 +2164,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -2291,121 +2291,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "purple",
         "value": 0
@@ -2418,121 +2418,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "value",
         "color": "blank",
         "value": 1
@@ -2545,121 +2545,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "color",
         "color": "purple",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "color",
         "color": "red",
         "value": 0
@@ -2672,121 +2672,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "color",
         "color": "yellow",
         "value": 0
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -2799,121 +2799,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "color",
         "color": "red",
         "value": 6
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "color",
         "color": "red",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0
@@ -2926,121 +2926,121 @@
     "maps":
     [
       {
-        "numbercell": 1,
+        "numberCell": 1,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 2,
+        "numberCell": 2,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 3,
+        "numberCell": 3,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 4,
+        "numberCell": 4,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 5,
+        "numberCell": 5,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 6,
+        "numberCell": 6,
         "type": "value",
         "color": "blank",
         "value": 1
       },
       {
-        "numbercell": 7,
+        "numberCell": 7,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 8,
+        "numberCell": 8,
         "type": "value",
         "color": "blank",
         "value": 3
       },
       {
-        "numbercell": 9,
+        "numberCell": 9,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 10,
+        "numberCell": 10,
         "type": "value",
         "color": "blank",
         "value": 2
       },
       {
-        "numbercell": 11,
+        "numberCell": 11,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 12,
+        "numberCell": 12,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 13,
+        "numberCell": 13,
         "type": "value",
         "color": "blank",
         "value": 4
       },
       {
-        "numbercell": 14,
+        "numberCell": 14,
         "type": "value",
         "color": "blank",
         "value": 6
       },
       {
-        "numbercell": 15,
+        "numberCell": 15,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 16,
+        "numberCell": 16,
         "type": "blank",
         "color": "blank",
         "value": 0
       },
       {
-        "numbercell": 17,
+        "numberCell": 17,
         "type": "color",
         "color": "blue",
         "value": 0
       },
       {
-        "numbercell": 18,
+        "numberCell": 18,
         "type": "value",
         "color": "blank",
         "value": 5
       },
       {
-        "numbercell": 19,
+        "numberCell": 19,
         "type": "color",
         "color": "green",
         "value": 0
       },
       {
-        "numbercell": 20,
+        "numberCell": 20,
         "type": "blank",
         "color": "blank",
         "value": 0

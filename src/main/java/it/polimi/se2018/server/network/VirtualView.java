@@ -9,7 +9,6 @@ import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.shared.message_socket.client_to_server.MessageDisconnect;
 import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
-import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.Observable;
 
@@ -24,6 +23,7 @@ import java.util.logging.Level;
  */
 public class VirtualView extends Observable<MessageVC> {
 
+    private static final String PLAYER = "Il player";
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private Controller controller;
@@ -35,14 +35,14 @@ public class VirtualView extends Observable<MessageVC> {
     private ArrayList<Player> playersSuspend = new ArrayList<>();
     private ArrayList<ConnectionServer> connectionsSuspend = new ArrayList<>();
     private ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
-    private boolean terminate = false;
+    private boolean notTerminate = true;
 
     /**
      * method that set the connections and create the instance of all players and create listener of message_socket
      * @param connect arraylist of connections
      * @return an arraylist of player
      */
-    public ArrayList<Player> setClients(ArrayList<ConnectionServer> connect) {
+    List<Player> setClients(List<ConnectionServer> connect) {
         for (ConnectionServer aConnect : connect) {
             try {
                 connections.add(aConnect.clone());
@@ -82,7 +82,7 @@ public class VirtualView extends Observable<MessageVC> {
      * method that let's start to listen the listener of message_socket
      */
 
-    public void startServer() {
+    void startServer() {
         for (PlayerPlay aPlayersPlay : this.playersPlay)
             aPlayersPlay.start(); // avvia i thread ascoltatori dei giocatori
     }
@@ -138,19 +138,19 @@ public class VirtualView extends Observable<MessageVC> {
                     MessageVC message = (MessageVC) client.getInput().readUnshared();
                     if (message instanceof MessageDisconnect) {
                         connected = false;
-                        LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " non ha effettuato una mossa in tempo\n" +
-                                "l'ho messo in sospensione");
+                        LOGGER.log(Level.OFF, PLAYER+" {0} non ha effettuato una mossa in tempo\n" +
+                                "l'ho messo in sospensione",client.getUsername());
                     } else
                         notifyObservers(message);
                 } catch (IOException e) {
                     connected = false;
                     if (client.isConnected())
-                        LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
+                        LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
                     else
                         return;
                 } catch (ClassNotFoundException e) {
                     connected = false;
-                    LOGGER.log(Level.OFF, "Il player " + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
+                    LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
 
                 }
 
@@ -172,7 +172,7 @@ public class VirtualView extends Observable<MessageVC> {
             }
 
 
-            if (!terminate) {
+            if (notTerminate) {
                 String text = "Il giocatore " + client.getUsername() + " si è disconnesso. Il giocatore è stato sospeso.";
 
                 for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
@@ -199,7 +199,6 @@ public class VirtualView extends Observable<MessageVC> {
                 this.run();// riavvio l'ascolto della vView
             } else
                 this.interrupt();
-
         }
 
         /**
@@ -263,7 +262,7 @@ public class VirtualView extends Observable<MessageVC> {
      * @param posDice if a player has positioned a dice before
      * @param useTool if a player has used a tool card before
      */
-    public void sendMessageTurn(ArrayList<Player> playersInRound, int turno, boolean posDice, boolean useTool) {
+    public void sendMessageTurn(List<Player> playersInRound, int turno, boolean posDice, boolean useTool) {
         connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
                 posDice,useTool);
     }
@@ -436,21 +435,21 @@ public class VirtualView extends Observable<MessageVC> {
      */
     public void manageVictoryAbbandon() {
         connections.get(0).sendVictoryAbbandon();
-        terminate = true;
+        notTerminate = true;
     }
 
     /**
      * method that returns true if the game is terminated
      * @return a boolean
      */
-    public boolean isTerminate() {
-        return terminate;
+    public boolean isTermi() {
+        return notTerminate;
     }
 
     /**
      * method that disconnect all connections
      */
-    public void disconnect(){
+    void disconnect(){
         for (ConnectionServer connection : this.connections) connection.setConnected(false);
     }
 

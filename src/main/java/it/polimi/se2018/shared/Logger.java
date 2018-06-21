@@ -13,6 +13,10 @@ public class Logger {
         private static final String ANSI_PURPLE = "\u001B[35m";
         private static final String ANSI_WHITE = "\u001B[37m";
 
+     private Logger(){
+         throw new IllegalStateException("Utility class");
+     }
+
     /**
      * method that print a text like an information
      * @param message a string to print

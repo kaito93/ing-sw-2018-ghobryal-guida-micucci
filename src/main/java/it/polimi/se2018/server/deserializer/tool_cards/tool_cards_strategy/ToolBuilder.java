@@ -1,6 +1,5 @@
 package it.polimi.se2018.server.deserializer.tool_cards.tool_cards_strategy;
 
-import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.server.model.cards.Card;
 import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
@@ -8,6 +7,7 @@ import it.polimi.se2018.server.deserializer.JsonTransition;
 import it.polimi.se2018.server.deserializer.tool_cards.toolCardTransfer;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,14 +29,14 @@ public class ToolBuilder implements Observer {
         toolCardStrategic = new ArrayList<>();
     }
 
-    @Override
     /**
      * method that create the card object from a compare between to strings
      */
+    @Override
     public void update(Observable o, Object arg) {
         jT = (toolCardTransfer) arg;
         if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
-            toolCardStrategic.add(new ToolCard(jT.getTitle(), jT.getDescription(), jT.getId(), (Color) jT.getColor(), strategy));
+            toolCardStrategic.add(new ToolCard(jT.getTitle(), jT.getDescription(), jT.getId(), jT.getColor(), strategy));
         }
 
     }
@@ -82,7 +82,7 @@ public class ToolBuilder implements Observer {
      *
      * @param deck that has to be created
      */
-    public void setDeck(ArrayList deck) {
+    public void setDeck(List deck) {
         int i;
         for (i = 0; i < toolCardStrategic.size(); i++) {
 

@@ -1,9 +1,6 @@
 package it.polimi.se2018.server.controller.public_objective_card_strategy;
 
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.exception.notValidCellException;
-
-import java.util.logging.Level;
 
 /**
  * Medium Shades Public Objective Card
@@ -24,16 +21,13 @@ public class MediumShadesStrategy extends ObjectiveCardStrategy {
         int counter3=0;
         int counter4=0;
         for(int i=0; i<map.numRow(); i++){  //iterates on rows
-            for(int j=0; j<map.numColumn(); j++){   try {
+            for(int j=0; j<map.numColumn(); j++){
                 //iterates on columns
                 if(!map.isEmptyCell(i, j)){   //contols if there is a dice
                     if(map.getCell(i,j).getDice().getValue()==3)
                         counter3++;
                     else if(map.getCell(i,j).getDice().getValue()==4)
                         counter4++;
-                }
-                } catch (notValidCellException e) {
-                LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class MediumShadesStrategy", e);
                 }
             }
         }

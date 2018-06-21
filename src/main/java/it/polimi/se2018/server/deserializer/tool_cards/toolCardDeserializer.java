@@ -7,6 +7,7 @@ import it.polimi.se2018.server.deserializer.tool_cards.tool_cards_strategy.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class that create the deck of all cards, extends StrategyCardDeserializer
@@ -52,7 +53,7 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     }
 
     @Override
-    public void Deserializing() {
+    public void deserializing() {
         Type listTool = new TypeToken<ArrayList<toolCardTransfer>>(){}.getType();
         tooltrans= this.getGson().fromJson(this.getBr(), listTool);
     }
@@ -62,11 +63,11 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
         return this.tooltrans.get(index);
     }
 
-    @Override
     /**
      * method that initialize all the observer of the class, to make possible the creations of the cards
      */
-    public void SetUpObserver() {
+    @Override
+    public void setUpObserver() {
         this.addObserver(cfbBuilder);
         this.addObserver(csBuilder);
         this.addObserver(ebBuilder);
@@ -85,7 +86,7 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     /**
      * method that take all the cards created by the observers and put it in an arraylist that take the part of deck of tool cards
      */
-    public void MountDeck(){
+    private void MountDeck(){
         cfbBuilder.setDeck(this.deck);
         csBuilder.setDeck(this.deck);
         ebBuilder.setDeck(this.deck);
@@ -104,19 +105,18 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
      * getter method that return the deck of all cards created from json files
      * @return the deck of cards
      */
-    public ArrayList<ToolCard> getDeck() {
+    public List<ToolCard> getDeck() {
         return deck;
     }
 
-    public void TotalDeserializing(){
-        this.Deserializing();
-        this.SetUpObserver();
-        for(int index=0; index<tooltrans.size(); index++)
-            this.StartBuilding(tooltrans.get(index));
+    public void totalDeserializing(){
+        this.deserializing();
+        this.setUpObserver();
+        for (toolCardTransfer tooltran : tooltrans) this.startBuilding(tooltran);
         this.MountDeck();
     }
 
-    public void StartBuilding(toolCardTransfer toolCardsingle){
+    private void startBuilding(toolCardTransfer toolCardsingle){
         setChanged();
         notifyObservers(toolCardsingle);
     }

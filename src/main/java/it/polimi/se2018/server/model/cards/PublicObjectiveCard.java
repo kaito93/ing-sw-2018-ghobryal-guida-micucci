@@ -1,7 +1,6 @@
 package it.polimi.se2018.server.model.cards;
 
 import it.polimi.se2018.server.controller.public_objective_card_strategy.ObjectiveCardStrategy;
-import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.shared.model_shared.Color;
@@ -38,21 +37,6 @@ public class PublicObjectiveCard extends Card {
     @Override
     public int getScore() {
         return score;
-    }
-
-    @Override
-    public ToolCardStrategy getStrategy() {
-        return null;
-    }
-
-    @Override
-    public boolean isUsed() {
-        return false;
-    }
-
-    @Override
-    public int getId() {
-        return 0;
     }
 
     @Override

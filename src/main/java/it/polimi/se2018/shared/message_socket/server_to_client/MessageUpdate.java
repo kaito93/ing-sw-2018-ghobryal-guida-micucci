@@ -136,8 +136,7 @@ public class MessageUpdate implements MessageMV {
      */
     public void setCells(List<Map> maps) {
         try {
-            for (int i=0; i<maps.size();i++)
-                cells.add(maps.get(i).getCells());
+            for (Map map : maps) cells.add(map.getCells());
         }
         catch (NullPointerException e){
             LOGGER.log(Level.SEVERE, e.toString(), e);

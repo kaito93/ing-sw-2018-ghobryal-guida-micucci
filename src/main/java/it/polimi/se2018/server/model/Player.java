@@ -1,5 +1,6 @@
 package it.polimi.se2018.server.model;
 
+import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.shared.model_shared.Dice;
 

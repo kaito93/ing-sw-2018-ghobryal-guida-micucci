@@ -2,8 +2,10 @@ package it.polimi.se2018.server.deserializer.maps.cells;
 
 import it.polimi.se2018.server.deserializer.maps.EntireMap;
 import it.polimi.se2018.server.deserializer.maps.TransitionForMaps;
+import it.polimi.se2018.shared.model_shared.Cell;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,7 +18,7 @@ public abstract class CellsBuilder implements Observer {
     private String toBeCompared;
     private it.polimi.se2018.shared.model_shared.Cell cell;
     private TransitionForMaps trans;
-    private ArrayList<Cell> cells;
+    private List<CellBuilder> cells;
     private EntireMap mappaIntera;
 
     /**
@@ -39,7 +41,7 @@ public abstract class CellsBuilder implements Observer {
         cells = trans.getMap();
         mappaIntera.setTitle(trans.getMapName());
         mappaIntera.setLevel(trans.getLevel());
-        for (Cell map : cells) {
+        for (CellBuilder map : cells) {
             if (map.getType().equalsIgnoreCase(toBeCompared)) {
                 cell = this.createCell(map.getColor(), map.getValue(), map.getNumberCell());
                 mappaIntera.setMatrix(cell);
@@ -55,7 +57,7 @@ public abstract class CellsBuilder implements Observer {
      * @param number of the cell
      * @return a created cell
      */
-    public abstract it.polimi.se2018.shared.model_shared.Cell createCell(String color, int value, int number);
+    public abstract Cell createCell(String color, int value, int number);
 
     /**
      * setter method for the string that has to be compared to determine the type of cell
