@@ -37,7 +37,7 @@ public class ViewGui extends View {
     }
 
     @Override
-    public void addError(String Message) {
+    public void addError(String message) {
 
     }
 

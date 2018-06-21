@@ -7,7 +7,7 @@ import it.polimi.se2018.shared.model_shared.Color;
  * class to make the data structure to deserializer the toolcards
  * derives from jsontransiction
  */
-public class toolCardTransfer extends JsonTransition {
+public class ToolCardTransfer extends JsonTransition {
 
     private String strategy=null;
     private String color=null;

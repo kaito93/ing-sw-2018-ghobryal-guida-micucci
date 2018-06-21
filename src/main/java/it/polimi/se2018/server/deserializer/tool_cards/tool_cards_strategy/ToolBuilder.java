@@ -4,7 +4,7 @@ import it.polimi.se2018.server.model.cards.Card;
 import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 import it.polimi.se2018.server.deserializer.JsonTransition;
-import it.polimi.se2018.server.deserializer.tool_cards.toolCardTransfer;
+import it.polimi.se2018.server.deserializer.tool_cards.ToolCardTransfer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.Observer;
  */
 public class ToolBuilder implements Observer {
     private String toBeCompared;
-    private toolCardTransfer jT;
+    private ToolCardTransfer jT;
     private ArrayList<Card> toolCardStrategic;
     private ToolCardStrategy strategy;
 
@@ -25,7 +25,7 @@ public class ToolBuilder implements Observer {
      * class constructor: create an arraylist and a json transiction data structure
      */
     public ToolBuilder() {
-        jT = new toolCardTransfer();
+        jT = new ToolCardTransfer();
         toolCardStrategic = new ArrayList<>();
     }
 
@@ -34,7 +34,7 @@ public class ToolBuilder implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        jT = (toolCardTransfer) arg;
+        jT = (ToolCardTransfer) arg;
         if (toBeCompared.equalsIgnoreCase(jT.getStrategy())) {
             toolCardStrategic.add(new ToolCard(jT.getTitle(), jT.getDescription(), jT.getId(), jT.getColor(), strategy));
         }
@@ -46,7 +46,7 @@ public class ToolBuilder implements Observer {
      *
      * @param jT to be setted
      */
-    public void setjT(toolCardTransfer jT) {
+    public void setjT(ToolCardTransfer jT) {
         this.jT = jT;
     }
 

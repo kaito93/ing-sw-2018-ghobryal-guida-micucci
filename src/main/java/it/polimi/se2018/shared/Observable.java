@@ -34,8 +34,7 @@ public abstract class Observable<T> {
      * @param event the event observed
      */
     public void notifyObservers (T event){
-        for (int i=0; i<this.observers.size();i++)  // per ogni osservatore
-            this.observers.get(i).update(event);  // notifico un evento
+        for (Observer observer : this.observers) observer.update(event);  // notifico un evento
 
     }
 

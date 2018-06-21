@@ -23,7 +23,6 @@ public class GrindingStone extends ToolCardStrategy {
      * @param row  row's coordinate where to position the dice
      * @param column column's coordinate where to position the dice
      * @param t     n.a.
-     * @param t0    n.a.
      * @param t1    n.a.
      * @param t2    n.a.
      * @param t3    n.a.

@@ -226,7 +226,7 @@ public class Server implements ServerRMI {
      */
     public static void main(String[] args) {
         PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/server/json_server/Pathname.json");
-        path.Deserializing();
+        path.deserializing();
         ServerDeserialize serv = new ServerDeserialize(path.getPathFromType("server"));
         serv.deserializing();
 

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * class that create the deck of all cards, extends StrategyCardDeserializer
  */
-public class toolCardDeserializer extends StrategyCardDeserializer {
+public class ToolCardDeserializer extends StrategyCardDeserializer {
 
     private CopperFoilBurnisherBuilder cfbBuilder;
     private CorkbackedStraightedgeBuilder csBuilder;
@@ -27,14 +27,14 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     private RunningPliersBuilder rpBuilder;
     private TapWheelBuilder twBuilder;
     private ArrayList<ToolCard> deck;
-    private ArrayList<toolCardTransfer> tooltrans;
+    private ArrayList<ToolCardTransfer> tooltrans;
 
 
     /**
      * class constructor: build all the object observer and all the variables of the class
      * @param pathname of the json file that need to be deserialized
      */
-    public toolCardDeserializer(String pathname) {
+    public ToolCardDeserializer(String pathname) {
         super(pathname);
         cfbBuilder = new CopperFoilBurnisherBuilder();
         csBuilder = new CorkbackedStraightedgeBuilder();
@@ -54,12 +54,12 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
 
     @Override
     public void deserializing() {
-        Type listTool = new TypeToken<ArrayList<toolCardTransfer>>(){}.getType();
+        Type listTool = new TypeToken<ArrayList<ToolCardTransfer>>(){}.getType();
         tooltrans= this.getGson().fromJson(this.getBr(), listTool);
     }
 
     @Override
-    public toolCardTransfer getSingleTransiction(int index) {
+    public ToolCardTransfer getSingleTransiction(int index) {
         return this.tooltrans.get(index);
     }
 
@@ -86,7 +86,7 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     /**
      * method that take all the cards created by the observers and put it in an arraylist that take the part of deck of tool cards
      */
-    private void MountDeck(){
+    private void mountDeck(){
         cfbBuilder.setDeck(this.deck);
         csBuilder.setDeck(this.deck);
         ebBuilder.setDeck(this.deck);
@@ -112,11 +112,11 @@ public class toolCardDeserializer extends StrategyCardDeserializer {
     public void totalDeserializing(){
         this.deserializing();
         this.setUpObserver();
-        for (toolCardTransfer tooltran : tooltrans) this.startBuilding(tooltran);
-        this.MountDeck();
+        for (ToolCardTransfer tooltran : tooltrans) this.startBuilding(tooltran);
+        this.mountDeck();
     }
 
-    private void startBuilding(toolCardTransfer toolCardsingle){
+    private void startBuilding(ToolCardTransfer toolCardsingle){
         setChanged();
         notifyObservers(toolCardsingle);
     }

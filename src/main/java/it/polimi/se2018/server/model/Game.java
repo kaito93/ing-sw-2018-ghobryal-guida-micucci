@@ -2,7 +2,7 @@ package it.polimi.se2018.server.model;
 
 import it.polimi.se2018.server.deserializer.maps.MapsDeserializer;
 import it.polimi.se2018.server.deserializer.public_cards.PublicCardDeserializer;
-import it.polimi.se2018.server.deserializer.tool_cards.toolCardDeserializer;
+import it.polimi.se2018.server.deserializer.tool_cards.ToolCardDeserializer;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
@@ -48,7 +48,7 @@ public class Game {
 
         path= new PathDeserializer("src/main/java/it/polimi/se2018/server/json_server/Pathname.json");
 
-        path.Deserializing();
+        path.deserializing();
 
         diceBag=new DiceBox(path.getPathFromType("dice")); // carica i dadi dal file json
 
@@ -116,7 +116,7 @@ public class Game {
     private List<ToolCard> loadToolCards(){
 
 
-        toolCardDeserializer tool= new toolCardDeserializer(path.getPathFromType("tool"));
+        ToolCardDeserializer tool= new ToolCardDeserializer(path.getPathFromType("tool"));
         tool.totalDeserializing();
         return tool.getDeck();
     }

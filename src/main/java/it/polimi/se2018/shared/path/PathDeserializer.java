@@ -18,10 +18,9 @@ import java.util.logging.Level;
 public class PathDeserializer {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    ArrayList<PathJsonStructure> pathjson;
-    BufferedReader br;
-    File file;
-    Gson gson;
+    private ArrayList<PathJsonStructure> pathjson;
+    private BufferedReader br;
+    private Gson gson;
 
     /**
      * constructor of the class, that inizialize the buffered reader of the json file
@@ -29,6 +28,7 @@ public class PathDeserializer {
      * game
      */
     public PathDeserializer(String path){
+        File file;
         file = new File(path);
         try{
             br = new BufferedReader(new FileReader(file));
@@ -43,7 +43,7 @@ public class PathDeserializer {
      * method that deserializer the json path file and save all the info in an
      * PathJsonStructure
      */
-    public void Deserializing(){
+    public void deserializing(){
         Type list = new TypeToken<ArrayList<PathJsonStructure>>(){}.getType();
         pathjson = gson.fromJson(br, list);
     }
@@ -55,9 +55,9 @@ public class PathDeserializer {
      */
     public String getPathFromType(String type){
         String error = "errore";
-        for(int index=0; index<pathjson.size(); index++){
-            if (pathjson.get(index).getType().equalsIgnoreCase(type))
-                return pathjson.get(index).getPath();
+        for (PathJsonStructure aPathjson : pathjson) {
+            if (aPathjson.getType().equalsIgnoreCase(type))
+                return aPathjson.getPath();
         }
         return error;
     }

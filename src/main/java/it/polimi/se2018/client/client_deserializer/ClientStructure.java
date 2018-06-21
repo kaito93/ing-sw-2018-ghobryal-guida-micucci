@@ -6,9 +6,9 @@ package it.polimi.se2018.client.client_deserializer;
  */
 public class ClientStructure {
 
-    int port;
-    String ip;
-    int timerTurn;
+    private int port;
+    private String ip;
+    private int timerTurn;
 
     /**
      * setter class for the ip number

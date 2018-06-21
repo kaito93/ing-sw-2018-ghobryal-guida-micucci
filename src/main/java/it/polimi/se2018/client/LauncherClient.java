@@ -20,7 +20,7 @@ public class LauncherClient {
         View view;
 
         PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");
-        path.Deserializing();
+        path.deserializing();
         ClientDeserializer clien = new ClientDeserializer(path.getPathFromType("client"));
         clien.deserializing();
 

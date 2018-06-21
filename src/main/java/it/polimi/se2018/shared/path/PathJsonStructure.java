@@ -6,8 +6,8 @@ package it.polimi.se2018.shared.path;
  */
 public class PathJsonStructure {
 
-    String type;
-    String path;
+    private String type;
+    private String path;
 
     /**
      * method that set the string of the type of json file
