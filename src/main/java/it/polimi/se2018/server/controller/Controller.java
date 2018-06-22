@@ -77,7 +77,6 @@ public class Controller implements Observer<MessageVC> {
      */
     public void update(MessageVC message) {
         message.accept(this);
-
     }
 
     /**

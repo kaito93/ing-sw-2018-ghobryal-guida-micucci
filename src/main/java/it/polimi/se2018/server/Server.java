@@ -89,18 +89,7 @@ public class Server implements ServerRMI {
                     LOGGER.log(Level.FINE, "Richiesta di connessione da parte di un giocatore. Username richiesto: " + ((RequestConnection) obj).getUser());
 
                     ConnectionServer conness = new ConnectionServerSocket(socket, ((RequestConnection) obj).getUser(), outputSocket, inputSocket); // crea connessione
-                    if (clients.isEmpty()) {
-                        clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
-                        TimerCount count = new TimerCount(); //inizializza il timer
-                        this.timer.schedule(count, 0, time / 20); // fa partire il timer
-                    } else {
-                        boolean a = true;
-                        if (checkUsername(((RequestConnection) obj).getUser()) == a) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
-                            clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
-                        } else {// se l'username è già preso
-                            conness.sendErrorUser();
-                        }
-                    }
+                    addConnection(conness,((RequestConnection) obj).getUser());
                 } else if (obj instanceof RequestReconnect) {
                     MessageFinalGame message = new MessageFinalGame();
                     message.setMessage("Hai richiesto di connetterti ad una partita terminata.");
@@ -160,7 +149,7 @@ public class Server implements ServerRMI {
      */
     public void connect(Remote client) {
         ConnectionServer connection = new ConnectionServerRMI();
-
+        // addConnection(connection,username);
     }
 
     /**
@@ -215,6 +204,25 @@ public class Server implements ServerRMI {
                 }
 
 
+            }
+        }
+    }
+
+    /**
+     * method that check the unique of username and add the client in the arraylist of connectionsServer and start the timer.
+     * @param conness the connection with the client
+     * @param user username that client have choose
+     */
+    private void addConnection(ConnectionServer conness, String user){
+        if (clients.isEmpty()) {
+            clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+            TimerCount count = new TimerCount(); //inizializza il timer
+            this.timer.schedule(count, 0, time / 20); // fa partire il timer
+        } else {
+            if (checkUsername(user)) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
+                clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+            } else {// se l'username è già preso
+                conness.sendErrorUser();
             }
         }
     }
