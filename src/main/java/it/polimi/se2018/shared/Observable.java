@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * method that manage an observable class
  * @param <T> the observed object
+ * @author Samuele Guida
  */
 public abstract class Observable<T> {
 

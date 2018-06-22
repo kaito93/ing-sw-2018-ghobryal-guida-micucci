@@ -3,6 +3,10 @@ package it.polimi.se2018.shared.message_socket.client_to_server;
 import it.polimi.se2018.server.controller.Controller;
 import it.polimi.se2018.shared.model_shared.Dice;
 
+/**
+ * Class that contain information about a move: position a dice
+ * @author Samuele Guida
+ */
 public class MessagePosDice implements MessageVC {
 
     private static final long serialVersionUID = 6624068114762037735L;

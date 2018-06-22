@@ -8,6 +8,10 @@ import it.polimi.se2018.shared.message_socket.server_to_client.MessageCV;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Class that contain information about a request of reconnection
+ * @author Samuele Guida
+ */
 public class RequestReconnect implements MessageVC, MessageCV {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());

@@ -2,6 +2,7 @@ package it.polimi.se2018.shared;
 
 /**
  * Class that manage the logger in this project
+ * @author Samuele Guida
  */
 public class Logger {
 

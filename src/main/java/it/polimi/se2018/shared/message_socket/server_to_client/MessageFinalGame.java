@@ -3,7 +3,7 @@ package it.polimi.se2018.shared.message_socket.server_to_client;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
 
 /**
- * method that manage the final message_socket from Server
+ * class that manage the final message_socket from Server
  * @author Samuele Guida
  */
 public class MessageFinalGame implements MessageSystem{

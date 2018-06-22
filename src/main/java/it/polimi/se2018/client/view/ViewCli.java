@@ -355,12 +355,6 @@ public class ViewCli extends View {
     }
 
     @Override
-    public void startView() {
-
-        client.setUsername(askNewUsername());
-    }
-
-    @Override
     public String askNewUsername() {
         boolean sec = true;
         String user="";

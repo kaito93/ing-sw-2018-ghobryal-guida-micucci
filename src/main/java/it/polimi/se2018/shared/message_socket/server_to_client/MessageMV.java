@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * interface that manage the message_socket between Model and View
+ * @author Samuele Guida
  */
 
 public interface MessageMV extends Serializable {

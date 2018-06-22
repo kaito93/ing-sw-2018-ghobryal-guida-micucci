@@ -15,6 +15,18 @@ public class ViewGui extends View {
     @Override
     public void myTurn() {
 
+/*      PosDice: client.sendPosDice(gameStatus.getStock().get(chooseDice), chooseColumn, chooseRow);
+
+        chooseDice= posizione nell'arraylist del dado scelto
+        chooseColumn = colonna di destinazione
+        chooseRow = riga di destinazione
+
+        UseTool: client.sendUseTool(gameStatus.getTitleTools().get(chooseTool));
+        chooseTool = posizione nell'arraylist della carta utensile
+
+        passMove: client.sendPassMove();*/
+
+
     }
 
     public ViewGui(int timer){
@@ -23,33 +35,33 @@ public class ViewGui extends View {
 
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
         // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
+
+        // ritorna l'intero della mappa scelta dentro la lista
+
         return 0;
     }
 
-    @Override
-    public void startView() {
-
-    }
 
     @Override
     public String askNewUsername() {
+        // chiedi all'utente l'username e ritorna la stringa
         return null;
     }
 
     @Override
     public void addError(String message) {
-
+        // mostra una alert box contenente l'errore dentro la stringa, non nella schermata di log, proprio un alerto box gigantesco
     }
 
     @Override
     public List<Object> manageCE() {
-        // Dice, RowDest, ColumnDect, rowMit, ColumnMit
+        // Dice scelto, RowDestinazione, ColumnDestinazione, rowMittente, ColumnMittente
         return null;
     }
 
     @Override
     public Dice managefluxRemove() {
-        //Dice dice da stock
+        //Dice dice da riserva
         return null;
     }
 
@@ -71,13 +83,8 @@ public class ViewGui extends View {
         return null;
     }
 
-    @Override
-    public List<Object> manageGrinding() {
-        return null;
-    }
-
     public List<Object> manageLathekin() {
-        //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+        //int row1mit,int column1mit, row1dest, column1dest, int row2mit, int column2mit, row2dest, column2dest, ArrayList<Dice> dices
 
         return null;
     }
@@ -116,11 +123,13 @@ public class ViewGui extends View {
 
     @Override
     public String reconnect() {
+        // chiedi all'utente di dare un qualsiasi segnale di vita, se preme un pulsante crea una stringa non nulla e ritornala
         return null;
     }
 
     @Override
     public void seeScore(List<Integer> scores) {
-
+        // devi mostrare i punteggi di tutti i giocatori.
+        // la partita termina con questo metodo
     }
 }

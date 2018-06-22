@@ -3,6 +3,7 @@ package it.polimi.se2018.shared;
 /**
  * Class that manage the observers
  * @param <T> the observed object
+ * @author Samuele Guida
  */
 public interface Observer<T> {
 

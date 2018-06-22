@@ -3,6 +3,10 @@ package it.polimi.se2018.shared.message_socket.server_to_client;
 
 import java.io.Serializable;
 
+/**
+ * Class that contain information about a message
+ * @author Samuele Guida
+ */
 public class Message implements Serializable {
 
     public static final int MVEVENT=0;

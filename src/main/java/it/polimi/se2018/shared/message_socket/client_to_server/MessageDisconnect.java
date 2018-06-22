@@ -2,6 +2,11 @@ package it.polimi.se2018.shared.message_socket.client_to_server;
 
 import it.polimi.se2018.server.controller.Controller;
 
+/**
+ * Class that contain information about a disconnection of a player
+ * @author Samuele Guida
+ */
+
 public class MessageDisconnect implements MessageVC {
 
     private static final long serialVersionUID = -7488306524541797257L;

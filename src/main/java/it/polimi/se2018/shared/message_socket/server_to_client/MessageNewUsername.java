@@ -4,6 +4,7 @@ import it.polimi.se2018.client.network.ConnectionClientSocket;
 
 /**
  * Class that manage the request of a new Username
+ * @author Samuele Guida
  */
 public class MessageNewUsername implements MessageSystem {
 

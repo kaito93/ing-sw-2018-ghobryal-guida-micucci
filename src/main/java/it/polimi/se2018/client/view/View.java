@@ -14,6 +14,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 
+/**
+ * abstract class that connect UI with network
+ * @author Samuele Guida
+ */
 public abstract class View {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -23,12 +27,21 @@ public abstract class View {
     protected int time;
     protected boolean a = false;
 
+    /**
+     * class constructor
+     * @param time integer, time for a single choose
+     */
     public View(int time) {
         gameStatus = new GameView();
         this.time = time;
     }
 
-    public abstract void startView();
+    /**
+     * method that ask the username
+     */
+    public void startView(){
+        client.setUsername(askNewUsername());
+    }
 
     public Cell[][] chooseMap(List<Cell[][]> maps, String username, List<String> names, List<Integer> fav) {
         gameStatus.setMyUsername(username);
