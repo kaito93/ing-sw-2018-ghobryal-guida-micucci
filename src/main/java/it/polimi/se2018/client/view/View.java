@@ -43,14 +43,36 @@ public abstract class View {
         client.setUsername(askNewUsername());
     }
 
+    /**
+     * method that update the information about the username of this player. Ask the map to the player
+     * @param maps list of maps
+     * @param username the confirm of the username
+     * @param names the names of maps
+     * @param fav the difficult of maps
+     * @return che matrix of cell choosed
+     */
     public Cell[][] chooseMap(List<Cell[][]> maps, String username, List<String> names, List<Integer> fav) {
         gameStatus.setMyUsername(username);
         return maps.get(chooseSingleMap(maps, names, fav));
     }
 
+    /**
+     * abstract method that ask the map to the player
+     * @param maps list of maps
+     * @param names names of maps
+     * @param fav the difficult of maps
+     * @return the position in the list of map that client choose
+     */
     abstract int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav);
 
-
+    /**
+     * method that update information about public objective card and tool card
+     * @param titlePublic list of titles of public objective card
+     * @param descriptionPublic list of descriptions of public objective card
+     * @param titleTools list of title of tool card
+     * @param descriptionTools list of description of tool card
+     * @param scores list of scores of public objective card
+     */
     public void setPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTools,
                                      List<String> descriptionTools, List<Integer> scores) {
         gameStatus.setTitlePublicObjective(titlePublic);

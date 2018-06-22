@@ -17,7 +17,7 @@ public class LauncherClient {
 
     public static void main(String[] args) {
         ConnectionClient client;
-        View view;
+        View view=null;
 
         PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");
         path.deserializing();
@@ -30,26 +30,42 @@ public class LauncherClient {
 
         // QUI PUOI CHIUDERE IL BUFFER READER
 
+        // X MIK: CHIEDERE LE INFORMAZIONI TRAMITE GUI INERENTI A CONNESSIONE, USERNAME E UI
+
+        //String username="ciao";
+
         String choiceConnection = "socket";
         String choiceView = "cli";
-        if ("cli".equalsIgnoreCase(choiceView))
-             view = new ViewCli(timer);
-        else
-             view = new ViewGui(timer);
-
-
+        boolean condition=true;
+        while(condition){
+            if ("cli".equalsIgnoreCase(choiceView)){
+                view = new ViewCli(timer);
+                condition = false;
+            }
+            if ("gui".equalsIgnoreCase(choiceView)){
+                view = new ViewGui(timer);
+                condition = false;
+            }
+        }
 
         // To Do: Caricamento da interfaccia grafica di porta e ip
-
-        if ("socket".equalsIgnoreCase(choiceConnection)) {
-            client = new ConnectionClientSocket(port, ip,view);
-        } else {
-            client = new ConnectionClientRMI();
+        condition=true;
+        while(condition){
+            if ("socket".equalsIgnoreCase(choiceConnection)) {
+                client = new ConnectionClientSocket(port, ip,view);
+                view.setClient(client);
+                view.startView(); // poi dovrà essere tolto appena verrà preso l'username dalla view
+                client.run();
+                condition=false;
+            } else if ("rmi".equalsIgnoreCase(choiceConnection)){
+                // PRENDI IL SERVER
+                client = new ConnectionClientRMI();
+                // PASSI AL SERVER IL CLIENT APPENA CREATO
+                view.setClient(client);
+                view.startView(); // poi dovrà essere tolto appena verrà preso l'username dalla view
+                condition=false;
+            }
         }
-        view.setClient(client);
-        view.startView(); // visualizza la vView
-        client.run();
-
 
     }
 
