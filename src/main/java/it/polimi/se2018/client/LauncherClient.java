@@ -4,6 +4,7 @@ import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.client.network.ConnectionClientRMI;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
 import it.polimi.se2018.client.client_deserializer.ClientDeserializer;
+import it.polimi.se2018.client.view.LoginMain;
 import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
@@ -14,6 +15,7 @@ import it.polimi.se2018.client.view.ViewGui;
  * @author Samuele Guida
  */
 public class LauncherClient {
+
 
     public static void main(String[] args) {
         ConnectionClient client;
@@ -27,6 +29,7 @@ public class LauncherClient {
         int port = clien.getCs().getPort();
         String ip = clien.getCs().getIp();
         int timer = clien.getCs().getTimerTurn();
+        LoginMain login = new LoginMain();
 
         // QUI PUOI CHIUDERE IL BUFFER READER
 
@@ -34,11 +37,11 @@ public class LauncherClient {
         //        METTI TUTTE LE INFORMAZIONI NELLE 3 VARIABILI QUI SOTTO
         //        OCCUPATI TU DI FARE I CONTROLLI SUL CORRETTO INPUT (Username non nullo).
 
-
-        //String username="ciao";
-
-        String choiceConnection = "socket";
-        String choiceView = "cli";
+        System.out.println("ciao popolo");
+        login.launch(LoginMain.class);
+        String username = login.getUsername();
+        String choiceConnection = login.getConnections();
+        String choiceView = login.getUInt();
         boolean condition=true;
         while(condition){
             if ("cli".equalsIgnoreCase(choiceView)){

@@ -1,0 +1,124 @@
+package it.polimi.se2018.client.view;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class LoginMain extends Application {
+
+    Button button;
+    private static String username;
+    private static String connections;
+    private static String UInt;
+    private Scene scene;
+
+
+    public LoginMain(){
+        super();
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Pagina iniziale Sagrada");
+        TextField textUser;
+        RadioButton radioSocket;
+        RadioButton radioRMI;
+        RadioButton radioCLI;
+        RadioButton radioGUI;
+        Label labelGui;
+        Label labelConnection;
+
+        HBox horizontalUsername = new HBox(100);
+
+        HBox horizontalUI = new HBox(3);
+        HBox horizontalConnections = new HBox(3);
+        VBox vertical = new VBox(10);
+        vertical.setPadding(new Insets(20,20,20,20));
+        Label labelUsername = new Label("Username:");
+        textUser = new TextField();
+        horizontalUsername.getChildren().addAll(labelUsername, textUser);
+
+        ToggleGroup Ui = new ToggleGroup();
+        labelGui = new Label("quale UI vuoi scegliere?");
+        radioCLI = new RadioButton("CLI");
+        radioCLI.setToggleGroup(Ui);
+        radioGUI = new RadioButton("GUI");
+        radioGUI.setToggleGroup(Ui);
+
+        horizontalUI.getChildren().addAll(labelGui,radioCLI,radioGUI);
+
+        ToggleGroup connections = new ToggleGroup();
+        labelConnection = new Label("quale connessione vuoi scegliere?");
+        radioSocket = new RadioButton("Socket");
+        radioSocket.setToggleGroup(connections);
+        radioRMI = new RadioButton("RMI");
+        radioRMI.setToggleGroup(connections);
+
+        Button invio = new Button("invio");
+        invio.setOnAction( e -> {
+            if ((textUser.getText().isEmpty() == false)){
+
+                System.out.println(textUser.getText());
+                    String tmpUser = textUser.getText();
+                    String tmpUI;
+                    String tmpConnections;
+                    {
+                        if (radioCLI.isSelected() == true)
+                            tmpUI = radioCLI.getText();
+                        else
+                            tmpUI = radioGUI.getText();
+                    }
+                    {
+                        if (radioSocket.isSelected() == true)
+                            tmpConnections = radioSocket.getText();
+                        else
+                            tmpConnections = radioRMI.getText();
+                    }
+                    this.AssignValue(tmpUser, tmpConnections, tmpUI);
+                    Platform.exit();
+            }
+            else {
+                try {
+                    System.out.println("sono qui");
+                    this.start(primaryStage);
+                } catch (Exception e1) {
+                    System.out.println("ho fallito la ricorsione");
+                }
+            }
+        });
+
+
+        horizontalConnections.getChildren().addAll(labelConnection, radioSocket, radioRMI);
+
+        vertical.getChildren().addAll(horizontalUsername, horizontalUI, horizontalConnections, invio);
+        scene = new Scene(vertical, 600, 700);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void AssignValue(String utente, String connessioni, String UI){
+        username = utente;
+        connections = connessioni;
+        UInt = UI;
+
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getConnections() {
+        return connections;
+    }
+
+    public static String getUInt() {
+        return UInt;
+    }
+
+}
+
