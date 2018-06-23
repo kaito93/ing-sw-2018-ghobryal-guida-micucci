@@ -32,7 +32,7 @@ public class LauncherClient {
 
         // X MIK: CHIEDERE LE INFORMAZIONI TRAMITE GUI INERENTI A CONNESSIONE, USERNAME E UI
         //        METTI TUTTE LE INFORMAZIONI NELLE 3 VARIABILI QUI SOTTO
-        //        OCCUPATI TU DI FARE I CONTROLLI SUL CORRETTO INPUT.
+        //        OCCUPATI TU DI FARE I CONTROLLI SUL CORRETTO INPUT (Username non nullo).
 
 
         //String username="ciao";
