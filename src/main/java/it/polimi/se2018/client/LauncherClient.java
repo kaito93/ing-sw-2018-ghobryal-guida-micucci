@@ -31,6 +31,9 @@ public class LauncherClient {
         // QUI PUOI CHIUDERE IL BUFFER READER
 
         // X MIK: CHIEDERE LE INFORMAZIONI TRAMITE GUI INERENTI A CONNESSIONE, USERNAME E UI
+        //        METTI TUTTE LE INFORMAZIONI NELLE 3 VARIABILI QUI SOTTO
+        //        OCCUPATI TU DI FARE I CONTROLLI SUL CORRETTO INPUT.
+
 
         //String username="ciao";
 
@@ -48,7 +51,6 @@ public class LauncherClient {
             }
         }
 
-        // To Do: Caricamento da interfaccia grafica di porta e ip
         condition=true;
         while(condition){
             if ("socket".equalsIgnoreCase(choiceConnection)) {
@@ -63,6 +65,7 @@ public class LauncherClient {
                 // PASSI AL SERVER IL CLIENT APPENA CREATO
                 view.setClient(client);
                 view.startView(); // poi dovrà essere tolto appena verrà preso l'username dalla view
+                // da qui avrai a disposizione in connection client l'username.
                 condition=false;
             }
         }

@@ -85,12 +85,27 @@ public abstract class View {
 
     }
 
+    /**
+     * method that update information about private objective card
+     * @param titlePrivate list of titles of private objective card
+     * @param descriptionPrivate list of description of private objective card
+     */
     public void setPrivateInformation(String titlePrivate, String descriptionPrivate) {
         gameStatus.setTitlePrivateObjective(titlePrivate);
         gameStatus.setDescriptionPrivateObjective(descriptionPrivate);
         addLog("Ho aggiornato le informazioni relative alla tua carta obiettivo privata");
     }
 
+    /**
+     * method that update information about username of users, maps of all player, the use of tool cards, .
+     * round scheme, stock and favors remaining
+     * @param users list of username
+     * @param cells list of matrix of cells
+     * @param useTools list of boolean of tool card
+     * @param roundSchemeMap round scheme map
+     * @param stock the stock
+     * @param favors list of boolean
+     */
     private void updateUsers(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
         gameStatus.setUsers(users);
@@ -102,6 +117,11 @@ public abstract class View {
         addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
     }
 
+    /**
+     * method that update the options of step
+     * @param pos manage a position of dice
+     * @param tool manage an use of tool card
+     */
     public void updateFavor(boolean pos, boolean tool) {
 
         gameStatus.setUseTool(tool);
@@ -109,26 +129,48 @@ public abstract class View {
 
     }
 
+    /**
+     * method that set the connection with network
+     * @param client connection with the network
+     */
     public void setClient(ConnectionClient client) {
         this.client = client;
     }
 
+    /**
+     * abstract method that print a string
+     * @param message the string printed
+     */
     public abstract void addLog(String message);
 
+    /**
+     * method that manage the step of this player and start the timer
+     */
     public void turn() {
         TimerCount count = new TimerCount(); //inizializza il timer
-        this.timer.schedule(count, 0, time / 20);
+        this.timer.schedule(count, 0, time / 4);
         myTurn();
     }
 
+    /**
+     * abstract method that manage the turn of this player
+     */
     public abstract void myTurn();
 
+    /**
+     * method that accept the message update
+     * @param message message received
+     */
     public void accept(MessageUpdate message) {
         updateUsers(message.getUsers(), message.getCells(), message.getUseTools(), message.getRoundSchemeMap(),
                 message.getStock(), message.getFavUsers());
         addLog(message.getMessage());
     }
 
+    /**
+     * abstract method that ask the username
+     * @return a string
+     */
     public abstract String askNewUsername();
 
     public void manageError(String message) {
@@ -136,20 +178,45 @@ public abstract class View {
         myTurn();
     }
 
+    /**
+     * abstract method that print an error
+     * @param message the string printed
+     */
     public abstract void addError(String message);
 
+    /**
+     * abstract method that manage the tool cards "copper foil burnisher" and "Eglomise Brush"
+     * @return a list of object: Dice, RowDest, ColumnDest, rowMit, ColumnMit
+     */
     public abstract List<Object> manageCE();
 
+    /**
+     * abstract method that manage the tool card "Flush Brush"
+     * @return a list of object: dice dicebefore, dice diceafter, int rowdest, int columndest
+     */
     public abstract List<Object> managefluxBrush();
 
+    /**
+     * method that manage the first part of tool card "Flux Remover"
+     * @return a dice choose
+     */
     public Dice managefluxRemove() {
         return manageGrozing1();
     }
 
+    /**
+     * abstract method that manage the second part of tool card "Flux Remover"
+     * @param dice dice choose
+     * @return a list of object: dice row column
+     */
     public abstract List<Object> manageFluxRemove2(Dice dice);
 
+    /**
+     * method that manage the tool card "Grinding Stone"
+     * @return a list of object: dice, row, column
+     */
     public List<Object> manageGrinding() {
-        // dice, row, column
+
         Dice dice = manageGrozing1();
         Dice diceBefore = null;
         try {
@@ -172,7 +239,10 @@ public abstract class View {
         return obj;
     }
 
-
+    /**
+     * method that manage the tool card "Grozing Pliers"
+     * @return a list of object: dice, row,column
+     */
     public List<Object> manageGrozing() {
         int minus = 0;
         int major = 0;
@@ -198,31 +268,69 @@ public abstract class View {
         return obj;
     }
 
+    /**
+     * abstract method that manage the first part of tool card "Grozing pliers"
+     * @return the dice choose
+     */
     public abstract Dice manageGrozing1();
 
+    /**
+     * abstract method that manage the second part of tool card "Grozing Pliers"
+     * @param minus the value-1
+     * @param major the value+1
+     * @return the value choose
+     */
     public abstract int manageGrozing2(int minus, int major);
 
+    /**
+     * abstract method that manage the third part of tool card "Grozing Pliers"
+     * @return a list of integer: row, column
+     */
     public abstract List<Integer> manageGrozing3();
 
+    /**
+     * abstract method that manage the tool card "Lathekin"
+     * @return a list of object: int row1,int column1,
+     *         row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+     */
     public abstract List<Object> manageLathekin();
 
+    /**
+     * abstract method that manage the tool card "Lens Cutter"
+     * @return a list of object: Dice dicStock2,Dice diceRound, int numberRound,row,column
+     */
     public abstract List<Object> manageLens();
 
+    /**
+     * abstract method that manage the tool card "Tap Wheel"
+     * @return a list of object: Dice diceRound,  int row1, int column1, int row2, int column2,
+     *         Arraylist Dice (dice1, Dice dice2), posizione dado in round scheme
+     */
     public abstract List<Object> manageTap();
 
+    /**
+     * abstract method that manage the tool card "Corkbacked Straightedge"
+     * @return a list of object: Dice, row, column
+     */
     public abstract List<Object> manageCork();
 
+    /**
+     * internal class that manage the timer for a step
+     */
     class TimerCount extends TimerTask {
 
         int counter;
 
+        /**
+         * method that manage the clock
+         */
         @Override
         public void run() {
 
             if (a)
                 this.cancel();
             else {
-                if (counter == 20) {
+                if (counter == 4) {
                     this.cancel();
                     a=true;
                     addError("Hai impiegato troppo tempo a scegliere una mossa.\n Sei stato disconnesso.");
@@ -239,24 +347,43 @@ public abstract class View {
                             verit=false;
                     }
 
-                } else
+                } else{
+                    addLog("Hai ancora "+ ((time/1000)-((time/4000)*counter)) + " secondi disponibili per effettuare la tua scelta");
                     counter++;
+                }
+
             }
 
         }
 
     }
 
+    /**
+     * abstract method that manage the reconnection of a player
+     * @return a not null string
+     */
     public abstract String reconnect();
 
+    /**
+     * method that return if the player is disconnected
+     * @return a boolean
+     */
     public boolean isA() {
         return a;
     }
 
+    /**
+     * method that update your index
+     * @param newIndex an integer
+     */
     public void updateIndex(int newIndex){
         gameStatus.setYourIndex(newIndex);
     }
 
+    /**
+     * abstract method that print the scores of all player at the end of the game
+     * @param scores list of scores
+     */
     public abstract void seeScore(List<Integer> scores);
 }
 

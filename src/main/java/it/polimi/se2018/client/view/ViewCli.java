@@ -12,21 +12,37 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+/**
+ * Class that extends the view. Implement the Command Line Interface
+ * @author Samuele Guida
+ */
 public class ViewCli extends View {
 
     private Scanner scanner = new Scanner(System.in);
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
+    /**
+     * class constructor
+     * @param timer integer
+     */
     public ViewCli(int timer) {
         super(timer);
     }
 
+    /**
+     * method that print a system information
+     * @param message the string printed
+     */
     @Override
     public void addLog(String message) {
         System.out.println("");
         Logger.information(message);
     }
 
+
+    /**
+     * method that manage the turn of this player
+     */
     @Override
     public void myTurn() {
         boolean valid = false;
@@ -160,7 +176,7 @@ public class ViewCli extends View {
                         printBold("Carte obiettivo pubbliche: ");
                         for (int i=0;i<gameStatus.getTitlePublicObjective().size();i++){
                             addLog("");
-                            printCors("Carta obiettivo pubblica "+ (i+1)+ ":");
+                            printUnderline("Carta obiettivo pubblica "+ (i+1)+ ":");
                             printCardPublic(gameStatus.getTitlePublicObjective().get(i),gameStatus.getDescriptionPublicObjective().get(i)
                                     , gameStatus.getScorePublicObjective().get(i));
                         }
@@ -194,14 +210,26 @@ public class ViewCli extends View {
         }
     }
 
-    private String doString(String nome) {
+    /**
+     * method that build a string
+     * @param name the name of this map
+     * @return a string with 19 character
+     */
+    private String doString(String name) {
         StringBuilder sb = new StringBuilder(19);
-        sb.append(nome);
+        sb.append(name);
         for (int i = sb.length(); i < sb.capacity(); i++)
             sb.append(" ");
         return sb.toString();
     }
 
+    /**
+     * method that ask the map to the player
+     * @param maps list of maps
+     * @param names names of maps
+     * @param fav the difficult of maps
+     * @return
+     */
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav) {
 
 
@@ -299,6 +327,9 @@ public class ViewCli extends View {
         return val - 1;
     }
 
+    /**
+     * method that print the stock
+     */
     private void printDicesStock() {
         for (int i = 0; i < gameStatus.getStock().size(); i++) {
             System.out.print((i + 1) + " - ");
@@ -307,14 +338,21 @@ public class ViewCli extends View {
         }
     }
 
+    /**
+     * method that print the tool cards
+     */
     private void printTools() {
         for (int i = 0; i < gameStatus.getUseTools().size(); i++) {
-            printCors(i + 1 + " - Titolo: " + gameStatus.getTitleTools().get(i));
+            printUnderline(i + 1 + " - Titolo: " + gameStatus.getTitleTools().get(i));
             System.out.println("Descrizione: " + gameStatus.getDescriptionTools().get(i));
             System.out.println("Usata in precedenza: " + (gameStatus.getUseTools().get(i) ? "Sì" : "No"));
         }
     }
 
+    /**
+     * method that print the scheme map of this player
+     * @param cells the matrix of cell to print
+     */
     private void printSchemeMap(Cell[][] cells) {
         System.out.print("  ");
         for (int j = 0; j < cells[0].length; j++) {
@@ -354,6 +392,10 @@ public class ViewCli extends View {
 
     }
 
+    /**
+     * method that ask the username
+     * @return the username
+     */
     @Override
     public String askNewUsername() {
         boolean sec = true;
@@ -371,11 +413,19 @@ public class ViewCli extends View {
 
     }
 
+    /**
+     * method that print an error
+     * @param message the string printed
+     */
     @Override
     public void addError(String message) {
         Logger.error("ATTENZIONE - " + message);
     }
 
+    /**
+     * method that manage the tool cards "copper foil burnisher" and "Eglomise Brush"
+     * @return a list of object: Dice, RowDest, ColumnDest, rowMit, ColumnMit
+     */
     @Override
     public List<Object> manageCE() {
         // Dice, RowDest, ColumnDect, rowMit, ColumnMit
@@ -391,14 +441,22 @@ public class ViewCli extends View {
         return obj;
     }
 
-
+    /**
+     * method that manage the first part of tool card "Grozing pliers"
+     * @return the dice choose
+     */
     @Override
     public Dice manageGrozing1() {
         // Dice
         printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
         return (gameStatus.getStock().get(askDiceStock()));
     }
-
+    /**
+     * method that manage the second part of tool card "Grozing Pliers"
+     * @param minus the value-1
+     * @param major the value+1
+     * @return the value choose
+     */
     @Override
     public int manageGrozing2(int minus, int major) {
         addLog("Scegli il nuovo valore che deve avere il dado");
@@ -409,13 +467,20 @@ public class ViewCli extends View {
         addLog(String.valueOf(minus) + " o " + major + " ?");
         return (Integer.decode(scanner.nextLine()));
     }
-
+    /**
+     * method that manage the third part of tool card "Grozing Pliers"
+     * @return a list of integer: row, column
+     */
     public List<Integer> manageGrozing3() {
         addLog("Seleziona dove inserire il dado");
         return askRowColumn();
     }
 
-
+    /**
+     * abstract method that manage the tool card "Lathekin"
+     * @return a list of object: int row1,int column1,
+     *         row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+     */
     public List<Object> manageLathekin() {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
         ArrayList<Object> obj = new ArrayList<>();
@@ -439,7 +504,10 @@ public class ViewCli extends View {
         obj.add(dices);
         return obj;
     }
-
+    /**
+     * abstract method that manage the tool card "Lens Cutter"
+     * @return a list of object: Dice dicStock2,Dice diceRound, int numberRound,row,column
+     */
     @Override
     public List<Object> manageLens() {
         //Dice dicStock2,Dice diceRound, int numberRound,row,column
@@ -454,6 +522,11 @@ public class ViewCli extends View {
         return obj;
     }
 
+    /**
+     * abstract method that manage the tool card "Tap Wheel"
+     * @return a list of object: Dice diceRound,  int row1, int column1, int row2, int column2,
+     *         Arraylist Dice (dice1, Dice dice2), posizione dado in round scheme
+     */
     @Override
     public List<Object> manageTap() {
         //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
@@ -490,7 +563,10 @@ public class ViewCli extends View {
         obj.add(obj3.get(1));
         return obj;
     }
-
+    /**
+     * abstract method that manage the tool card "Corkbacked Straightedge"
+     * @return a list of object: Dice, row, column
+     */
     @Override
     public List<Object> manageCork() {
         // Dice, row, column
@@ -503,6 +579,10 @@ public class ViewCli extends View {
         return obj;
     }
 
+    /**
+     * method that ask a dice from the stock
+     * @return the index of dice in the stock
+     */
     private int askDiceStock() {
         addLog("Dadi disponibili:");
         printDicesStock();
@@ -510,12 +590,20 @@ public class ViewCli extends View {
         return Integer.decode(scanner.nextLine()) - 1;
     }
 
+    /**
+     * method that ask coordinates of a cell from the map
+     * @return a list: row,column
+     */
     private List<Integer> askDiceMap() {
         addLog("La tua mappa:");
         addLog("Inserisci le cordinate:");
         return askRowColumn();
     }
 
+    /**
+     * method that ask the row and the column of a cell from the map
+     * @return a list: row,column
+     */
     private List<Integer> askRowColumn() {
         int chooseColumn = 0;
         int chooseRow = 0;
@@ -548,6 +636,11 @@ public class ViewCli extends View {
         return inta;
     }
 
+    /**
+     * method that print a number with a color
+     * @param color the color choose
+     * @param number the number to be printed
+     */
     private void printColor(String color, String number) {
         switch (color) {
             case "red":
@@ -574,15 +667,26 @@ public class ViewCli extends View {
 
     }
 
+    /**
+     * method that print a text in bold
+     * @param text the text to be printed
+     */
     private void printBold(String text){
         System.out.println("\033[1m"+text+"\033[0m");
     }
 
-    private void printCors(String text){
+    /**
+     * method that print a text underlined
+     * @param text the text to be printed
+     */
+    private void printUnderline(String text){
         System.out.println("\033[4m"+text+"\033[0m");
     }
 
-
+    /**
+     * methot that ask a dice from the round scheme
+     * @return a list of object: Dice dice choose, int round
+     */
     private List<Object> askDiceRound() {
         ArrayList<Object> obj = new ArrayList<>();
         addLog("Seleziona il dado dallo schema dei round:");
@@ -597,6 +701,9 @@ public class ViewCli extends View {
         return obj;
     }
 
+    /**
+     * method that print the scheme round
+     */
     private void printSchemeRounds() {
         // cicla i round
         for (int round = 0; round < gameStatus.getRoundSchemeMap().length; round++) {
@@ -605,6 +712,10 @@ public class ViewCli extends View {
         }
     }
 
+    /**
+     * method that print the dice in a specific round of the round scheme map
+     * @param round an integer
+     */
     private void printSchemeRound(int round) {
         addLog("Round "+(round+1)+":");
         for (int dice = 0; dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size(); dice++) {
@@ -614,6 +725,10 @@ public class ViewCli extends View {
         }
     }
 
+    /**
+     * method that manage the tool card "Flush Brush"
+     * @return a list of object: dice dicebefore, dice diceafter, int rowdest, int columndest
+     */
     @Override
     public List<Object> managefluxBrush() {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
@@ -638,7 +753,11 @@ public class ViewCli extends View {
         return obj;
     }
 
-
+    /**
+     * method that manage the second part of tool card "Flux Remover"
+     * @param dice dice choose
+     * @return a list of object: dice row column
+     */
     @Override
     public List<Object> manageFluxRemove2(Dice dice) {
         int valore = 0;
@@ -663,7 +782,10 @@ public class ViewCli extends View {
         obj.add(obj2.get(1));
         return obj;
     }
-
+    /**
+     * method that manage the reconnection of a player
+     * @return a not null string
+     */
     @Override
     public String reconnect() {
         Scanner scanner2 = new Scanner(System.in);
@@ -677,7 +799,10 @@ public class ViewCli extends View {
             return "C'è vita dietro lo schermo";
         }
     }
-
+    /**
+     * method that print the scores of all player at the end of the game
+     * @param scores list of scores
+     */
     @Override
     public void seeScore(List<Integer> scores) {
         addLog("Ecco i punteggi di tutti i giocatori: ");
@@ -687,10 +812,22 @@ public class ViewCli extends View {
         }
     }
 
+    /**
+     * method that print the information about private objective card
+     * @param title title of the private objective card
+     * @param description description of the private objective card
+     */
     private void printCardPrivate(String title, String description){
         addLog("Titolo: "+title);
         addLog("Descrizione: "+description);
     }
+
+    /**
+     * method that print the information about a public objective card
+     * @param title title of the public objective card
+     * @param description description of the public objective card
+     * @param score score of a singole combination of this public card
+     */
     private void printCardPublic(String title, String description, int score){
         printCardPrivate(title,description);
         addLog("Punteggio aggiuntivo: +" +score);
