@@ -1,4 +1,5 @@
 package it.polimi.se2018.client.view;
+import it.polimi.se2018.shared.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -8,13 +9,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+
 public class LoginMain extends Application {
 
-    Button button;
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static String username;
     private static String connections;
     private static String UInt;
-    private Scene scene;
 
 
     public LoginMain(){
@@ -23,7 +25,8 @@ public class LoginMain extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
+        Scene scene;
         primaryStage.setTitle("Pagina iniziale Sagrada");
         TextField textUser;
         RadioButton radioSocket;
@@ -61,20 +64,20 @@ public class LoginMain extends Application {
 
         Button invio = new Button("invio");
         invio.setOnAction( e -> {
-            if ((textUser.getText().isEmpty() == false)){
+            if ((!textUser.getText().isEmpty())){
 
                 System.out.println(textUser.getText());
                     String tmpUser = textUser.getText();
                     String tmpUI;
                     String tmpConnections;
                     {
-                        if (radioCLI.isSelected() == true)
+                        if (radioCLI.isSelected())
                             tmpUI = radioCLI.getText();
                         else
                             tmpUI = radioGUI.getText();
                     }
                     {
-                        if (radioSocket.isSelected() == true)
+                        if (radioSocket.isSelected())
                             tmpConnections = radioSocket.getText();
                         else
                             tmpConnections = radioRMI.getText();
@@ -84,9 +87,9 @@ public class LoginMain extends Application {
             }
             else {
                 try {
-                    System.out.println("sono qui");
                     this.start(primaryStage);
                 } catch (Exception e1) {
+                    LOGGER.log(Level.SEVERE, e.toString(), e);
                     System.out.println("ho fallito la ricorsione");
                 }
             }
@@ -101,7 +104,7 @@ public class LoginMain extends Application {
         primaryStage.show();
     }
 
-    public void AssignValue(String utente, String connessioni, String UI){
+    private void AssignValue(String utente, String connessioni, String UI){
         username = utente;
         connections = connessioni;
         UInt = UI;

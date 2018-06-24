@@ -9,6 +9,7 @@ import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
 import it.polimi.se2018.client.view.ViewGui;
+import javafx.application.Application;
 
 /**
  * class that launch the client
@@ -29,7 +30,6 @@ public class LauncherClient {
         int port = clien.getCs().getPort();
         String ip = clien.getCs().getIp();
         int timer = clien.getCs().getTimerTurn();
-        LoginMain login = new LoginMain();
 
         // QUI PUOI CHIUDERE IL BUFFER READER
 
@@ -37,11 +37,10 @@ public class LauncherClient {
         //        METTI TUTTE LE INFORMAZIONI NELLE 3 VARIABILI QUI SOTTO
         //        OCCUPATI TU DI FARE I CONTROLLI SUL CORRETTO INPUT (Username non nullo).
 
-        System.out.println("ciao popolo");
-        login.launch(LoginMain.class);
-        String username = login.getUsername();
-        String choiceConnection = login.getConnections();
-        String choiceView = login.getUInt();
+        Application.launch(LoginMain.class);
+        String username = LoginMain.getUsername();
+        String choiceConnection = LoginMain.getConnections();
+        String choiceView = LoginMain.getUInt();
         boolean condition=true;
         while(condition){
             if ("cli".equalsIgnoreCase(choiceView)){
@@ -57,18 +56,15 @@ public class LauncherClient {
         condition=true;
         while(condition){
             if ("socket".equalsIgnoreCase(choiceConnection)) {
-                client = new ConnectionClientSocket(port, ip,view);
+                client = new ConnectionClientSocket(port, ip,view,username);
                 view.setClient(client);
-                view.startView(); // poi dovrà essere tolto appena verrà preso l'username dalla view
                 client.run();
                 condition=false;
             } else if ("rmi".equalsIgnoreCase(choiceConnection)){
                 // PRENDI IL SERVER
-                client = new ConnectionClientRMI();
+                client = new ConnectionClientRMI(username);
                 // PASSI AL SERVER IL CLIENT APPENA CREATO
                 view.setClient(client);
-                view.startView(); // poi dovrà essere tolto appena verrà preso l'username dalla view
-                // da qui avrai a disposizione in connection client l'username.
                 condition=false;
             }
         }
