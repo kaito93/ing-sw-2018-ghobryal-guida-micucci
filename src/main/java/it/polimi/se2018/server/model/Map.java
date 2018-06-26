@@ -30,7 +30,6 @@ public class Map implements Serializable {
      * @param difficulty level of difficulty of the matrix
      * @param row number of row of the matrix
      * @param column number of column of the matrix
-     * @throws NotValidMatrixException when the values of row and column are not valid to construct the matrix
      */
     public Map(String glassWindowName, int difficulty, int row, int column) throws NotValidMatrixException {
         difficultyLevel = difficulty;
@@ -65,7 +64,6 @@ public class Map implements Serializable {
      * @param row where you want to search
      * @param column where you want to search
      * @return an object CellBuilder
-     * @throws NotValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      */
     public Cell getCell(int row, int column) {
         if ((row < 0) || (column < 0) || (row > numRow()-1) || (column > numColumn()-1)){
@@ -86,7 +84,6 @@ public class Map implements Serializable {
      * @param row row of the matrix where you want to search the value
      * @param column row of the matrix where you want to search the value
      * @param value the value that you are searching
-     * @throws NotValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if there is an Adjacent dice with the same value, else false
      */
     public boolean isAdjacentValue(int row, int column, int value) {
@@ -130,7 +127,6 @@ public class Map implements Serializable {
      * @param row row of the matrix where you want to search the color
      * @param column row of the matrix where you want to search the color
      * @param color the color that you are searching
-     * @throws NotValidCellException when the indexes of the row and the column not respect the interval number of matrix.
      * @return a boolean that is true if there is an Adjacent dice with the same color, else false
      */
     public boolean isAdjacentColor(int row, int column, Color color) {

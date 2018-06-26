@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * classes CorkbackedStraightedge & GlazingHummer & Lathekin & LensCutter Tester
+ * classes cork backed straightedge, glazing Hummer, lath and lensCutter Tester
  * @author Anton Ghobryal
  */
 public class TestSomeCards2 extends TestCase {
@@ -105,7 +105,7 @@ public class TestSomeCards2 extends TestCase {
     }
 
     /**
-     * Tests useTool method in CopperFoilBurnisher & GlazingHummer & Lathekin & LensCutter class
+     * Tests useTool method in CopperFoilBurnisher, GlazingHummer, Lath, LensCutter class
      */
     public void testUseTool(){
         //assertTrue(map.posDice(b1, 3, 2));

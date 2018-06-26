@@ -496,7 +496,7 @@ public class ViewCli extends View {
      * abstract method that manage the tool card "Lathekin"
      *
      * @return a list of object: int row1,int column1,
-     * row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+     * row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList dices
      */
     public List<Object> manageLathekin() {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices

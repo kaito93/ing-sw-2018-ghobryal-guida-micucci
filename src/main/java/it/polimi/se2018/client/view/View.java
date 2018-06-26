@@ -284,8 +284,7 @@ public abstract class View {
 
     /**
      * abstract method that manage the tool card "Lathekin"
-     * @return a list of object: int row1,int column1,
-     *         row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+     * @return a list of object: int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList dices
      */
     public abstract List<Object> manageLathekin();
 

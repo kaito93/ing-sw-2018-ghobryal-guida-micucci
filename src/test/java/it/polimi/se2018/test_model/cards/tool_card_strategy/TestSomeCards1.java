@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * classes CopperFoilBurnisher & EglomiseBrush & RunningPliers & TapWheel Tester
+ * classes CopperFoilBurnisher, egl Brush, RunningPliers, TapWheel Tester
  * @author Anton Ghobryal
  */
 public class TestSomeCards1 extends TestCase {
@@ -110,7 +110,7 @@ public class TestSomeCards1 extends TestCase {
     }
 
     /**
-     * Tests useTool method in CopperFoilBurnisher & EglomiseBrush & RunningPliers & TapWheel class
+     * Tests useTool method in CopperFoilBurnisher, Egl Brush, RunningPliers, TapWheel class
      */
     public void testUseTool(){
         assertFalse(card1.useTool(player, g2, 0, 0, null, 3, 1,
