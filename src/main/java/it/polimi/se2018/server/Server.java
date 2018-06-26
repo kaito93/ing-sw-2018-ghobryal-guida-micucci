@@ -1,6 +1,7 @@
 package it.polimi.se2018.server;
 
 
+import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.server.network.*;
 import it.polimi.se2018.shared.message_socket.server_to_client.Message;
 import it.polimi.se2018.shared.message_socket.client_to_server.RequestConnection;
@@ -13,13 +14,12 @@ import it.polimi.se2018.shared.Logger;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -31,13 +31,14 @@ import java.util.logging.Level;
  *
  * @author Samuele Guida
  */
-public class Server implements ServerRMI {
+public class Server implements Remote {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-
+    private static final String REMOTEERROR = "Errore di connessione: {0} !";
+    private static final String SERVER_CONNECTION_REF = "ServerConnectionReference";
 
     private ServerSocket socketServer;
-    private ServerRMI skeleton;
+    private ConnectionServerRMI connectionServerRMI;
     private ArrayList<ConnectionServer> clients = new ArrayList<>();
     private int port;
     private int time;
@@ -60,13 +61,9 @@ public class Server implements ServerRMI {
      */
     public void start() {
         boolean active;
-        try {
-            startRMI(); // prova ad avviare il server RMI
 
-        } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore oggetto remoto RMI", e);
+        startRMI(); // prova ad avviare il server RMI
 
-        }
         try {
             socketServer = new ServerSocket(port); //avvia il server sulla porta
         } catch (IOException e) {
@@ -86,7 +83,7 @@ public class Server implements ServerRMI {
                 ObjectInputStream inputSocket = new ObjectInputStream(socket.getInputStream()); // crea un oggetto che legga la richiesta socket
                 Object obj = inputSocket.readObject();
                 if (obj instanceof RequestConnection) {
-                    LOGGER.log(Level.FINE, "Richiesta di connessione da parte di un giocatore. Username richiesto: " + ((RequestConnection) obj).getUser());
+                    LOGGER.log(Level.FINE, "Richiesta di connessione da parte di un giocatore. Username richiesto: {0}", ((RequestConnection) obj).getUser());
 
                     ConnectionServer conness = new ConnectionServerSocket(socket, ((RequestConnection) obj).getUser(), outputSocket, inputSocket); // crea connessione
                     addConnection(conness,((RequestConnection) obj).getUser());
@@ -106,19 +103,33 @@ public class Server implements ServerRMI {
 
     /**
      * method that start the RMI Server
-     *
-     * @throws RemoteException if exception
      */
-    private void startRMI() throws RemoteException {
-        LocateRegistry.createRegistry(1099);
-        skeleton = (ServerRMI) UnicastRemoteObject.exportObject(this, 0);
+    private void startRMI() {
         try {
-            Logger.information("Server RMI avviato");
-            Naming.rebind("Server", skeleton);
-        } catch (MalformedURLException e) {
-            LOGGER.log(Level.SEVERE, "Impossibile avviare il server RMI", e);
+            Registry registry;
+            try {
+                registry = LocateRegistry.createRegistry(1100);
+            }catch (RemoteException e1){
+                LOGGER.log(Level.INFO, "Registro già presente");
+                registry = LocateRegistry.getRegistry();
+            }
+            connectionServerRMI = new ConnectionServerRMI("", this);
+            registry.rebind("//localhost/ServerConnectionReference", connectionServerRMI);
+        }catch (RemoteException e) {
+            LOGGER.log(Level.INFO, "Oggetto già esportato", e);
         }
+        LOGGER.log(Level.INFO, "Server RMI avviato");
+    }
 
+
+    public void connect(ConnectionClient stub, String user) {
+        try {
+            connectionServerRMI.setStub(stub);
+            addConnection(connectionServerRMI, user);
+            connectionServerRMI.resetServer();
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
     }
 
     /**
@@ -129,27 +140,21 @@ public class Server implements ServerRMI {
      */
     public boolean checkUsername(String userNewPlayer) {
 
-        for (int i = 0; i < this.clients.size(); i++) // Per ogni client già registrato
-        {
-            if (this.clients.get(i).getUsername().equalsIgnoreCase(userNewPlayer)) // controlla se l'username scelto dal nuovo giocatore è già
+        try {
+            for (int i = 0; i < this.clients.size(); i++) // Per ogni client già registrato
             {
-                LOGGER.log(Level.WARNING, "L'username scelto dal giocatore è già stato richiesto");
+                if (this.clients.get(i).getUsername().equalsIgnoreCase(userNewPlayer)) // controlla se l'username scelto dal nuovo giocatore è già
+                {
+                    LOGGER.log(Level.WARNING, "L'username scelto dal giocatore è già stato richiesto");
 
-                return false;
-            }                                     // preso da un altro giocatore. In questo caso torna false
+                    return false;
+                }                                     // preso da un altro giocatore. In questo caso torna false
+            }
+        }catch (RemoteException e){
+            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
         }
         return true; // Se dopo aver controllato tutti i giocatori non è stato trovato l'username scelto, allora l'username è disponibile
 
-    }
-
-    /**
-     * method that create a new network RMI
-     *
-     * @param client
-     */
-    public void connect(Remote client) {
-        ConnectionServer connection = new ConnectionServerRMI();
-        // addConnection(connection,username);
     }
 
     /**
@@ -213,7 +218,7 @@ public class Server implements ServerRMI {
      * @param conness the connection with the client
      * @param user username that client have choose
      */
-    private void addConnection(ConnectionServer conness, String user){
+    private void addConnection(ConnectionServer conness, String user) throws RemoteException {
         if (clients.isEmpty()) {
             clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
             TimerCount count = new TimerCount(); //inizializza il timer
@@ -247,6 +252,7 @@ public class Server implements ServerRMI {
         server = new Server(porta, timer);
 
         server.start();
+
 
     }
 }

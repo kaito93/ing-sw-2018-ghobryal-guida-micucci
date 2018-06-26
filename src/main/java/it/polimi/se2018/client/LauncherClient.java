@@ -5,17 +5,31 @@ import it.polimi.se2018.client.network.ConnectionClientRMI;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
 import it.polimi.se2018.client.client_deserializer.ClientDeserializer;
 import it.polimi.se2018.client.view.LoginMain;
+import it.polimi.se2018.server.network.ConnectionServer;
+import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
 import it.polimi.se2018.client.view.ViewGui;
 import javafx.application.Application;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
+
 /**
  * class that launch the client
  * @author Samuele Guida
  */
 public class LauncherClient {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private static final String SERVER_CONNECTION_REF = "ServerConnectionReference";
 
 
     public static void main(String[] args) {
@@ -31,16 +45,10 @@ public class LauncherClient {
         String ip = clien.getCs().getIp();
         int timer = clien.getCs().getTimerTurn();
 
-        // QUI PUOI CHIUDERE IL BUFFER READER
-
-        // X MIK: CHIEDERE LE INFORMAZIONI TRAMITE GUI INERENTI A CONNESSIONE, USERNAME E UI
-        //        METTI TUTTE LE INFORMAZIONI NELLE 3 VARIABILI QUI SOTTO
-        //        OCCUPATI TU DI FARE I CONTROLLI SUL CORRETTO INPUT (Username non nullo).
-
         Application.launch(LoginMain.class);
         String username = LoginMain.getUsername();
         String choiceConnection = LoginMain.getConnections();
-        String choiceView = LoginMain.getUInt();
+        String choiceView = LoginMain.getUint();
         boolean condition=true;
         while(condition){
             if ("cli".equalsIgnoreCase(choiceView)){
@@ -56,16 +64,28 @@ public class LauncherClient {
         condition=true;
         while(condition){
             if ("socket".equalsIgnoreCase(choiceConnection)) {
-                client = new ConnectionClientSocket(port, ip,view,username);
+                client = new ConnectionClientSocket(port, ip,view, username);
                 view.setClient(client);
-                client.run();
+                try {
+                    client.run();
+                } catch (RemoteException e) {
+                    LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+                }
                 condition=false;
             } else if ("rmi".equalsIgnoreCase(choiceConnection)){
-                // PRENDI IL SERVER
-                client = new ConnectionClientRMI(username);
-                // PASSI AL SERVER IL CLIENT APPENA CREATO
-                view.setClient(client);
-                condition=false;
+                ConnectionClientRMI clientRMI;
+                try {
+                    Registry registry = LocateRegistry.getRegistry(1100);
+                    ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
+                    clientRMI = new ConnectionClientRMI();
+                    connectionServer.setClientRMI(clientRMI,username);
+                    view.setClient(clientRMI);
+                    condition=false;
+                } catch (RemoteException e) {
+                    LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+                } catch (NotBoundException e) {
+                    LOGGER.log(Level.SEVERE, "Oggetto Non Disponibile", e);
+                }
             }
         }
 

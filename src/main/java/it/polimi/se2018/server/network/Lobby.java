@@ -4,6 +4,7 @@ import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.server.controller.Controller;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -49,9 +50,12 @@ public class Lobby extends Thread {
         controller.startGame(); // fa cominciare effettivamente la partita
         LOGGER.log(Level.INFO,"La partita {0} ", String.valueOf(number)  +"  è terminata");
         view.disconnect();
-        for (ConnectionServer aPlayerConnection : playerConnection) {
-            aPlayerConnection.closeConnection();
+        try {
+            for (ConnectionServer aPlayerConnection : playerConnection) {
+                aPlayerConnection.closeConnection();
+            }
+        }catch (RemoteException e){
+            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
         }
-
     }
 }

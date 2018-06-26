@@ -24,7 +24,7 @@ import java.util.logging.Level;
  * @author Samuele Guida
  * class that manage the network between client and server throws socket. Side Client
  */
-public class ConnectionClientSocket extends ConnectionClient {
+public class ConnectionClientSocket implements ConnectionClient {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
@@ -34,6 +34,11 @@ public class ConnectionClientSocket extends ConnectionClient {
     private Listen listener;
     private boolean condition = true;
 
+    String ip;
+    int port;
+    View view;
+    String username;
+
     /**
      * class constructor
      *
@@ -41,11 +46,12 @@ public class ConnectionClientSocket extends ConnectionClient {
      * @param ip   integer of the ip for the network
      * @param view the vView for the interaction with the player
      */
-    public ConnectionClientSocket(int port, String ip, View view) {
+    public ConnectionClientSocket(int port, String ip, View view, String username) {
 
         this.ip = ip;
         this.port = port;
         this.view = view;
+        this.username = username;
 
     }
 
@@ -141,7 +147,7 @@ public class ConnectionClientSocket extends ConnectionClient {
      */
 
     public void requestNewUsername() {
-        ConnectionClientSocket newClient = new ConnectionClientSocket(this.port, this.ip, this.view);
+        ConnectionClientSocket newClient = new ConnectionClientSocket(this.port, this.ip, this.view, this.username);
         newClient.setUsername(view.askNewUsername());
         newClient.run();
     }
@@ -481,5 +487,21 @@ public class ConnectionClientSocket extends ConnectionClient {
 
     public void visit(MessageFinalScore message){
         view.seeScore(message.getPlayersFinal());
+    }
+
+    /**
+     * method that set the username of this player
+     * @param username username's player
+     */
+    public void setUsername(String username){
+        this.username= username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public View getView() {
+        return view;
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.se2018.server.network;
 
+import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.shared.message_socket.server_to_client.*;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.server.model.Map;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -25,8 +27,12 @@ import java.util.logging.Level;
  * class that manage the network between Server and Client throws Socket, Server side
  * @author Samuele Guida
  */
-public class ConnectionServerSocket extends ConnectionServer {
+public class ConnectionServerSocket implements ConnectionServer,Cloneable {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
+    VirtualView vView=null;
+    String username=null;
+    boolean connected=true;
 
     private Message mex;
     private Socket client;
@@ -76,6 +82,16 @@ public class ConnectionServerSocket extends ConnectionServer {
         catch (IOException e){
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username=username;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -382,6 +398,12 @@ public class ConnectionServerSocket extends ConnectionServer {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
+
+    @Override
+    public boolean isConnected() {
+        return false;
+    }
+
     /**
      * method that send a news: a player has been reconnected
      * @param text a string of text
@@ -405,6 +427,51 @@ public class ConnectionServerSocket extends ConnectionServer {
         message.setNewIndex(index);
         mex = new Message(Message.CVEVENT,message);
         send(mex);
+    }
+
+    public void sendMap(Player player){
+        ArrayList<Map> mapsToPlayer= new ArrayList<>();
+        for (int j=0; j<4;j++){ // sceglie 4 carte schema
+            mapsToPlayer.add(vView.getController().getGame().randomMap()); // aggiunge la mappa estratta al messaggio da inviare
+        }
+        sendMapConn(mapsToPlayer,player);
+    }
+    /**
+     * method to cloneObj a network
+     * @return the cloned network
+     */
+    @Override
+    public ConnectionServer cloneObj() {
+        try {
+            return clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected ConnectionServer clone() throws CloneNotSupportedException {
+        return (ConnectionServer) super.clone();
+    }
+
+    @Override
+    public void setClientRMI(ConnectionClient stub, String username) {
+        //serve solo per RMI
+    }
+
+    /**
+     * method that set the status of network
+     */
+    public void setDisconnected() {
+        this.connected = false;
+    }
+    /**
+     * method that set an instance of Virtual View
+     * @param vView a Virtual View
+     */
+    public void setvView(VirtualView vView) {
+        this.vView = vView;
     }
 
 

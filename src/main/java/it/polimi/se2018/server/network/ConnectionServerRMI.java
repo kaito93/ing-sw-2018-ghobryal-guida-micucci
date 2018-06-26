@@ -1,5 +1,7 @@
 package it.polimi.se2018.server.network;
 
+import it.polimi.se2018.client.network.ConnectionClient;
+import it.polimi.se2018.server.Server;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.Player;
@@ -9,23 +11,34 @@ import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
 
 import java.io.ObjectInputStream;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionServerRMI extends ConnectionServer {
+public class ConnectionServerRMI extends UnicastRemoteObject implements ConnectionServer, Cloneable {
 
-    @Override
-    public void send(Object message) {
-        // METODO PER INVIARE UN OGGETTO AL GIOCATORE... SE NE HAI DI BISOGNO. ALTRIMENTI LASCIALO VUOTO
+    ConnectionClient stub;
+
+    VirtualView vView=null;
+    String username=null;
+    boolean connected=true;
+    Server server;
+
+    public ConnectionServerRMI(String user,Server serv) throws RemoteException {
+        super();
+        username=user;
+        server=serv;
     }
 
-    @Override
-    public ObjectInputStream getInput() {
-        return null;
+    public void resetServer(){
+        server=null;
     }
 
     @Override
     public void sendMapConn(List<Map> maps, Player player) {
         // METODO PER INVIARE LA SCELTA DELLE MAPPE AI GIOCATORI
+
     }
 
     @Override
@@ -34,7 +47,7 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendPublicInformation(List<PublicObjectiveCard> cards, List<ToolCard> tools) {
+    public void sendPublicInformation(List<PublicObjectiveCard> cards, List<ToolCard> tools){
         // METODO PER INVIARE I TITOLI E LE DESCRIZIONI DELLE CARTE OBIETTIVO PUBBLICHE E DEI TOOLS
 
     }
@@ -153,12 +166,83 @@ public class ConnectionServerRMI extends ConnectionServer {
     }
 
     @Override
-    public void sendGainConnection(String text) {
+    public boolean isConnected() {
+        return false;
+    }
+
+    @Override
+    public void sendGainConnection(String text){
 
     }
 
     @Override
     public void sendAcceptReconnection(String text, int index) {
 
+    }
+
+    @Override
+    public void send(Object message) {
+
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username=username;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public ObjectInputStream getInput() {
+        return null;
+    }
+
+    public void sendMap(Player player) {
+        ArrayList<Map> mapsToPlayer= new ArrayList<>();
+        for (int j=0; j<4;j++){ // sceglie 4 carte schema
+            mapsToPlayer.add(vView.getController().getGame().randomMap()); // aggiunge la mappa estratta al messaggio da inviare
+        }
+        sendMapConn(mapsToPlayer,player);
+    }
+    /**
+     * method to cloneObj a network
+     * @return the cloned network
+     * @throws CloneNotSupportedException if cloneObj is not supported
+     */
+    @Override
+    public ConnectionServer cloneObj() {
+        try {
+            ConnectionServer temp = new ConnectionServerRMI(username, server);
+            ((ConnectionServerRMI) temp).setStub(stub);
+            return temp;
+        } catch (RemoteException e) {
+            //da gestire
+        }
+        return null;
+    }
+
+    /**
+     * method that set the status of network
+     */
+    public void setDisconnected() {
+        this.connected = false;
+    }
+    /**
+     * method that set an instance of Virtual View
+     * @param vView a Virtual View
+     */
+    public void setvView(VirtualView vView) {
+        this.vView = vView;
+    }
+
+    public void setClientRMI(ConnectionClient stub, String username){
+        server.connect(stub,username);
+    }
+
+    public void setStub(ConnectionClient stub) {
+        this.stub = stub;
     }
 }
