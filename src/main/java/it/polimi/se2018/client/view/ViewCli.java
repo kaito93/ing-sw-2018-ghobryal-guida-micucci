@@ -241,11 +241,11 @@ public class ViewCli extends View {
         while ((val > maps.size()) || (val < 1)) {
             for (int rig = 0; rig < 2; rig++) {
                 System.out.println();
-                for (int i = 0; i < names.size(); i++) {
+                for (int i = 0; i < names.size()/2; i++) {
                     System.out.print("      Mappa " + (i + 1 +2*rig) + "                                      ");
                 }
                 System.out.println();
-                for (int i = 0; i < names.size(); i++) {
+                for (int i = 0; i < names.size()/2; i++) {
 
                     System.out.print("Nome: " + (doString(names.get((i +2*rig)))) + "                         ");
                 }
@@ -255,12 +255,12 @@ public class ViewCli extends View {
 
                 for (int j = 0; j < maps.get(2*rig)[0].length; j++) {
                     // scrivo il numero della colonna della prima mappa
-                    System.out.print("| " + ((j + 1 +2*rig)) + " ");
+                    System.out.print("| " + (j+1) + " ");
                 }
                 System.out.print("                             ");
                 for (int j = 0; j < maps.get(1 +2*rig)[0].length; j++) {
                     // scrivo il numero della colonna della seconda mappa
-                    System.out.print("| " + ((j + 1 +2*rig)) + " ");
+                    System.out.print("| " + (j+1) + " ");
                 }
 
                 System.out.println("");
@@ -315,17 +315,18 @@ public class ViewCli extends View {
                 }
                 System.out.println();
                 System.out.println();
-                for (Integer aFav : fav) {
-                    System.out.print("    Difficoltà: " + aFav + "                                ");
+                for (int i=0;i<names.size()/2;i++) {
+                    System.out.print("    Difficoltà: " + fav.get(i+2*rig) + "                                ");
                 }
 
                 System.out.println();
                 System.out.println();
-                System.out.println("Quale mappa scegli?");
-                val = Integer.decode(scanner.nextLine());
-                if (val > (maps.size()) || val < 1) {
-                    addError("Hai inserito un valore errato");
-                }
+
+            }
+            System.out.println("Quale mappa scegli?");
+            val = Integer.decode(scanner.nextLine());
+            if (val > (maps.size()) || val < 1) {
+                addError("Hai inserito un valore errato");
             }
 
         }
