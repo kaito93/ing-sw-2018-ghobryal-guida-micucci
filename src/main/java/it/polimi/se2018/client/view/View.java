@@ -8,6 +8,7 @@ import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.shared.message_socket.server_to_client.MessageUpdate;
 import it.polimi.se2018.shared.Logger;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -34,13 +35,6 @@ public abstract class View {
     public View(int time) {
         gameStatus = new GameView();
         this.time = time;
-    }
-
-    /**
-     * method that ask the username
-     */
-    public void startView(){
-        client.setUsername(askNewUsername());
     }
 
     /**
@@ -335,16 +329,18 @@ public abstract class View {
                     a=true;
                     addError("Hai impiegato troppo tempo a scegliere una mossa.\n Sei stato disconnesso.");
                     boolean verit=false;
-                    client.sendDisconnect();
-                    while (!verit){
-                        String str= reconnect();
-                        if (str!=null)
-                        {
-                            client.sendReconnect();
-                            verit=true;
+                    try {
+                        client.sendDisconnect();
+                        while (!verit) {
+                            String str = reconnect();
+                            if (str != null) {
+                                client.sendReconnect();
+                                verit = true;
+                            } else
+                                verit = false;
                         }
-                        else
-                            verit=false;
+                    }catch (RemoteException e){
+                        LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
                     }
 
                 } else{

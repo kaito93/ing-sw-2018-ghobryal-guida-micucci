@@ -1,4 +1,5 @@
 package it.polimi.se2018.client.view;
+
 import it.polimi.se2018.shared.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,7 +17,7 @@ public class LoginMain extends Application {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static String username;
     private static String connections;
-    private static String UInt;
+    private static String uint;
 
 
     public LoginMain(){
@@ -107,7 +108,7 @@ public class LoginMain extends Application {
     private void AssignValue(String utente, String connessioni, String UI){
         username = utente;
         connections = connessioni;
-        UInt = UI;
+        uint = UI;
 
     }
 
@@ -119,8 +120,8 @@ public class LoginMain extends Application {
         return connections;
     }
 
-    public static String getUInt() {
-        return UInt;
+    public static String getUint() {
+        return uint;
     }
 
 }

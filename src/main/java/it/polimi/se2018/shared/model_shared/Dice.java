@@ -76,7 +76,7 @@ public class Dice implements Serializable, Cloneable {
     /**
      * clones the dice
      * @return a cloned dice with the same status
-     * @throws CloneNotSupportedException when it isn't possible to clone this object
+     * @throws CloneNotSupportedException when it isn't possible to cloneObj this object
      */
     @Override
     public Dice clone() throws CloneNotSupportedException {

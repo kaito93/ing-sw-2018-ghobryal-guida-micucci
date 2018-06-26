@@ -6,6 +6,7 @@ import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.exception.InvalidValueException;
 import it.polimi.se2018.shared.Logger;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -207,6 +208,8 @@ public class ViewCli extends View {
         } catch (IndexOutOfBoundsException | NoSuchElementException | IllegalStateException | NullPointerException e) {
             // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
             addLog("Chiusura mossa precedente");
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
         }
     }
 
