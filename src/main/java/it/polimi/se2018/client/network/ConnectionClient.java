@@ -4,6 +4,7 @@ import it.polimi.se2018.shared.model_shared.Dice;
 
 import it.polimi.se2018.client.view.View;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -13,7 +14,7 @@ import java.rmi.RemoteException;
  * @author Samuele Guida
  * Abstract class that manage the network between client and server. Side Client
  */
-public interface ConnectionClient extends Remote {
+public interface ConnectionClient extends Remote, Serializable {
 
     /**
      * abstract method that create a network with the server

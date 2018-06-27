@@ -2,7 +2,6 @@ package it.polimi.se2018.server.model;
 
 import it.polimi.se2018.server.util.ErrorBool;
 import it.polimi.se2018.shared.exception.NotValidMatrixException;
-import it.polimi.se2018.shared.exception.NotValidCellException;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Color;
@@ -201,7 +200,7 @@ public class Map implements Serializable {
 
     /**
      * controls the high part of the map if there's an Adjacent Dice
-     * @helper a helper method for isAdjacentDice method
+     * helper a helper method for isAdjacentDice method
      * @param row row's coordinate on the map where to position the dice
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, true if there's  an adjacent dice else false
@@ -218,7 +217,7 @@ public class Map implements Serializable {
 
     /**
      * controls the low part of the map if there's an Adjacent Dice
-     * @helper a helper method for isAdjacentDice method
+     * helper a helper method for isAdjacentDice method
      * @param row row's coordinate on the map where to position the dice
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, true if there's  an adjacent dice else false
@@ -235,7 +234,7 @@ public class Map implements Serializable {
 
     /**
      * controls the centre part of the map if there's an Adjacent Dice
-     * @helper a helper method for isAdjacentDice method
+     * a helper method for isAdjacentDice method
      * @param row row's coordinate on the map where to position the dice
      * @param column column's coordinate on the map where to position the dice
      * @return a boolean, true if there's  an adjacent dice else false

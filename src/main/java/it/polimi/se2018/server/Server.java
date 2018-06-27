@@ -20,7 +20,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,7 +34,6 @@ public class Server implements Remote {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final String REMOTEERROR = "Errore di connessione: {0} !";
-    private static final String SERVER_CONNECTION_REF = "ServerConnectionReference";
 
     private ServerSocket socketServer;
     private ConnectionServerRMI connectionServerRMI;
@@ -106,19 +104,39 @@ public class Server implements Remote {
      */
     private void startRMI() {
         try {
-            Registry registry;
-            try {
-                registry = LocateRegistry.createRegistry(1100);
-            }catch (RemoteException e1){
-                LOGGER.log(Level.INFO, "Registro già presente");
-                registry = LocateRegistry.getRegistry();
-            }
+            Registry registry = createRegistry();
             connectionServerRMI = new ConnectionServerRMI("", this);
-            registry.rebind("//localhost/ServerConnectionReference", connectionServerRMI);
-        }catch (RemoteException e) {
+            rebind(registry);
+        }catch (RemoteException | NullPointerException e) {
             LOGGER.log(Level.INFO, "Oggetto già esportato", e);
         }
         LOGGER.log(Level.INFO, "Server RMI avviato");
+    }
+
+    private Registry createRegistry(){
+        Registry registry=null;
+        try {
+            registry = LocateRegistry.createRegistry(1100);
+        }catch (RemoteException e1){
+            LOGGER.log(Level.INFO, "Registro già presente");
+            try {
+                registry = LocateRegistry.getRegistry();
+            } catch (RemoteException e) {
+                LOGGER.log(Level.INFO, "Oggetto già esportato", e);
+            }
+        }
+        return registry;
+    }
+
+    private void rebind(Registry registry){
+        try{
+            registry.rebind("//localhost/ServerConnectionReference", connectionServerRMI);
+        }
+        catch (NullPointerException e){
+            LOGGER.log(Level.INFO, "Registro nullo", e);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
     }
 
 
@@ -138,12 +156,11 @@ public class Server implements Remote {
      * @param userNewPlayer a string used for a new username
      * @return false if is not possible for the new user use this username, else true.
      */
-    public boolean checkUsername(String userNewPlayer) {
+    private boolean checkUsername(String userNewPlayer) {
 
         try {
-            for (int i = 0; i < this.clients.size(); i++) // Per ogni client già registrato
-            {
-                if (this.clients.get(i).getUsername().equalsIgnoreCase(userNewPlayer)) // controlla se l'username scelto dal nuovo giocatore è già
+            for (ConnectionServer client : this.clients) {
+                if (client.getUsername().equalsIgnoreCase(userNewPlayer)) // controlla se l'username scelto dal nuovo giocatore è già
                 {
                     LOGGER.log(Level.WARNING, "L'username scelto dal giocatore è già stato richiesto");
 
@@ -151,7 +168,7 @@ public class Server implements Remote {
                 }                                     // preso da un altro giocatore. In questo caso torna false
             }
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         return true; // Se dopo aver controllato tutti i giocatori non è stato trovato l'username scelto, allora l'username è disponibile
 

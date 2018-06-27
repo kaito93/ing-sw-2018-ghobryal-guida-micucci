@@ -12,6 +12,7 @@ import it.polimi.se2018.client.view.View;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +25,20 @@ import java.util.logging.Level;
  * @author Samuele Guida
  * class that manage the network between client and server throws socket. Side Client
  */
-public class ConnectionClientSocket implements ConnectionClient {
+public class ConnectionClientSocket implements ConnectionClient,Serializable {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
-    private Socket socket;
-    private Listen listener;
+    private transient ObjectInputStream input;
+    private transient ObjectOutputStream output;
+    private transient Socket socket;
+    private transient Listen listener;
     private boolean condition = true;
 
-    String ip;
-    int port;
-    View view;
-    String username;
+    private String ip;
+    private int port;
+    private transient View view;
+    private String username;
 
     /**
      * class constructor

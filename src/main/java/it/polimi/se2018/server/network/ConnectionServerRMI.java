@@ -11,21 +11,24 @@ import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
 
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionServerRMI extends UnicastRemoteObject implements ConnectionServer, Cloneable {
+public class ConnectionServerRMI extends UnicastRemoteObject implements ConnectionServer,Serializable {
 
-    ConnectionClient stub;
+    private transient ConnectionClient stub;
 
-    VirtualView vView=null;
-    String username=null;
-    boolean connected=true;
-    Server server;
+    private transient VirtualView vView=null;
+    private transient String username;
+    private transient boolean connected=true;
+    private transient Server server;
 
-    public ConnectionServerRMI(String user,Server serv) throws RemoteException {
+
+
+    public ConnectionServerRMI(String user, Server serv) throws RemoteException {
         super();
         username=user;
         server=serv;
@@ -210,7 +213,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     /**
      * method to cloneObj a network
      * @return the cloned network
-     * @throws CloneNotSupportedException if cloneObj is not supported
      */
     @Override
     public ConnectionServer cloneObj() {
@@ -245,4 +247,16 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     public void setStub(ConnectionClient stub) {
         this.stub = stub;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+
 }

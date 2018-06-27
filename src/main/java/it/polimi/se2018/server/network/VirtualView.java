@@ -13,6 +13,7 @@ import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.Observable;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +23,22 @@ import java.util.logging.Level;
  * Class that talk between network Server and Controller
  * @author Samuele Guida
  */
-public class VirtualView extends Observable<MessageVC> {
+public class VirtualView extends Observable<MessageVC> implements Serializable {
 
     private static final String PLAYER = "Il player";
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private Controller controller;
+    private transient Controller controller;
     private ArrayList<ConnectionServer> connections = new ArrayList<>();
     private ArrayList<Player> playersActive = new ArrayList<>();
     private ArrayList<PlayerPlay> playersPlay = new ArrayList<>();
-    private PlayerPlay currentPlayer;
+    private transient PlayerPlay currentPlayer;
 
     private ArrayList<Player> playersSuspend = new ArrayList<>();
     private ArrayList<ConnectionServer> connectionsSuspend = new ArrayList<>();
     private ArrayList<PlayerPlay> playerNotPlay = new ArrayList<>();
     private boolean notTerminate = true;
+    private static final String REMOTEERROR = "Errore di connessione: {0} !";
 
     /**
      * method that sets the connections and create the instance of all players and create listener of message_socket
@@ -56,7 +58,7 @@ public class VirtualView extends Observable<MessageVC> {
 
             }
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         setView();
         return playersActive;
@@ -74,7 +76,7 @@ public class VirtualView extends Observable<MessageVC> {
             } catch (NullPointerException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             } catch (RemoteException e){
-                LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
             }
 
         }
@@ -100,7 +102,7 @@ public class VirtualView extends Observable<MessageVC> {
                 connections.get(i).sendPrivateInformation(playersActive.get(i).getCardPrivateObj());
             }
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -116,7 +118,7 @@ public class VirtualView extends Observable<MessageVC> {
                 connection.sendPublicInformation(publicCards, tools);
             }
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -143,36 +145,51 @@ public class VirtualView extends Observable<MessageVC> {
          */
         @Override
         public void run() { // metodo sempre in esecuzione che controlla se il giocatore è ancora connesso
-            try {
-                while (connected) {
-                    try {
-                        MessageVC message = (MessageVC) client.getInput().readUnshared();
-                        if (message instanceof MessageDisconnect) {
-                            connected = false;
-                            LOGGER.log(Level.OFF, PLAYER + " {0} non ha effettuato una mossa in tempo\n" +
-                                    "l'ho messo in sospensione", client.getUsername());
-                        } else
-                            notifyObservers(message);
-                    } catch (IOException e) {
-                        connected = false;
-                        if (client.isConnected())
-                            LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
-                        else
-                            return;
-                    } catch (ClassNotFoundException e) {
-                        connected = false;
-                        LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
+                receive();
+        }
 
-                    }
-                }
-
-            }catch (RemoteException e){
-                LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+        /**
+         * method that call the receive message while is connected
+         */
+        private void receive(){
+            while (connected) {
+                receiveMessage();
             }
             reconn();
             for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
             for (PlayerPlay aPlayerNotPlay : playerNotPlay) aPlayerNotPlay.closeThread();
 
+        }
+
+        /**
+         * method that listen for a new message socket
+         */
+        private void receiveMessage(){
+            try {
+                MessageVC message = (MessageVC) client.getInput().readUnshared();
+                if (message instanceof MessageDisconnect) {
+                    connected = false;
+                    LOGGER.log(Level.OFF, PLAYER + " {0} non ha effettuato una mossa in tempo\n" +
+                            "l'ho messo in sospensione", client.getUsername());
+                } else
+                    notifyObservers(message);
+            } catch (IOException e) {
+                connected = false;
+                try {
+                    if (client.isConnected())
+                        LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
+                } catch (RemoteException e1) {
+                    LOGGER.log(Level.SEVERE, REMOTEERROR, e1.getMessage());
+                }
+            } catch (ClassNotFoundException e) {
+                connected = false;
+                try {
+                    LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
+                } catch (RemoteException e1) {
+                    LOGGER.log(Level.SEVERE, REMOTEERROR, e1.getMessage());
+                }
+
+            }
         }
 
         /**
@@ -199,16 +216,12 @@ public class VirtualView extends Observable<MessageVC> {
                     this.client.tryReconnect();
                     text = "Il giocatore " + client.getUsername() + " si è riconnesso. Tornerà in gioco dal prossimo round.";
                     for (ConnectionServer connection : connections) { // per ogni giocatore
-                        try {
-                            connection.sendGainConnection(text);
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
+                        tryToSendGainConnection(connection,text);
                     }
                     client.sendAcceptReconnection(
                             "Ti sei riconnesso. Ricomincerai a giocare al prossimo turno.", playersPlay.size());
                 }catch (RemoteException e){
-                    LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+                    LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
                 }
 
                 int ind2 = playerNotPlay.indexOf(this);
@@ -219,9 +232,22 @@ public class VirtualView extends Observable<MessageVC> {
                 playersSuspend.remove(ind2); // rimuovi il giocatore riconnesso tra quelli in sospeso
                 connections.add(connectionsSuspend.get(ind2)); //aggiungi la connessione del giocatore tra quelle attive
                 connectionsSuspend.remove(ind2); // rimuovi la connessione del giocatore da quelle sospese
-                this.run();// riavvio l'ascolto della vView
+                receive(); // riavvio l'ascolto della vView
             } else
                 this.interrupt();
+        }
+
+        /**
+         * method that try to send gain connection
+         * @param connection player to send the news
+         * @param text the news
+         */
+        private void tryToSendGainConnection(ConnectionServer connection, String text){
+            try {
+                connection.sendGainConnection(text);
+            } catch (RemoteException e) {
+                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            }
         }
 
         /**
@@ -256,7 +282,6 @@ public class VirtualView extends Observable<MessageVC> {
      * @param user the username of a player
      * @return an integer, index of the user in arraylist Connections
      */
-    // metodo che cerca l'username nelle connessioni
     private int searchUser(String user) {
         boolean trovato = false;
         int i = 0;
@@ -268,7 +293,7 @@ public class VirtualView extends Observable<MessageVC> {
                     i++;
             }
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         return i;
     }
@@ -294,7 +319,7 @@ public class VirtualView extends Observable<MessageVC> {
             connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
                     posDice,useTool);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -324,7 +349,7 @@ public class VirtualView extends Observable<MessageVC> {
             for (int i = 0; i < playersActive.size(); i++)
                 connections.get(i).sendUpdate(maps, users, message, tools, model.getRoundSchemeMap(), model.getStock(), fav);
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -337,7 +362,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageCopper(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -349,7 +374,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageCork(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -361,7 +386,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageEglomise(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -373,7 +398,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageFluxBrush(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -385,7 +410,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageFluxRemover(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -404,7 +429,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageGrinding(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -416,7 +441,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageGrozing(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -428,7 +453,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageLathekin(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -440,7 +465,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageLens(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -452,7 +477,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageRunning(title);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
     /**
@@ -464,7 +489,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageTap(title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -477,7 +502,7 @@ public class VirtualView extends Observable<MessageVC> {
             try {
                 connections.get(i).sendFinalPlayers(players);
             } catch (RemoteException e) {
-                LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
             }
         }
     }
@@ -491,7 +516,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(player).manageError(error);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -505,7 +530,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(playersActive.indexOf(player)).manageFluxRemover2(dice, title);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -528,7 +553,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             connections.get(0).sendVictoryAbbandon();
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         notTerminate = true;
     }
@@ -548,7 +573,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             for (ConnectionServer connection : this.connections) connection.setDisconnected();
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -567,7 +592,7 @@ public class VirtualView extends Observable<MessageVC> {
         try {
             for (ConnectionServer connection : connections) connection.setvView(this);
         }catch (RemoteException e){
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 

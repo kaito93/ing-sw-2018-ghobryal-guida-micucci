@@ -20,7 +20,7 @@ public class LoginMain extends Application {
     private static String uint;
 
 
-    public LoginMain(){
+    public LoginMain() {
         super();
 
     }
@@ -42,56 +42,51 @@ public class LoginMain extends Application {
         HBox horizontalUI = new HBox(3);
         HBox horizontalConnections = new HBox(3);
         VBox vertical = new VBox(10);
-        vertical.setPadding(new Insets(20,20,20,20));
+        vertical.setPadding(new Insets(20, 20, 20, 20));
         Label labelUsername = new Label("Username:");
         textUser = new TextField();
         horizontalUsername.getChildren().addAll(labelUsername, textUser);
 
-        ToggleGroup Ui = new ToggleGroup();
+        ToggleGroup ui = new ToggleGroup();
         labelGui = new Label("quale UI vuoi scegliere?");
         radioCLI = new RadioButton("CLI");
-        radioCLI.setToggleGroup(Ui);
+        radioCLI.setToggleGroup(ui);
         radioGUI = new RadioButton("GUI");
-        radioGUI.setToggleGroup(Ui);
+        radioGUI.setToggleGroup(ui);
 
-        horizontalUI.getChildren().addAll(labelGui,radioCLI,radioGUI);
+        horizontalUI.getChildren().addAll(labelGui, radioCLI, radioGUI);
 
-        ToggleGroup connections = new ToggleGroup();
+        ToggleGroup connectionsToggle = new ToggleGroup();
         labelConnection = new Label("quale connessione vuoi scegliere?");
         radioSocket = new RadioButton("Socket");
-        radioSocket.setToggleGroup(connections);
+        radioSocket.setToggleGroup(connectionsToggle);
         radioRMI = new RadioButton("RMI");
-        radioRMI.setToggleGroup(connections);
+        radioRMI.setToggleGroup(connectionsToggle);
 
         Button invio = new Button("invio");
-        invio.setOnAction( e -> {
-            if ((!textUser.getText().isEmpty())){
+        invio.setOnAction(e -> {
+            if ((!textUser.getText().isEmpty())) {
+                String tmpUser = textUser.getText();
+                String tmpUI;
+                String tmpConnections;
+                if (radioCLI.isSelected())
+                    tmpUI = radioCLI.getText();
+                else
+                    tmpUI = radioGUI.getText();
 
-                System.out.println(textUser.getText());
-                    String tmpUser = textUser.getText();
-                    String tmpUI;
-                    String tmpConnections;
-                    {
-                        if (radioCLI.isSelected())
-                            tmpUI = radioCLI.getText();
-                        else
-                            tmpUI = radioGUI.getText();
-                    }
-                    {
-                        if (radioSocket.isSelected())
-                            tmpConnections = radioSocket.getText();
-                        else
-                            tmpConnections = radioRMI.getText();
-                    }
-                    this.AssignValue(tmpUser, tmpConnections, tmpUI);
-                    Platform.exit();
-            }
-            else {
+
+                if (radioSocket.isSelected())
+                    tmpConnections = radioSocket.getText();
+                else
+                    tmpConnections = radioRMI.getText();
+
+                assignValue(tmpUser, tmpConnections, tmpUI);
+                Platform.exit();
+            } else {
                 try {
                     this.start(primaryStage);
                 } catch (Exception e1) {
                     LOGGER.log(Level.SEVERE, e.toString(), e);
-                    System.out.println("ho fallito la ricorsione");
                 }
             }
         });
@@ -105,10 +100,10 @@ public class LoginMain extends Application {
         primaryStage.show();
     }
 
-    private void AssignValue(String utente, String connessioni, String UI){
+    private static void assignValue(String utente, String connessioni, String ui) {
         username = utente;
         connections = connessioni;
-        uint = UI;
+        uint = ui;
 
     }
 

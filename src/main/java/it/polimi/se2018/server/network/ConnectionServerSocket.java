@@ -30,14 +30,14 @@ import java.util.logging.Level;
 public class ConnectionServerSocket implements ConnectionServer,Cloneable {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    VirtualView vView=null;
-    String username=null;
-    boolean connected=true;
+    private VirtualView vView=null;
+    private String username=null;
+    private boolean connected=true;
 
     private Message mex;
-    private Socket client;
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
+    private transient Socket client;
+    private transient ObjectOutputStream output;
+    private transient ObjectInputStream input;
 
     /**
      * Constructor class
@@ -401,7 +401,7 @@ public class ConnectionServerSocket implements ConnectionServer,Cloneable {
 
     @Override
     public boolean isConnected() {
-        return false;
+        return connected;
     }
 
     /**
@@ -445,7 +445,7 @@ public class ConnectionServerSocket implements ConnectionServer,Cloneable {
         try {
             return clone();
         } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         return null;
     }

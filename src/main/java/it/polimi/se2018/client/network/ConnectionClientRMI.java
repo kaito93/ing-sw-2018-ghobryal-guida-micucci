@@ -5,6 +5,7 @@ import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.model_shared.Dice;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -13,16 +14,14 @@ import java.rmi.server.UnicastRemoteObject;
  * @author Anton
  */
 
-public class ConnectionClientRMI extends UnicastRemoteObject implements ConnectionClient {
+public class ConnectionClientRMI extends UnicastRemoteObject implements ConnectionClient,Serializable {
 
-    ConnectionServer skeleton;
+    private transient ConnectionServer skeleton;
 
-    ConnectionClient connectionClient;
+    private transient ConnectionClient connectionClient;
 
-    String ip;
-    int port;
-    View view;
-    String username;
+    private transient View view;
+    private transient String username;
 
     public ConnectionClientRMI() throws RemoteException {
         super();
@@ -73,5 +72,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
 
     public View getView() {
         return view;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

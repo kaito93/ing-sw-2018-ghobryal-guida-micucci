@@ -102,8 +102,7 @@ public class TestSomeCards1 extends TestCase {
         g2 =null;
         diceList.clear();
         diceList=null;
-        for(int i=0; i<roundSchemeCells.length; i++)
-            roundSchemeCells[i].getRestOfStock().clear();
+        for (RoundSchemeCell roundSchemeCell : roundSchemeCells) roundSchemeCell.getRestOfStock().clear();
         roundSchemeCells=null;
         System.gc();
         super.tearDown();

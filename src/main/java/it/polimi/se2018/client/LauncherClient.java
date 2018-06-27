@@ -13,13 +13,10 @@ import it.polimi.se2018.client.view.ViewCli;
 import it.polimi.se2018.client.view.ViewGui;
 import javafx.application.Application;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 
 /**
@@ -29,7 +26,6 @@ import java.util.logging.Level;
 public class LauncherClient {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    private static final String SERVER_CONNECTION_REF = "ServerConnectionReference";
 
 
     public static void main(String[] args) {

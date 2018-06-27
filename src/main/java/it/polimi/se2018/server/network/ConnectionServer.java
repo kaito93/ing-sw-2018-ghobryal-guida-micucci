@@ -11,6 +11,7 @@ import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * abstract class that manage the connections between Server and Client server side
  * @author Samuele Guida
  */
-public interface ConnectionServer extends Remote {
+public interface ConnectionServer extends Remote,Serializable {
 
 
     /**
