@@ -7,12 +7,8 @@ import it.polimi.se2018.server.model.Game;
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageDisconnect;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
 import it.polimi.se2018.shared.Logger;
-import it.polimi.se2018.shared.Observable;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -23,7 +19,7 @@ import java.util.logging.Level;
  * Class that talk between network Server and Controller
  * @author Samuele Guida
  */
-public class VirtualView extends Observable<MessageVC> implements Serializable {
+public class VirtualView implements Serializable {
 
     private static final String PLAYER = "Il player";
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -139,7 +135,6 @@ public class VirtualView extends Observable<MessageVC> implements Serializable {
             this.connected = true;
 
         }
-
         /**
          * method that listen for a new message_socket
          */
@@ -153,7 +148,7 @@ public class VirtualView extends Observable<MessageVC> implements Serializable {
          */
         private void receive(){
             while (connected) {
-                receiveMessage();
+                client.receiveMessage();
             }
             reconn();
             for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
@@ -161,36 +156,7 @@ public class VirtualView extends Observable<MessageVC> implements Serializable {
 
         }
 
-        /**
-         * method that listen for a new message socket
-         */
-        private void receiveMessage(){
-            try {
-                MessageVC message = (MessageVC) client.getInput().readUnshared();
-                if (message instanceof MessageDisconnect) {
-                    connected = false;
-                    LOGGER.log(Level.OFF, PLAYER + " {0} non ha effettuato una mossa in tempo\n" +
-                            "l'ho messo in sospensione", client.getUsername());
-                } else
-                    notifyObservers(message);
-            } catch (IOException e) {
-                connected = false;
-                try {
-                    if (client.isConnected())
-                        LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
-                } catch (RemoteException e1) {
-                    LOGGER.log(Level.SEVERE, REMOTEERROR, e1.getMessage());
-                }
-            } catch (ClassNotFoundException e) {
-                connected = false;
-                try {
-                    LOGGER.log(Level.OFF, PLAYER + client.getUsername() + " si è disconnesso. Non manda dati corretti", e);
-                } catch (RemoteException e1) {
-                    LOGGER.log(Level.SEVERE, REMOTEERROR, e1.getMessage());
-                }
 
-            }
-        }
 
         /**
          * method that manage the reconnection for this player

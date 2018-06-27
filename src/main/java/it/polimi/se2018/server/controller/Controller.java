@@ -5,10 +5,8 @@ import it.polimi.se2018.server.model.Game;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
 import it.polimi.se2018.server.network.VirtualView;
 import it.polimi.se2018.shared.Logger;
-import it.polimi.se2018.shared.Observer;
 
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ import java.util.logging.Level;
  *
  * @author Samuele Guida
  */
-public class Controller implements Observer<MessageVC> {
+public class Controller {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
@@ -52,7 +50,6 @@ public class Controller implements Observer<MessageVC> {
         playersInRound = new ArrayList<>();
         this.view = view;
         this.players = players;
-        view.addObservers(this);
     }
 
     /**
@@ -71,13 +68,7 @@ public class Controller implements Observer<MessageVC> {
         return turn;
     }
 
-    /**
-     * method that accepts the message_socket of type Socket
-     * @param message the received message_socket
-     */
-    public void update(MessageVC message) {
-        message.accept(this);
-    }
+
 
     /**
      * method that sets the map for a player
