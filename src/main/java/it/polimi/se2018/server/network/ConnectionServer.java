@@ -224,6 +224,6 @@ public interface ConnectionServer extends Remote,Serializable {
 
     void setClientRMI(ConnectionClient stub, String username) throws RemoteException;
 
-
+    void receiveMessage() throws RemoteException;
 
 }

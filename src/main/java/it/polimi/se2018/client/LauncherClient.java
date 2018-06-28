@@ -73,8 +73,10 @@ public class LauncherClient {
                 try {
                     Registry registry = LocateRegistry.getRegistry(1100);
                     ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
-                    clientRMI = new ConnectionClientRMI();
+                    clientRMI = new ConnectionClientRMI(view, username);
                     connectionServer.setClientRMI(clientRMI,username);
+                    connectionServer.setUsername(username);
+                    clientRMI.setSkeleton(connectionServer);
                     view.setClient(clientRMI);
                     condition=false;
                 } catch (RemoteException e) {

@@ -4,10 +4,11 @@ import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 import it.polimi.se2018.shared.model_shared.Cell;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameView {
+public class GameView implements Serializable {
 
     private String myUsername;
     private int yourIndex;

@@ -51,10 +51,12 @@ public class VirtualView implements Serializable {
                 PlayerPlay player = new PlayerPlay(connection);// crea un thread per il giocatore
                 playersPlay.add(player); // aggiungi il thread all'elenco
                 playersActive.add(new Player(connection.getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
-
+                //se non ci sono più giocatori attivi, coglie l'eccezione
             }
         }catch (RemoteException e){
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }catch (NullPointerException e){
+            LOGGER.log(Level.WARNING, "Non ci sono più giocatori attivi", e);
         }
         setView();
         return playersActive;
@@ -148,7 +150,11 @@ public class VirtualView implements Serializable {
          */
         private void receive(){
             while (connected) {
-                client.receiveMessage();
+                try {
+                    client.receiveMessage();
+                } catch (RemoteException e) {
+                    LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+                }
             }
             reconn();
             for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();

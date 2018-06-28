@@ -8,6 +8,7 @@ import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.shared.message_socket.server_to_client.MessageUpdate;
 import it.polimi.se2018.shared.Logger;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.logging.Level;
  * abstract class that connect UI with network
  * @author Samuele Guida
  */
-public abstract class View {
+public abstract class View implements Serializable {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     GameView gameStatus;
@@ -100,7 +101,7 @@ public abstract class View {
      * @param stock the stock
      * @param favors list of boolean
      */
-    private void updateUsers(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
+    public void updateUsers(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
         gameStatus.setUsers(users);
         gameStatus.setCells(cells);

@@ -1,7 +1,6 @@
 package it.polimi.se2018.server.network;
 
 import it.polimi.se2018.client.network.ConnectionClient;
-import it.polimi.se2018.shared.Observable;
 import it.polimi.se2018.shared.message_socket.client_to_server.MessageDisconnect;
 import it.polimi.se2018.shared.message_socket.server_to_client.*;
 import it.polimi.se2018.shared.model_shared.Dice;
@@ -32,7 +31,6 @@ import java.util.logging.Level;
  */
 public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    private static final String REMOTEERROR = "Errore di connessione: {0} !";
     private static final String PLAYER = "Il player";
 
     private VirtualView vView = null;

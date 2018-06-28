@@ -1,5 +1,6 @@
 package it.polimi.se2018.client.network;
 
+import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.shared.message_socket.RequestReconnect;
 import it.polimi.se2018.shared.message_socket.client_to_server.*;
 import it.polimi.se2018.shared.message_socket.server_to_client.*;
@@ -8,12 +9,14 @@ import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.message_socket.message_tools.*;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.client.view.View;
+import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -504,5 +507,41 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
 
     public View getView() {
         return view;
+    }
+
+    @Override
+    public int receiveMapConn(List<Cell[][]> cells, List<String> names, List<Integer> fav) {
+        //solo per RMI
+        return 0;
+    }
+
+    @Override
+    public void viewPrivateCard(PrivateObjectiveCard privateObjectiveCard) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void viewPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTool, List<String> descriptionTool, List<Integer> publicScore) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void viewScore(List<Integer> finalScore) throws RemoteException {
+        //solo pr RMI
+    }
+
+    @Override
+    public void isTurn(boolean dice, boolean tool) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void requestNewUsernameRMI() throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) throws RemoteException {
+        //solo per RMI
     }
 }

@@ -37,6 +37,7 @@ public class Server implements Remote {
 
     private ServerSocket socketServer;
     private ConnectionServerRMI connectionServerRMI;
+    private Registry registry;
     private ArrayList<ConnectionServer> clients = new ArrayList<>();
     private int port;
     private int time;
@@ -104,9 +105,9 @@ public class Server implements Remote {
      */
     private void startRMI() {
         try {
-            Registry registry = createRegistry();
-            connectionServerRMI = new ConnectionServerRMI("", this);
-            rebind(registry);
+            registry = createRegistry();
+            connectionServerRMI = new ConnectionServerRMI(this, "");
+            rebind();
         }catch (RemoteException | NullPointerException e) {
             LOGGER.log(Level.INFO, "Oggetto già esportato", e);
         }
@@ -114,26 +115,24 @@ public class Server implements Remote {
     }
 
     private Registry createRegistry(){
-        Registry registry=null;
         try {
             registry = LocateRegistry.createRegistry(1100);
         }catch (RemoteException e1){
             LOGGER.log(Level.INFO, "Registro già presente");
             try {
-                registry = LocateRegistry.getRegistry();
+                registry = LocateRegistry.getRegistry(1100);
             } catch (RemoteException e) {
-                LOGGER.log(Level.INFO, "Oggetto già esportato", e);
+                LOGGER.log(Level.SEVERE, "Porta 1100 occupata", e);
             }
         }
         return registry;
     }
 
-    private void rebind(Registry registry){
+    private void rebind(){
         try{
             registry.rebind("//localhost/ServerConnectionReference", connectionServerRMI);
-        }
-        catch (NullPointerException e){
-            LOGGER.log(Level.INFO, "Registro nullo", e);
+        } catch (NullPointerException e){
+            LOGGER.log(Level.INFO, "Registro non avviato correttamente", e);
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
@@ -144,7 +143,7 @@ public class Server implements Remote {
         try {
             connectionServerRMI.setStub(stub);
             addConnection(connectionServerRMI, user);
-            connectionServerRMI.resetServer();
+            connectionServerRMI = new ConnectionServerRMI(this, "");
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }

@@ -2,6 +2,8 @@ package it.polimi.se2018.client.view;
 
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class ViewGui extends View {
 
     @Override
     public String askNewUsername() {
-        // chiedi all'utente l'username e ritorna la stringa
+        LoginMain pippo = new LoginMain();
         return null;
     }
 

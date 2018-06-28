@@ -1,12 +1,16 @@
 package it.polimi.se2018.client.network;
 
+import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Dice;
 
 import it.polimi.se2018.client.view.View;
+import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 
 /**
@@ -59,4 +63,19 @@ public interface ConnectionClient extends Remote, Serializable {
     String getUsername() throws RemoteException;
 
     View getView() throws RemoteException;
+
+    int receiveMapConn(List<Cell[][]> cells, List<String> names, List<Integer> fav) throws RemoteException;
+
+    void viewPrivateCard(PrivateObjectiveCard privateObjectiveCard) throws RemoteException;
+
+    void viewPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTool, List<String> descriptionTool, List<Integer> publicScore) throws RemoteException;
+
+    void  viewScore(List<Integer> finalScore) throws RemoteException;
+
+    void isTurn(boolean dice, boolean tool) throws RemoteException;
+
+    void requestNewUsernameRMI() throws RemoteException;
+
+    void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
+                       RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) throws RemoteException;
 }
