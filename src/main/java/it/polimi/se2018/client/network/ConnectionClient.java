@@ -78,4 +78,26 @@ public interface ConnectionClient extends Remote, Serializable {
 
     void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
                        RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) throws RemoteException;
+
+    void tapWheel(String title) throws RemoteException;
+
+    void copperFoil(String title) throws RemoteException;
+
+    void corkbacked(String title) throws RemoteException;
+
+    void eglomise(String title) throws RemoteException;
+
+    void fluxBrush(String title) throws RemoteException;
+
+    void grinding(String title) throws RemoteException;
+
+    void grozing(String title) throws RemoteException;
+
+    void lathekin(String title) throws RemoteException;
+
+    void lens(String title) throws RemoteException;
+
+    public void running(String title) throws RemoteException;
+
+    public void handleError(String error) throws RemoteException;
 }

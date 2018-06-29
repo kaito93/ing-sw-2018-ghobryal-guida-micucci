@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -552,6 +553,71 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
 
             LOGGER.log(Level.OFF, PLAYER + getUsername() + " si è disconnesso. Non manda dati corretti", e);
         }
+    }
+
+    @Override
+    public void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit, int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest, int column2Dest, int roundSchemeDicePos) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void coppperSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void corkSet(String title, Dice dice, int rowDest, int columnDest) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void eglomiseSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void grozingSet(String title, Dice dice, int rowDest, int colDest) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void lathekinSet(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int col1Dest, List<Dice> dicesToMove, int row2Dest, int col2Dest) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void lensSet(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void runningSet(String title, Dice dice, int rowDest, int colDest) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void posDice(Dice dice, int row, int column) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void useTool(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void passTurn() throws RemoteException {
+        //solo per RMI
     }
 
     /**

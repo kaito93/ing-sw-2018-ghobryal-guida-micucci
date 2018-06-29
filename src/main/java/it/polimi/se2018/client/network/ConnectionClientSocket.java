@@ -548,4 +548,59 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) throws RemoteException {
         //solo per RMI
     }
+
+    @Override
+    public void tapWheel(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void copperFoil(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void corkbacked(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void eglomise(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void fluxBrush(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void grinding(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void grozing(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void lathekin(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void lens(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void running(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void handleError(String error) throws RemoteException {
+        //solo per RMI
+    }
 }

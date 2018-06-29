@@ -2,10 +2,7 @@ package it.polimi.se2018.client.network;
 
 
 import it.polimi.se2018.client.view.View;
-import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
-import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
-import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
@@ -15,7 +12,6 @@ import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -27,6 +23,7 @@ import java.util.logging.Level;
 public class ConnectionClientRMI extends UnicastRemoteObject implements ConnectionClient,Serializable {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private static final String REMOTEERROR = "Errore di connessione: {0} !";
 
     private transient ConnectionServer skeleton;
 
@@ -78,7 +75,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
             newClient.setUsername(view.askNewUsername());
             newClient.setSkeleton(skeleton);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -87,26 +84,128 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         view.updateUsers(users, cells, useTools, roundSchemeMap, stock, favors);
     }
 
-    public void tapWheel(){
+    public void tapWheel(String title){
         List<Object> obj = view.manageTap();
-        //come dovrei settare quello che c'è dentro alla lista di oggetti a useTool
-        //posso usare createMessageTap che si usa Vview ma non saprei se è la corretta procedura
-        //aspetto spiegazioni di samu
+        try {
+            skeleton.tapSet(title, (Dice) obj.get(0), (List<Dice>) obj.get(9), (int) obj.get(1), (int) obj.get(5),
+                    (int) obj.get(2), (int) obj.get(6), (int) obj.get(3), (int)obj.get(7), (int)obj.get(4),
+                    (int)obj.get(8), (int)obj.get(10));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void copperFoil(String title){
+        List<Object> obj = view.manageCE();
+        try {
+            skeleton.coppperSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void corkbacked(String title){
+        List<Object> obj = view.manageCork();
+        try {
+            skeleton.corkSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void eglomise(String title){
+        List<Object> obj = view.manageCE();
+        try {
+            skeleton.eglomiseSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void fluxBrush(String title){
+        List<Object> obj = view.managefluxBrush();
+        try {
+            skeleton.fluxBrushSet(title, (Dice) obj.get(1), (int) obj.get(2), (int) obj.get(3), (Dice) obj.get(0));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void grinding(String title){
+        List<Object> obj = view.manageGrinding();
+        try {
+            skeleton.grindingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (Dice) obj.get(3));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void grozing(String title){
+        List<Object> obj = view.manageGrozing();
+        try {
+            skeleton.grozingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void lathekin(String title){
+        List<Object> obj = view.manageLathekin();
+        try {
+            skeleton.lathekinSet(title, (int) obj.get(0), (int) obj.get(4), (int) obj.get(1), (int) obj.get(5),
+                    (int) obj.get(2), (int) obj.get(3), (List<Dice>) obj.get(8), (int) obj.get(6), (int) obj.get(7));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void lens(String title){
+        List<Object> obj = view.manageLens();
+        try {
+            skeleton.lensSet(title, (Dice) obj.get(0), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4), (Dice) obj.get(1));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void running(String title){
+        List<Object> obj = view.manageCork();
+        try {
+            skeleton.runningSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void handleError(String error){
+        view.manageError(error);
     }
 
     @Override
     public void sendPosDice(Dice dice, int column, int row) {
-
+        try {
+            skeleton.posDice(dice, column, row);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
     }
 
     @Override
     public void sendUseTool(String titleCardTool) {
-
+        try {
+            skeleton.useTool(titleCardTool);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
     }
 
     @Override
     public void sendPassMove() {
-
+        try {
+            skeleton.passTurn();
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
     }
 
     @Override

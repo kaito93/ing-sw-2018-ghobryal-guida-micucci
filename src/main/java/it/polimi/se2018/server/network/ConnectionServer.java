@@ -226,4 +226,34 @@ public interface ConnectionServer extends Remote,Serializable {
 
     void receiveMessage() throws RemoteException;
 
+    void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit,
+                int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest, int column2Dest,
+                int roundSchemeDicePos) throws RemoteException;
+
+    void coppperSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) throws RemoteException;
+
+    void corkSet(String title, Dice dice, int rowDest, int columnDest) throws RemoteException;
+
+    void eglomiseSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) throws RemoteException;
+
+    void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) throws RemoteException;
+
+    void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore) throws RemoteException;
+
+    void grozingSet(String title, Dice dice, int rowDest, int colDest) throws RemoteException;
+
+    void lathekinSet(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int col1Dest,
+                     List<Dice> dicesToMove, int row2Dest, int col2Dest) throws RemoteException;
+
+    void lensSet(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) throws RemoteException;
+
+    void runningSet(String title, Dice dice, int rowDest, int colDest) throws RemoteException;
+
+    void posDice(Dice dice, int row, int column) throws RemoteException;
+
+    void useTool(String title) throws RemoteException;
+
+    void passTurn() throws RemoteException;
+
+
 }

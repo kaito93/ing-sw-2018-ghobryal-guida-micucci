@@ -35,7 +35,7 @@ public class CopperFoilBurnisher extends ToolCardStrategy {
                         RoundSchemeCell[] t4, List<Player> t5, int t6){
        if (checkExists(player,dice,row0,column0))
            return;
-        setDice(player, row0, column0);
+       setDice(player, row0, column0);
             if (((player.getMap().isBorderEmpty() && (column>0 && row>0) && row<player.getMap().numRow()-1 && column<player.getMap().numColumn()-1)
                     || (!player.getMap().isBorderEmpty() && !player.getMap().isAdjacentDice(row, column)))
                     && (player.getMap().isAdjacentColor(row, column, dice.getColor())
@@ -43,7 +43,7 @@ public class CopperFoilBurnisher extends ToolCardStrategy {
                 setErrPos(player, row0, column0, dice);
                 return;
             }
-        setBool(player, row, column, dice);
+       setBool(player, row, column, dice);
     }
 
     @Override

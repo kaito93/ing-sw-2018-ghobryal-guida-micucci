@@ -42,10 +42,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         this.username=username;
     }
 
-    public void resetServer(){
-        server=null;
-    }
-
     @Override
     public void sendMapConn(List<Map> maps, Player player) {
         // METODO PER INVIARE LA SCELTA DELLE MAPPE AI GIOCATORI
@@ -84,16 +80,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
-    }
-
-    @Override
-    public void sendLostConnection(String text,int index) {
-        // METODO PER INVIARE UNA STRINGA DI COMUNICAZIONE AI CLIENT CHE UN GIOCATORE SI E' DISCONNESSO.
-    }
-
-    @Override
-    public void tryReconnect() {
-        // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
     }
 
     @Override
@@ -149,61 +135,74 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
 
     @Override
     public void manageTap(String title) {
+        try {
+            stub.tapWheel(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
 
+    public void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit,
+                       int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest,
+                       int column2Dest , int roundSchemeDicePos){
+        vView.getController().manageTap(title, row1Mit, row2Mit, column1Mit, column2Mit, roundSchemeDice, row1Dest,
+                column1Dest,dicesToMove, row2Dest, column2Dest, roundSchemeDicePos);
     }
 
     @Override
     public void manageCopper(String title) {
+        try {
+            stub.copperFoil(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
 
+    public void coppperSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit){
+        vView.getController().manageCopper(title, dice, rowDest, columnDest, rowMit, columnMit);
     }
 
     @Override
     public void manageCork(String title) {
+        try {
+            stub.corkbacked(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
 
+    public void corkSet(String title, Dice dice, int rowDest, int columnDest){
+        vView.getController().manageCork(title, dice, rowDest, columnDest);
     }
 
     @Override
     public void manageEglomise(String title) {
+        try {
+            stub.eglomise(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
 
+    public void eglomiseSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit){
+        vView.getController().manageEglomise(title, dice, rowDest, columnDest, rowMit, columnMit);
     }
 
     @Override
     public void manageFluxBrush(String title) {
+        try {
+            stub.fluxBrush(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
 
+    public void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore){
+        vView.getController().manageFluxBrush(title, dice, rowDest, cloumnDest, diceBefore);
     }
 
     @Override
     public void manageFluxRemover(String title) {
-
-    }
-
-    @Override
-    public void manageGrinding(String title) {
-
-    }
-
-    @Override
-    public void manageGrozing(String title) {
-
-    }
-
-    @Override
-    public void manageLathekin(String title) {
-
-    }
-
-    @Override
-    public void manageLens(String title) {
-
-    }
-
-    @Override
-    public void manageRunning(String title) {
-
-    }
-
-    @Override
-    public void manageError(String error) {
 
     }
 
@@ -213,33 +212,102 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     }
 
     @Override
-    public void sendVictoryAbbandon() {
+    public void manageGrinding(String title) {
+        try {
+            stub.grinding(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
 
+    public void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore){
+        vView.getController().manageGrinding(title, dice, row, column, diceBefore);
+    }
+
+    @Override
+    public void manageGrozing(String title) {
+        try {
+            stub.grozing(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void grozingSet(String title, Dice dice, int rowDest, int colDest){
+        vView.getController().manageGrozing(title, dice, rowDest, colDest);
+    }
+
+    @Override
+    public void manageLathekin(String title) {
+        try {
+            stub.lathekin(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void lathekinSet(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest,
+                            int col1Dest, List<Dice> dicesToMove, int row2Dest, int col2Dest){
+        vView.getController().manageLathekin(title, row1Mit, row2Mit, col1Mit, col2Mit, row1Dest, col1Dest,
+                dicesToMove, row2Dest, col2Dest);
+    }
+
+    @Override
+    public void manageLens(String title) {
+        try {
+            stub.lens(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void lensSet(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound){
+        vView.getController().manageLens(title, diceStock, numberRound, row, column, diceRound);
+    }
+
+    @Override
+    public void manageRunning(String title) {
+        try {
+            stub.running(title);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void runningSet(String title, Dice dice, int rowDest, int colDest){
+        vView.getController().manageRunning(title, dice, rowDest, colDest);
+    }
+
+    @Override
+    public void manageError(String error) {
+        try {
+            stub.handleError(error);
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void posDice(Dice dice, int row, int column){
+        vView.getController().setPos(dice, row, column);
+    }
+
+    public void useTool(String title){
+        vView.getController().useTools(title);
+    }
+
+    public void passTurn(){
+        vView.getController().fakeMove();
     }
 
     @Override
     public void closeConnection() {
-
-    }
-
-    @Override
-    public boolean isConnected() {
-        return false;
-    }
-
-    @Override
-    public void sendGainConnection(String text){
-
-    }
-
-    @Override
-    public void sendAcceptReconnection(String text, int index) {
-
+        //non esiste tale per rmi perché la connessione in tal caso si chiude automaticamente dopo un breve
+        //periodo di time_out settato dal jvm il che è invisibile al programmatore
     }
 
     @Override
     public void send(Object message) {
-
+        //non si implementa per RMI
     }
 
     @Override
@@ -286,6 +354,38 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     public void setDisconnected() {
         this.connected = false;
     }
+
+    @Override
+    public boolean isConnected() {
+        return connected;
+    }
+
+    @Override
+    public void sendVictoryAbbandon() {
+
+    }
+
+    @Override
+    public void sendGainConnection(String text){
+
+    }
+
+    @Override
+    public void sendAcceptReconnection(String text, int index) {
+
+    }
+
+    @Override
+    public void sendLostConnection(String text,int index) {
+        // METODO PER INVIARE UNA STRINGA DI COMUNICAZIONE AI CLIENT CHE UN GIOCATORE SI E' DISCONNESSO.
+    }
+
+    @Override
+    public void tryReconnect() {
+        // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
+    }
+
+
     /**
      * method that set an instance of Virtual View
      * @param vView a Virtual View
