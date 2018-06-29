@@ -113,4 +113,35 @@ public class MessageTapWheel implements MessageCV, MessageVC {
     public void setPosDiceinSchemeRound(int posDiceinSchemeRound) {
         this.posDiceinSchemeRound = posDiceinSchemeRound;
     }
+
+    /**
+     * method that set the final column of the first dice
+     * @param column1Dest an integer
+     */
+    public void setColumn1Dest(int column1Dest) {
+        this.column1Dest = column1Dest;
+    }
+
+    /**
+     * method that set the final column of the second dice
+     * @param column2Dest an integer
+     */
+    public void setColumn2Dest(int column2Dest) {
+        this.column2Dest = column2Dest;
+    }
+
+    /**
+     * method that set the final row of the first dice
+     * @param row1Dest an integer
+     */
+    public void setRow1Dest(int row1Dest) {
+        this.row1Dest = row1Dest;
+    }
+    /**
+     * method that set the final row of the second dice
+     * @param row2Dest an integer
+     */
+    public void setRow2Dest(int row2Dest) {
+        this.row2Dest = row2Dest;
+    }
 }

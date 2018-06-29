@@ -396,16 +396,20 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * @param message message_socket received by server
      */
     public void visit(MessageTapWheel message) {
-        //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
-        // in roundscheme
+        //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit, int row2Dest, int column2Dest,
+        // Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
         List<Object> obj = view.manageTap();
         message.setDiceRoundScheme((Dice) obj.get(0));
-        message.setDiceToMove((List<Dice>) obj.get(5));
         message.setRow1Mit((int) obj.get(1));
-        message.setRow2Mit((int) obj.get(3));
         message.setCol1Mit((int) obj.get(2));
-        message.setCol2Mit((int) obj.get(4));
-        message.setPosDiceinSchemeRound((int) obj.get(6));
+        message.setRow1Dest((int) obj.get(3));
+        message.setColumn1Dest((int)obj.get(4));
+        message.setRow2Mit((int) obj.get(5));
+        message.setCol2Mit((int) obj.get(6));
+        message.setRow2Dest((int)obj.get(7));
+        message.setColumn2Dest((int)obj.get(8));
+        message.setDiceToMove((List<Dice>) obj.get(9));
+        message.setPosDiceinSchemeRound((int) obj.get(10));
         update(message);
     }
 

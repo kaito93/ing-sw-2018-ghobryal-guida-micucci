@@ -99,8 +99,8 @@ public class ViewGui extends View {
 
     @Override
     public List<Object> manageTap() {
-        //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
-        // in roundscheme
+        //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit, int row2Dest, int column2Dest,
+        // Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
         return null;
     }
 

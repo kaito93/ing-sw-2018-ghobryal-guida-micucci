@@ -550,8 +550,8 @@ public class ViewCli extends View {
      */
     @Override
     public List<Object> manageTap() {
-        //Dice diceRound,  int row1, int column1, int row2, int column2,Arraylist Dice (dice1, Dice dice2), posizione dado
-        // in roundscheme
+        //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit, int row2Dest, int column2Dest,
+        // Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
         ArrayList<Object> obj = new ArrayList<>();
         ArrayList<Dice> obj2 = new ArrayList<>();
         List<Object> obj3;
@@ -564,6 +564,10 @@ public class ViewCli extends View {
             obj2.add(gameStatus.getCells().get(gameStatus.getYourIndex())[obj4.get(0)][obj4.get(1)].getDice());
             obj.add(obj4.get(0));
             obj.add(obj4.get(1));
+            addLog("Seleziona dove vuoi posizionare il dado selezionato: ");
+            List<Integer> obj5 = askRowColumn();
+            obj.add(obj5.get(0));
+            obj.add(obj5.get(1));
             boolean sec = true;
             while (sec) {
                 addLog("Vuoi selezionare un altro dado? [Si/No]");
