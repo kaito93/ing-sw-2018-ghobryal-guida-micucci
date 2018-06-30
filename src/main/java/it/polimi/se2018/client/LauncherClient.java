@@ -4,7 +4,7 @@ import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.client.network.ConnectionClientRMI;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
 import it.polimi.se2018.client.client_deserializer.ClientDeserializer;
-import it.polimi.se2018.client.view.LoginMain;
+import it.polimi.se2018.client.view.ViewGuiPack.LoginMain;
 import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.path.PathDeserializer;

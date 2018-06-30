@@ -2,11 +2,9 @@ package it.polimi.se2018.client.view;
 
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
+import it.polimi.se2018.client.view.ViewGuiPack.*;
 
 public class ViewGui extends View {
     @Override
@@ -46,7 +44,7 @@ public class ViewGui extends View {
 
     @Override
     public String askNewUsername() {
-        LoginMain pippo = new LoginMain();
+        // SI CHIAMA IL METODO PER RIAPRIRE LA SCHERMATA DI LOGIN: PER IL CONTROLLO VEDI CON SAMU
         return null;
     }
 

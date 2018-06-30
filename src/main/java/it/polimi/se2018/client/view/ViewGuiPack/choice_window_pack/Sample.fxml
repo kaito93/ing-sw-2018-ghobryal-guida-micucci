@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.client.view.ViewGuiPack.choice_window_pack.Controller">
+    <children>
+        <GridPane gridLinesVisible="true" layoutX="110.0" layoutY="88.0" prefHeight="118.0" prefWidth="165.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Rectangle fx:id="map119" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                <Rectangle fx:id="map118" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                <Rectangle fx:id="map117" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                <Rectangle fx:id="map116" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Rectangle fx:id="map115" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="5" />
+                <Rectangle fx:id="map106" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map114" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                <Rectangle fx:id="map113" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                <Rectangle fx:id="map112" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <Rectangle fx:id="map111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Rectangle fx:id="map105" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="4" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="4" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="4" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="4" />
+                <Rectangle fx:id="map110" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="4" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map107" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map108" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map109" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map104" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" />
+                <Rectangle fx:id="map103" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" />
+                <Rectangle fx:id="map102" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" />
+                <Rectangle fx:id="map101" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+                <Rectangle fx:id="map100" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+            </children>
+        </GridPane>
+        <GridPane gridLinesVisible="true" layoutX="565.0" layoutY="88.0" prefHeight="118.0" prefWidth="165.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Rectangle fx:id="map219" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map218" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map217" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map216" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map215" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map214" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map213" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map212" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map211" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map210" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map209" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map208" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map207" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map206" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map205" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map204" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" />
+                <Rectangle fx:id="map203" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" />
+                <Rectangle fx:id="map202" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" />
+                <Rectangle fx:id="map201" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" />
+                <Rectangle fx:id="map200" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+            </children>
+        </GridPane>
+        <GridPane gridLinesVisible="true" layoutX="110.0" layoutY="316.0" prefHeight="118.0" prefWidth="165.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Rectangle fx:id="map318" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map319" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map317" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map316" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map315" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map314" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map313" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map312" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map311" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map310" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map309" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map308" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map307" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map306" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map305" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map304" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" />
+                <Rectangle fx:id="map303" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" />
+                <Rectangle fx:id="map302" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" />
+                <Rectangle fx:id="map301" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" />
+                <Rectangle fx:id="map300" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+            </children>
+        </GridPane>
+        <GridPane gridLinesVisible="true" layoutX="565.0" layoutY="316.0" prefHeight="118.0" prefWidth="165.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="47.000006103515624" minHeight="10.0" prefHeight="28.60001220703125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="34.19998779296875" minHeight="10.0" prefHeight="28.599987792968747" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Rectangle fx:id="map419" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map418" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map417" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map416" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map415" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="3" />
+                <Rectangle fx:id="map414" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map413" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map412" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map411" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map410" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="2" />
+                <Rectangle fx:id="map409" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map408" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map407" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map406" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map405" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.rowIndex="1" />
+                <Rectangle fx:id="map404" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="4" />
+                <Rectangle fx:id="map403" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="3" />
+                <Rectangle fx:id="map402" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="2" />
+                <Rectangle fx:id="map401" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" GridPane.columnIndex="1" />
+                <Rectangle fx:id="map400" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.5" stroke="BLACK" strokeType="INSIDE" width="33.0" />
+            </children>
+        </GridPane>
+        <RadioButton fx:id="map1" layoutX="110.0" layoutY="38.0" mnemonicParsing="false" onAction="#setSelected1" text="map1">
+            <toggleGroup>
+                <ToggleGroup fx:id="maps" />
+            </toggleGroup></RadioButton>
+        <RadioButton fx:id="map2" layoutX="539.0" layoutY="42.0" mnemonicParsing="false" onAction="#setSelected2" text="map2" toggleGroup="$maps" />
+        <Label layoutX="352.0" layoutY="21.0" text="scegli la mappa" />
+        <RadioButton fx:id="map3" layoutX="110.0" layoutY="263.0" mnemonicParsing="false" onAction="#setSelected3" text="map3" toggleGroup="$maps" />
+        <RadioButton fx:id="map4" layoutX="539.0" layoutY="263.0" mnemonicParsing="false" onAction="#setSelected4" text="map4" toggleGroup="$maps" />
+        <Button fx:id="buttonChoice" layoutX="382.0" layoutY="496.0" mnemonicParsing="false" onAction="#hasChoice" text="Scelto!" />
+    </children>
+</Pane>

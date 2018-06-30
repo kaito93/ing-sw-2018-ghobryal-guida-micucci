@@ -1,4 +1,4 @@
-package it.polimi.se2018.client.view;
+package it.polimi.se2018.client.view.ViewGuiPack;
 
 import it.polimi.se2018.shared.Logger;
 import javafx.application.Application;
