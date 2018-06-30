@@ -10,10 +10,7 @@ import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.exception.NotValidMatrixException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +35,26 @@ public class MapsDeserializer extends Observable {
 
     /**
      * class constructor: inizialize all the variable and the buffered reader for the json file
-     * @param pathname of the file that has to be deserializer
+     * @param path of the file that has to be deserializer
      */
-    public MapsDeserializer(String pathname) {
-        File json = new File(pathname);
-        gson = new Gson();
-        try {
-            br = new BufferedReader(new FileReader(json));
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "File non trovato", e);
+    public MapsDeserializer(String path) {
+        String[] tokens = path.split("/");
+        if (tokens[0].equalsIgnoreCase("src")){
+            File file;
+            file = new File(path);
+            try{
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e){
+                LOGGER.log(Level.SEVERE, "File non trovato", e);
+            }
+        }
+        else{
+            try{
+                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path)));
+            }
+            catch (NullPointerException e){
+                LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
+            }
         }
         mapsJsonJava = new ArrayList<>();
         blank = new BlankCellBuilder();

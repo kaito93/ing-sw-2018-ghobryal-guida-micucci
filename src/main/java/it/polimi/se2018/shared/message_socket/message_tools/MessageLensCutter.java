@@ -3,24 +3,20 @@ package it.polimi.se2018.shared.message_socket.message_tools;
 import it.polimi.se2018.server.controller.Controller;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
-import it.polimi.se2018.shared.message_socket.server_to_client.MessageCV;
+
 
 /**
  * class that manage the tool card "Lens Cutter"
  * @author Samuele Guida
  */
 
-public class MessageLensCutter implements MessageCV, MessageVC {
+public class MessageLensCutter extends MessageTool{
 
     private static final long serialVersionUID = -467044401650037099L;
 
-    private String title;
     private Dice diceStock;
     private int numberRound;
     private Dice diceRound;
-    private int row;
-    private int column;
 
     /**
      * method that accept this message_socket client side
@@ -37,23 +33,9 @@ public class MessageLensCutter implements MessageCV, MessageVC {
     @Override
     public void accept(Controller controller) {
 
-        controller.manageLens(title,diceStock,numberRound,row,column,diceRound);
+        controller.manageLens(title,diceStock,numberRound,rowDest,columnDest,diceRound);
 
 
-    }
-    /**
-     * method that set the title of a card
-     * @param title a string
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    /**
-     * method that return the title of the card
-     * @return a string
-     */
-    public String getTitle() {
-        return title;
     }
 
     /**
@@ -79,18 +61,5 @@ public class MessageLensCutter implements MessageCV, MessageVC {
     public void setNumberRound(int numberRound) {
         this.numberRound = numberRound;
     }
-    /**
-     * method that set the final column of the dice
-     * @param column an integer
-     */
-    public void setColumn(int column) {
-        this.column = column;
-    }
-    /**
-     * method that set the row of the dice
-     * @param row an integer
-     */
-    public void setRow(int row) {
-        this.row = row;
-    }
+
 }

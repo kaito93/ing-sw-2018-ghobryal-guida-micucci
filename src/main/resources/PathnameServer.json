@@ -1,0 +1,26 @@
+[
+  {
+    "type": "dice",
+    "path": "/Dices.json"
+  },
+  {
+    "type": "private",
+    "path": "/PrivateObjectiveCards.json"
+  },
+  {
+    "type": "server",
+    "path": "/Server.json"
+  },
+  {
+    "type": "maps",
+    "path": "/Maps.json"
+  },
+  {
+    "type": "public",
+    "path": "/PublicCards.json"
+  },
+  {
+    "type": "tool",
+    "path": "/ToolCards.json"
+  }
+]

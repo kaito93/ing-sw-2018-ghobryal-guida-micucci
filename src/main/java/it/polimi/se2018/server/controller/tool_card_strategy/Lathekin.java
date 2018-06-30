@@ -42,7 +42,7 @@ public class Lathekin extends ToolCardStrategy {
                     return;
                 }
             }catch (NullPointerException e){
-                errorBool.setErrorMessage("non c'è un dado nelle prime o nelle seconde coordinate");
+                errorBool.setErrorMessage("Non c'è un dado nelle prime o nelle seconde coordinate");
                 errorBool.setErrBool(true);
                 return;
             }
@@ -56,7 +56,7 @@ public class Lathekin extends ToolCardStrategy {
                         player.getMap().getCell(row4, column4).setDice(dicesToMove.get(1));
                     }
                     player.getMap().getCell(row3, column3).setDice(dicesToMove.get(0));
-                    errorBool.setErrorMessage("posizionamento non valido del primo dado");
+                    errorBool.setErrorMessage("Posizionamento non valido del primo dado");
                     errorBool.setErrBool(true);
                 }
                 if (!b) {
@@ -65,7 +65,7 @@ public class Lathekin extends ToolCardStrategy {
                         player.getMap().getCell(row3, column3).setDice(dicesToMove.get(0));
                     }
                     player.getMap().getCell(row4, column4).setDice(dicesToMove.get(1));
-                    errorBool.setErrorMessage("posizionamento non valido del secondo dado");
+                    errorBool.setErrorMessage("Posizionamento non valido del secondo dado");
                     errorBool.setErrBool(true);
                 }
 

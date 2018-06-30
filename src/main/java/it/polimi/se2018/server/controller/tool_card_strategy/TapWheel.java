@@ -51,7 +51,7 @@ public class TapWheel extends ToolCardStrategy {
                     } else {
                             player.getMap().getCell(row3, column3).setDice(dicesToMove.get(0));
 
-                        errorBool.setErrorMessage("posDice method in TapWheel tool card");
+                        errorBool.setErrorMessage("Errore nel posizionamento del dado per la carta Tap Wheel");
                         errorBool.setErrBool(true);
                         return;
                     }

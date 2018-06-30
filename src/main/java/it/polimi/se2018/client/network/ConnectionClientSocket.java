@@ -246,10 +246,18 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * @param message message_socket received by server
      */
     public void visit(MessageCopperFoilBurnisher message) {
+        setListCE(message);
+    }
+
+    /**
+     * method that join the request for the tool cards Eglomise and CopperFoil
+     * @param message the message to re-send
+     */
+    private void setListCE(MessageTool message){
         List<Object> obj = view.manageCE();
         message.setDice((Dice) obj.get(0));
-        message.setRow((int) obj.get(1));
-        message.setColumn((int) obj.get(2));
+        message.setRowDest((int) obj.get(1));
+        message.setColumnDest((int) obj.get(2));
         message.setRowMit((int) obj.get(3));
         message.setColumnMit((int) obj.get(4));
         update(message);
@@ -275,13 +283,7 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      */
     public void visit(MessageEglomiseBrush message) {
 
-        List<Object> obj = view.manageCE();
-        message.setDice((Dice) obj.get(0));
-        message.setRowDest((int) obj.get(1));
-        message.setColumnDest((int) obj.get(2));
-        message.setRowMit((int) obj.get(3));
-        message.setColumnMit((int) obj.get(4));
-        update(message);
+        setListCE(message);
     }
 
     /**
@@ -308,8 +310,8 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
         if (message.isFirstMessage()) {
             List<Object> obj = view.manageFluxRemove2(message.getDice());
             message.setDice((Dice) obj.get(0));
-            message.setRow((int) obj.get(1));
-            message.setColumn((int) obj.get(2));
+            message.setRowDest((int) obj.get(1));
+            message.setColumnDest((int) obj.get(2));
         } else {
             message.setDice(view.managefluxRemove());
         }
@@ -324,8 +326,8 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     public void visit(MessageGrindingStone message) {
         List<Object> obj = view.manageGrinding();
         message.setDice((Dice) obj.get(0));
-        message.setRow((int) obj.get(1));
-        message.setColumn((int) obj.get(2));
+        message.setRowDest((int) obj.get(1));
+        message.setColumnDest((int) obj.get(2));
         message.setDiceBefore((Dice) obj.get(3));
         update(message);
     }
@@ -340,7 +342,7 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
         List<Object> obj = view.manageGrozing();
         message.setDice((Dice) obj.get(0));
         message.setRowDest((int) obj.get(1));
-        message.setColDest((int) obj.get(2));
+        message.setColumnDest((int) obj.get(2));
         update(message);
     }
 
@@ -374,8 +376,8 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
         message.setDiceStock((Dice) obj.get(0));
         message.setDiceRound((Dice) obj.get(1));
         message.setNumberRound((int) obj.get(2));
-        message.setRow((int) obj.get(3));
-        message.setColumn((int) obj.get(4));
+        message.setRowDest((int) obj.get(3));
+        message.setColumnDest((int) obj.get(4));
         update(message);
     }
     /**
@@ -396,8 +398,8 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * @param message message_socket received by server
      */
     public void visit(MessageTapWheel message) {
-        //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit, int row2Dest, int column2Dest,
-        // Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
+        //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit,
+        // int row2Dest, int column2Dest, Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
         List<Object> obj = view.manageTap();
         message.setDiceRoundScheme((Dice) obj.get(0));
         message.setRow1Mit((int) obj.get(1));

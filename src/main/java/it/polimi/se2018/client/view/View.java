@@ -25,7 +25,7 @@ public abstract class View implements Serializable {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     GameView gameStatus;
     protected ConnectionClient client;
-    protected Timer timer = new Timer();
+    protected transient Timer timer = new Timer();
     protected int time;
     protected boolean a = false;
 

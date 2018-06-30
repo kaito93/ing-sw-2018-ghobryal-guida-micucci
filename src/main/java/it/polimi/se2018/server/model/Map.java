@@ -357,7 +357,7 @@ public class Map implements Serializable {
      */
     public boolean isCellValid(Dice dice, int row, int column){
         if(!isEmptyCell(row, column)){
-            errorBool.setErrorMessage("There's a dice on the same cell");
+            errorBool.setErrorMessage("E' già presente un dado nella cella selezionata!");
             errorBool.setErrBool(true);
             return false;
         }else if(diceCompatibleCell(row, column, 0, Color.NULL)){
@@ -375,7 +375,7 @@ public class Map implements Serializable {
             errorBool.setErrBool(false);
             return diceCompatibleCell(row, column, 0, dice.getColor());
         }
-        errorBool.setErrorMessage("This is not a valid cell");
+        errorBool.setErrorMessage("Non hai selezionato una cella valida");
         errorBool.setErrBool(true);
         return false;
     }
@@ -434,7 +434,7 @@ public class Map implements Serializable {
      */
     public boolean posDice(Dice dice, int row, int column) {
         if(isBorderEmpty() && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))) {
-            errorBool.setErrorMessage("Player has to position the dice on the border for beginning");
+            errorBool.setErrorMessage("Devi posizionare il dado sul bordo dello schema!");
             errorBool.setErrBool(true);
             return false;
         }
@@ -445,7 +445,7 @@ public class Map implements Serializable {
             setBoolFalse(row,column,dice);
             return true;
         }
-        errorBool.setErrorMessage("Player doesn't respect the positioning rules");
+        errorBool.setErrorMessage("Non hai rispettato le regole di posizionamento");
         errorBool.setErrBool(true);
         return false;
     }

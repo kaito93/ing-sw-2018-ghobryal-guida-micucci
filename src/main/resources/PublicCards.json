@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Diagonali colorate",
+    "description": "Numero di dadi dello stesso colore diagonalmente adiacenti",
+    "score": "1",
+    "strategy": "ColorDiagonalsStrategy"
+  },
+  {
+    "title": "Varietà di colore",
+    "description": "Set di dadi di ogni colore ovunque",
+    "score": "4",
+    "strategy":"ColorVarietyStrategy"
+  },
+  {
+    "title": "Colori diversi - colonna",
+    "description": "Colonne senza colori ripetuti",
+    "score": "5",
+    "strategy":"ColumnColorVarietyStrategy"
+  },
+  {
+    "title": "Sfumature diverse - colonna",
+    "description": "Colonne senza sfumature ripetute",
+    "score": "4",
+    "strategy":"ColumnShadeVarietyStrategy"
+  },
+  {
+    "title": "Sfumature scure",
+    "description": "Set di 5 e 6 ovunque",
+    "score": "2",
+    "strategy":"DeepShadesStrategy"
+  },
+  {
+    "title": "Sfumature chiare",
+    "description": "Set di 1 e 2 ovunque",
+    "score": "2",
+    "strategy": "LightShadesStrategy"
+  },
+  {
+    "title": "Sfumature medie",
+    "description": "Set di 3 e 4 ovunque",
+    "score": "2",
+    "strategy":"MediumShadesStrategy"
+  },
+  {
+    "title": "Colori diversi - riga",
+    "description": "Righe senza colori ripetuti",
+    "score": "6",
+    "strategy":"RowColorVarietyStrategy"
+  },
+  {
+    "title": "Sfumature diverse - riga",
+    "description": "Righe senza sfumature ripetute",
+    "score": "5",
+    "strategy":"RowShadeVarietyStrategy"
+  },
+  {
+    "title": "Sfumature diverse",
+    "description": "Set di dadi di ogni valore ovunque",
+    "score": "5",
+    "strategy":"ShadeVarietyStrategy"
+  }
+]

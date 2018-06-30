@@ -21,7 +21,6 @@ import java.util.logging.Level;
  */
 public class VirtualView implements Serializable {
 
-    private static final String PLAYER = "Il player";
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     private transient Controller controller;

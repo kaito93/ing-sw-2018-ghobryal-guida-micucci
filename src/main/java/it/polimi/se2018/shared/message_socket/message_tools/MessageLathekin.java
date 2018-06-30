@@ -3,8 +3,6 @@ package it.polimi.se2018.shared.message_socket.message_tools;
 import it.polimi.se2018.server.controller.Controller;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
-import it.polimi.se2018.shared.message_socket.server_to_client.MessageCV;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +12,10 @@ import java.util.List;
  * @author Samuele Guida
  */
 
-public class MessageLathekin implements MessageCV, MessageVC {
+public class MessageLathekin extends MessageTool {
 
     private static final long serialVersionUID = -6323405125564666679L;
 
-    private String title;
     private int row1Dest;
     private int column1Dest;
     private List<Dice> dices = new ArrayList<>();
@@ -46,20 +43,7 @@ public class MessageLathekin implements MessageCV, MessageVC {
         controller.manageLathekin(title,row1Mit,row2Mit,col1Mit,col2Mit,row1Dest,column1Dest,dices,row2Dest,column2Dest);
 
     }
-    /**
-     * method that set the title of a card
-     * @param title a string
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    /**
-     * method that return the title of the card
-     * @return a string
-     */
-    public String getTitle() {
-        return title;
-    }
+
     /**
      * method that set the row of the first dice
      * @param row1Dest an integer

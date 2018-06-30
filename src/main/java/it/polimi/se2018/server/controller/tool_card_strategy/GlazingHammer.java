@@ -14,8 +14,6 @@ import java.util.List;
 
 public class GlazingHammer extends ToolCardStrategy {
 
-    protected int firstValue; //+1
-    protected int secondValue; //-1
 
     /**
      * Read description of this card for further information
@@ -39,7 +37,7 @@ public class GlazingHammer extends ToolCardStrategy {
             for (Dice dice : stock)
                 dice.throwDice();
         else{
-            errorBool.setErrorMessage("Player doesn't respect color restrictions");
+            errorBool.setErrorMessage("Il giocatore non rispetta la restrizione colore");
             errorBool.setErrBool(true);
             return;
         }
@@ -52,21 +50,5 @@ public class GlazingHammer extends ToolCardStrategy {
         view.createMessageGlazing(title);
     }
 
-    /**
-     * @return the value increased if it's possible (different from zero)
-     */
 
-    @Override
-    public int getFirstValue() {
-        return firstValue;
-    }
-
-    /**
-     * @return the value decreased if it's possible (different from zero)
-     */
-
-    @Override
-    public int getSecondValue() {
-        return secondValue;
-    }
 }

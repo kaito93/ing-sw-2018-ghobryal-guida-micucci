@@ -2,15 +2,12 @@ package it.polimi.se2018.server.deserializer;
 
 import com.google.gson.Gson;
 
+import java.io.*;
 import java.util.Observable;
 
 import it.polimi.se2018.server.deserializer.JsonTransition;
 import it.polimi.se2018.shared.Logger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.logging.Level;
 
 /**
@@ -27,16 +24,26 @@ public abstract class StrategyCardDeserializer extends Observable {
     /**
      * class constructor that inizialize the reading of the json file
      *
-     * @param pathname path of the json file
+     * @param path path of the json file
      */
-    public StrategyCardDeserializer(String pathname) {
-        File json;
-        json = new File(pathname);
-
-        try {
-            br = new BufferedReader(new FileReader(json));
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "File non trovato", e);
+    public StrategyCardDeserializer(String path) {
+        String[] tokens = path.split("/");
+        if (tokens[0].equalsIgnoreCase("src")){
+            File file;
+            file = new File(path);
+            try{
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e){
+                LOGGER.log(Level.SEVERE, "File non trovato", e);
+            }
+        }
+        else{
+            try{
+                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path)));
+            }
+            catch (NullPointerException e){
+                LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
+            }
         }
     }
 

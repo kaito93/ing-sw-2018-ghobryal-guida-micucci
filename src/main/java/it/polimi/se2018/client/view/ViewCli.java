@@ -20,7 +20,7 @@ import java.util.logging.Level;
  */
 public class ViewCli extends View {
 
-    private Scanner scanner = new Scanner(System.in);
+    private transient Scanner scanner = new Scanner(System.in);
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     /**
@@ -694,7 +694,6 @@ public class ViewCli extends View {
             default:
                 break;
         }
-
     }
 
     /**

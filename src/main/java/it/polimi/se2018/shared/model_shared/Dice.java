@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class Dice implements Serializable, Cloneable {
 
+    private String[] dataColor = {"\u2718","\u0031","\u0032","\u0033","\u0034","\u0035","\u0036",null};
     private int value;
     private Color color;
 
@@ -24,8 +25,6 @@ public class Dice implements Serializable, Cloneable {
         throwDice();
         color = null;
     }
-
-
 
     /**
      * throw the dice with a value between 1 and 6
@@ -89,36 +88,8 @@ public class Dice implements Serializable, Cloneable {
      */
     @Override
     public String toString() {
-        String a;
-        switch (value) {
-            case 0:
-                a="\u2718";
-                break;
-            case 1:
-                a = "\u0031";
-                break;
-            case 2:
-                a = "\u0032";
-                break;
-            case 3:
-                a = "\u0033";
-                break;
-            case 4:
-                a = "\u0034";
-                break;
-            case 5:
-                a = "\u0035";
-                break;
-            case 6:
-                a = "\u0036";
-                break;
-            default:
-                a=null;
-                break;
-        }
-        return a;
+        return dataColor[value];
     }
-
     /**
      * creates a symbolic null dice
      * @return a symbolic null dice

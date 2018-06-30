@@ -3,8 +3,7 @@ package it.polimi.se2018.shared.message_socket.message_tools;
 import it.polimi.se2018.server.controller.Controller;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
-import it.polimi.se2018.shared.message_socket.server_to_client.MessageCV;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +12,10 @@ import java.util.List;
  * @author Samuele Guida
  */
 
-public class MessageTapWheel implements MessageCV, MessageVC {
+public class MessageTapWheel extends MessageTool {
 
     private static final long serialVersionUID = 6570985689428029947L;
 
-    private String title;
     private Dice diceRoundScheme;
     private int row1Dest;
     private int column1Dest;
@@ -46,20 +44,6 @@ public class MessageTapWheel implements MessageCV, MessageVC {
     public void accept(Controller controller) {
         controller.manageTap(title,row1Mit,row2Mit,col1Mit,col2Mit,diceRoundScheme,row1Dest,column1Dest,diceToMove,
                 row2Dest,column2Dest,posDiceinSchemeRound);
-    }
-    /**
-     * method that set the title of a card
-     * @param title a string
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    /**
-     * method that return the title of the card
-     * @return a string
-     */
-    public String getTitle() {
-        return title;
     }
     /**
      * method that set the initial row of the second dice

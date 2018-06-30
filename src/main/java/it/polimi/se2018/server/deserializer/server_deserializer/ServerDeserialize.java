@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.shared.Logger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 
@@ -27,14 +24,25 @@ public class ServerDeserialize {
      * @param path string that refer to the json file
      */
     public ServerDeserialize(String path){
-        File file;
-        gson = new Gson();
-        file = new File(path);
-        try {
-            br = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "File non trovato", e);
+        String[] tokens = path.split("/");
+        if (tokens[0].equalsIgnoreCase("src")){
+            File file;
+            file = new File(path);
+            try{
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e){
+                LOGGER.log(Level.SEVERE, "File non trovato", e);
+            }
         }
+        else{
+            try{
+                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path)));
+            }
+            catch (NullPointerException e){
+                LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
+            }
+        }
+        gson = new Gson();
     }
 
     /**
