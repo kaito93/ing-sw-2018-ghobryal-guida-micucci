@@ -43,16 +43,19 @@ public class Server implements Remote {
     private int time;
     private Timer timer = new Timer();
     private ArrayList<Lobby> lobbies = new ArrayList<>();
+    private int portRMI;
 
     /**
      * constructor class
      *
      * @param port  an integer used for the port where the server can listen new request
      * @param timer an integer used for to wait a new player
+     * @param portRMI an integer used for the port where the server can listen new request RMI
      */
-    public Server(int port, int timer) {
+    public Server(int port, int timer, int portRMI) {
         this.time = timer;
         this.port = port;
+        this.portRMI = portRMI;
     }
 
     /**
@@ -116,13 +119,13 @@ public class Server implements Remote {
 
     private Registry createRegistry(){
         try {
-            registry = LocateRegistry.createRegistry(1100);
+            registry = LocateRegistry.createRegistry(portRMI);
         }catch (RemoteException e1){
             LOGGER.log(Level.INFO, "Registro già presente");
             try {
-                registry = LocateRegistry.getRegistry(1100);
+                registry = LocateRegistry.getRegistry(portRMI);
             } catch (RemoteException e) {
-                LOGGER.log(Level.SEVERE, "Porta 1100 occupata", e);
+                LOGGER.log(Level.SEVERE, "Porta " + portRMI+ " occupata", e);
             }
         }
         return registry;
@@ -261,11 +264,12 @@ public class Server implements Remote {
 
         int porta = serv.getSs().getPort();
         int timer = serv.getSs().getTime();
+        int portaRMI = serv.getSs().getPortRMI();
 
         // QUI PUOI CHIUDERE IL BUFFER READER
 
         Server server;
-        server = new Server(porta, timer);
+        server = new Server(porta, timer, portaRMI);
 
         server.start();
 

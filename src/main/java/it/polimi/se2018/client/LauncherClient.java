@@ -40,6 +40,7 @@ public class LauncherClient {
         int port = clien.getCs().getPort();
         String ip = clien.getCs().getIp();
         int timer = clien.getCs().getTimerTurn();
+        int portRMI = clien.getCs().getPortRMI();
 
         Application.launch(LoginMain.class);
         String username = LoginMain.getUsername();
@@ -71,7 +72,7 @@ public class LauncherClient {
             } else if ("rmi".equalsIgnoreCase(choiceConnection)){
                 ConnectionClientRMI clientRMI;
                 try {
-                    Registry registry = LocateRegistry.getRegistry(1100);
+                    Registry registry = LocateRegistry.getRegistry(portRMI);
                     ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
                     clientRMI = new ConnectionClientRMI(view, username);
                     connectionServer.setClientRMI(clientRMI,username);

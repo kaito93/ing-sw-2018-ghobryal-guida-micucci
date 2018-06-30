@@ -9,6 +9,7 @@ public class ClientStructure {
     private int port;
     private String ip;
     private int timerTurn;
+    private int portRMI;
 
     /**
      * setter class for the ip number
@@ -52,10 +53,10 @@ public class ClientStructure {
     }
 
     /**
-     * setter method for the timer for the turn
-     * @param timerTurn to be assigned to the timer
+     * getter method to get the port RMI number
+     * @return an integer represent the port number
      */
-    public void setTimerTurn(int timerTurn) {
-        this.timerTurn = timerTurn;
+    public int getPortRMI() {
+        return portRMI;
     }
 }

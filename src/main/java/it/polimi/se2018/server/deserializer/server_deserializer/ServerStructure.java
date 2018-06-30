@@ -8,9 +8,10 @@ public class ServerStructure {
 
     private int time;
     private int port;
+    private int portRMI;
 
     /**
-     * method to set the port number
+     * method to set the port number socket
      * @param port an integer represent the port that has to be setted
      */
     public void setPort(int port) {
@@ -27,7 +28,7 @@ public class ServerStructure {
     }
 
     /**
-     * method to get the number of port for the connections
+     * method to get the number of port for the connection socket
      * @return an integer that represent the port to make the network for socket
      */
     public int getPort() {
@@ -40,5 +41,19 @@ public class ServerStructure {
      */
     public int getTime() {
         return time;
+    }
+    /**
+     * method to set the port number for RMI
+     * @param portRMI an integer represent the port that has to be setted
+     */
+    public void setPortRMI(int portRMI) {
+        this.portRMI = portRMI;
+    }
+    /**
+     * method to get the number of port for the connection RMI
+     * @return an integer that represent the port to make the network for socket
+     */
+    public int getPortRMI() {
+        return portRMI;
     }
 }
