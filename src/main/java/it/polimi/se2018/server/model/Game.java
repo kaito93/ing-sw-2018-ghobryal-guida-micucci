@@ -85,10 +85,7 @@ public class Game {
 
         toolCards = new ArrayList<>();
 
-        toolCards.add(tools.get(6));
-        tools.remove(6);
-
-        for (int k=0; k<2; k++) { // per 3 volte
+        for (int k=0; k<3; k++) { // per 3 volte
 
             Random random = new Random();
 

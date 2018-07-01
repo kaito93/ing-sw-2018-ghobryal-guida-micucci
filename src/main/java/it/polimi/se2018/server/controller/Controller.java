@@ -548,15 +548,13 @@ public class Controller {
 
     /**
      * method that manages the card Flux Remover
-     * @param firstMessage if the card is used
      * @param title of the card
      * @param dice the chosen dice
      * @param row       row's coordinate where to position the dice
      * @param column    column's coordinate where to position the dice
      */
-    public void manageFluxRemover(boolean firstMessage, String title, Dice dice, int row, int column) {
+    public void manageFluxRemover(String title, Dice dice, int row, int column) {
         if (!setDice) {
-            if (firstMessage) {
                 if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, row, column, getGame().getDiceBag().getBox(),
                        0, 0, null, null, null, 0)) {
                     getGame().getStock().add(dice);
@@ -565,18 +563,24 @@ public class Controller {
                     setSetDice(A);
                     setTools();
                 }
-
-            } else {
-                getGame().getDiceBag().getBox().add(dice);
-                getGame().removeDiceStock(dice);
-                Collections.shuffle(getGame().getDiceBag().getBox());
-                dice = getGame().getDiceBag().getBox().remove(0);
-                getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurn()));
-            }
         } else
             manageError(ERR);
 
     }
+
+    /**
+     * method that extract a new dice from the dice bag and remove the before dice in the stock
+     * @param title string, title of the this tool card
+     * @param dice the dice to be reset
+     */
+    public void manageFluxRemoverExtractDice(String title, Dice dice){
+        getGame().getDiceBag().getBox().add(dice);
+        getGame().removeDiceStock(dice);
+        Collections.shuffle(getGame().getDiceBag().getBox());
+        dice = getGame().getDiceBag().getBox().remove(0);
+        getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurn()));
+    }
+
 
     /**
      * method that manages the card Glazing

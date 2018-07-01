@@ -223,7 +223,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     }
 
     public void fluxRemoverSet(String title, boolean firstMessage, Dice dice, int row, int column){
-        vView.getController().manageFluxRemover(firstMessage, title, dice, row, column);
+        //vView.getController().manageFluxRemover(firstMessage, title, dice, row, column);
     }
 
     @Override
