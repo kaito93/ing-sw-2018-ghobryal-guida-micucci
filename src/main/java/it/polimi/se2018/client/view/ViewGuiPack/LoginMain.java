@@ -18,6 +18,8 @@ public class LoginMain extends Application {
     private static String username;
     private static String connections;
     private static String uint;
+    private static String ip;
+    private static int port;
 
 
     public LoginMain() {
@@ -36,8 +38,14 @@ public class LoginMain extends Application {
         RadioButton radioGUI;
         Label labelGui;
         Label labelConnection;
+        Label port = new Label("Porta");
+        Label ip = new Label("IP");
+        TextField portField = new TextField();
+        TextField ipField = new TextField("ciao popolo");
 
         HBox horizontalUsername = new HBox(100);
+        HBox horizontalIP = new HBox(100);
+        horizontalIP.getChildren().addAll(ip,ipField);
 
         HBox horizontalUI = new HBox(3);
         HBox horizontalConnections = new HBox(3);
@@ -80,7 +88,9 @@ public class LoginMain extends Application {
                 else
                     tmpConnections = radioRMI.getText();
 
-                assignValue(tmpUser, tmpConnections, tmpUI);
+                System.out.println(ipField.getText());
+
+                assignValue(tmpUser, tmpConnections, tmpUI, ipField.getText(), portField.getText());
                 Platform.exit();
             } else {
                 try {
@@ -94,16 +104,18 @@ public class LoginMain extends Application {
 
         horizontalConnections.getChildren().addAll(labelConnection, radioSocket, radioRMI);
 
-        vertical.getChildren().addAll(horizontalUsername, horizontalUI, horizontalConnections, invio);
+        vertical.getChildren().addAll(horizontalUsername, horizontalUI, horizontalConnections, horizontalIP, invio);
         scene = new Scene(vertical, 600, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private static void assignValue(String utente, String connessioni, String ui) {
+    private static void assignValue(String utente, String connessioni, String ui, String ipText, String portFieldText) {
         username = utente;
         connections = connessioni;
         uint = ui;
+        ip = ipText;
+        port = Integer.decode(portFieldText);
 
     }
 
@@ -119,5 +131,20 @@ public class LoginMain extends Application {
         return uint;
     }
 
+    public static void setIp(String IpAddress){
+        ip = IpAddress;
+    }
+
+    public static void setPort(int porta){
+        port = porta;
+    }
+
+    public static String getIp() {
+        return ip;
+    }
+
+    public static int getPort() {
+        return port;
+    }
 }
 

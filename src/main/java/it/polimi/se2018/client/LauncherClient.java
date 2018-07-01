@@ -42,6 +42,9 @@ public class LauncherClient {
         int timer = clien.getCs().getTimerTurn();
         int portRMI = clien.getCs().getPortRMI();
 
+        LoginMain.setIp(ip);
+        LoginMain.setPort(port);
+
         Application.launch(LoginMain.class);
         String username = LoginMain.getUsername();
         String choiceConnection = LoginMain.getConnections();
