@@ -177,6 +177,8 @@ public class ViewCli extends View {
                         map = true;
                     }
                     if (choose.equalsIgnoreCase("6")) {
+                        printBold("Carte utensili: ");
+                        printTools();
                         printBold("Carte obiettivo pubbliche: ");
                         for (int i = 0; i < gameStatus.getTitlePublicObjective().size(); i++) {
                             addLog("");
@@ -441,6 +443,7 @@ public class ViewCli extends View {
     @Override
     public List<Object> manageCE() {
         // Dice, RowDest, ColumnDect, rowMit, ColumnMit
+        setTimer();
         ArrayList<Object> obj = new ArrayList<>();
         List<Integer> obj2 = askDiceMap();
         addLog("Seleziona dove vuoi piazzare il dado scelto:");
@@ -450,6 +453,7 @@ public class ViewCli extends View {
         obj.add(obj3.get(1));
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
+        cancelTimer();
         return obj;
     }
 
@@ -501,6 +505,7 @@ public class ViewCli extends View {
      */
     public List<Object> manageLathekin() {
         //int row1,int column1, row1dest, column1dest, int row2, int column2, row2dest, column2dest, ArrayList<Dice> dices
+        setTimer();
         ArrayList<Object> obj = new ArrayList<>();
         ArrayList<Dice> dices = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -520,6 +525,7 @@ public class ViewCli extends View {
             obj.add(obj3.get(1));
         }
         obj.add(dices);
+        cancelTimer();
         return obj;
     }
 
@@ -531,6 +537,7 @@ public class ViewCli extends View {
     @Override
     public List<Object> manageLens() {
         //Dice dicStock2,Dice diceRound, int numberRound,row,column
+        setTimer();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(gameStatus.getStock().get(askDiceStock()));
         List<Object> obj2 = askDiceRound();
@@ -539,6 +546,7 @@ public class ViewCli extends View {
         List<Integer> obj3 = askDiceMap();
         obj.add(obj3.get(0));
         obj.add(obj3.get(1));
+        cancelTimer();
         return obj;
     }
 
@@ -552,6 +560,7 @@ public class ViewCli extends View {
     public List<Object> manageTap() {
         //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit, int row2Dest, int column2Dest,
         // Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
+        setTimer();
         ArrayList<Object> obj = new ArrayList<>();
         ArrayList<Dice> obj2 = new ArrayList<>();
         List<Object> obj3;
@@ -585,6 +594,7 @@ public class ViewCli extends View {
         }
         obj.add(obj2);
         obj.add(obj3.get(1));
+        cancelTimer();
         return obj;
     }
 
@@ -596,12 +606,14 @@ public class ViewCli extends View {
     @Override
     public List<Object> manageCork() {
         // Dice, row, column
+        setTimer();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(gameStatus.getStock().get(askDiceStock()));
         addLog("Seleziona le coordinate dove posizionare il dado:");
         List<Integer> obj2 = askRowColumn();
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
+        cancelTimer();
         return obj;
     }
 
@@ -766,6 +778,7 @@ public class ViewCli extends View {
     @Override
     public List<Object> managefluxBrush() {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
+        setTimer();
         ArrayList<Object> obj = new ArrayList<>();
         Dice diceBefore = gameStatus.getStock().get(askDiceStock());
         Dice diceAfter = null;
@@ -784,6 +797,7 @@ public class ViewCli extends View {
         obj.add(diceAfter);
         obj.add(obj2.get(0));
         obj.add(obj2.get(1));
+        cancelTimer();
         return obj;
     }
 
@@ -795,6 +809,7 @@ public class ViewCli extends View {
      */
     @Override
     public List<Object> manageFluxRemove2(Dice dice) {
+        setTimer();
         int valore = 0;
         boolean ok = false;
         while (!ok) {

@@ -224,7 +224,7 @@ public interface ConnectionServer extends Remote,Serializable {
 
     void setClientRMI(ConnectionClient stub, String username) throws RemoteException;
 
-    void receiveMessage() throws RemoteException;
+    boolean receiveMessage() throws RemoteException;
 
     void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit,
                 int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest, int column2Dest,

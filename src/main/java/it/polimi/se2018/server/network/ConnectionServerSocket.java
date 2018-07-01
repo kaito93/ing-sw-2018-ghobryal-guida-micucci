@@ -534,15 +534,18 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     /**
      * method that listen for a new message socket
      */
-    public void receiveMessage() {
+    public boolean receiveMessage() {
         try {
             MessageVC message = (MessageVC) getInput().readUnshared();
             if (message instanceof MessageDisconnect) {
                 connected = false;
                 LOGGER.log(Level.OFF, PLAYER + " {0} non ha effettuato una mossa in tempo\n" +
                         "l'ho messo in sospensione", getUsername());
-            } else
+            } else{
                 update(message);
+                return true;
+            }
+
         } catch (IOException e) {
             connected = false;
             if (client.isConnected())
@@ -553,6 +556,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
 
             LOGGER.log(Level.OFF, PLAYER + getUsername() + " si è disconnesso. Non manda dati corretti", e);
         }
+        return false;
     }
 
     @Override
@@ -578,6 +582,11 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     @Override
     public void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) throws RemoteException {
         //solo per RMI
+    }
+
+    @Override
+    public void fluxRemoverSet(String title, boolean firstMessage, Dice dice, int row, int column) throws RemoteException {
+        // solo per RMI
     }
 
     @Override

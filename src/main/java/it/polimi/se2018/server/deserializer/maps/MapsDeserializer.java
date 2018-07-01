@@ -56,6 +56,7 @@ public class MapsDeserializer extends Observable {
                 LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
             }
         }
+        gson = new Gson();
         mapsJsonJava = new ArrayList<>();
         blank = new BlankCellBuilder();
         value = new ValueCellBuilder();

@@ -150,7 +150,7 @@ public class VirtualView implements Serializable {
         private void receive(){
             while (connected) {
                 try {
-                    client.receiveMessage();
+                    connected=client.receiveMessage();
                 } catch (RemoteException e) {
                     LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
                 }
@@ -526,7 +526,7 @@ public class VirtualView implements Serializable {
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
-        notTerminate = true;
+        notTerminate = false;
     }
 
     /**

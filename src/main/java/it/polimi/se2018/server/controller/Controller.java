@@ -126,7 +126,6 @@ public class Controller {
     public void updatePlayers(Player player) {
         playersInRound.remove(player);
         playersInRound.remove(player);
-        players.remove(player);
         turn--;
         if (players.size() == 1)
             view.manageVictoryAbbandon();
@@ -164,7 +163,6 @@ public class Controller {
 
                             // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
                             view.sendMessageTurn(playersInRound, turn,setDice,useTools);
-
                             b = false;
                             waitMove();
                             if (view.isTermi() && !disconnect) {
@@ -559,7 +557,7 @@ public class Controller {
     public void manageFluxRemover(boolean firstMessage, String title, Dice dice, int row, int column) {
         if (!setDice) {
             if (firstMessage) {
-                if (!getGame().searchToolCard(title).useTool(null, dice, row, column, getGame().getDiceBag().getBox(),
+                if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, row, column, getGame().getDiceBag().getBox(),
                        0, 0, null, null, null, 0)) {
                     getGame().getStock().add(dice);
                     manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
@@ -605,12 +603,12 @@ public class Controller {
      */
     public void manageGrinding(String title, Dice dice, int row, int column, Dice diceBefore) {
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(null, dice, 0, 0, null, row,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, 0, 0, null, row,
                     column, null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
 
             } else {
-                getGame().getStock().remove(diceBefore);
+                getGame().removeDiceStock(diceBefore);
                 setSetDice(A);
                 setTools();
             }
@@ -629,11 +627,11 @@ public class Controller {
     public void manageGrozing(String title, Dice dice, int rowDest, int colDest) {
         if (!setDice) {
 
-            if (!getGame().searchToolCard(title).useTool(null, dice, rowDest, colDest, null, 0, 0,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, rowDest, colDest, null, 0, 0,
                     null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             } else {
-                getGame().getStock().remove(dice);
+                getGame().removeDiceStock(dice);
                 setSetDice(A);
                 setTools();
             }
@@ -661,7 +659,7 @@ public class Controller {
         getGame().searchToolCard(title).getStrategy().setRow3(row1Mit);
         getGame().searchToolCard(title).getStrategy().setRow4(row2Mit);
         getGame().searchToolCard(title).getStrategy().setColumn3(col1Mit);
-        getGame().searchToolCard(title).getStrategy().setRow3(col2Mit);
+        getGame().searchToolCard(title).getStrategy().setColumn4(col2Mit);
         if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()),
                 null, row1Dest, column1Dest, dices, row2Dest, column2Dest, null, null, null,
                 0))
@@ -681,7 +679,7 @@ public class Controller {
      */
     public void manageLens(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(null, diceStock, numberRound, 0, getGame().getStock(),
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), diceStock, numberRound, 0, getGame().getStock(),
                     row, column, diceRound, getGame().getRoundSchemeMap(), null, 0))
             {
                 getGame().getStock().add(diceRound);

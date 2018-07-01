@@ -67,12 +67,13 @@ public class RoundSchemeCell implements Serializable {
             restOfStock.addAll(toAdd);
         }
         else{
-            if (restOfStock.get(0).getValue() == 0)
+            if (restOfStock.get(0).getValue() == 0){
+                restOfStock.remove(0);
                 restOfStock.addAll(0, toAdd);
+            }
             else
                 restOfStock.addAll(toAdd);
         }
-
     }
 }
 

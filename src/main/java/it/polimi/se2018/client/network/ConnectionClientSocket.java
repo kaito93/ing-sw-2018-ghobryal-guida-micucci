@@ -269,11 +269,7 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * @param message message_socket received by server
      */
     public void visit(MessageCorkBackedStraightedge message) {
-        List<Object> obj = view.manageCork();
-        message.setDice((Dice) obj.get(0));
-        message.setRowDest((int) obj.get(1));
-        message.setColumnDest((int) obj.get(2));
-        update(message);
+        runningCork(message);
     }
 
     /**
@@ -386,10 +382,19 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * @param message message_socket received by server
      */
     public void visit(MessageRunningPliers message) {
+        runningCork(message);
+    }
+
+    /**
+     * method that join the request for the tool cards Running pliers and Corkbacked
+     * @param message a message tool
+     */
+    private void runningCork(MessageTool message){
         List<Object> obj = view.manageCork();
         message.setDice((Dice) obj.get(0));
         message.setRowDest((int) obj.get(1));
         message.setColumnDest((int) obj.get(2));
+        update(message);
     }
 
     /**
@@ -573,6 +578,11 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
 
     @Override
     public void fluxBrush(String title) throws RemoteException {
+        //solo per RMI
+    }
+
+    @Override
+    public void fluxRemover(String title, boolean firstMessage) throws RemoteException {
         //solo per RMI
     }
 

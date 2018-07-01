@@ -56,12 +56,20 @@ public class ViewGui extends View {
     @Override
     public List<Object> manageCE() {
         // Dice scelto, RowDestinazione, ColumnDestinazione, rowMittente, ColumnMittente
+        setTimer();
+        // fai cose
+        // prima di ritornare si chiude il timer
+        cancelTimer();
+        // solo dopo aver chiuso il timer si ritorna
         return null;
     }
 
     @Override
     public Dice managefluxRemove() {
         //Dice dice da riserva
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 
@@ -85,13 +93,18 @@ public class ViewGui extends View {
 
     public List<Object> manageLathekin() {
         //int row1mit,int column1mit, row1dest, column1dest, int row2mit, int column2mit, row2dest, column2dest, ArrayList<Dice> dices
-
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 
     @Override
     public List<Object> manageLens() {
         //Dice dicStock2,Dice diceRound, int numberRound,row,column
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 
@@ -99,25 +112,36 @@ public class ViewGui extends View {
     public List<Object> manageTap() {
         //Dice diceRound,  int row1Mit, int column1Mit, int row1Dest, int column1Dest, int row2Mit, int column2Mit, int row2Dest, int column2Dest,
         // Arraylist Dice (dice1, Dice dice2), posizione dado in roundscheme
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 
     @Override
     public List<Object> manageCork() {
         // Dice, row, column
-
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 
     @Override
     public List<Object> managefluxBrush() {
         // dice dicebefore, dice diceafter, int rowdest, int columndest
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 
     @Override
     public List<Object> manageFluxRemove2(Dice dice) {
         // dice row column
+        setTimer();
+        // fai cose
+        cancelTimer();
         return null;
     }
 

@@ -241,7 +241,7 @@ public class Server implements Remote {
         if (clients.isEmpty()) {
             clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
             TimerCount count = new TimerCount(); //inizializza il timer
-            this.timer.schedule(count, 0, time / 20); // fa partire il timer
+            timer.schedule(count, 0, time / 20); // fa partire il timer
         } else {
             if (checkUsername(user)) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
                 clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore

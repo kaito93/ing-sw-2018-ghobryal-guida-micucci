@@ -429,8 +429,9 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     }
 
     @Override
-    public void receiveMessage() {
+    public boolean receiveMessage() {
         //usato solo da socket
+        return true;
     }
 
     public void setStub(ConnectionClient stub) {
