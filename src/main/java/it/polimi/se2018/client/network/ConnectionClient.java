@@ -89,7 +89,9 @@ public interface ConnectionClient extends Remote, Serializable {
 
     void fluxBrush(String title) throws RemoteException;
 
-    void fluxRemover(String title, boolean firstMessage) throws RemoteException;
+    Dice fluxRemover() throws RemoteException;
+
+    void fluxRemover2(String title, Dice dice) throws RemoteException;
 
     void grinding(String title) throws RemoteException;
 
@@ -99,7 +101,7 @@ public interface ConnectionClient extends Remote, Serializable {
 
     void lens(String title) throws RemoteException;
 
-    public void running(String title) throws RemoteException;
+    void running(String title) throws RemoteException;
 
-    public void handleError(String error) throws RemoteException;
+    void handleError(String error) throws RemoteException;
 }

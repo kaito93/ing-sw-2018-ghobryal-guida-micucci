@@ -344,6 +344,21 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
+     * method that manage the second send for the tool card "Flux Remover"
+     *
+     * @param title the title of this card
+     */
+    @Override
+    public void manageFluxRemover2(Dice dice, String title) {
+        MessageFluxRemover message = new MessageFluxRemover();
+        message.setTitle(title);
+        message.setDice(dice);
+        message.setFirstMessage(true);
+        mex = new Message(Message.CVEVENT, message);
+        send(mex);
+    }
+
+    /**
      * method that manage the send for the tool card "Flux Brush"
      *
      * @param title the title of this card
@@ -408,21 +423,6 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         MessageError message = new MessageError();
         message.setErrorMessage(error);
         mex = new Message(Message.SYSTEMEVENT, message);
-        send(mex);
-    }
-
-    /**
-     * method that manage the second send for the tool card "Flux Remover"
-     *
-     * @param title the title of this card
-     */
-    @Override
-    public void manageFluxRemover2(Dice dice, String title) {
-        MessageFluxRemover message = new MessageFluxRemover();
-        message.setTitle(title);
-        message.setDice(dice);
-        message.setFirstMessage(true);
-        mex = new Message(Message.CVEVENT, message);
         send(mex);
     }
 
@@ -585,8 +585,8 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     @Override
-    public void fluxRemoverSet(String title, boolean firstMessage, Dice dice, int row, int column) throws RemoteException {
-        // solo per RMI
+    public void fluxRemoverSet(String title, Dice dice, int row, int column) throws RemoteException {
+        //solo per RMI
     }
 
     @Override

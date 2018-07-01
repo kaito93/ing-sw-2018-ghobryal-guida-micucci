@@ -577,8 +577,9 @@ public class Controller {
         getGame().getDiceBag().getBox().add(dice);
         getGame().removeDiceStock(dice);
         Collections.shuffle(getGame().getDiceBag().getBox());
-        dice = getGame().getDiceBag().getBox().remove(0);
-        getView().manageFluxRemover2(dice, title, getPlayersInRound().get(getTurn()));
+        Dice dice1 = getGame().getDiceBag().getBox().remove(0);
+        dice1.throwDice();
+        getView().manageFluxRemover2(dice1, title, getPlayersInRound().get(getTurn()));
     }
 
 

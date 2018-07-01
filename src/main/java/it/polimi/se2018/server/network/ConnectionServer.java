@@ -238,7 +238,7 @@ public interface ConnectionServer extends Remote,Serializable {
 
     void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) throws RemoteException;
 
-    void fluxRemoverSet(String title, boolean firstMessage, Dice dice, int row, int column) throws RemoteException;
+    void fluxRemoverSet(String title, Dice dice, int row, int column) throws RemoteException;
 
     void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore) throws RemoteException;
 

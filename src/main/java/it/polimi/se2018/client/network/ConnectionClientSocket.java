@@ -582,7 +582,13 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     }
 
     @Override
-    public void fluxRemover(String title, boolean firstMessage) throws RemoteException {
+    public Dice fluxRemover() throws RemoteException {
+        //solo per RMI
+        return null;
+    }
+
+    @Override
+    public void fluxRemover2(String title, Dice dice) throws RemoteException {
         //solo per RMI
     }
 

@@ -33,7 +33,7 @@ public class MessageFluxRemover extends MessageTool {
     @Override
     public void accept(Controller controller) {
 
-        if (!firstMessage)
+        if (firstMessage)
             controller.manageFluxRemover(title,dice,rowDest,columnDest);
         else
             controller.manageFluxRemoverExtractDice(title,dice);

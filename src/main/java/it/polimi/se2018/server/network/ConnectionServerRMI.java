@@ -216,23 +216,25 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     @Override
     public void manageFluxRemover(String title) {
         try {
-            stub.fluxRemover(title, false);
+            vView.getController().manageFluxRemoverExtractDice(title, stub.fluxRemover());
         } catch (RemoteException e) {
+            connected=false;
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
-    }
-
-    public void fluxRemoverSet(String title, boolean firstMessage, Dice dice, int row, int column){
-        //vView.getController().manageFluxRemover(firstMessage, title, dice, row, column);
     }
 
     @Override
     public void manageFluxRemover2(Dice dice, String title) {
         try {
-            stub.fluxRemover(title, true);
+            stub.fluxRemover2(title, dice);
         } catch (RemoteException e) {
+            connected=false;
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
+    }
+
+    public void fluxRemoverSet(String title, Dice dice, int row, int column){
+        vView.getController().manageFluxRemover(title, dice, row, column);
     }
 
     @Override
@@ -373,6 +375,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             ((ConnectionServerRMI) temp).setStub(stub);
             return temp;
         } catch (RemoteException e) {
+            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         return null;
