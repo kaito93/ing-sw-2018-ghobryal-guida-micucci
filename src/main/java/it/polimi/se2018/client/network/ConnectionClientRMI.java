@@ -30,6 +30,8 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
     private transient View view;
     private transient String username;
 
+    private Dice a;
+
     public ConnectionClientRMI(View view, String username) throws RemoteException {
         super();
         this.view=view;
@@ -174,6 +176,24 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
             skeleton.runningSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void fluxRemover(String title, boolean firstMessage){
+        if(!firstMessage){
+            a=view.managefluxRemove();
+            try {
+                skeleton.manageFluxRemover2(a, title);
+            } catch (RemoteException e) {
+                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            }
+        }else {
+            List<Object> obj = view.manageFluxRemove2(a);
+            try {
+                skeleton.fluxRemoverSet(title, true, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
+            } catch (RemoteException e) {
+                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            }
         }
     }
 

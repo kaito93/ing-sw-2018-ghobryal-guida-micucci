@@ -89,6 +89,8 @@ public interface ConnectionClient extends Remote, Serializable {
 
     void fluxBrush(String title) throws RemoteException;
 
+    void fluxRemover(String title, boolean firstMessage) throws RemoteException;
+
     void grinding(String title) throws RemoteException;
 
     void grozing(String title) throws RemoteException;
