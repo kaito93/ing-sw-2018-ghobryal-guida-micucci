@@ -46,7 +46,7 @@ public class MessageFluxRemover extends MessageTool {
     }
 
     /**
-     * methot that return true if this tool card has called before
+     * method that return true if this tool card has been called before
      * @return firstMessage boolean
      */
     public boolean isFirstMessage() {
@@ -54,7 +54,7 @@ public class MessageFluxRemover extends MessageTool {
     }
 
     /**
-     * methot that return the dice
+     * method that return the dice
      * @return firstMessage dice
      */
     public Dice getDice() {
