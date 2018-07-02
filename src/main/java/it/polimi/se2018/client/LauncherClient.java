@@ -31,6 +31,7 @@ public class LauncherClient {
     public static void main(String[] args) {
         ConnectionClient client;
         View view=null;
+        Registry registry;
 
         PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");
         path.deserializing();
@@ -74,23 +75,22 @@ public class LauncherClient {
                 condition=false;
             } else if ("rmi".equalsIgnoreCase(choiceConnection)){
                 ConnectionClientRMI clientRMI;
-                try {
-                    Registry registry = LocateRegistry.getRegistry(portRMI);
-                    ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
-                    clientRMI = new ConnectionClientRMI(view, username);
-                    connectionServer.setClientRMI(clientRMI,username);
-                    connectionServer.setUsername(username);
-                    clientRMI.setSkeleton(connectionServer);
-                    view.setClient(clientRMI);
-                    condition=false;
-                } catch (RemoteException e) {
-                    LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
-                } catch (NotBoundException e) {
-                    LOGGER.log(Level.SEVERE, "Oggetto Non Disponibile", e);
+                while (condition) {
+                    try {
+                        registry = LocateRegistry.getRegistry(portRMI);
+                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
+                        clientRMI = new ConnectionClientRMI(view, username);
+                        connectionServer.setClientRMI(clientRMI, username);
+                        connectionServer.setUsername(username);
+                        clientRMI.setSkeleton(connectionServer);
+                        view.setClient(clientRMI);
+                        condition = false;
+                    }catch (RemoteException | NotBoundException e){
+                        condition=true;
+                    }
                 }
             }
         }
-
     }
 
 }
