@@ -1,14 +1,10 @@
 package it.polimi.se2018.shared.path;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.shared.Deserializer;
-import it.polimi.se2018.shared.Logger;
 
-import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 /**
  * class that is used to deserializer the path of the file json to search

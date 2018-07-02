@@ -19,11 +19,6 @@ public abstract class StrategyCardDeserializer extends Deserializer {
     }
 
     /**
-     * method that deserializer the json file to an json transiction data structure, that is used to create the card objects
-     */
-    public abstract void deserializing();
-
-    /**
      * method that extract a cell from the arraylist of jsontransiction
      *
      * @param index of cell that need to be extract
@@ -35,5 +30,7 @@ public abstract class StrategyCardDeserializer extends Deserializer {
      * abstract method to set-up the observers of this class
      */
     public abstract void setUpObserver();
+
+    public abstract void totalDeserializing();
 
 }

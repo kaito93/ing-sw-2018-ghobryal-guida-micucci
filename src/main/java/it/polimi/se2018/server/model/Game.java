@@ -51,6 +51,7 @@ public class Game {
         path.deserializing();
 
         diceBag=new DiceBox(path.getPathFromType("dice")); // carica i dadi dal file json
+        diceBag.deserializing();
 
         stock = new ArrayList<>();
 
@@ -142,6 +143,7 @@ public class Game {
 
 
         DeckOfPrivateCards cards = new DeckOfPrivateCards(path.getPathFromType("private"));
+        cards.deserializing();
         return cards.getObjectiveCards();
 
     }

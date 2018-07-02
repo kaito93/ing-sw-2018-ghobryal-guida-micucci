@@ -1,27 +1,19 @@
 package it.polimi.se2018.server.deserializer;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
-import it.polimi.se2018.shared.Logger;
+import it.polimi.se2018.shared.Deserializer;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * class to create the deck of all the private cards saved in json file
  */
-public class DeckOfPrivateCards {
+public class DeckOfPrivateCards extends Deserializer {
 
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private BufferedReader br;
     private ArrayList<PrivateObjectiveCard> objectiveCards;
 
     /**
@@ -29,15 +21,15 @@ public class DeckOfPrivateCards {
      * @param path of the file to deserializer
      */
     public DeckOfPrivateCards(String path){
-        File json = new File(path);
-        try {
-            br = new BufferedReader(new FileReader(json));
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "File non trovato", e);
-        }
+        super(path);
+    }
+    /**
+     * deserialize the object
+     */
+    @Override
+    public void deserializing() {
         Type listPrivCards = new TypeToken<ArrayList<PrivateObjectiveCard>>(){}.getType();
-        Gson gson = new Gson();
-        objectiveCards = gson.fromJson(br, listPrivCards);
+        objectiveCards = getGson().fromJson(getBr(), listPrivCards);
     }
 
     /**

@@ -1,27 +1,19 @@
 package it.polimi.se2018.server.deserializer;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.se2018.shared.Deserializer;
 import it.polimi.se2018.shared.model_shared.Dice;
-import it.polimi.se2018.shared.Logger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 
 /** class DiceBox
  * contains all method to generate the DiceBox from the Json file
  * @author Andrea
  */
-public class DiceBox {
-
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+public class DiceBox extends Deserializer {
 
     private ArrayList<Dice> box;
 
@@ -31,17 +23,18 @@ public class DiceBox {
      */
     public DiceBox(String path) {
 
-        BufferedReader br=null;
-        try{
-            File json = new File(path);
-            br = new BufferedReader(new FileReader(json));
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "File non trovato", e);
-        }
+        super(path);
+
+    }
+
+    /**
+     * deserialize the object
+     */
+    @Override
+    public void deserializing() {
         Type listType = new TypeToken<ArrayList<Dice>>(){}.getType();
-        Gson gson = new Gson();
-        if (br != null)
-            box = gson.fromJson(br, listType);
+        if (getBr() != null)
+            box = getGson().fromJson(getBr(), listType);
 
         for (Dice aBox : box) {
             aBox.throwDice();

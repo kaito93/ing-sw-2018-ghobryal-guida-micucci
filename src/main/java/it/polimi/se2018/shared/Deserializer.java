@@ -10,14 +10,14 @@ import java.util.logging.Level;
  * class that help to deserialize a json file
  * @author Samuele Guida
  */
-public class Deserializer extends Observable {
+public abstract class Deserializer extends Observable {
     private Gson gson;
     private BufferedReader br;
     public static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     /**
      * public constructor that set the variables gson and buffer reader
-     * @param path
+     * @param path the path of the file
      */
     public Deserializer(String path){
         String[] tokens = path.split("/");
@@ -59,4 +59,8 @@ public class Deserializer extends Observable {
     public BufferedReader getBr() {
         return br;
     }
+    /**
+     * deserialize the object
+     */
+    public abstract void deserializing();
 }

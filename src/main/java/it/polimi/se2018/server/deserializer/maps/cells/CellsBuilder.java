@@ -16,7 +16,7 @@ import java.util.Observer;
 public abstract class CellsBuilder implements Observer {
 
     private String toBeCompared;
-    private it.polimi.se2018.shared.model_shared.Cell cell;
+    private Cell cell;
     private TransitionForMaps trans;
     private List<CellBuilder> cells;
     private EntireMap mappaIntera;
