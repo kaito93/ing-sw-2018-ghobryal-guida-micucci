@@ -15,8 +15,8 @@ import java.util.List;
 
 /**
  * Class ConnectionClient
- * @author Samuele Guida
  * Abstract class that manage the network between client and server. Side Client
+ * @author Samuele Guida, Anton Ghobryal
  */
 public interface ConnectionClient extends Remote, Serializable {
 
@@ -104,4 +104,6 @@ public interface ConnectionClient extends Remote, Serializable {
     void running(String title) throws RemoteException;
 
     void handleError(String error) throws RemoteException;
+
+    void receiveLostConnection(String text, int index) throws RemoteException;
 }

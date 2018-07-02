@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * abstract class that manage the connections between Server and Client server side
- * @author Samuele Guida
+ * @author Samuele Guida, Anton Ghobryal
  */
 public interface ConnectionServer extends Remote,Serializable {
 
@@ -257,5 +257,5 @@ public interface ConnectionServer extends Remote,Serializable {
 
     void passTurn() throws RemoteException;
 
-
+    void setConnected(boolean connected) throws RemoteException;
 }

@@ -17,7 +17,7 @@ import java.util.logging.Level;
 
 /**
  * Class ConnectionClientRMI
- * @author Anton
+ * @author Anton Ghobryal
  */
 
 public class ConnectionClientRMI extends UnicastRemoteObject implements ConnectionClient,Serializable {
@@ -29,8 +29,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
 
     private transient View view;
     private transient String username;
-
-    private boolean connected=false;
 
 
     public ConnectionClientRMI(View view, String username) throws RemoteException {
@@ -77,7 +75,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
             newClient.setUsername(view.askNewUsername());
             newClient.setSkeleton(skeleton);
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -94,7 +91,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
                     (int) obj.get(2), (int) obj.get(6), (int) obj.get(3), (int)obj.get(7), (int)obj.get(4),
                     (int)obj.get(8), (int)obj.get(10));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -104,7 +100,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.coppperSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -114,7 +109,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.corkSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -124,7 +118,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.eglomiseSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -134,7 +127,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.fluxBrushSet(title, (Dice) obj.get(1), (int) obj.get(2), (int) obj.get(3), (Dice) obj.get(0));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -144,7 +136,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.grindingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (Dice) obj.get(3));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -154,7 +145,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.grozingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -165,7 +155,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
             skeleton.lathekinSet(title, (int) obj.get(0), (int) obj.get(4), (int) obj.get(1), (int) obj.get(5),
                     (int) obj.get(2), (int) obj.get(3), (List<Dice>) obj.get(8), (int) obj.get(6), (int) obj.get(7));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -175,7 +164,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.lensSet(title, (Dice) obj.get(0), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4), (Dice) obj.get(1));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -185,7 +173,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.runningSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -199,7 +186,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.fluxRemoverSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -213,7 +199,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.posDice(dice, column, row);
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -223,7 +208,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.useTool(titleCardTool);
         } catch (RemoteException e) {
-            setDisconnected();
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -233,19 +217,27 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.passTurn();
         } catch (RemoteException e) {
-            setDisconnected();
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
+    }
+
+    public void receiveLostConnection(String text, int index){
+        view.updateIndex(index);
+        view.addError(text);
+    }
+
+    @Override
+    public void sendReconnect() {
+        try {
+            skeleton.setConnected(true);
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
     @Override
-    public void sendReconnect() {
-
-    }
-
-    @Override
     public void sendDisconnect() {
-
+        //non viene implementato in RMI
     }
 
     /**
@@ -262,10 +254,6 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
 
     public View getView() {
         return view;
-    }
-
-    public void setDisconnected() {
-        this.connected = false;
     }
 
     @Override

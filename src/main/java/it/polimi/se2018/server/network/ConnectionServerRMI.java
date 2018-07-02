@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * class ConnectionServerRMI
+ * @author Anton Ghobryal
+ */
+
 public class ConnectionServerRMI extends UnicastRemoteObject implements ConnectionServer,Serializable {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -375,7 +380,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             ((ConnectionServerRMI) temp).setStub(stub);
             return temp;
         } catch (RemoteException e) {
-            setDisconnected();
+            connected=false;
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         return null;
@@ -385,7 +390,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      * method that set the status of network
      */
     public void setDisconnected() {
-        this.connected = false;
+        connected = false;
     }
 
     @Override
@@ -395,27 +400,34 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
 
     @Override
     public void sendVictoryAbbandon() {
-
+        sendLostConnection("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)", -1);
     }
 
     @Override
     public void sendGainConnection(String text){
-
+        sendLostConnection(text, -1);
     }
 
     @Override
     public void sendAcceptReconnection(String text, int index) {
-
+        sendLostConnection(text, index);
     }
 
     @Override
     public void sendLostConnection(String text,int index) {
         // METODO PER INVIARE UNA STRINGA DI COMUNICAZIONE AI CLIENT CHE UN GIOCATORE SI E' DISCONNESSO.
+        try {
+            stub.receiveLostConnection(text, index);
+        } catch (RemoteException e) {
+            connected=false;
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
     }
 
     @Override
     public void tryReconnect() {
         // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
+
     }
 
 
@@ -433,8 +445,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
 
     @Override
     public boolean receiveMessage() {
-        //usato solo da socket
-        return true;
+        return connected;
     }
 
     public void setStub(ConnectionClient stub) {
@@ -451,5 +462,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         return super.hashCode();
     }
 
-
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
 }
