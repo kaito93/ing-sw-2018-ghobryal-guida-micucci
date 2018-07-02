@@ -156,12 +156,10 @@ public class VirtualView implements Serializable {
                 }
             }
             reconn();
-            for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
-            for (PlayerPlay aPlayerNotPlay : playerNotPlay) aPlayerNotPlay.closeThread();
+            closeThreadConnection();
+
 
         }
-
-
 
         /**
          * method that manage the reconnection for this player
@@ -246,6 +244,14 @@ public class VirtualView implements Serializable {
         private void closeThread() {
             this.interrupt();
         }
+    }
+
+    /**
+     * close every thread
+     */
+    private void closeThreadConnection(){
+        for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
+        for (PlayerPlay aPlayerNotPlay : playerNotPlay) aPlayerNotPlay.closeThread();
     }
 
     /**
