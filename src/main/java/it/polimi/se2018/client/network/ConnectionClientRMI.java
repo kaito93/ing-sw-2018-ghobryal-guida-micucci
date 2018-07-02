@@ -10,7 +10,9 @@ import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.io.Serializable;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,17 +26,20 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final String REMOTEERROR = "Errore di connessione: {0} !";
+    public static final String NAMEONREGISTER = "//localhost/ServerConnectionReference";
 
     private transient ConnectionServer skeleton;
 
     private transient View view;
     private transient String username;
+    private transient Registry registry;
 
 
-    public ConnectionClientRMI(View view, String username) throws RemoteException {
+    public ConnectionClientRMI(View view, String username, Registry registry) throws RemoteException {
         super();
         this.view=view;
         this.username=username;
+        this.registry=registry;
     }
 
 
@@ -71,7 +76,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
 
     public void requestNewUsernameRMI() {
         try {
-            ConnectionClientRMI newClient = new ConnectionClientRMI(view, username);
+            ConnectionClientRMI newClient = new ConnectionClientRMI(view, username, registry);
             newClient.setUsername(view.askNewUsername());
             newClient.setSkeleton(skeleton);
         } catch (RemoteException e) {
@@ -91,7 +96,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
                     (int) obj.get(2), (int) obj.get(6), (int) obj.get(3), (int)obj.get(7), (int)obj.get(4),
                     (int)obj.get(8), (int)obj.get(10));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    tapWheel(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -100,7 +113,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.coppperSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    copperFoil(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -109,7 +130,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.corkSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    corkbacked(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -118,7 +147,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.eglomiseSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    eglomise(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -127,7 +164,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.fluxBrushSet(title, (Dice) obj.get(1), (int) obj.get(2), (int) obj.get(3), (Dice) obj.get(0));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    fluxBrush(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -136,7 +181,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.grindingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (Dice) obj.get(3));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    grinding(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -145,7 +198,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.grozingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    grozing(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -155,7 +216,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
             skeleton.lathekinSet(title, (int) obj.get(0), (int) obj.get(4), (int) obj.get(1), (int) obj.get(5),
                     (int) obj.get(2), (int) obj.get(3), (List<Dice>) obj.get(8), (int) obj.get(6), (int) obj.get(7));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    lathekin(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -164,7 +233,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.lensSet(title, (Dice) obj.get(0), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4), (Dice) obj.get(1));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    lens(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -173,7 +250,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.runningSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    running(title);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -186,7 +271,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.fluxRemoverSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    fluxRemover2(title, dice);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -199,7 +292,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.posDice(dice, column, row);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    sendPosDice(dice, column, row);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -208,7 +309,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.useTool(titleCardTool);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    sendUseTool(titleCardTool);
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -217,7 +326,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.passTurn();
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    sendPassMove();
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 
@@ -231,7 +348,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.setConnected(true);
         } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    sendReconnect();
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
         }
     }
 

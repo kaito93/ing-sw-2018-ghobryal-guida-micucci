@@ -79,7 +79,7 @@ public class LauncherClient {
                     try {
                         registry = LocateRegistry.getRegistry(portRMI);
                         ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
-                        clientRMI = new ConnectionClientRMI(view, username);
+                        clientRMI = new ConnectionClientRMI(view, username, registry);
                         connectionServer.setClientRMI(clientRMI, username);
                         connectionServer.setUsername(username);
                         clientRMI.setSkeleton(connectionServer);
