@@ -1,5 +1,6 @@
 package it.polimi.se2018.shared.message_socket.server_to_client;
 
+import it.polimi.se2018.shared.message_socket.MessageMV;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;

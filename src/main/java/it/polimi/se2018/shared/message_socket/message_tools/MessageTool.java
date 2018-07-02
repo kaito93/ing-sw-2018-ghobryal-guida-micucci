@@ -1,7 +1,7 @@
 package it.polimi.se2018.shared.message_socket.message_tools;
 
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
-import it.polimi.se2018.shared.message_socket.server_to_client.MessageCV;
+import it.polimi.se2018.shared.message_socket.MessageVC;
+import it.polimi.se2018.shared.message_socket.MessageCV;
 import it.polimi.se2018.shared.model_shared.Dice;
 
 public abstract class MessageTool implements MessageVC, MessageCV {

@@ -1,6 +1,7 @@
 package it.polimi.se2018.shared.message_socket.server_to_client;
 
 import it.polimi.se2018.client.network.ConnectionClientSocket;
+import it.polimi.se2018.shared.message_socket.MessageSystem;
 
 /**
  * Class that manage the request of a new Username

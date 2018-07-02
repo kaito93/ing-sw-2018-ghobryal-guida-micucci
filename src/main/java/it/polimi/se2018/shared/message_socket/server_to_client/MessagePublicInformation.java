@@ -3,6 +3,7 @@ package it.polimi.se2018.shared.message_socket.server_to_client;
 import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
+import it.polimi.se2018.shared.message_socket.MessageCV;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * class that manage the public news in the game
  * @author Samuele Guida
  */
-public class MessagePublicInformation implements MessageCV{
+public class MessagePublicInformation implements MessageCV {
 
     private static final long serialVersionUID = -6430841943473871296L;
     private ArrayList<String> titlePublicObjective = new ArrayList<>();

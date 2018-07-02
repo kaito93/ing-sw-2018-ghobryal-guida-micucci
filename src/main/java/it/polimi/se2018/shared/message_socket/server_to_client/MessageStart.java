@@ -2,6 +2,7 @@ package it.polimi.se2018.shared.message_socket.server_to_client;
 
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
+import it.polimi.se2018.shared.message_socket.MessageCV;
 
 /**
  * Class that manage the private information

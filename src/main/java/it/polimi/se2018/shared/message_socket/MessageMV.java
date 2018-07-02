@@ -1,4 +1,4 @@
-package it.polimi.se2018.shared.message_socket.server_to_client;
+package it.polimi.se2018.shared.message_socket;
 
 import it.polimi.se2018.client.view.View;
 

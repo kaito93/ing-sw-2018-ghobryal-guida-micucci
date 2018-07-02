@@ -3,6 +3,7 @@ package it.polimi.se2018.shared.message_socket.server_to_client;
 import it.polimi.se2018.server.model.Map;
 import it.polimi.se2018.server.model.Player;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
+import it.polimi.se2018.shared.message_socket.MessageCV;
 
 import java.util.ArrayList;
 import java.util.List;

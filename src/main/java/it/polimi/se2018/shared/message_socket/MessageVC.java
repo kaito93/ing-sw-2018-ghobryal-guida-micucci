@@ -1,4 +1,4 @@
-package it.polimi.se2018.shared.message_socket.client_to_server;
+package it.polimi.se2018.shared.message_socket;
 
 import it.polimi.se2018.server.controller.Controller;
 

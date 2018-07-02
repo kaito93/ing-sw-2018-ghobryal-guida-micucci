@@ -12,7 +12,7 @@ import it.polimi.se2018.server.model.cards.PublicObjectiveCard;
 import it.polimi.se2018.server.model.cards.ToolCard;
 import it.polimi.se2018.shared.message_socket.server_to_client.Message;
 import it.polimi.se2018.shared.message_socket.message_tools.*;
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
+import it.polimi.se2018.shared.message_socket.MessageVC;
 import it.polimi.se2018.shared.message_socket.RequestReconnect;
 import it.polimi.se2018.shared.Logger;
 
@@ -628,6 +628,11 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     @Override
     public void passTurn() throws RemoteException {
         //solo per RMI
+    }
+
+    @Override
+    public void setConnected(boolean connected) throws RemoteException {
+        // solo per RMI
     }
 
     /**

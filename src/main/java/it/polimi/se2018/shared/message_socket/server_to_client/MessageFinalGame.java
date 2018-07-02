@@ -1,12 +1,13 @@
 package it.polimi.se2018.shared.message_socket.server_to_client;
 
 import it.polimi.se2018.client.network.ConnectionClientSocket;
+import it.polimi.se2018.shared.message_socket.MessageSystem;
 
 /**
  * class that manage the final message_socket from Server
  * @author Samuele Guida
  */
-public class MessageFinalGame implements MessageSystem{
+public class MessageFinalGame implements MessageSystem {
 
     private static final long serialVersionUID = 3911166895507190888L;
     private String message;

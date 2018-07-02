@@ -2,13 +2,15 @@ package it.polimi.se2018.shared.message_socket.client_to_server;
 
 import it.polimi.se2018.server.controller.Controller;
 import it.polimi.se2018.shared.Logger;
+import it.polimi.se2018.shared.message_socket.MessageVC;
+
 import java.util.logging.Level;
 
 /**
  * Class that contain information about a request of connection
  * @author Samuele Guida
  */
-public class RequestConnection implements MessageVC{
+public class RequestConnection implements MessageVC {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final long serialVersionUID = 762745222969866032L;
 

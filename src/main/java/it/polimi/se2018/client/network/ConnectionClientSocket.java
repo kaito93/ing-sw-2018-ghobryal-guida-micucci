@@ -1,7 +1,7 @@
 package it.polimi.se2018.client.network;
 
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
-import it.polimi.se2018.shared.message_socket.RequestReconnect;
+import it.polimi.se2018.shared.message_socket.*;
 import it.polimi.se2018.shared.message_socket.client_to_server.*;
 import it.polimi.se2018.shared.message_socket.server_to_client.*;
 import it.polimi.se2018.shared.model_shared.Dice;
@@ -123,11 +123,10 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
 
                 } catch (IOException | ClassNotFoundException e) {
                     condition = false;
+                    LOGGER.log(Level.SEVERE, "Il server si è disconnesso");
+
                 }
-
             }
-
-
         }
     }
 
@@ -620,5 +619,10 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     @Override
     public void handleError(String error) throws RemoteException {
         //solo per RMI
+    }
+
+    @Override
+    public void receiveLostConnection(String text, int index) throws RemoteException {
+        // solo per RMI
     }
 }

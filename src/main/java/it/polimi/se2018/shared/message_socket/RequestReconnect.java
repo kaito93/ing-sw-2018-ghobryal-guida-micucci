@@ -1,9 +1,7 @@
 package it.polimi.se2018.shared.message_socket;
 
-import it.polimi.se2018.shared.message_socket.client_to_server.MessageVC;
 import it.polimi.se2018.server.controller.Controller;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
-import it.polimi.se2018.shared.message_socket.server_to_client.MessageCV;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
