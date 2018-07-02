@@ -18,8 +18,8 @@ public class LoginMain extends Application {
     private static String username;
     private static String connections;
     private static String uint;
-    private static String ip;
-    private static int port;
+    private static String IP;
+    private static int PORT;
 
 
     public LoginMain() {
@@ -40,12 +40,14 @@ public class LoginMain extends Application {
         Label labelConnection;
         Label port = new Label("Porta");
         Label ip = new Label("IP");
-        TextField portField = new TextField();
-        TextField ipField = new TextField("ciao popolo");
+        TextField portField = new TextField(String.valueOf(PORT));
+        TextField ipField = new TextField(IP);
 
         HBox horizontalUsername = new HBox(100);
         HBox horizontalIP = new HBox(100);
         horizontalIP.getChildren().addAll(ip,ipField);
+        HBox horizontalPORT = new HBox(90);
+        horizontalPORT.getChildren().addAll(port, portField);
 
         HBox horizontalUI = new HBox(3);
         HBox horizontalConnections = new HBox(3);
@@ -91,7 +93,7 @@ public class LoginMain extends Application {
                 System.out.println(ipField.getText());
 
                 assignValue(tmpUser, tmpConnections, tmpUI, ipField.getText(), portField.getText());
-                Platform.exit();
+                toChoiceMapStage(primaryStage);
             } else {
                 try {
                     this.start(primaryStage);
@@ -104,7 +106,7 @@ public class LoginMain extends Application {
 
         horizontalConnections.getChildren().addAll(labelConnection, radioSocket, radioRMI);
 
-        vertical.getChildren().addAll(horizontalUsername, horizontalUI, horizontalConnections, horizontalIP, invio);
+        vertical.getChildren().addAll(horizontalUsername, horizontalUI, horizontalConnections, horizontalIP, horizontalPORT, invio);
         scene = new Scene(vertical, 600, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -114,8 +116,8 @@ public class LoginMain extends Application {
         username = utente;
         connections = connessioni;
         uint = ui;
-        ip = ipText;
-        //port = Integer.decode(portFieldText);
+        IP = ipText;
+        PORT = Integer.decode(portFieldText);
 
     }
 
@@ -132,19 +134,27 @@ public class LoginMain extends Application {
     }
 
     public static void setIp(String IpAddress){
-        ip = IpAddress;
+        IP = IpAddress;
     }
 
     public static void setPort(int porta){
-        port = porta;
+        PORT = porta;
     }
 
     public static String getIp() {
-        return ip;
+        return IP;
     }
 
     public static int getPort() {
-        return port;
+        return PORT;
+    }
+
+    public static void toChoiceMapStage(Stage stage){
+        stage.setTitle("Scelta delle mappe di Sagrada");
+        MapChoiceScene scelta = new MapChoiceScene(stage);
+        Scene scena = MapChoiceScene.totalSetUp();
+        stage.setScene(scena);
+        stage.show();
     }
 }
 
