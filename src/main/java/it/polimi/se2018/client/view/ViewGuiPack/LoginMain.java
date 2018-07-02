@@ -115,7 +115,7 @@ public class LoginMain extends Application {
         connections = connessioni;
         uint = ui;
         ip = ipText;
-        port = Integer.decode(portFieldText);
+        //port = Integer.decode(portFieldText);
 
     }
 

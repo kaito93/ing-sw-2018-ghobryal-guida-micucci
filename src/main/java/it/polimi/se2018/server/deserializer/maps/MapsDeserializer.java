@@ -1,31 +1,25 @@
 package it.polimi.se2018.server.deserializer.maps;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.server.deserializer.maps.cells.BlankCellBuilder;
 import it.polimi.se2018.server.deserializer.maps.cells.ColoredCellBuilder;
 import it.polimi.se2018.server.deserializer.maps.cells.ValueCellBuilder;
 import it.polimi.se2018.server.model.Map;
-import it.polimi.se2018.shared.Logger;
+import it.polimi.se2018.shared.Deserializer;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.exception.NotValidMatrixException;
 
-import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.logging.Level;
 
 /**
  * class used to deserializer the maps from json file
  * extends observable class for observer pattern
  */
-public class MapsDeserializer extends Observable {
+public class MapsDeserializer extends Deserializer {
 
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    private Gson gson;
-    private BufferedReader br;
     private ArrayList<TransitionForMaps> mapsJsonJava;
     private BlankCellBuilder blank;
     private ValueCellBuilder value;
@@ -38,25 +32,7 @@ public class MapsDeserializer extends Observable {
      * @param path of the file that has to be deserializer
      */
     public MapsDeserializer(String path) {
-        String[] tokens = path.split("/");
-        if (tokens[0].equalsIgnoreCase("src")){
-            File file;
-            file = new File(path);
-            try{
-                br = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException e){
-                LOGGER.log(Level.SEVERE, "File non trovato", e);
-            }
-        }
-        else{
-            try{
-                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path)));
-            }
-            catch (NullPointerException e){
-                LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
-            }
-        }
-        gson = new Gson();
+        super(path);
         mapsJsonJava = new ArrayList<>();
         blank = new BlankCellBuilder();
         value = new ValueCellBuilder();
@@ -72,7 +48,7 @@ public class MapsDeserializer extends Observable {
     public void deserializing() {
         Type listJson = new TypeToken<ArrayList<TransitionForMaps>>() {
         }.getType();
-        mapsJsonJava = gson.fromJson(br, listJson);
+        mapsJsonJava = getGson().fromJson(getBr(), listJson);
     }
 
     /**

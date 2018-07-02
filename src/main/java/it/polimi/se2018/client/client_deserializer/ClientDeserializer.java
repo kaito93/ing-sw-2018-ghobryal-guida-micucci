@@ -1,21 +1,16 @@
 package it.polimi.se2018.client.client_deserializer;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.se2018.shared.Logger;
+import it.polimi.se2018.shared.Deserializer;
 
-import java.io.*;
 import java.lang.reflect.Type;
-import java.util.logging.Level;
 
 /**
  * class to deserializer the client information in json file
  */
-public class ClientDeserializer {
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+public class ClientDeserializer extends Deserializer {
 
-    private Gson gson;
-    private BufferedReader br;
+
     private ClientStructure cs;
 
     /**
@@ -23,26 +18,7 @@ public class ClientDeserializer {
      * @param path of the json file
      */
     public ClientDeserializer(String path){
-        String[] tokens = path.split("/");
-        if (tokens[0].equalsIgnoreCase("src")){
-            File file;
-            file = new File(path);
-            try{
-                br = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException e){
-                LOGGER.log(Level.SEVERE, "File non trovato", e);
-            }
-        }
-        else{
-            try{
-                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path)));
-            }
-            catch (NullPointerException e){
-                LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
-            }
-        }
-
-        gson = new Gson();
+        super(path);
     }
 
     /**
@@ -51,7 +27,7 @@ public class ClientDeserializer {
      */
     public void deserializing(){
         Type client = new TypeToken<ClientStructure>(){}.getType();
-        cs = gson.fromJson(br, client);
+        cs = getGson().fromJson(getBr(), client);
     }
 
     /**

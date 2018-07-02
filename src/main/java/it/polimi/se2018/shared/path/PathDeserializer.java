@@ -2,6 +2,7 @@ package it.polimi.se2018.shared.path;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.se2018.shared.Deserializer;
 import it.polimi.se2018.shared.Logger;
 
 import java.io.*;
@@ -12,12 +13,10 @@ import java.util.logging.Level;
 /**
  * class that is used to deserializer the path of the file json to search
  */
-public class PathDeserializer {
+public class PathDeserializer extends Deserializer {
 
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private ArrayList<PathJsonStructure> pathjson;
-    private BufferedReader br;
-    private Gson gson;
+
 
     /**
      * constructor of the class, that inizialize the buffered reader of the json file
@@ -25,26 +24,7 @@ public class PathDeserializer {
      * game
      */
     public PathDeserializer(String path){
-
-        String[] tokens = path.split("/");
-        if (tokens[0].equalsIgnoreCase("src")){
-            File file;
-            file = new File(path);
-            try{
-                br = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException e){
-                LOGGER.log(Level.SEVERE, "File non trovato", e);
-            }
-        }
-        else{
-            try{
-                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path)));
-            }
-            catch (NullPointerException e){
-                LOGGER.log(Level.SEVERE, "File non trovato nel path " +path, e);
-            }
-        }
-        gson = new Gson();
+        super(path);
         pathjson = new ArrayList<>();
     }
 
@@ -54,7 +34,7 @@ public class PathDeserializer {
      */
     public void deserializing(){
         Type list = new TypeToken<ArrayList<PathJsonStructure>>(){}.getType();
-        pathjson = gson.fromJson(br, list);
+        pathjson = getGson().fromJson(getBr(), list);
     }
 
     /**

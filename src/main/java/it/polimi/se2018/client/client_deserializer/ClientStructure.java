@@ -12,23 +12,6 @@ public class ClientStructure {
     private int portRMI;
 
     /**
-     * setter class for the ip number
-     * @param ip integer with the number of the client
-     */
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    /**
-     * setter method for the port to make the communication between client
-     * and server
-     * @param port an integer represent the socket port between client and server
-     */
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    /**
      * getter method to get the port number
      * @return an integer represent the port number
      */
@@ -59,4 +42,5 @@ public class ClientStructure {
     public int getPortRMI() {
         return portRMI;
     }
+
 }

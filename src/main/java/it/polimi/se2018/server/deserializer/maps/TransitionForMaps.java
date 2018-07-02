@@ -25,22 +25,6 @@ public class TransitionForMaps {
     }
 
     /**
-     * method that set the arraylist of strings that takes in input to the arraylist inside the class
-     * @param map: arraylist of cell of the maps memorized like strings
-     */
-    public void setMap(List<CellBuilder> map) {
-        this.maps = map;
-    }
-
-    /**
-     * method that set the difficulty level of the maps
-     * @param level an integer indicate the difficulty level of the maps
-     */
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    /**
      * getter method to get the maps strings arraylist
      * @return the arraylist of string represent the map
      */
