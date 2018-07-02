@@ -438,7 +438,8 @@ public abstract class View implements Serializable {
      * @param newIndex an integer
      */
     public void updateIndex(int newIndex) {
-        gameStatus.setYourIndex(newIndex);
+        if (newIndex!=-1)
+            gameStatus.setYourIndex(newIndex);
     }
 
     /**

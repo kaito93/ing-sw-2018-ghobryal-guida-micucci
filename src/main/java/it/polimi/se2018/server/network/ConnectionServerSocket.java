@@ -462,6 +462,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     @Override
     public void sendGainConnection(String text) {
         MessagePlayerDisconnect message = new MessagePlayerDisconnect();
+        message.setIndex(-1);
         message.setMessage(text);
         mex = new Message(Message.SYSTEMEVENT, message);
         send(mex);
