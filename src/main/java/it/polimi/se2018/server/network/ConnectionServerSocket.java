@@ -561,78 +561,88 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     @Override
-    public void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit, int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest, int column2Dest, int roundSchemeDicePos) throws RemoteException {
+    public void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit, int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest, int column2Dest, int roundSchemeDicePos) {
         //solo per RMI
     }
 
     @Override
-    public void coppperSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) throws RemoteException {
+    public void coppperSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         //solo per RMI
     }
 
     @Override
-    public void corkSet(String title, Dice dice, int rowDest, int columnDest) throws RemoteException {
+    public void corkSet(String title, Dice dice, int rowDest, int columnDest) {
         //solo per RMI
     }
 
     @Override
-    public void eglomiseSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) throws RemoteException {
+    public void eglomiseSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         //solo per RMI
     }
 
     @Override
-    public void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) throws RemoteException {
+    public void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) {
         //solo per RMI
     }
 
     @Override
-    public void fluxRemoverSet(String title, Dice dice, int row, int column) throws RemoteException {
+    public void fluxRemoverSet(String title, Dice dice, int row, int column) {
         //solo per RMI
     }
 
     @Override
-    public void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore) throws RemoteException {
+    public void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore) {
         //solo per RMI
     }
 
     @Override
-    public void grozingSet(String title, Dice dice, int rowDest, int colDest) throws RemoteException {
+    public void grozingSet(String title, Dice dice, int rowDest, int colDest) {
         //solo per RMI
     }
 
     @Override
-    public void lathekinSet(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int col1Dest, List<Dice> dicesToMove, int row2Dest, int col2Dest) throws RemoteException {
+    public void lathekinSet(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int col1Dest, List<Dice> dicesToMove, int row2Dest, int col2Dest) {
         //solo per RMI
     }
 
     @Override
-    public void lensSet(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) throws RemoteException {
+    public void lensSet(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
         //solo per RMI
     }
 
     @Override
-    public void runningSet(String title, Dice dice, int rowDest, int colDest) throws RemoteException {
+    public void runningSet(String title, Dice dice, int rowDest, int colDest) {
         //solo per RMI
     }
 
     @Override
-    public void posDice(Dice dice, int row, int column) throws RemoteException {
+    public void posDice(Dice dice, int row, int column) {
         //solo per RMI
     }
 
     @Override
-    public void useTool(String title) throws RemoteException {
+    public void useTool(String title) {
         //solo per RMI
     }
 
     @Override
-    public void passTurn() throws RemoteException {
+    public void passTurn() {
         //solo per RMI
     }
 
     @Override
-    public void setConnected(boolean connected) throws RemoteException {
+    public void setConnected(boolean connected) {
         // solo per RMI
+    }
+
+    @Override
+    public void setPlayerOnline(boolean playerOnline) {
+        //solo per RMI
+    }
+
+    @Override
+    public boolean isPlayerOnline() {
+        return true;
     }
 
     /**

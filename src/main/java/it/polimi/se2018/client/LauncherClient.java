@@ -90,6 +90,7 @@ public class LauncherClient {
                     }
                 }
             }
+            view.addLog("Connessione stabilita col server");
         }
     }
 

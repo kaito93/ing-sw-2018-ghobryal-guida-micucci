@@ -525,103 +525,103 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     }
 
     @Override
-    public void viewPrivateCard(PrivateObjectiveCard privateObjectiveCard) throws RemoteException {
+    public void viewPrivateCard(PrivateObjectiveCard privateObjectiveCard) {
         //solo per RMI
     }
 
     @Override
-    public void viewPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTool, List<String> descriptionTool, List<Integer> publicScore) throws RemoteException {
+    public void viewPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTool, List<String> descriptionTool, List<Integer> publicScore) {
         //solo per RMI
     }
 
     @Override
-    public void viewScore(List<Integer> finalScore) throws RemoteException {
+    public void viewScore(List<Integer> finalScore) {
         //solo pr RMI
     }
 
     @Override
-    public void isTurn(boolean dice, boolean tool) throws RemoteException {
+    public void isTurn(boolean dice, boolean tool) {
         //solo per RMI
     }
 
     @Override
-    public void requestNewUsernameRMI() throws RemoteException {
+    public void requestNewUsernameRMI() {
         //solo per RMI
     }
 
     @Override
-    public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) throws RemoteException {
+    public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
         //solo per RMI
     }
 
     @Override
-    public void tapWheel(String title) throws RemoteException {
+    public void tapWheel(String title) {
         //solo per RMI
     }
 
     @Override
-    public void copperFoil(String title) throws RemoteException {
+    public void copperFoil(String title) {
         //solo per RMI
     }
 
     @Override
-    public void corkbacked(String title) throws RemoteException {
+    public void corkbacked(String title) {
         //solo per RMI
     }
 
     @Override
-    public void eglomise(String title) throws RemoteException {
+    public void eglomise(String title) {
         //solo per RMI
     }
 
     @Override
-    public void fluxBrush(String title) throws RemoteException {
+    public void fluxBrush(String title) {
         //solo per RMI
     }
 
     @Override
-    public Dice fluxRemover() throws RemoteException {
+    public Dice fluxRemover() {
         //solo per RMI
         return null;
     }
 
     @Override
-    public void fluxRemover2(String title, Dice dice) throws RemoteException {
+    public void fluxRemover2(String title, Dice dice) {
         //solo per RMI
     }
 
     @Override
-    public void grinding(String title) throws RemoteException {
+    public void grinding(String title) {
         //solo per RMI
     }
 
     @Override
-    public void grozing(String title) throws RemoteException {
+    public void grozing(String title) {
         //solo per RMI
     }
 
     @Override
-    public void lathekin(String title) throws RemoteException {
+    public void lathekin(String title) {
         //solo per RMI
     }
 
     @Override
-    public void lens(String title) throws RemoteException {
+    public void lens(String title) {
         //solo per RMI
     }
 
     @Override
-    public void running(String title) throws RemoteException {
+    public void running(String title) {
         //solo per RMI
     }
 
     @Override
-    public void handleError(String error) throws RemoteException {
+    public void handleError(String error) {
         //solo per RMI
     }
 
     @Override
-    public void receiveLostConnection(String text, int index) throws RemoteException {
+    public void receiveLostConnection(String text, int index) {
         // solo per RMI
     }
 }

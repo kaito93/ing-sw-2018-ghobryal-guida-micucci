@@ -26,7 +26,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final String REMOTEERROR = "Errore di connessione: {0} !";
-    public static final String NAMEONREGISTER = "//localhost/ServerConnectionReference";
+    private static final String NAMEONREGISTER = "//localhost/ServerConnectionReference";
 
     private transient ConnectionServer skeleton;
 
@@ -363,6 +363,19 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
     @Override
     public void sendDisconnect() {
         //non viene implementato in RMI
+        try {
+            skeleton.setPlayerOnline(false);
+        } catch (RemoteException e) {
+            while (true) {
+                try {
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    sendDisconnect();
+                    break;
+                } catch (RemoteException | NotBoundException e1) {
+                    //continua a richiamare il server
+                }
+            }
+        }
     }
 
     /**

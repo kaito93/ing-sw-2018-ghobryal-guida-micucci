@@ -258,4 +258,8 @@ public interface ConnectionServer extends Remote,Serializable {
     void passTurn() throws RemoteException;
 
     void setConnected(boolean connected) throws RemoteException;
+
+    void setPlayerOnline(boolean playerOnline) throws RemoteException;
+
+    boolean isPlayerOnline() throws RemoteException;
 }

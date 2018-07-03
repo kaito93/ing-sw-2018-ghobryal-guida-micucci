@@ -37,6 +37,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     private transient VirtualView vView=null;
     private String username;
     private boolean connected=true;
+    private boolean playerOnline=true;
     private transient Server server;
 
 
@@ -45,6 +46,14 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         super();
         this.server=server;
         this.username=username;
+    }
+
+    public void setPlayerOnline(boolean playerOnline) {
+        this.playerOnline = playerOnline;
+    }
+
+    public boolean isPlayerOnline(){
+        return playerOnline;
     }
 
     @Override
@@ -427,6 +436,12 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     @Override
     public void tryReconnect() {
         // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
+        try {
+            stub.run();
+        } catch (RemoteException e) {
+            connected=false;
+            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+        }
 
     }
 
