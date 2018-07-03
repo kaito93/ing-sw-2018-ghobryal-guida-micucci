@@ -364,16 +364,25 @@ public abstract class View implements Serializable {
         boolean terminated;
         int counter;
 
+        /**
+         * class constructor
+         */
         TimerCount() {
             valid = true;
             terminated = true;
             counter=0;
         }
 
+        /**
+         * method that stop the timer
+         */
         void stopTimer() {
             valid = false;
         }
 
+        /**
+         * method that manage the timer
+         */
         @Override
         public void run() {
             addLog("Hai ancora "+ ((time/1000)-((time/4000)*counter)) + " secondi disponibili per effettuare la tua scelta");
@@ -397,6 +406,9 @@ public abstract class View implements Serializable {
             }
         }
 
+        /**
+         * method that manage the disconnection and reconnection of the client
+         */
         private void reconn(){
             boolean verit=false;
             try {
