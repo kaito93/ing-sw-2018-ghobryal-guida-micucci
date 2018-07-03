@@ -16,7 +16,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -205,11 +204,10 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     }
 
     /**
-     * a
-     * method that send the choice of set a dice
-     * @param dice the dice chosen
-     * @param column the column where set the dice
-     * @param row the row where set the dice
+     * method that sends the choice of set a dice
+     * @param dice the chosen dice
+     * @param column the column where to set the dice
+     * @param row the row where to set the dice
      */
     public void sendPosDice(Dice dice, int column, int row) {
         MessagePosDice message = new MessagePosDice();
@@ -220,7 +218,7 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     }
 
     /**
-     * method that send the choice of use a tool card
+     * method that sends the choice of use a tool card
      * @param titleCardTool the title of the tool card
      */
     public void sendUseTool(String titleCardTool) {
@@ -230,7 +228,7 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     }
 
     /**
-     * method that manage the error.
+     * method that manages the error.
      *
      * @param message message_socket received by server
      */
@@ -498,6 +496,10 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
 
     }
 
+    /**
+     * visualizes the final score of every player
+     * @param message message_socket received by server
+     */
     public void visit(MessageFinalScore message){
         view.seeScore(message.getPlayersFinal());
     }
@@ -510,116 +512,179 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
         this.username= username;
     }
 
+    /**
+     * gets the possessor of this client connection
+     * @return the possessor of this connection in a string format
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * gets a reference of the view
+     * @return a view reference
+     */
     public View getView() {
         return view;
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public int receiveMapConn(List<Cell[][]> cells, List<String> names, List<Integer> fav) {
         //solo per RMI
         return 0;
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void viewPrivateCard(PrivateObjectiveCard privateObjectiveCard) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void viewPublicInformation(List<String> titlePublic, List<String> descriptionPublic, List<String> titleTool, List<String> descriptionTool, List<Integer> publicScore) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void viewScore(List<Integer> finalScore) {
         //solo pr RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void isTurn(boolean dice, boolean tool) {
         //solo per RMI
     }
 
-    @Override
-    public void requestNewUsernameRMI() {
-        //solo per RMI
-    }
-
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void tapWheel(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void copperFoil(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void corkbacked(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void eglomise(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void fluxBrush(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public Dice fluxRemover() {
         //solo per RMI
         return null;
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void fluxRemover2(String title, Dice dice) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void grinding(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void grozing(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void lathekin(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void lens(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void running(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void handleError(String error) {
         //solo per RMI
     }
 
+    /**
+     * only used by rmi connection
+     */
     @Override
     public void receiveLostConnection(String text, int index) {
         // solo per RMI

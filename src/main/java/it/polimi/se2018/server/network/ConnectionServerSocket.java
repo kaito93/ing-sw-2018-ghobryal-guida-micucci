@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -91,26 +90,34 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         }
     }
 
+    /**
+     * sets the possessor of this server connection
+     * @param username the possessor of this connection in a string format
+     */
     @Override
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * gets the possessor of this server connection
+     * @return the possessor of this connection in a string format
+     */
     @Override
     public String getUsername() {
         return username;
     }
 
     /**
-     * method that send the maps set before
+     * method that sends the maps to be chosen from the player
      *
-     * @param maps   an arraylist of maps
+     * @param maps   an array list of maps
      * @param player a player
      */
     @Override
     public void sendMapConn(List<Map> maps, Player player) {
         MessageChooseMap message = new MessageChooseMap(); // prepara un messaggio da inviare per scegliere la carta schema
-        for (Map map : maps) { // sceglie 2 carte schema
+        for (Map map : maps) { // sceglie 4 carte schema
             message.addMap(map); // aggiunge la mappa estratta al messaggio da inviare
         }
         message.setPlayer(player); // invio alla vView il giocatore proprietario
@@ -120,7 +127,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send the private information of a player
+     * method that sends the private card information of a player
      *
      * @param card private objective card
      */
@@ -133,10 +140,10 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send the public information of the game
+     * method that sends the public information of the game
      *
-     * @param cards arraylist of public objective cards
-     * @param tools arraylist of tool cards
+     * @param cards array list of public objective cards
+     * @param tools array list of tool cards
      */
     @Override
     public void sendPublicInformation(List<PublicObjectiveCard> cards, List<ToolCard> tools) {
@@ -148,7 +155,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send a warning to other players that a player has left the game for disconnection
+     * method that sends a warning to other players that a player has left the game for disconnection
      *
      * @param text  a string
      * @param index new index of player in the array
@@ -163,7 +170,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that listen request of reconnection of a disconnected player
+     * method that listens request of reconnection of a disconnected player
      */
     @Override
     public void tryReconnect() {
@@ -182,9 +189,9 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send the final message_socket to a player
+     * method that sends the final message_socket to a players
      *
-     * @param players a player
+     * @param players all active players
      */
     @Override
     public void sendFinalPlayers(List<Player> players) {
@@ -195,10 +202,10 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send the information of a turn for a player
+     * method that sends the information of a turn for a player
      *
-     * @param dice boolean TRUE if the player have already positioned a dice, else False
-     * @param tool boolean True if the player gave already used a tool card, else false
+     * @param dice boolean True if the player have already positioned a dice, else False
+     * @param tool boolean True if the player gave already used a tool card, else False
      */
     @Override
     public void sendIsYourTurn(boolean dice, boolean tool) {
@@ -210,7 +217,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send a error to a player at the choose of username
+     * method that sends an error to a player at the username choice
      */
     @Override
     public void sendErrorUser() {
@@ -220,21 +227,21 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send update of the client with a new news
+     * method that sends update of the client with a new news
      *
-     * @param maps           an arraylist of maps of all players in game
-     * @param users          an arraylist of string of username of all players in game
-     * @param messa          a generic message_socket
-     * @param tools          an arraylist of boolean that manage the use of tool cards
+     * @param maps           an array list of maps of all players in game
+     * @param users          an array list of string of username of all players in game
+     * @param msg          a generic message_socket
+     * @param tools          an array list of boolean that manage the use of tool cards
      * @param roundSchemeMap a matrix of the round scheme map
      * @param stock          a matrix of dices
-     * @param favor          an arraylist of integer
+     * @param favor          an array list of integer
      */
     @Override
-    public void sendUpdate(List<Map> maps, List<String> users, String messa, List<Boolean> tools,
+    public void sendUpdate(List<Map> maps, List<String> users, String msg, List<Boolean> tools,
                            RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor) {
         MessageUpdate message = new MessageUpdate();
-        message.setMessage(messa);
+        message.setMessage(msg);
         message.setCells(maps);
         message.setStock(stock);
         message.setUseTools(tools);
@@ -248,7 +255,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     // METODI PER LA GESTIONE DELLE CARTE UTENSILI
 
     /**
-     * method that manage the send for the tool card "Tap Wheel
+     * method that manages the transmission for the tool card "Tap Wheel"
      *
      * @param title the title of this card
      */
@@ -261,7 +268,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Running Pliers"
+     * method that manages the transmission for the tool card "Running Pliers"
      *
      * @param title the title of this card
      */
@@ -274,7 +281,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Lens Cutter"
+     * method that manages the transmission for the tool card "Lens Cutter"
      *
      * @param title the title of this card
      */
@@ -288,7 +295,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Lathekin"
+     * method that manages the transmission for the tool card "Lathekin"
      *
      * @param title the title of this card
      */
@@ -302,7 +309,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Grozing Pliers"
+     * method that manages the transmission for the tool card "Grozing Pliers"
      *
      * @param title the title of this card
      */
@@ -316,7 +323,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * abstract method that manage the send for the tool card "Grinding Stone"
+     * method that manages the transmission for the tool card "Grinding Stone"
      *
      * @param title the title of this card
      */
@@ -330,7 +337,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the first send for the tool card "Flux Remover"
+     * method that manages the first transmission for the tool card "Flux Remover"
      *
      * @param title the title of this card
      */
@@ -344,7 +351,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the second send for the tool card "Flux Remover"
+     * method that manages the second transmission for the tool card "Flux Remover"
      *
      * @param title the title of this card
      */
@@ -359,7 +366,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Flux Brush"
+     * method that manages the transmission for the tool card "Flux Brush"
      *
      * @param title the title of this card
      */
@@ -373,7 +380,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "CEglomise Brush"
+     * method that manages the transmission for the tool card "Eglomise Brush"
      *
      * @param title the title of this card
      */
@@ -387,7 +394,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Cork Backed Straiightedge"
+     * method that manages the transmission for the tool card "Cork-backed Straightedge"
      *
      * @param title the title of this card
      */
@@ -401,7 +408,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that manage the send for the tool card "Copper Foil Burnisher"
+     * method that manages the transmission for the tool card "Copper Foil Burnisher"
      *
      * @param title the title of this card
      */
@@ -414,7 +421,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send a generic error to the client
+     * method that sends a generic error to the client
      *
      * @param error a string
      */
@@ -427,7 +434,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send a communication of victory with disconnection of others players
+     * method that sends a communication of victory with disconnection of others players
      */
     @Override
     public void sendVictoryAbbandon() {
@@ -438,7 +445,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that close the network between server and client
+     * method that closes the network between server and client
      */
     @Override
     public void closeConnection() {
@@ -449,13 +456,8 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         }
     }
 
-    @Override
-    public boolean isConnected() {
-        return connected;
-    }
-
     /**
-     * method that send a news: a player has been reconnected
+     * method that sends news: a player has been reconnected
      *
      * @param text a string of text
      */
@@ -469,7 +471,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that send a confirm of reconnection
+     * method that sends a confirm of reconnection
      *
      * @param text  a string
      * @param index an integer for manage the new index of this player
@@ -492,7 +494,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method to cloneObj a network
+     * method to clone object of Connection Server
      *
      * @return the cloned network
      */
@@ -506,6 +508,11 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         return null;
     }
 
+    /**
+     * method to clone object of Connection Server
+     * @return the cloned network
+     * @throws CloneNotSupportedException catches this exception if the object is not cloneable
+     */
     @Override
     protected ConnectionServer clone() throws CloneNotSupportedException {
         return (ConnectionServer) super.clone();
@@ -517,14 +524,14 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     }
 
     /**
-     * method that set the status of network
+     * method that sets the status of network
      */
     public void setDisconnected() {
         this.connected = false;
     }
 
     /**
-     * method that set an instance of Virtual View
+     * method that sets an instance of Virtual View
      *
      * @param vView a Virtual View
      */
@@ -560,89 +567,132 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         return false;
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void tapSet(String title, Dice roundSchemeDice, List<Dice> dicesToMove, int row1Mit, int row2Mit, int column1Mit, int column2Mit, int row1Dest, int row2Dest, int column1Dest, int column2Dest, int roundSchemeDicePos) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void coppperSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void corkSet(String title, Dice dice, int rowDest, int columnDest) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void eglomiseSet(String title, Dice dice, int rowDest, int columnDest, int rowMit, int columnMit) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void fluxBrushSet(String title, Dice dice, int rowDest, int cloumnDest, Dice diceBefore) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void fluxRemoverSet(String title, Dice dice, int row, int column) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void grindingSet(String title, Dice dice, int row, int column, Dice diceBefore) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void grozingSet(String title, Dice dice, int rowDest, int colDest) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void lathekinSet(String title, int row1Mit, int row2Mit, int col1Mit, int col2Mit, int row1Dest, int col1Dest, List<Dice> dicesToMove, int row2Dest, int col2Dest) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void lensSet(String title, Dice diceStock, int numberRound, int row, int column, Dice diceRound) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void runningSet(String title, Dice dice, int rowDest, int colDest) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void posDice(Dice dice, int row, int column) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void useTool(String title) {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void passTurn() {
         //solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void setConnected(boolean connected) {
         // solo per RMI
     }
 
+    /**
+     * only used by RMI
+     */
     @Override
     public void setPlayerOnline(boolean playerOnline) {
         //solo per RMI
-    }
-
-    @Override
-    public boolean isPlayerOnline() {
-        return true;
     }
 
     /**
