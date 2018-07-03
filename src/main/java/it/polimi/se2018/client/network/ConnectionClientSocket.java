@@ -124,7 +124,6 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
                 } catch (IOException | ClassNotFoundException e) {
                     condition = false;
                     LOGGER.log(Level.SEVERE, "Il server si è disconnesso");
-
                 }
             }
         }

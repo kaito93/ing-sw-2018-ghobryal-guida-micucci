@@ -1,10 +1,7 @@
 package it.polimi.se2018.client.view.ViewGuiPack;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import it.polimi.se2018.server.model.Map;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -91,7 +88,7 @@ public class MapChoiceScene {
         return definitiveMap;
     }
 
-    public static VBox SetUpScene(VBox firstmap, VBox secondmap, VBox thirdmap, VBox fourthmap){
+    public static VBox setUpScene(VBox firstmap, VBox secondmap, VBox thirdmap, VBox fourthmap){
         VBox total = new VBox(50);
         HBox coupleMap = new HBox(120);
         HBox coupleMap2 = new HBox(120);
@@ -110,7 +107,7 @@ public class MapChoiceScene {
         defMap2 = setUpChoice(intMap2,map2Button);
         defMap3 = setUpChoice(intMap3,map3Button);
         defMap4 = setUpChoice(intMap4,map4Button);
-        return scenaScelta = new Scene(MapChoiceScene.SetUpScene(defMap1,defMap2,defMap3,defMap4), 600, 900);
+        return scenaScelta = new Scene(MapChoiceScene.setUpScene(defMap1,defMap2,defMap3,defMap4), 600, 900);
     }
 
 

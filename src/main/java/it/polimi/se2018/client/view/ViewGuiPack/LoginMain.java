@@ -151,7 +151,7 @@ public class LoginMain extends Application {
 
     public static void toChoiceMapStage(Stage stage){
         stage.setTitle("Scelta delle mappe di Sagrada");
-        MapChoiceScene scelta = new MapChoiceScene(stage);
+        new MapChoiceScene(stage);
         Scene scena = MapChoiceScene.totalSetUp();
         stage.setScene(scena);
         stage.show();

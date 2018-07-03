@@ -17,6 +17,7 @@ import java.util.logging.Level;
 
 /**
  * Class that talk between network Server and Controller
+ *
  * @author Samuele Guida
  */
 public class VirtualView implements Serializable {
@@ -37,6 +38,7 @@ public class VirtualView implements Serializable {
 
     /**
      * method that sets the connections and create the instance of all players and create listener of message_socket
+     *
      * @param connect arraylist of connections
      * @return an arraylist of player
      */
@@ -52,9 +54,9 @@ public class VirtualView implements Serializable {
                 playersActive.add(new Player(connection.getUsername())); // crea un giocatore e aggiungilo all'elenco dei giocatori attivi
                 //se non ci sono più giocatori attivi, coglie l'eccezione
             }
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             LOGGER.log(Level.WARNING, "Non ci sono più giocatori attivi", e);
         }
         setView();
@@ -72,7 +74,7 @@ public class VirtualView implements Serializable {
                 connections.get(i).sendMap(playersActive.get(i));
             } catch (NullPointerException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
-            } catch (RemoteException e){
+            } catch (RemoteException e) {
                 LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
             }
 
@@ -98,13 +100,14 @@ public class VirtualView implements Serializable {
             for (int i = 0; i < playersActive.size(); i++) { // per ogni giocatore
                 connections.get(i).sendPrivateInformation(playersActive.get(i).getCardPrivateObj());
             }
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
     /**
      * method that send the public information to all players
+     *
      * @param publicCards the arraylist of public cards
      */
     public void publicInformation(List<PublicObjectiveCard> publicCards) {
@@ -114,7 +117,7 @@ public class VirtualView implements Serializable {
             for (ConnectionServer connection : this.connections) { // per ogni giocatore
                 connection.sendPublicInformation(publicCards, tools);
             }
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
@@ -129,6 +132,7 @@ public class VirtualView implements Serializable {
 
         /**
          * class constructor
+         *
          * @param player the network for this player
          */
         private PlayerPlay(ConnectionServer player) {
@@ -136,21 +140,22 @@ public class VirtualView implements Serializable {
             this.connected = true;
 
         }
+
         /**
          * method that listen for a new message_socket
          */
         @Override
         public void run() { // metodo sempre in esecuzione che controlla se il giocatore è ancora connesso
-                receive();
+            receive();
         }
 
         /**
          * method that call the receive message while is connected
          */
-        private void receive(){
+        private void receive() {
             while (connected) {
                 try {
-                    connected=client.receiveMessage();
+                    connected = client.receiveMessage();
                 } catch (RemoteException e) {
                     LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
                 }
@@ -170,27 +175,34 @@ public class VirtualView implements Serializable {
             if (currentPlayer == this) { // se toccava al giocatore sospeso
                 controller.fakeMove();
             }
-
-
             if (notTerminate) {
-                try {
-                    String text = "Il giocatore " + client.getUsername() + " si è disconnesso. Il giocatore è stato sospeso.";
+                while (!connected) {
+                    try {
+                        String text = "Il giocatore " + client.getUsername() + " si è disconnesso. Il giocatore è stato sospeso.";
 
-                    for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
-                        connections.get(i).sendLostConnection(text, i);
+                        for (int i = 0; i < connections.size(); i++) { // per ogni giocatore
+                            connections.get(i).sendLostConnection(text, i);
+                        }
+
+                        // GESTIONE DELLA RICONNESSIONE
+
+                        this.client.tryReconnect();
+                        this.client.setConnected(true);
+                        connected=true;
+                        text = "Il giocatore " + client.getUsername() + " si è riconnesso. Tornerà in gioco dal prossimo round.";
+                        for (ConnectionServer connection : connections) { // per ogni giocatore
+                            tryToSendGainConnection(connection, text);
+                        }
+                        client.sendAcceptReconnection(
+                                "Ti sei riconnesso. Ricomincerai a giocare al prossimo turno.", playersPlay.size());
+                    } catch (RemoteException e) {
+                        try {
+                            this.client.setDisconnected();
+                        } catch (RemoteException e1) {
+                            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+                        }
+                        LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
                     }
-
-                    // GESTIONE DELLA RICONNESSIONE
-
-                    this.client.tryReconnect();
-                    text = "Il giocatore " + client.getUsername() + " si è riconnesso. Tornerà in gioco dal prossimo round.";
-                    for (ConnectionServer connection : connections) { // per ogni giocatore
-                        tryToSendGainConnection(connection,text);
-                    }
-                    client.sendAcceptReconnection(
-                            "Ti sei riconnesso. Ricomincerai a giocare al prossimo turno.", playersPlay.size());
-                }catch (RemoteException e){
-                    LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
                 }
 
                 int ind2 = playerNotPlay.indexOf(this);
@@ -208,10 +220,11 @@ public class VirtualView implements Serializable {
 
         /**
          * method that try to send gain connection
+         *
          * @param connection player to send the news
-         * @param text the news
+         * @param text       the news
          */
-        private void tryToSendGainConnection(ConnectionServer connection, String text){
+        private void tryToSendGainConnection(ConnectionServer connection, String text) {
             try {
                 connection.sendGainConnection(text);
             } catch (RemoteException e) {
@@ -221,6 +234,7 @@ public class VirtualView implements Serializable {
 
         /**
          * method that update the arraylist with the player that has been reconnected
+         *
          * @return the player
          */
         private Player connectionLost() {
@@ -249,13 +263,14 @@ public class VirtualView implements Serializable {
     /**
      * close every thread
      */
-    private void closeThreadConnection(){
+    private void closeThreadConnection() {
         for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
         for (PlayerPlay aPlayerNotPlay : playerNotPlay) aPlayerNotPlay.closeThread();
     }
 
     /**
      * method that search a player
+     *
      * @param user the username of a player
      * @return an integer, index of the user in arraylist Connections
      */
@@ -269,7 +284,7 @@ public class VirtualView implements Serializable {
                 else
                     i++;
             }
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         return i;
@@ -277,6 +292,7 @@ public class VirtualView implements Serializable {
 
     /**
      * method that set the controller
+     *
      * @param controller an instance of controller
      */
     // DA TESTARE
@@ -286,15 +302,16 @@ public class VirtualView implements Serializable {
 
     /**
      * method that send to a player the information that is his turn
+     *
      * @param playersInRound arraylist of players in round
-     * @param turno the turn's game
-     * @param posDice if a player has positioned a dice before
-     * @param useTool if a player has used a tool card before
+     * @param turno          the turn's game
+     * @param posDice        if a player has positioned a dice before
+     * @param useTool        if a player has used a tool card before
      */
     public void sendMessageTurn(List<Player> playersInRound, int turno, boolean posDice, boolean useTool) {
         try {
             connections.get(searchUser(playersInRound.get(turno).getName())).sendIsYourTurn(
-                    posDice,useTool);
+                    posDice, useTool);
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
@@ -302,8 +319,9 @@ public class VirtualView implements Serializable {
 
     /**
      * method that send to a player the update of the game
+     *
      * @param model an instance of game
-     * @param name an username
+     * @param name  an username
      */
     public void sendMessageUpdate(Game model, String name) {
         // INVIA A TUTTI I GIOCATORI LE INFORMAZIONI DI TUTTI I GIOCATORI.
@@ -325,14 +343,15 @@ public class VirtualView implements Serializable {
         try {
             for (int i = 0; i < playersActive.size(); i++)
                 connections.get(i).sendUpdate(maps, users, message, tools, model.getRoundSchemeMap(), model.getStock(), fav);
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
     /**
      * method that send a message_socket for use the tool card "Copper Foil Burnisher"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageCopper(String title, int player) {
@@ -342,9 +361,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Corkbacked Straightedge"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageCork(String title, int player) {
@@ -354,9 +375,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Eglomise Brush"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageEglomise(String title, int player) {
@@ -366,9 +389,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Flux Brush"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageFluxBrush(String title, int player) {
@@ -378,9 +403,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a first message_socket for use the tool card "Flux Remover"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageFluxRemover(String title, int player) {
@@ -390,16 +417,20 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that call a method for use the tool card "Glazing Hammer"
+     *
      * @param title title of card
      */
     public void createMessageGlazing(String title) {
         controller.manageGlazing(title);
     }
+
     /**
      * method that send a message_socket for use the tool card "Grinding Stone"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageGrinding(String title, int player) {
@@ -409,9 +440,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Grozing Pliers"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageGrozing(String title, int player) {
@@ -421,9 +454,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Lathekin"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageLathekin(String title, int player) {
@@ -433,9 +468,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Lens Cutter"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageLens(String title, int player) {
@@ -445,9 +482,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Running Pliers"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageRunning(String title, int player) {
@@ -457,9 +496,11 @@ public class VirtualView implements Serializable {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
+
     /**
      * method that send a message_socket for use the tool card "Tap Wheel"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
      */
     public void createMessageTap(String title, int player) {
@@ -472,6 +513,7 @@ public class VirtualView implements Serializable {
 
     /**
      * method that send to a player the final score of all players
+     *
      * @param players arraylist of all players
      */
     public void sendScorePlayers(List<Player> players) {
@@ -486,7 +528,8 @@ public class VirtualView implements Serializable {
 
     /**
      * method that send a generic error to a player
-     * @param error an error string
+     *
+     * @param error  an error string
      * @param player a player
      */
     public void createMessageError(String error, int player) {
@@ -499,9 +542,10 @@ public class VirtualView implements Serializable {
 
     /**
      * method that send a second message_socket for use the tool card "Flux Remover"
-     * @param title title of card
+     *
+     * @param title  title of card
      * @param player a player
-     * @param dice a choose dice
+     * @param dice   a choose dice
      */
     public void manageFluxRemover2(Dice dice, String title, Player player) {
         try {
@@ -513,6 +557,7 @@ public class VirtualView implements Serializable {
 
     /**
      * method that set the current Player
+     *
      * @param currentPlayer a player
      */
     // DA TESTARE
@@ -537,6 +582,7 @@ public class VirtualView implements Serializable {
 
     /**
      * method that returns true if the game is terminated
+     *
      * @return a boolean
      */
     public boolean isTermi() {
@@ -546,16 +592,17 @@ public class VirtualView implements Serializable {
     /**
      * method that disconnect all connections
      */
-    void disconnect(){
+    void disconnect() {
         try {
             for (ConnectionServer connection : this.connections) connection.setDisconnected();
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
     /**
      * method that returns an instance of controller
+     *
      * @return the controller
      */
     public Controller getController() {
@@ -565,10 +612,10 @@ public class VirtualView implements Serializable {
     /**
      * method that set the Virtual view in every ConnectionServer
      */
-    private void setView(){
+    private void setView() {
         try {
             for (ConnectionServer connection : connections) connection.setvView(this);
-        }catch (RemoteException e){
+        } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }

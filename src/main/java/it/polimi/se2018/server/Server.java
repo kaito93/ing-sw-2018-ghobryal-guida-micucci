@@ -122,10 +122,13 @@ public class Server implements Remote {
             registry = LocateRegistry.createRegistry(portRMI);
         }catch (RemoteException e1){
             LOGGER.log(Level.INFO, "Registro già presente");
-            try {
-                registry = LocateRegistry.getRegistry(portRMI);
-            } catch (RemoteException e) {
-                LOGGER.log(Level.SEVERE, "Porta " + portRMI+ " occupata", e);
+            while (true){
+                try {
+                    registry = LocateRegistry.getRegistry(portRMI);
+                    break;
+                } catch (RemoteException e) {
+                    LOGGER.log(Level.SEVERE, "Porta " + portRMI+ " occupata", e);
+                }
             }
         }
         return registry;
@@ -245,6 +248,8 @@ public class Server implements Remote {
         } else {
             if (checkUsername(user)) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
                 clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+                String text=  user+" - Ho aggiunto il giocatore all'elenco dei giocator in attesa";
+                LOGGER.log(Level.INFO, text);
             } else {// se l'username è già preso
                 conness.sendErrorUser();
             }
