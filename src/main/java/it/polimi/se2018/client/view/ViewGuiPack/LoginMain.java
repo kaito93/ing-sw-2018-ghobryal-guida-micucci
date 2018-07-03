@@ -95,6 +95,7 @@ public class LoginMain extends Application {
                 System.out.println(ipField.getText());
 
                 assignValue(tmpUser, tmpConnections, tmpUI, ipField.getText(), portField.getText());
+                stage.close();
             } else {
                 try {
                     this.start(primaryStage);

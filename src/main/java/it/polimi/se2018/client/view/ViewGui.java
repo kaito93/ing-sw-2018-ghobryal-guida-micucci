@@ -1,5 +1,6 @@
 package it.polimi.se2018.client.view;
 
+import it.polimi.se2018.client.view.ViewGuiPack.WrongUsernameScene;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
@@ -50,8 +51,8 @@ public class ViewGui extends View {
 
     @Override
     public String askNewUsername() {
-        // SI CHIAMA IL METODO PER RIAPRIRE LA SCHERMATA DI LOGIN: PER IL CONTROLLO VEDI CON SAMU
-        return null;
+        WrongUsernameScene.displayScene(stageOfGame);
+        return WrongUsernameScene.getUsername();
     }
 
     @Override
