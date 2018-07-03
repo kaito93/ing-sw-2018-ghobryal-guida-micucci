@@ -115,6 +115,7 @@ public abstract class View implements Serializable {
         gameStatus.setStock(stock);
         gameStatus.setFavUser(favors);
         addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
+        prepareScene();
     }
 
     /**
@@ -460,5 +461,7 @@ public abstract class View implements Serializable {
      * @param scores list of scores
      */
     public abstract void seeScore(List<Integer> scores);
+
+    public abstract void prepareScene();
 }
 

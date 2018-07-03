@@ -12,6 +12,7 @@ import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
 import it.polimi.se2018.client.view.ViewGui;
 import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -47,6 +48,7 @@ public class LauncherClient {
         LoginMain.setPort(port);
 
         Application.launch(LoginMain.class);
+        Stage stage = LoginMain.getStage();
         String username = LoginMain.getUsername();
         String choiceConnection = LoginMain.getConnections();
         String choiceView = LoginMain.getUint();
@@ -57,10 +59,11 @@ public class LauncherClient {
                 condition = false;
             }
             if ("gui".equalsIgnoreCase(choiceView)){
-                view = new ViewGui(timer);
+                view = new ViewGui(timer, stage);
                 condition = false;
             }
         }
+
 
         condition=true;
         while(condition){

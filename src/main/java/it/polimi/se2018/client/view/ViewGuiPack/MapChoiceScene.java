@@ -1,6 +1,7 @@
 package it.polimi.se2018.client.view.ViewGuiPack;
 
 import it.polimi.se2018.server.model.Map;
+import it.polimi.se2018.shared.model_shared.Cell;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapChoiceScene {
 
@@ -19,14 +21,12 @@ public class MapChoiceScene {
     private static VBox intMap2;
     private static VBox intMap3;
     private static VBox intMap4;
-    Stage stage;
+    static Stage stage;
     static Scene scenaScelta;
-    static RadioButton map1Button;
-    static RadioButton map2Button;
-    static RadioButton map3Button;
-    static RadioButton map4Button;
-    ToggleGroup maps;
-    static Button scelto;
+    static Button map1Button;
+    static Button map2Button;
+    static Button map3Button;
+    static Button map4Button;
     static ArrayList<Rectangle> map1 = new ArrayList<>();
     static ArrayList<Rectangle> map2 = new ArrayList<>();
     static ArrayList<Rectangle> map3= new ArrayList<>();
@@ -35,29 +35,32 @@ public class MapChoiceScene {
     static VBox defMap2;
     static VBox defMap3;
     static VBox defMap4;
+    static int chosenMap;
 
     public MapChoiceScene(Stage primaryStage){
         stage = primaryStage;
-        scelto = new Button("Scelto!");
-        maps = new ToggleGroup();
-        map1Button = new RadioButton("map1");
-        map1Button.setToggleGroup(maps);
-        map2Button = new RadioButton("map2");
-        map2Button.setToggleGroup(maps);
-        map3Button = new RadioButton("map3");
-        map3Button.setToggleGroup(maps);
-        map4Button = new RadioButton("map4");
-        map4Button.setToggleGroup(maps);
+        map1Button = new Button("map1");
+        map1Button.setOnAction( e -> {
+            setChosenMap(1);
+        });
+        map2Button = new Button("map2");
+        map2Button.setOnAction( e -> {
+            setChosenMap(2);
+        });
+        map3Button = new Button("map3");
+        map3Button.setOnAction( e -> {
+            setChosenMap(3);
+        });
+        map4Button = new Button("map4");
+        map4Button.setOnAction( e -> {
+            setChosenMap(4);
+        });
         for(int index = 0; index<20; index++){
             map1.add(new Rectangle(50,50));
             map2.add(new Rectangle(50,50));
             map3.add(new Rectangle(50,50));
             map4.add(new Rectangle(50,50));
         }
-        scelto.setOnAction( e ->{
-            System.out.println("hai scelto la mappa");
-            Platform.exit();
-        });
     }
 
     public static VBox SetUpMap(ArrayList<Rectangle> tex){
@@ -82,7 +85,7 @@ public class MapChoiceScene {
         return map;
     }
 
-    public static VBox setUpChoice(VBox kit, RadioButton tiger){
+    public static VBox setUpChoice(VBox kit, Button tiger){
         VBox definitiveMap = new VBox(20);
         definitiveMap.getChildren().addAll(tiger, kit);
         return definitiveMap;
@@ -94,7 +97,7 @@ public class MapChoiceScene {
         HBox coupleMap2 = new HBox(120);
         coupleMap.getChildren().addAll(firstmap,secondmap);
         coupleMap2.getChildren().addAll(thirdmap,fourthmap);
-        total.getChildren().addAll(coupleMap,coupleMap2, scelto);
+        total.getChildren().addAll(coupleMap,coupleMap2);
         return total;
     }
 
@@ -111,7 +114,7 @@ public class MapChoiceScene {
     }
 
 
-    public static void AssignMap1(Map fromModel, RadioButton radio, ArrayList<Rectangle> yama){
+    public static void assignMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
         for (int rowindex = 0; rowindex<5; rowindex ++){
             for (int colindex = 0; colindex < 6; colindex++){
                // if (fromModel.getCell(rowindex,colindex).
@@ -119,7 +122,25 @@ public class MapChoiceScene {
         }
     }
 
-    public static void playingSceneTransfer(Stage stage, ArrayList<Rectangle> chosenMap){
+    public static void playingSceneTransfer(Stage stage, VBox chosenMap){
+        new playingBoardScene(stage, chosenMap);
+        playingBoardScene.totalSetUp();
+    }
 
+    public static void toChoiceMapStage(Stage sts){
+        sts.setTitle("Scelta delle mappe di Sagrada");
+        new MapChoiceScene(sts);
+        Scene scena = MapChoiceScene.totalSetUp();
+        sts.setScene(scena);
+        sts.show();
+    }
+
+    public static void setChosenMap(int map){
+        chosenMap = map;
+        stage.close();
+    }
+
+    public static int getChosenMap() {
+        return chosenMap;
     }
 }

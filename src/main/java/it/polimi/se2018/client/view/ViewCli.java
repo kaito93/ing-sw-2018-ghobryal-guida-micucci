@@ -865,6 +865,11 @@ public class ViewCli extends View {
         }
     }
 
+    @Override
+    public void prepareScene() {
+        // Solo GUI
+    }
+
     /**
      * method that print the information about private objective card
      *

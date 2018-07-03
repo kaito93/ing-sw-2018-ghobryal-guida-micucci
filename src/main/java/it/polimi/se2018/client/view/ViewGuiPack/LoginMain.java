@@ -16,6 +16,7 @@ public class LoginMain extends Application {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static String username;
+    private static Stage stage;
     private static String connections;
     private static String uint;
     private static String IP;
@@ -29,6 +30,7 @@ public class LoginMain extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        stage = primaryStage;
         Scene scene;
         primaryStage.setTitle("Pagina iniziale Sagrada");
         TextField textUser;
@@ -93,7 +95,6 @@ public class LoginMain extends Application {
                 System.out.println(ipField.getText());
 
                 assignValue(tmpUser, tmpConnections, tmpUI, ipField.getText(), portField.getText());
-                toChoiceMapStage(primaryStage);
             } else {
                 try {
                     this.start(primaryStage);
@@ -149,12 +150,8 @@ public class LoginMain extends Application {
         return PORT;
     }
 
-    public static void toChoiceMapStage(Stage stage){
-        stage.setTitle("Scelta delle mappe di Sagrada");
-        new MapChoiceScene(stage);
-        Scene scena = MapChoiceScene.totalSetUp();
-        stage.setScene(scena);
-        stage.show();
+    public static Stage getStage() {
+        return stage;
     }
 }
 

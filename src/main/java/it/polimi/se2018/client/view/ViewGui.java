@@ -4,9 +4,16 @@ import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
 import java.util.List;
-import it.polimi.se2018.client.view.ViewGuiPack.*;
+import javafx.stage.Stage;
+
+import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.assignMap;
+import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.getChosenMap;
+import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.toChoiceMapStage;
 
 public class ViewGui extends View {
+
+    private Stage stageOfGame;
+
     @Override
     public void addLog(String message) {
 
@@ -29,16 +36,15 @@ public class ViewGui extends View {
 
     }
 
-    public ViewGui(int timer){
+    public ViewGui(int timer, Stage primaryStage){
         super(timer);
+        stageOfGame = primaryStage;
     }
 
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
-        // BISOGNERA' CHIEDERE ALL'UTENTE QUALE MAPPA SCEGLIERE
-
-        // ritorna l'intero della mappa scelta dentro la lista
-
-        return 0;
+        assignMap(maps, names, fav);
+        toChoiceMapStage(stageOfGame);
+        return getChosenMap();
     }
 
 
@@ -155,5 +161,10 @@ public class ViewGui extends View {
     public void seeScore(List<Integer> scores) {
         // devi mostrare i punteggi di tutti i giocatori.
         // la partita termina con questo metodo
+    }
+
+    @Override
+    public void prepareScene() {
+        // questo metodo aggiorna le informazioni della schermata del turno.Le informazioni prendile da gamestatus
     }
 }
