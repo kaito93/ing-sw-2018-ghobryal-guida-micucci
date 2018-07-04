@@ -37,7 +37,7 @@ public class GlazingHammer extends ToolCardStrategy {
             for (Dice dice : stock)
                 dice.throwDice();
         else{
-            errorBool.setErrorMessage("Il giocatore non rispetta la restrizione colore");
+            errorBool.setErrorMessage("Il giocatore non è ancora arrivato al proprio secondo turno durante questo round");
             errorBool.setErrBool(true);
             return;
         }

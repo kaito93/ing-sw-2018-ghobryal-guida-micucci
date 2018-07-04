@@ -10,6 +10,7 @@ import it.polimi.se2018.shared.Logger;
 
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,6 +40,7 @@ public class Controller implements Serializable {
     private int mappe = 0;
     private boolean disconnect = false;
     private static final String ERR = "Hai già piazzato il massimo numero di dadi per questo turn [1]";
+    private static final String REMOTEERROR = "Errore di connessione: {0} !";
 
 
     /**
@@ -93,8 +95,10 @@ public class Controller implements Serializable {
             this.players.get(index).setMap(map);
             this.players.get(index).setFavorSig();
             mappe++;
-            if (mappe == players.size())
+            if (mappe == players.size()) {
                 notifyAll();
+            }
+
         } else
             LOGGER.log(Level.WARNING, "E' stato passato un giocatore errato");
     }
@@ -153,7 +157,8 @@ public class Controller implements Serializable {
     public void game() {
 
         int round;
-        waitw();
+        //if (view.isAnySocket())
+            waitw();
         setPlayersInRound();
 
         // CICLO CHE GESTISCE I ROUND
@@ -179,7 +184,12 @@ public class Controller implements Serializable {
                             // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
                             view.sendMessageTurn(playersInRound, turn, setDice, useTools);
                             b = false;
-                            waitMove();
+                            try {
+                                if (view.searchPlayer(playersInRound.get(turn).getName()).isConnection())
+                                    waitMove();
+                            } catch (RemoteException e) {
+                                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+                            }
                             if (view.isTermi() && !disconnect) {
                                 LOGGER.log(Level.INFO, "Termine mossa {0}", String.valueOf(move) + " del giocatore "
                                         + playersInRound.get(turn).getName());
@@ -246,8 +256,8 @@ public class Controller implements Serializable {
             LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turn).getName() + " effettui la sua mossa");
 
             while (!b) {
-                    this.wait();
-                    b = true;
+                this.wait();
+                b = true;
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -259,8 +269,8 @@ public class Controller implements Serializable {
      */
 
     private synchronized void setTools() {
-            this.setDice = A;
-            notifyAll();
+        this.setDice = A;
+        notifyAll();
     }
 
 
@@ -739,14 +749,20 @@ public class Controller implements Serializable {
      * @param columnDest column's coordinate on the map where the dice should be placed
      */
     public void manageRunning(String title, Dice dice, int rowDest, int columnDest) {
-        if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice,
-                firstOrSecond(), 0, getGame().getStock(), rowDest, columnDest, null,
-                null, getPlayersInRound(), 0))
-            manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
-        else {
-            setSetDice(A);
-            setTools();
+        if (setDice){
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice,
+                    firstOrSecond(), 0, getGame().getStock(), rowDest, columnDest, null,
+                    null, getPlayersInRound(), 0))
+                manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
+            else {
+                setSetDice(A);
+                setTools();
+            }
         }
+        else
+            manageError("Il giocatore non ha ancora effettuato la proprio prima mossa in questo turno");
+
+
     }
 
     /**

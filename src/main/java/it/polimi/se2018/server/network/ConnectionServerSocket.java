@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,6 +42,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     private transient Socket client;
     private transient ObjectOutputStream output;
     private transient ObjectInputStream input;
+    private final boolean socket=true;
 
     /**
      * Constructor class
@@ -694,6 +696,11 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     @Override
     public void setPlayerOnline() {
         //solo per RMI
+    }
+
+    @Override
+    public boolean isConnection() throws RemoteException {
+        return socket;
     }
 
     /**

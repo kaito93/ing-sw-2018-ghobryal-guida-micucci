@@ -437,4 +437,6 @@ public interface ConnectionServer extends Remote,Serializable {
      */
     void setPlayerOnline() throws RemoteException;
 
+    boolean isConnection() throws RemoteException;
+
 }

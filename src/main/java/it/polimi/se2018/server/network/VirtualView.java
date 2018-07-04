@@ -126,7 +126,7 @@ public class VirtualView implements Serializable {
     /**
      * Internal class that manage the listener of message_socket throws Socket
      */
-    class PlayerPlay extends Thread implements Serializable{
+    class PlayerPlay extends Thread implements Serializable {
 
         private ConnectionServer client;
         boolean connected;
@@ -188,7 +188,7 @@ public class VirtualView implements Serializable {
 
                         this.client.tryReconnect();
                         this.client.setConnected(true);
-                        connected=true;
+                        connected = true;
                         text = "Il giocatore " + client.getUsername() + " si è riconnesso. Tornerà in gioco dal prossimo round.";
                         for (ConnectionServer connection : connections) { // per ogni giocatore
                             tryToSendGainConnection(connection, text);
@@ -618,6 +618,30 @@ public class VirtualView implements Serializable {
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
+    }
+
+    public ConnectionServer searchPlayer(String user) {
+        try {
+            for (ConnectionServer connection : connections) {
+                if (connection.getUsername().equalsIgnoreCase(user))
+                    return connection;
+            }
+        } catch (RemoteException e) {
+            // nulla
+        }
+        return null;
+    }
+
+    public boolean isAnySocket(){
+        for (ConnectionServer connection : connections) {
+            try {
+                if (connection.isConnection())
+                    return true;
+            } catch (RemoteException e) {
+                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            }
+        }
+        return false;
     }
 
 
