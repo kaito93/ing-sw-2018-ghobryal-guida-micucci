@@ -146,8 +146,9 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * @param favors an arraylist of integer
      */
     public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
-                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors){
+                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message){
         view.updateUsers(users, cells, useTools, roundSchemeMap, stock, favors);
+        view.addLog(message);
     }
 
     /**
@@ -400,6 +401,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * @param error a string of the error
      */
     public void handleError(String error){
+
         view.manageError(error);
     }
 
@@ -474,8 +476,10 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * @param index new index of player in the array
      */
     public void receiveLostConnection(String text, int index){
-        view.updateIndex(index);
+        boolean a=view.updateIndex(index);
         view.addError(text);
+        if (!a)
+            System.exit(0);
     }
 
     /**
@@ -504,7 +508,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
     @Override
     public void sendDisconnect() {
         try {
-            skeleton.setPlayerOnline(false);
+            skeleton.setPlayerOnline();
         } catch (RemoteException e) {
             while (true) {
                 try {

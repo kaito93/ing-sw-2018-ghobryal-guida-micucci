@@ -10,9 +10,9 @@ import java.util.logging.Level;
  * class that help to deserialize a json file
  * @author Samuele Guida
  */
-public abstract class Deserializer extends Observable {
-    private Gson gson;
-    private BufferedReader br;
+public abstract class Deserializer extends Observable implements Serializable {
+    private transient Gson gson;
+    private transient BufferedReader br;
     public static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
     /**

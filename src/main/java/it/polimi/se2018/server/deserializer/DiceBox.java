@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.shared.Deserializer;
 import it.polimi.se2018.shared.model_shared.Dice;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.List;
  * contains all method to generate the DiceBox from the Json file
  * @author Andrea
  */
-public class DiceBox extends Deserializer {
+public class DiceBox extends Deserializer implements Serializable {
 
     private ArrayList<Dice> box;
 

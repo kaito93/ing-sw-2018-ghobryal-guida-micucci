@@ -30,7 +30,8 @@ public class TestController extends TestCase {
         players = new ArrayList<>();
         players.add(new Player("Anton"));
         players.add(new Player("Samu"));
-        controller = new Controller(new VirtualView(), players);
+        controller = new Controller(new VirtualView());
+        controller.setPlayers(players);
         game = controller.getGame();
         map = game.getThatMap("Virtus");
         super.setUp();

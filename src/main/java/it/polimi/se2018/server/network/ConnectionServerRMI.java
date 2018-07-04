@@ -55,10 +55,9 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
 
     /**
      * sets the boolean value that indicates if the player is doing his move before the timer is out
-     * @param playerOnline a boolean, false if the timer is out, else true
      */
-    public void setPlayerOnline(boolean playerOnline) {
-        this.playerOnline = playerOnline;
+    public synchronized void setPlayerOnline() {
+        this.playerOnline = false;
     }
 
     /**
@@ -109,7 +108,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         List<String> titlePublic = cards.stream().map(Card::getTitle).collect(Collectors.toList());
         List<String> descriptionPublic = cards.stream().map(Card::getDescription).collect(Collectors.toList());
         List<String> titleTool = tools.stream().map(Card::getTitle).collect(Collectors.toList());
-        List<String> descriptionTool = tools.stream().map(Card::getTitle).collect(Collectors.toList());
+        List<String> descriptionTool = tools.stream().map(Card::getDescription).collect(Collectors.toList());
         List<Integer> publicScore = cards.stream().map(PublicObjectiveCard::getScore).collect(Collectors.toList());
 
         try {
@@ -188,7 +187,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         // LO SCHEMA DEI ROUND E LA RISERVA e l'elenco dei punti favore rimanenti ai giocatori
         List<Cell[][]> cells = maps.stream().map(Map::getCells).collect(Collectors.toList());
         try {
-            stub.receiveUpdate(users, cells, tools, roundSchemeMap, stock, favors);
+            stub.receiveUpdate(users, cells, tools, roundSchemeMap, stock, favors,message);
         } catch (RemoteException e) {
             connected=false;
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
@@ -627,6 +626,9 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         try {
             ConnectionServer temp = new ConnectionServerRMI(server, stub.getUsername());
             ((ConnectionServerRMI) temp).setStub(stub);
+            ((ConnectionServerRMI) temp).setvView(vView);
+            server.rebind((ConnectionServerRMI) temp);
+            stub.setSkeleton(temp);
             return temp;
         } catch (RemoteException e) {
             connected=false;
@@ -647,7 +649,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      */
     @Override
     public void sendVictoryAbbandon() {
-        sendLostConnection("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)", -1);
+        sendLostConnection("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)", 5);
     }
 
     /**
@@ -726,7 +728,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      * @return a boolean, true if the player is connected, else false
      */
     @Override
-    public boolean receiveMessage() {
+    public synchronized boolean receiveMessage() {
         return connected&&playerOnline;
     }
 

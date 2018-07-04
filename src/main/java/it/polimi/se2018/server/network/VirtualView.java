@@ -24,11 +24,11 @@ public class VirtualView implements Serializable {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 
-    private transient Controller controller;
+    private Controller controller;
     private ArrayList<ConnectionServer> connections = new ArrayList<>();
     private ArrayList<Player> playersActive = new ArrayList<>();
     private ArrayList<PlayerPlay> playersPlay = new ArrayList<>();
-    private transient PlayerPlay currentPlayer;
+    private PlayerPlay currentPlayer;
 
     private ArrayList<Player> playersSuspend = new ArrayList<>();
     private ArrayList<ConnectionServer> connectionsSuspend = new ArrayList<>();
@@ -44,6 +44,7 @@ public class VirtualView implements Serializable {
      */
     List<Player> setClients(List<ConnectionServer> connect) {
         try {
+            setView(connect);
             for (ConnectionServer aConnect : connect) {
                 connections.add(aConnect.cloneObj());
             }
@@ -59,7 +60,7 @@ public class VirtualView implements Serializable {
         } catch (NullPointerException e) {
             LOGGER.log(Level.WARNING, "Non ci sono più giocatori attivi", e);
         }
-        setView();
+
         return playersActive;
 
     }
@@ -125,7 +126,7 @@ public class VirtualView implements Serializable {
     /**
      * Internal class that manage the listener of message_socket throws Socket
      */
-    class PlayerPlay extends Thread {
+    class PlayerPlay extends Thread implements Serializable{
 
         private ConnectionServer client;
         boolean connected;
@@ -138,7 +139,6 @@ public class VirtualView implements Serializable {
         private PlayerPlay(ConnectionServer player) {
             this.client = player;
             this.connected = true;
-
         }
 
         /**
@@ -612,9 +612,9 @@ public class VirtualView implements Serializable {
     /**
      * method that set the Virtual view in every ConnectionServer
      */
-    private void setView() {
+    private void setView(List<ConnectionServer> connect) {
         try {
-            for (ConnectionServer connection : connections) connection.setvView(this);
+            for (ConnectionServer connection : connect) connection.setvView(this);
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }

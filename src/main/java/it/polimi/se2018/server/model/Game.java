@@ -12,6 +12,7 @@ import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.server.deserializer.DeckOfPrivateCards;
 import it.polimi.se2018.server.deserializer.DiceBox;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,7 +23,7 @@ import java.util.Random;
  * contains all the resources for this game
  * @author Samuele Guida
  */
-public class Game {
+public class Game implements Serializable {
 
     private static final int MAXROUND = 10;
 

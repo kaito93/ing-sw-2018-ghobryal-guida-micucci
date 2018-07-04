@@ -394,6 +394,7 @@ public abstract class View implements Serializable {
                     if (valid){
                         if (counter==4){
                             addError("Hai impiegato troppo tempo a scegliere una mossa.\n Sei stato disconnesso.");
+                            this.stopTimer();
                             reconn();
                         }
                         else
@@ -450,9 +451,10 @@ public abstract class View implements Serializable {
      *
      * @param newIndex an integer
      */
-    public void updateIndex(int newIndex) {
+    public boolean updateIndex(int newIndex) {
         if (newIndex!=-1)
             gameStatus.setYourIndex(newIndex);
+        return newIndex <= 4;
     }
 
     /**

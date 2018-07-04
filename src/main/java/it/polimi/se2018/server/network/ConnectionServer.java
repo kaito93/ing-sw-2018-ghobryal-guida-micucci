@@ -433,9 +433,8 @@ public interface ConnectionServer extends Remote,Serializable {
 
     /**
      * abstract method that sets the boolean value that indicates if the player is doing his move before the timer is out
-     * @param playerOnline a boolean, false if the timer is out, else true
      * @throws RemoteException if the stub is no longer online
      */
-    void setPlayerOnline(boolean playerOnline) throws RemoteException;
+    void setPlayerOnline() throws RemoteException;
 
 }

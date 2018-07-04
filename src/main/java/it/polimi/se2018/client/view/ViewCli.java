@@ -210,6 +210,7 @@ public class ViewCli extends View {
         } catch (IndexOutOfBoundsException | NoSuchElementException | IllegalStateException | NullPointerException e) {
             // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
             addLog("Chiusura mossa precedente");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
         }

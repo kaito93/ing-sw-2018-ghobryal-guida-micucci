@@ -1,6 +1,8 @@
 package it.polimi.se2018.client.network;
 
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Dice;
 
@@ -143,7 +145,7 @@ public interface ConnectionClient extends Remote, Serializable {
      * @throws RemoteException if the skeleton is no longer online
      */
     void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
-                       RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) throws RemoteException;
+                       RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message) throws RemoteException;
 
     /**
      * abstract method that manages the tool card Tap Wheel
@@ -247,4 +249,6 @@ public interface ConnectionClient extends Remote, Serializable {
      * @throws RemoteException if the skeleton is no longer online
      */
     void receiveLostConnection(String text, int index) throws RemoteException;
+
+    void setSkeleton(ConnectionServer skeleton) throws RemoteException;
 }

@@ -440,6 +440,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     public void sendVictoryAbbandon() {
         MessagePlayerDisconnect message = new MessagePlayerDisconnect();
         message.setMessage("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)");
+        message.setIndex(5);
         mex = new Message(Message.SYSTEMEVENT, message);
         send(mex);
     }
@@ -691,7 +692,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
      * only used by RMI
      */
     @Override
-    public void setPlayerOnline(boolean playerOnline) {
+    public void setPlayerOnline() {
         //solo per RMI
     }
 

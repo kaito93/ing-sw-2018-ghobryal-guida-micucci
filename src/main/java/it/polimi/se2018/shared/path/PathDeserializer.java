@@ -3,13 +3,14 @@ package it.polimi.se2018.shared.path;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.se2018.shared.Deserializer;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
  * class that is used to deserializer the path of the file json to search
  */
-public class PathDeserializer extends Deserializer {
+public class PathDeserializer extends Deserializer implements Serializable {
 
     private ArrayList<PathJsonStructure> pathjson;
 

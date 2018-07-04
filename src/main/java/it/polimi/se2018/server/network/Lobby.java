@@ -42,9 +42,10 @@ public class Lobby extends Thread {
         VirtualView view;
         List<Player> players;
         view= new VirtualView(); // crea la virtual vView per interfacciarsi con i giocatori
-        players=view.setClients(playerConnection); // setta i giocatori
-        controller = new Controller(view,players); // crea il controller
+        controller = new Controller(view); // crea il controller
         view.setController(controller);
+        players=view.setClients(playerConnection); // setta i giocatori
+        controller.setPlayers(players);
         view.start();
         view.startServer(); // avvia la vView
         controller.startGame(); // fa cominciare effettivamente la partita

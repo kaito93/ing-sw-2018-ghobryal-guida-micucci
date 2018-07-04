@@ -1,6 +1,7 @@
 package it.polimi.se2018.client.network;
 
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
+import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.message_socket.*;
 import it.polimi.se2018.shared.message_socket.client_to_server.*;
 import it.polimi.se2018.shared.message_socket.server_to_client.*;
@@ -16,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -469,9 +471,10 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * @param message message_socket received by server
      */
     public void visit(MessagePlayerDisconnect message) {
-        view.updateIndex(message.getIndex());
+        boolean a= view.updateIndex(message.getIndex());
         view.addError(message.getMessage());
-
+        if (!a)
+            condition=false;
     }
 
     /**
@@ -573,7 +576,8 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      * only used by rmi connection
      */
     @Override
-    public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
+    public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
+                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message) {
         //solo per RMI
     }
 
@@ -688,5 +692,13 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     @Override
     public void receiveLostConnection(String text, int index) {
         // solo per RMI
+    }
+
+    /**
+     * only used by rmi connection
+     */
+    @Override
+    public void setSkeleton(ConnectionServer skeleton) throws RemoteException {
+        //solo per RMI
     }
 }

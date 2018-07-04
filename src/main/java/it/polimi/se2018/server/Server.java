@@ -110,7 +110,7 @@ public class Server implements Remote {
         try {
             registry = createRegistry();
             connectionServerRMI = new ConnectionServerRMI(this, "");
-            rebind();
+            rebind(connectionServerRMI);
         }catch (RemoteException | NullPointerException e) {
             LOGGER.log(Level.INFO, "Oggetto già esportato", e);
         }
@@ -134,7 +134,7 @@ public class Server implements Remote {
         return registry;
     }
 
-    private void rebind(){
+    public void rebind(ConnectionServerRMI connectionServerRMI){
         try{
             registry.rebind("//localhost/ServerConnectionReference", connectionServerRMI);
         } catch (NullPointerException e){
