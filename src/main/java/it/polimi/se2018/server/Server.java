@@ -241,14 +241,15 @@ public class Server implements Remote {
      * @param user username that client have choose
      */
     private void addConnection(ConnectionServer conness, String user) throws RemoteException {
+        String text=  user+" - Ho aggiunto il giocatore all'elenco dei giocatore in attesa";
         if (clients.isEmpty()) {
             clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
+            LOGGER.log(Level.INFO, text);
             TimerCount count = new TimerCount(); //inizializza il timer
             timer.schedule(count, 0, time / 20); // fa partire il timer
         } else {
             if (checkUsername(user)) { // Se l'username scelto dal giocatore non è già stato registrato da un altro giocatore
                 clients.add(conness); // aggiungi connessione all'elenco delle connessioni del giocatore
-                String text=  user+" - Ho aggiunto il giocatore all'elenco dei giocator in attesa";
                 LOGGER.log(Level.INFO, text);
             } else {// se l'username è già preso
                 conness.sendErrorUser();
