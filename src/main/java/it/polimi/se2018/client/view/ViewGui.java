@@ -22,6 +22,7 @@ public class ViewGui extends View {
     private static Stage stageOfGame;
     pathFXML paths = new pathFXML();
     private LauncherClient launcher;
+    String connect;
 
     public ViewGui(int timer, LauncherClient launch){
         super(timer);
@@ -209,10 +210,8 @@ public class ViewGui extends View {
                     String user = ModelFX.getInstance().getLogin().getUsername();
                     String ipad = ModelFX.getInstance().getLogin().getiP();
                     int ported = ModelFX.getInstance().getLogin().getPort();
-                    String conn = ModelFX.getInstance().getLogin().getConnectivity();
-                    System.out.println(conn);
                     cond=false;
-                    launcher.setConnection(ported, ipad, user, this, conn);
+                    launcher.setConnection(ported, ipad, user, this, ModelFX.getInstance().getLogin().getConnectivity());
 
                 }
             }
