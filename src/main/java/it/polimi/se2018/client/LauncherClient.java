@@ -80,12 +80,12 @@ public class LauncherClient {
                 ConnectionClientRMI clientRMI;
                 while (condition) {
                     try {
-                        registry = LocateRegistry.getRegistry(portRMI);
-                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
-                        clientRMI = new ConnectionClientRMI(view, username, registry);
-                        connectionServer.setClientRMI(clientRMI, username);
+                        registry = LocateRegistry.getRegistry(portRMI); //mi ritorna il registro sulla porta già attivata su server
+                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference"); //cerca e ritorna l'oggetto reso disponibile su rete
+                        clientRMI = new ConnectionClientRMI(view, username, registry); //creo una connessione di tipo rmi
+                        connectionServer.setClientRMI(clientRMI, username); //rendo lo stub disponibile dalla parte del server
                         connectionServer.setUsername(username);
-                        clientRMI.setSkeleton(connectionServer);
+                        clientRMI.setSkeleton(connectionServer); //rendo lo skeleton disponibile dalla parte del cliente
                         view.setClient(clientRMI);
                         condition = false;
                     }catch (RemoteException | NotBoundException e){
