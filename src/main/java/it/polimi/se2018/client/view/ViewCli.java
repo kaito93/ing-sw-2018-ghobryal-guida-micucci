@@ -992,4 +992,9 @@ public class ViewCli extends View {
         }
         addLog(" ");
     }
+
+    @Override
+    public void startView() {
+        // solo GUI
+    }
 }

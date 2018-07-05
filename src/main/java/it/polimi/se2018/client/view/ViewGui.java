@@ -1,19 +1,34 @@
 package it.polimi.se2018.client.view;
 
-import it.polimi.se2018.client.view.ViewGuiPack.WrongUsernameScene;
+import it.polimi.se2018.client.LauncherClient;
+import it.polimi.se2018.client.view.ViewGuiPack.FxmlOpener;
+import it.polimi.se2018.client.view.ViewGuiPack.pathFXML;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
 import java.util.List;
+
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.assignMap;
 import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.getChosenMap;
 import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.toChoiceMapStage;
+import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+import static javafx.application.Platform.isFxApplicationThread;
 
 public class ViewGui extends View {
 
-    private Stage stageOfGame;
+    private static Stage stageOfGame;
+    pathFXML paths = new pathFXML();
+    private LauncherClient launcher;
+
+    public ViewGui(int timer, LauncherClient launch){
+        super(timer);
+        launcher=launch;
+        ModelFX.getInstance().getLogin().setPort(launcher.getPort());
+        ModelFX.getInstance().getLogin().setiP(launcher.getIp());
+    }
 
     @Override
     public void addLog(String message) {
@@ -37,22 +52,22 @@ public class ViewGui extends View {
 
     }
 
-    public ViewGui(int timer, Stage primaryStage){
+    public ViewGui(int timer){
         super(timer);
-        stageOfGame = primaryStage;
     }
 
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
         assignMap(maps, names, fav);
-        toChoiceMapStage(stageOfGame);
+        FxmlOpener.getInstance().openFX("/FXML/SceltaMappe.fxml");
         return getChosenMap();
     }
 
 
     @Override
     public String askNewUsername() {
-        WrongUsernameScene.displayScene(stageOfGame);
-        return WrongUsernameScene.getUsername();
+        System.out.println("ciao popolo");
+        FxmlOpener.getInstance().openFX("/FXML/wrongUsername.fxml");
+        return ModelFX.getInstance().getWrong().getNewUsername();
     }
 
     @Override
@@ -166,19 +181,50 @@ public class ViewGui extends View {
 
     @Override
     public void printYourStatus() {
-       // questo metodo aggiorna le informazioni della schermata del turno relative ai tuoi dati .Le informazioni prendile da gamestatus
-        // tutti i pulsanti sono bloccati
+
     }
 
     @Override
     public void printPublicStatus() {
-        // questo metodo aggiorna le informazioni della schermata del turno relative ai dati generali della partita.
-        // Le informazioni prendile da gamestatus.
-        // tutti i pulsanti sono bloccati
+
     }
 
     @Override
     public void printOtherStatus() {
-        // questo metodo aggiorna le informazioni delle mappe degli altri giocatori. sempre tutto bloccato
+
+    }
+
+    @Override
+    public void startView() {
+        launchLoginMain();
+    }
+
+    public void launchLoginMain(){
+        FxmlOpener.getInstance().openFX("/FXML/LoginPageFXML.fxml");
+        boolean cond=true;
+        while(cond){
+            try{
+                if(!ModelFX.getInstance().getLogin().getUsername().isEmpty())
+                {
+                    String user = ModelFX.getInstance().getLogin().getUsername();
+                    String ipad = ModelFX.getInstance().getLogin().getiP();
+                    int ported = ModelFX.getInstance().getLogin().getPort();
+                    String conn = ModelFX.getInstance().getLogin().getConnectivity();
+                    System.out.println(conn);
+                    cond=false;
+                    launcher.setConnection(ported, ipad, user, this, conn);
+
+                }
+            }
+            catch(NullPointerException e){
+                // waitta
+            }
+
+        }
+
+    }
+
+    public static Stage getStage(){
+        return stageOfGame;
     }
 }

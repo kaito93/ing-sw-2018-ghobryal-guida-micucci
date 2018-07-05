@@ -476,5 +476,7 @@ public abstract class View implements Serializable {
     public abstract void printPublicStatus();
 
     public abstract void printOtherStatus();
+
+    public abstract void startView();
 }
 

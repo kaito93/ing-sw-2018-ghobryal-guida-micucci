@@ -11,6 +11,8 @@ import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
 import it.polimi.se2018.client.view.ViewGui;
+import it.polimi.se2018.client.view.ViewGuiPack.FxmlOpener;
+import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,6 +20,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
 import java.util.logging.Level;
 
 /**
@@ -27,48 +30,62 @@ import java.util.logging.Level;
 public class LauncherClient {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    static int port;
+    static String ip;
+    static int timer;
+    static int portRMI;
 
 
     public static void main(String[] args) {
-        ConnectionClient client;
-        View view=null;
-        Registry registry;
 
         PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");
         path.deserializing();
         ClientDeserializer clien = new ClientDeserializer(path.getPathFromType("client"));
         clien.deserializing();
 
-        int port = clien.getCs().getPort();
-        String ip = clien.getCs().getIp();
+        port = clien.getCs().getPort();
+        ip = clien.getCs().getIp();
         int timer = clien.getCs().getTimerTurn();
         int portRMI = clien.getCs().getPortRMI();
+        LauncherClient launcher = new LauncherClient(port,ip,timer,portRMI);
+    }
 
-        LoginMain.setIp(ip);
-        LoginMain.setPort(port);
 
-        Application.launch(LoginMain.class);
-        Stage stage = LoginMain.getStage();
-        String username = LoginMain.getUsername();
-        String choiceConnection = LoginMain.getConnections();
-        String choiceView = LoginMain.getUint();
+
+    public LauncherClient(int port, String ip, int timer, int portRMI){
+        ConnectionClient client;
+        View view=null;
+        Registry registry;
+        this.port=port;
+        this.ip=ip;
+        this.portRMI=portRMI;
+        this.timer=timer;
+
+
+
         boolean condition=true;
         while(condition){
-            if ("cli".equalsIgnoreCase(choiceView)){
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Scegli con quale UI giocare [Cli o GUI]");
+            String text=scanner.nextLine();
+            if ("cli".equalsIgnoreCase(text)){
                 view = new ViewCli(timer);
                 condition = false;
             }
-            if ("gui".equalsIgnoreCase(choiceView)){
-                view = new ViewGui(timer, stage);
+            if ("gui".equalsIgnoreCase(text)){
+                view = new ViewGui(timer,this);
+                view.startView();
                 condition = false;
             }
         }
+    }
 
+    public void setConnection(int port, String ip, String username, View view, String choiceConnection){
 
-        condition=true;
+        boolean condition=true;
         while(condition){
             if ("socket".equalsIgnoreCase(choiceConnection)) {
-                client = new ConnectionClientSocket(port, ip,view, username);
+                ConnectionClient client = new ConnectionClientSocket(port, ip,view, username);
                 view.setClient(client);
                 try {
                     client.run();
@@ -80,12 +97,12 @@ public class LauncherClient {
                 ConnectionClientRMI clientRMI;
                 while (condition) {
                     try {
-                        registry = LocateRegistry.getRegistry(portRMI); //mi ritorna il registro sulla porta già attivata su server
-                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference"); //cerca e ritorna l'oggetto reso disponibile su rete
-                        clientRMI = new ConnectionClientRMI(view, username, registry); //creo una connessione di tipo rmi
-                        connectionServer.setClientRMI(clientRMI, username); //rendo lo stub disponibile dalla parte del server
+                        Registry registry = LocateRegistry.getRegistry(portRMI);
+                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
+                        clientRMI = new ConnectionClientRMI(view, username, registry);
+                        connectionServer.setClientRMI(clientRMI, username);
                         connectionServer.setUsername(username);
-                        clientRMI.setSkeleton(connectionServer); //rendo lo skeleton disponibile dalla parte del cliente
+                        clientRMI.setSkeleton(connectionServer);
                         view.setClient(clientRMI);
                         condition = false;
                     }catch (RemoteException | NotBoundException e){
@@ -95,6 +112,15 @@ public class LauncherClient {
             }
             view.addLog("Connessione stabilita col server");
         }
+
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public String getIp() {
+        return ip;
     }
 
 }
