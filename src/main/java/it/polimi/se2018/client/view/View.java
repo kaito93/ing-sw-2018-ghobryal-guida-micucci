@@ -1,5 +1,6 @@
 package it.polimi.se2018.client.view;
 
+import it.polimi.se2018.client.LauncherClient;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 import it.polimi.se2018.shared.model_shared.Cell;
@@ -27,15 +28,17 @@ public abstract class View implements Serializable {
     protected int time;
     protected transient TimerCount timer;
     protected boolean a = false;
+    protected LauncherClient launche;
 
     /**
      * class constructor
      *
      * @param time integer, time for a single choose
      */
-    public View(int time) {
+    public View(int time, LauncherClient launcher) {
         gameStatus = new GameView();
         this.time = time;
+        launche=launcher;
     }
 
     /**

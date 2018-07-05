@@ -1,5 +1,6 @@
 package it.polimi.se2018.client.view;
 
+import it.polimi.se2018.client.LauncherClient;
 import it.polimi.se2018.shared.model_shared.Dice;
 
 import it.polimi.se2018.shared.model_shared.Cell;
@@ -23,14 +24,22 @@ public class ViewCli extends View {
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private transient Scanner scanner = new Scanner(System.in);
     private static final String NUMERO = "Devi inserire un numero";
+    private int porSocket;
+    private int porRMI;
+    private String ipConn;
+
 
     /**
      * class constructor
      *
      * @param timer integer
      */
-    public ViewCli(int timer) {
-        super(timer);
+    public ViewCli(int timer, String ip, int portRMI, int portSocket, LauncherClient launcher) {
+        super(timer,launcher);
+        ipConn = ip;
+        porRMI = portRMI;
+        porSocket = portSocket;
+
     }
 
     /**
@@ -55,7 +64,7 @@ public class ViewCli extends View {
         int chooseDice;
         int chooseColumn = 0;
         int chooseRow = 0;
-        int chooseTool=0;
+        int chooseTool = 0;
         try {
             while (!valid) {
 
@@ -116,17 +125,16 @@ public class ViewCli extends View {
                             boolean tool = false;
                             while (!tool) {
                                 if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
-                                    boolean cond=true;
-                                    while(cond){
-                                        try{
+                                    boolean cond = true;
+                                    while (cond) {
+                                        try {
                                             printBold("Carte utensili utilizzabili:");
                                             printTools();
                                             addLog(" ");
                                             printBold("Quali delle carte utensili vuoi usare?");
                                             chooseTool = Integer.decode(scanner.nextLine()) - 1;
-                                            cond=false;
-                                        }
-                                        catch (NumberFormatException e){
+                                            cond = false;
+                                        } catch (NumberFormatException e) {
                                             addError(NUMERO);
                                         }
                                     }
@@ -309,7 +317,7 @@ public class ViewCli extends View {
                 while (cond) {
                     System.out.println("Quale mappa scegli?");
                     val = Integer.decode(scanner.nextLine());
-                    if (val>-1 && val<maps.size())
+                    if (val > -1 && val < maps.size())
                         cond = false;
                     else
                         addError("Inserisci un numero di mappa corretto!");
@@ -475,17 +483,16 @@ public class ViewCli extends View {
         else if (major == 0)
             return minus;
         addLog(String.valueOf(minus) + " o " + major + " ?");
-        boolean cond=true;
-        int valor=0;
-        while(cond){
-            try{
-                valor=Integer.decode(scanner.nextLine());
-                if (valor==minus || valor==major)
-                    cond=false;
+        boolean cond = true;
+        int valor = 0;
+        while (cond) {
+            try {
+                valor = Integer.decode(scanner.nextLine());
+                if (valor == minus || valor == major)
+                    cond = false;
                 else
-                    addError("Devi scegliere tra " + minus + " e "+major);
-            }
-            catch (NumberFormatException e){
+                    addError("Devi scegliere tra " + minus + " e " + major);
+            } catch (NumberFormatException e) {
                 addError(NUMERO);
             }
         }
@@ -631,8 +638,8 @@ public class ViewCli extends View {
         int map = 0;
 
         boolean cond = true;
-        boolean condit=true;
-        while(condit){
+        boolean condit = true;
+        while (condit) {
             while (cond) {
                 try {
                     printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
@@ -640,8 +647,8 @@ public class ViewCli extends View {
                     printDicesStock();
                     addLog("Quale dado vuoi posizionare?");
                     map = Integer.decode(scanner.nextLine()) - 1;
-                    if (map>-1 && map<gameStatus.getStock().size())
-                        condit=false;
+                    if (map > -1 && map < gameStatus.getStock().size())
+                        condit = false;
                     cond = false;
                 } catch (NumberFormatException e) {
                     addError(NUMERO);
@@ -796,7 +803,7 @@ public class ViewCli extends View {
                 printSchemeRound(round);
                 addLog("");
                 dice = Integer.decode(scanner.nextLine()) - 1;
-                if (dice>-1 && dice<gameStatus.getRoundSchemeMap()[round].getRestOfStock().size())
+                if (dice > -1 && dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size())
                     cond = false;
                 else
                     addError("Non hai selezionato un dado corretto!");
@@ -893,7 +900,7 @@ public class ViewCli extends View {
                 addLog("Hai inserito un valore errato per questo dado");
         }
 
-        try{
+        try {
             dice.setValue(valore);
         } catch (
                 InvalidValueException e)
@@ -1011,6 +1018,48 @@ public class ViewCli extends View {
 
     @Override
     public void startView() {
+        boolean cond = true;
+        String network = null;
+        String ip = null;
+        String username=null;
+        int port = 0;
+        while (cond) {
+            addLog("Scegli il tipo di connessione [RMI/Socket]");
+            network = scanner.nextLine();
+            if ((network.equalsIgnoreCase("rmi") || ((network.equalsIgnoreCase("socket")))))
+                cond = false;
+            else
+                addError("Seleziona un tipo di connessione corretta");
+        }
+
+        cond = true;
+        while (cond) {
+            try{
+                if (network.equalsIgnoreCase("socket"))
+                    addLog("Scrivi la porta per la connessione " + network + " [Default =" + porSocket + "]");
+                else
+                    addLog("Scrivi la porta per la connessione " + network + " [Default =" + porRMI + "]");
+                port=Integer.decode(scanner.nextLine());
+                cond=false;
+            }
+            catch (NumberFormatException e) {
+                // richiedi
+            }
+        }
+
+            do{
+                addLog("Inserisci il tuo username: ");
+                username= scanner.nextLine();
+            } while (username.length()==0);
+
+
+
+
+        addLog("Scrivi l'ip del server: [Default: "+ipConn+"]");
+        ip=scanner.nextLine();
+
+        launche.setConnection(port,ip,username,this,network);
+
 
     }
 }

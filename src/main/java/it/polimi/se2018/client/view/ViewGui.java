@@ -7,28 +7,23 @@ import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
 import java.util.List;
-
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.assignMap;
 import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.getChosenMap;
-import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.toChoiceMapStage;
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
-import static javafx.application.Platform.isFxApplicationThread;
 
 public class ViewGui extends View {
 
     private static Stage stageOfGame;
     pathFXML paths = new pathFXML();
-    private LauncherClient launcher;
+
     String connect;
 
     public ViewGui(int timer, LauncherClient launch){
-        super(timer);
-        launcher=launch;
-        ModelFX.getInstance().getLogin().setPort(launcher.getPort());
-        ModelFX.getInstance().getLogin().setiP(launcher.getIp());
+        super(timer,launch);
+        ModelFX.getInstance().getLogin().setPort(launch.getPort());
+        ModelFX.getInstance().getLogin().setiP(launch.getIp());
     }
 
     @Override
@@ -52,11 +47,6 @@ public class ViewGui extends View {
 
 
     }
-
-    public ViewGui(int timer){
-        super(timer);
-    }
-
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
         assignMap(maps, names, fav);
         FxmlOpener.getInstance().openFX("/FXML/SceltaMappe.fxml");
@@ -200,7 +190,7 @@ public class ViewGui extends View {
         launchLoginMain();
     }
 
-    public void launchLoginMain(){
+    private void launchLoginMain(){
         FxmlOpener.getInstance().openFX("/FXML/LoginPageFXML.fxml");
         boolean cond=true;
         while(cond){
@@ -211,7 +201,7 @@ public class ViewGui extends View {
                     String ipad = ModelFX.getInstance().getLogin().getiP();
                     int ported = ModelFX.getInstance().getLogin().getPort();
                     cond=false;
-                    launcher.setConnection(ported, ipad, user, this, ModelFX.getInstance().getLogin().getConnectivity());
+                    launche.setConnection(ported, ipad, user, this, ModelFX.getInstance().getLogin().getConnectivity());
 
                 }
             }

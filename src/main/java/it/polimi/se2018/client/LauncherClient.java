@@ -28,6 +28,7 @@ public class LauncherClient {
     private static int port;
     private static String ip;
     private static int portRMI;
+    private LauncherClient launcher;
 
 
     public static void main(String[] args) {
@@ -48,10 +49,6 @@ public class LauncherClient {
 
     public LauncherClient(int port1, String ip1, int timer1, int portRMI1){
         View view;
-        port=port1;
-        ip=ip1;
-        portRMI=portRMI1;
-        int timer = timer1;
 
 
 
@@ -61,11 +58,12 @@ public class LauncherClient {
             System.out.println("Scegli con quale UI giocare [Cli o GUI]");
             String text=scanner.nextLine();
             if ("cli".equalsIgnoreCase(text)){
-                view = new ViewCli(timer);
+                view = new ViewCli(timer1,ip1,portRMI1,port1,this);
+                view.startView();
                 condition = false;
             }
             if ("gui".equalsIgnoreCase(text)){
-                view = new ViewGui(timer,this);
+                view = new ViewGui(timer1,this);
                 view.startView();
                 condition = false;
             }
@@ -89,7 +87,7 @@ public class LauncherClient {
                 ConnectionClientRMI clientRMI;
                 while (condition) {
                     try {
-                        Registry registry = LocateRegistry.getRegistry(portRMI); //mi ritorna il registro sulla porta già attivata su server
+                        Registry registry = LocateRegistry.getRegistry(port); //mi ritorna il registro sulla porta già attivata su server
                         ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference"); //cerca e ritorna l'oggetto reso disponibile su rete
                         clientRMI = new ConnectionClientRMI(view, username, registry); //creo una connessione di tipo rmi
                         connectionServer.setClientRMI(clientRMI, username); //rendo lo stub disponibile dalla parte del server
