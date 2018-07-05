@@ -309,7 +309,10 @@ public class ViewCli extends View {
                 while (cond) {
                     System.out.println("Quale mappa scegli?");
                     val = Integer.decode(scanner.nextLine());
-                    cond = false;
+                    if (val>-1 && val<maps.size())
+                        cond = false;
+                    else
+                        addError("Inserisci un numero di mappa corretto!");
                 }
             } catch (NumberFormatException e) {
                 addError(NUMERO);
@@ -477,7 +480,10 @@ public class ViewCli extends View {
         while(cond){
             try{
                 valor=Integer.decode(scanner.nextLine());
-                cond=false;
+                if (valor==minus || valor==major)
+                    cond=false;
+                else
+                    addError("Devi scegliere tra " + minus + " e "+major);
             }
             catch (NumberFormatException e){
                 addError(NUMERO);
@@ -625,17 +631,24 @@ public class ViewCli extends View {
         int map = 0;
 
         boolean cond = true;
-        while (cond) {
-            try {
-                addLog("Dadi disponibili:");
-                printDicesStock();
-                addLog("Quale dado vuoi posizionare?");
-                map = Integer.decode(scanner.nextLine()) - 1;
-                cond = false;
-            } catch (NumberFormatException e) {
-                addError(NUMERO);
+        boolean condit=true;
+        while(condit){
+            while (cond) {
+                try {
+                    printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+                    addLog("Dadi disponibili:");
+                    printDicesStock();
+                    addLog("Quale dado vuoi posizionare?");
+                    map = Integer.decode(scanner.nextLine()) - 1;
+                    if (map>-1 && map<gameStatus.getStock().size())
+                        condit=false;
+                    cond = false;
+                } catch (NumberFormatException e) {
+                    addError(NUMERO);
+                }
             }
         }
+
         return map;
     }
 
@@ -783,7 +796,10 @@ public class ViewCli extends View {
                 printSchemeRound(round);
                 addLog("");
                 dice = Integer.decode(scanner.nextLine()) - 1;
-                cond = false;
+                if (dice>-1 && dice<gameStatus.getRoundSchemeMap()[round].getRestOfStock().size())
+                    cond = false;
+                else
+                    addError("Non hai selezionato un dado corretto!");
             } catch (NumberFormatException e) {
                 addError(NUMERO);
             }
@@ -995,6 +1011,6 @@ public class ViewCli extends View {
 
     @Override
     public void startView() {
-        // solo GUI
+
     }
 }
