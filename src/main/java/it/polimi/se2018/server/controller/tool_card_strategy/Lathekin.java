@@ -37,6 +37,7 @@ public class Lathekin extends ToolCardStrategy {
         boolean a;
         boolean b;
         if(dicesToMove.size()==2){
+            //controlla se i dadi esistono nelle posizioni date
             try {
                 if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row3, column3) || !diceExistOnCell(player.getMap(), dicesToMove.get(1), row4, column4)){
                     return;
@@ -46,10 +47,13 @@ public class Lathekin extends ToolCardStrategy {
                 errorBool.setErrBool(true);
                 return;
             }
+            //rimuovo i dadi dalla mappa
             player.getMap().removeDiceMap(row3, column3);
             player.getMap().removeDiceMap(row4, column4);
+            //posizioni entrambi i dadi nella nuova posizione nuova
             a = player.getMap().posDice(dicesToMove.get(0), row1, column1);
             b = player.getMap().posDice(dicesToMove.get(1), row2, column2);
+            //se non rispetta il posizionamente ritorna tutto a com'era prima
                 if (!a) {
                     if (b) {
                         player.getMap().removeDiceMap(row2, column2);

@@ -86,17 +86,18 @@ public class Map implements Serializable {
      * @return a boolean that is true if there is an Adjacent dice with the same value, else false
      */
     public boolean isAdjacentValue(int row, int column, int value) {
-        if(row < 1 && column < 1)
+        //controlla tutti i posti adiacenti a una certa posizione
+        if(row < 1 && column < 1) // controlla alto sinistra della mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value);
-        else if(row < 1 && column > numColumn() - 2)
+        else if(row < 1 && column > numColumn() - 2) //controlla alto destra della mappa
             return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value);
-        else if(row < 1 && column > 0 && column <= numColumn() - 2)
+        else if(row < 1 && column > 0 && column <= numColumn() - 2) //controlla alto centrale della mappa
             return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
                     || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value);
-        else if(row > numRow() - 2 && column < 1)
+        else if(row > numRow() - 2 && column < 1) //controlla basso sinistra sulla mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
         else if(row > numRow() - 2 && column > numColumn() - 2)

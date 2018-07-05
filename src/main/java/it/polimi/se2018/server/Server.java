@@ -108,15 +108,19 @@ public class Server implements Remote {
      */
     private void startRMI() {
         try {
-            registry = createRegistry();
-            connectionServerRMI = new ConnectionServerRMI(this, "");
-            rebind(connectionServerRMI);
+            registry = createRegistry(); //creo registro su porta 1100
+            connectionServerRMI = new ConnectionServerRMI(this, ""); //creo una nuova connessione server
+            rebind(connectionServerRMI); //accoppio la connessione con una stringa/url per renderla disponibile su rete
         }catch (RemoteException | NullPointerException e) {
             LOGGER.log(Level.INFO, "Oggetto già esportato", e);
         }
         LOGGER.log(Level.INFO, "Server RMI avviato");
     }
 
+    /**
+     * creates a new register on the specified port
+     * @return a register
+     */
     private Registry createRegistry(){
         try {
             registry = LocateRegistry.createRegistry(portRMI);
@@ -134,6 +138,10 @@ public class Server implements Remote {
         return registry;
     }
 
+    /**
+     * Rebinds the specified name to a new remote object.
+     * @param connectionServerRMI the rmi server connection
+     */
     public void rebind(ConnectionServerRMI connectionServerRMI){
         try{
             registry.rebind("//localhost/ServerConnectionReference", connectionServerRMI);
@@ -144,7 +152,11 @@ public class Server implements Remote {
         }
     }
 
-
+    /**
+     * connects the stub to the server
+     * @param stub the rmi stub/rmi connection clint
+     * @param user the connection possessor
+     */
     public void connect(ConnectionClient stub, String user) {
         try {
             connectionServerRMI.setStub(stub);

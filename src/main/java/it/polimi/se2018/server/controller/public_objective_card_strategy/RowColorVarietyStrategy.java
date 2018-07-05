@@ -44,6 +44,7 @@ public class RowColorVarietyStrategy extends ObjectiveCardStrategy {
                         }
                     k++;
                 }
+                //conta quanti colori diversi sono venuti fuori fino ad ora
                 if (colorBool)
                     colorCounter++;
                 else {
@@ -51,6 +52,7 @@ public class RowColorVarietyStrategy extends ObjectiveCardStrategy {
                     break;
                 }
             }
+            //conta quante volte il giocatore ha soddisfatto i requisiti di questa carta
             if (colorCounter == map.numColumn()) {
                 counter++;
                 colorBool = false;

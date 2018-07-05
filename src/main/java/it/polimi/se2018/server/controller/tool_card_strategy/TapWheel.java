@@ -32,32 +32,29 @@ public class TapWheel extends ToolCardStrategy {
     public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove,
                         int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
         boolean d;
-        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)){
-            if (dicesToMove.size() == 1  && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
+        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)
+                && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())){ //se il dado passato è dentro il tracciato dei round
+            if (dicesToMove.size() == 1) { //se sposto solo un dado e il suo colore è uguale a quello del tracciato dei round
                 try {
-                    if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row3, column3)){
+                    if(!diceExistOnCell(player.getMap(), dicesToMove.get(0), row3, column3)){ //se la cella da cui parto è vuota
                         return;
                     }
                 }catch (NullPointerException e){
                     return;
                 }
-                player.getMap().removeDiceMap(row3, column3);
-                if (roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())) {
-                    d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
-                    if (d){
-                        errorBool.setErrorMessage(null);
-                        errorBool.setErrBool(false);
-                        return;
-                    } else {
-                            player.getMap().getCell(row3, column3).setDice(dicesToMove.get(0));
-
-                        errorBool.setErrorMessage("Errore nel posizionamento del dado per la carta Tap Wheel");
-                        errorBool.setErrBool(true);
-                        return;
-                    }
+                player.getMap().removeDiceMap(row3, column3);//svuoto la posizione attuale
+                d = player.getMap().posDice(dicesToMove.get(0), row1, column1);
+                if (!d){
+                    player.getMap().getCell(row3, column3).setDice(dicesToMove.get(0)); //reset a com'era prima
+                    errorBool.setErrorMessage("Errore nel posizionamento del dado per la carta Tap Wheel");
+                    errorBool.setErrBool(true);
+                    return;
                 }
-            } else if (dicesToMove.size() == 2 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())
-                    && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())) {
+                errorBool.setErrorMessage(null);
+                errorBool.setErrBool(false);
+                return;
+        } else if (dicesToMove.size() == 2 && dicesToMove.get(1).getColor().equalsColor(dicesToMove.get(0).getColor())) {
+                //se invece ci sono 2 dadi da spostare diventa uguale alla carta lathekin
                 Lathekin x = new Lathekin();
                 x.setRow3(row3);
                 x.setRow4(row4);

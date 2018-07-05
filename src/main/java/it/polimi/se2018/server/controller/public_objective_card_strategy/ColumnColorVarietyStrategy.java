@@ -24,12 +24,13 @@ public class ColumnColorVarietyStrategy extends ObjectiveCardStrategy{
         for(int i=0; i<map.numColumn(); i++){   //iterates on columns
             for(int j=0; j<map.numRow()-1; j++) {    //iterates on row
                 for (int k = j + 1; k < map.numRow(); k++) {
-                    colorBool = isColorDuplicated(map, i, j, k);
+                    colorBool = isColorDuplicated(map, i, j, k); //se il colore è duplicato esci dal ciclo
                     //iterates on the next row
                     if (colorBool){
                         break;
                     }
                 }
+                //conta quanti colori diversi sono venuti fuori fino ad ora
                 if (!colorBool) {
                     colorCounter++;
                 } else {
@@ -37,6 +38,7 @@ public class ColumnColorVarietyStrategy extends ObjectiveCardStrategy{
                     break;
                 }
             }
+            //conta quante volte il giocatore ha soddisfatto i requisiti di questa carta
             if(colorCounter==map.numRow()) {
                 counter++;
                 colorBool=true;

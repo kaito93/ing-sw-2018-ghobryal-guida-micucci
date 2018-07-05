@@ -26,7 +26,7 @@ public class ColumnShadeVarietyStrategy extends ObjectiveCardStrategy {
         for (int i = 0; i < map.numColumn(); i++) {   //iterates on columns
             for (int j = 0; j < map.numRow() - 1; j++) {//iterates on row
                 numBoolean=check(map,j,i,true,map.numRow(),j+1);
-
+                //conta quanti numeri diversi sono venuti fuori fino ad ora
                 if (numBoolean)
                     numCounter++;
                 else {
@@ -34,6 +34,7 @@ public class ColumnShadeVarietyStrategy extends ObjectiveCardStrategy {
                     break;
                 }
             }
+            //conta quante volte il giocatore ha soddisfatto i requisiti di questa carta
             if (numCounter == map.numRow()) {
                 counter++;
                 numCounter = 1;

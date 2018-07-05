@@ -35,17 +35,17 @@ public class EglomiseBrush extends ToolCardStrategy {
     //posiziono io il dado
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock, int row0, int column0, Dice t3,
                         RoundSchemeCell[] t4, List<Player> t5, int t6) {
-        if (checkExists(player, dice, row0, column0))
+        if (checkExists(player, dice, row0, column0)) //true se non esiste un dado nella posizione specificata
             return;
-        setDice(player, row0, column0);
+        setDice(player, row0, column0); //svuota la posizione attuale
         if (((player.getMap().isBorderEmpty() && (column > 0 && row > 0) && row < player.getMap().numRow() - 1 && column < player.getMap().numColumn() - 1)
                 || (!player.getMap().isBorderEmpty() && !player.getMap().isAdjacentDice(row, column)))
                 && (player.getMap().isAdjacentValue(row, column, dice.getValue())
                 || !player.getMap().diceCompatibleValueCell(row, column, dice.getValue()))) {
-            setErrPos(player, row0, column0, dice);
+            setErrPos(player, row0, column0, dice); //rimette il dado alla sua posizione iniziale se c'è un errore
             return;
         }
-        setBool(player, row, column, dice);
+        setBool(player, row, column, dice); //setta il dado nella nuova posizione
     }
 
     @Override

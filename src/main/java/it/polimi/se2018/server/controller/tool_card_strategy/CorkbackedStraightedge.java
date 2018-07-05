@@ -35,12 +35,13 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
     //posiziono io il dado
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> stock, int t1, int t2, Dice t3,
                         RoundSchemeCell[] t4, List<Player> t5, int t6) {
+        //esce se il giocatore sceglie di posizionare il dado in mezzo e il bordo è ancora vuoto
         if (player.getMap().isBorderEmpty() && row > 0 && column > 0 && row < player.getMap().numRow() - 1 && column < player.getMap().numColumn() - 1){
             errorBool.setErrorMessage("Il bordo è ancora vuoto! Il giocatore non rispetta le restrizioni di piazzamento");
             errorBool.setErrBool(true);
             return;
         }
-            if (player.getMap().isAdjacentDice(row, column)) {
+            if (player.getMap().isAdjacentDice(row, column)) { //esce se c'è un dado adiacente
                 errorBool.setErrorMessage("C'è un dado adiacente alla posizione scelta quindi non combacia con le restrizioni della carta");
                 errorBool.setErrBool(true);
                 return;
@@ -52,7 +53,7 @@ public class CorkbackedStraightedge extends ToolCardStrategy {
             errorBool.setErrBool(true);
             return;
         }
-        player.getMap().getCell(row, column).setDice(dice);
+        player.getMap().getCell(row, column).setDice(dice); //setta il dado nella posizione scelta
         errorBool.setErrorMessage(null);
         errorBool.setErrBool(false);
     }

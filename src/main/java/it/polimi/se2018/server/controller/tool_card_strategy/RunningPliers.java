@@ -32,7 +32,8 @@ public class RunningPliers extends ToolCardStrategy {
     public void useTool(Player playerCurr, Dice dice, int turn, int t0, List<Dice> t1, int row, int column,
                         Dice t3, RoundSchemeCell[] t4, List<Player> t5, int t6){
         if(turn==1) {
-            posDiceControl(playerCurr, dice, row, column);
+            //il resto della logica della carta è stato spostato nel controller nel manager della carta
+            posDiceControl(playerCurr, dice, row, column); //posizionamento normale del dado scelto
             return;
         }
         errorBool.setErrorMessage("Questa carta si può usare solo al primo turno");

@@ -27,7 +27,7 @@ public class RowShadeVarietyStrategy extends ObjectiveCardStrategy {
             for (int j = 0; j < map.numColumn() - 1; j++) { //iterates on column
 
                 numBool = check(map, i, j, false, map.numColumn(), j + 1);
-
+                //conta quanti numeri diversi sono venuti fuori fino ad ora
                 if (numBool)
                     numCounter++;
                 else {
@@ -35,6 +35,7 @@ public class RowShadeVarietyStrategy extends ObjectiveCardStrategy {
                     break;
                 }
             }
+            //conta quante volte il giocatore ha soddisfatto i requisiti di questa carta
             if (numCounter == map.numColumn()) {
                 counter++;
                 numCounter = 1;

@@ -35,10 +35,9 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
         try {
             for(int row = 0; row<map.numRow(); row++)
                 for(int column = 0; column<map.numColumn(); column++){
-                    visitor(map, row, column);
+                    visitor(map, row, column); //visita tutte le celle della matrice
                 }
-            for(int i=0; i<temp.size(); i++)
-            counter = temp.size();
+            counter = temp.size(); //ritorna il numero di dadi in diagonale
         } catch (NotValidCellException e) {
             LOGGER.log(Level.SEVERE, e.toString()+"\nsearch method in class ColorDiagonalStrategy", e);
         }
@@ -52,31 +51,31 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
      * @param row row's coordinate on the map
      * @param column column's coordinate on the map
      */
-
     private void visitor(Map map, int row, int column) throws NotValidCellException {
         try {
-            if(!map.isEmptyCell(row, column)) {
-                if (row < 1 && column < 1 ) { //up left control
-                    downrightcontrol(map, row, column);
-                } else if (row > map.numRow() - 2 && column < 1 ) { //down left control
+            // controllo le diagonali non visitati rispetto alla mia posizione attuale
+            if(!map.isEmptyCell(row, column)) { //se la cella non è vuota,
+                if (row < 1 && column < 1 ) { // controlla alto sinistra della mappa
+                    downrightcontrol(map, row, column); //controlla basso destra rispetto alla mia posizione attuale
+                } else if (row > map.numRow() - 2 && column < 1 ) { //controlla basso sinistra sulla mappa
+                    uprightcontrol(map, row, column); //controlla alto destra rispetto alla mia posizione attuale
+                } else if (row > 0 && row <= map.numRow() - 2 && column < 1) { //controlla centrale sinistra della mappa
                     uprightcontrol(map, row, column);
-                } else if (row > 0 && row <= map.numRow() - 2 && column < 1) { //centre left control
-                    uprightcontrol(map, row, column);
                     downrightcontrol(map, row, column);
-                } else if (row < 1 && column > map.numColumn() - 2) { //up right control
-                    downleftcontrol(map, row, column);
-                } else if (row > map.numRow() - 2 && column > map.numColumn() - 2) { //down right control
+                } else if (row < 1 && column > map.numColumn() - 2) { //controlla alto destra della mappa
+                    downleftcontrol(map, row, column); //controlla basso sinistra rispetto alla mia posizione attuale
+                } else if (row > map.numRow() - 2 && column > map.numColumn() - 2) { //controlla basso destra della mappa
+                    upleftcontrol(map, row, column); //controlla alto sinistra rispetto alla mia posizione attuale
+                } else if (row > 0 && row <= map.numRow() - 2 && column > map.numColumn() - 2) { //controlla centrale destra della mappa
                     upleftcontrol(map, row, column);
-                } else if (row > 0 && row <= map.numRow() - 2 && column > map.numColumn() - 2) { //centre right control
-                    upleftcontrol(map, row, column);
                     downleftcontrol(map, row, column);
-                } else if (row < 1 && column > 0 && column <= map.numColumn() - 2) { //centre up control
+                } else if (row < 1 && column > 0 && column <= map.numColumn() - 2) {
                     downleftcontrol(map, row, column);
                     downrightcontrol(map, row, column);
-                } else if (row > map.numRow() - 2 && column > 0 && column <= map.numColumn() - 2) { //centre down control
+                } else if (row > map.numRow() - 2 && column > 0 && column <= map.numColumn() - 2) { //controlla basso centrale della mappa
                     upleftcontrol(map, row, column);
                     uprightcontrol(map, row, column);
-                } else if (row > 0 && row < map.numRow() - 1 && column > 0 && column < map.numColumn() - 1) { //centre control
+                } else if (row > 0 && row < map.numRow() - 1 && column > 0 && column < map.numColumn() - 1) { //controlla centro mappa
                     upleftcontrol(map, row, column);
                     uprightcontrol(map, row, column);
                     downleftcontrol(map, row, column);
@@ -89,9 +88,16 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
             }
     }
 
-
+    /**
+     * controls the up right part of the map
+     * @param map the player's map
+     * @param row current row coordinate on the map
+     * @param column current column coordinate on the map
+     * @throws NotValidCellException if the cell is not valid
+     */
     private void uprightcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
+            //se i dadi sono di colore uguale salva i dadi che non sono già salvati nell'arraylist
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column + 1).getDice().getColor())) {
                 if(!temp.contains(map.getCell(row, column).getDice()))
                     temp.add(map.getCell(row, column).getDice());
@@ -102,10 +108,16 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
             }
         } catch (NullPointerException e) {
             // va bene così
-
         }
     }
 
+    /**
+     * controls the down right part of the map
+     * @param map the player's map
+     * @param row current row coordinate on the map
+     * @param column current column coordinate on the map
+     * @throws NotValidCellException if the cell is not valid
+     */
     private void downrightcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column + 1).getDice().getColor())) {
@@ -118,10 +130,16 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
             }
         } catch (NullPointerException e) {
             // va bene così
-
         }
     }
 
+    /**
+     * controls the up left part of the map
+     * @param map the player's map
+     * @param row current row coordinate on the map
+     * @param column current column coordinate on the map
+     * @throws NotValidCellException if the cell is not valid
+     */
     private void upleftcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row - 1, column - 1).getDice().getColor())) {
@@ -137,6 +155,13 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
         }
     }
 
+    /**
+     * controls the down left part of the map
+     * @param map the player's map
+     * @param row current row coordinate on the map
+     * @param column current column coordinate on the map
+     * @throws NotValidCellException if the cell is not valid
+     */
     private void downleftcontrol(Map map, int row, int column) throws NotValidCellException {
         try {
             if (map.getCell(row, column).getDice().getColor().equalsColor(map.getCell(row + 1, column - 1).getDice().getColor())) {

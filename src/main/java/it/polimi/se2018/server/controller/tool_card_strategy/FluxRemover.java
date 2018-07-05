@@ -35,7 +35,8 @@ public class FluxRemover extends ToolCardStrategy {
     //dado dalla riserva con un'altro del DiceBox e perciò gli tolgo i punti a prescindere
     public void useTool(Player player, Dice dice, int row, int column, List<Dice> t, int t1, int t2, Dice t3,
                         RoundSchemeCell[] t4, List<Player> t5, int t6) {
-        posDiceControl(player, dice, row, column);
+        //il resto della logica della carta è stato spostato nel controller nel manager della carta
+        posDiceControl(player, dice, row, column); //posizionamento normale del dado scelto
     }
 
     @Override

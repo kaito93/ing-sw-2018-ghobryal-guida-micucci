@@ -81,6 +81,13 @@ public abstract class ToolCardStrategy implements Serializable {
         return true;
     }
 
+    /**
+     * controls the dice positioning con error assignment
+     * @param player the current player
+     * @param dice the chosen dice to be positioned
+     * @param row row's coordinate on the map where to position the dice
+     * @param column column's coordinate on the map where to position the dice
+     */
     protected void posDiceControl(Player player, Dice dice, int row, int column){
         if(player.posDice(dice, row, column)) {
             errorBool.setErrorMessage(null);
@@ -157,6 +164,14 @@ public abstract class ToolCardStrategy implements Serializable {
         this.column4 = column4;
     }
 
+    /**
+     * verifies if there's a dice on the map or not
+     * @param player the player
+     * @param dice the chosen dice
+     * @param row the current row coordinate
+     * @param column the current column coordinate
+     * @return a boolean, true if there's no dice on this position, else false
+     */
     boolean checkExists(Player player, Dice dice, int row, int column){
         try {
             if(!diceExistOnCell(player.getMap(), dice, row, column)){
@@ -168,16 +183,36 @@ public abstract class ToolCardStrategy implements Serializable {
         return false;
     }
 
+    /**
+     * forces the dice into the cell
+     * @param player the current player
+     * @param row the current row coordinate
+     * @param column the current column coordinate
+     * @param dice the chosen dice
+     */
     void setBool(Player player, int row, int column, Dice dice){
         player.getMap().getCell(row, column).setDice(dice);
         errorBool.setErrorMessage(null);
         errorBool.setErrBool(false);
     }
 
+    /**
+     * forces the dice out of the passed coordinates
+     * @param player the current player
+     * @param row0 row's coordinate on the map where to remove the dice
+     * @param column0 column's coordinate on the map where to remove the dice
+     */
     void setDice(Player player, int row0, int column0){
             player.getMap().getCell(row0, column0).setDice(null);
     }
 
+    /**
+     * rewinds the status of the current cell
+     * @param player the current player
+     * @param row0 row's coordinate where to reset the removed dice in the process
+     * @param column0 column's coordinate where to reset the removed dice in the process
+     * @param dice the removed dice initially before process
+     */
     void setErrPos(Player player, int row0, int column0, Dice dice){
         player.getMap().getCell(row0, column0).setDice(dice);
         errorBool.setErrorMessage("il giocatore non rispetta le restrizioni di posizionamento");

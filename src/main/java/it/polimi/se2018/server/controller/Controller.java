@@ -146,9 +146,10 @@ public class Controller implements Serializable {
         playersInRound.remove(player);
         playersInRound.remove(player);
         turn--;
-        if (players.size() == 1)
+        if (players.size() == 1){
             view.manageVictoryAbbandon();
-        disconnect = true;
+            disconnect = true;
+        }
     }
 
     /**
@@ -157,8 +158,7 @@ public class Controller implements Serializable {
     public void game() {
 
         int round;
-        //if (view.isAnySocket())
-            waitw();
+        waitw();
         setPlayersInRound();
 
         // CICLO CHE GESTISCE I ROUND

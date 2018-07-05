@@ -119,13 +119,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      */
     public void requestNewUsername() {
         try {
-            ConnectionClientRMI newClient = new ConnectionClientRMI(view, username, registry);
-            newClient.setUsername(view.askNewUsername());
+            ConnectionClientRMI newClient = new ConnectionClientRMI(view, username, registry); //creo una nuova connessione client
+            String newUsername = view.askNewUsername(); //chiedo un nuovo username
+            newClient.setUsername(newUsername);
             newClient.setSkeleton(skeleton);
+            skeleton.setClientRMI(newClient, newUsername); //setto la nuova connessione come stub dalla parte del server
         } catch (RemoteException e) {
             while (true) {
                 try {
-                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER); //continuo a cercare l'oggetto finché non lo trovo
                     requestNewUsername();
                     break;
                 } catch (RemoteException | NotBoundException e1) {

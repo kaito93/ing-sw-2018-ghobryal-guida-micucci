@@ -33,14 +33,12 @@ public class GlazingHammer extends ToolCardStrategy {
     //non posiziono nessun dado perché non c'entra con la descrizione della carta
     public void useTool(Player player, Dice t0, int turn, int t7, List<Dice> stock, int t1, int t2, Dice t3,
                         RoundSchemeCell[] t4, List<Player> t5, int t6){
-        if(turn==2)
-            for (Dice dice : stock)
-                dice.throwDice();
-        else{
+        if(turn!=2){
             errorBool.setErrorMessage("Il giocatore non è ancora arrivato al proprio secondo turno durante questo round");
             errorBool.setErrBool(true);
             return;
         }
+        stock.forEach(Dice::throwDice); //re-roll all stock dices
         errorBool.setErrorMessage(null);
         errorBool.setErrBool(false);
     }
