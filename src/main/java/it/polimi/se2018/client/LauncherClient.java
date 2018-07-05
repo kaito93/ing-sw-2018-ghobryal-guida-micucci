@@ -4,17 +4,12 @@ import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.client.network.ConnectionClientRMI;
 import it.polimi.se2018.client.network.ConnectionClientSocket;
 import it.polimi.se2018.client.client_deserializer.ClientDeserializer;
-import it.polimi.se2018.client.view.ViewGuiPack.LoginMain;
 import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
 import it.polimi.se2018.client.view.ViewGui;
-import it.polimi.se2018.client.view.ViewGuiPack.FxmlOpener;
-import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -30,10 +25,9 @@ import java.util.logging.Level;
 public class LauncherClient {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    static int port;
-    static String ip;
-    static int timer;
-    static int portRMI;
+    private static int port;
+    private static String ip;
+    private static int portRMI;
 
 
     public static void main(String[] args) {
@@ -52,14 +46,12 @@ public class LauncherClient {
 
 
 
-    public LauncherClient(int port, String ip, int timer, int portRMI){
-        ConnectionClient client;
-        View view=null;
-        Registry registry;
-        this.port=port;
-        this.ip=ip;
-        this.portRMI=portRMI;
-        this.timer=timer;
+    public LauncherClient(int port1, String ip1, int timer1, int portRMI1){
+        View view;
+        port=port1;
+        ip=ip1;
+        portRMI=portRMI1;
+        int timer = timer1;
 
 
 
@@ -97,12 +89,12 @@ public class LauncherClient {
                 ConnectionClientRMI clientRMI;
                 while (condition) {
                     try {
-                        Registry registry = LocateRegistry.getRegistry(portRMI);
-                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference");
-                        clientRMI = new ConnectionClientRMI(view, username, registry);
-                        connectionServer.setClientRMI(clientRMI, username);
+                        Registry registry = LocateRegistry.getRegistry(portRMI); //mi ritorna il registro sulla porta già attivata su server
+                        ConnectionServer connectionServer = (ConnectionServer) registry.lookup("//localhost/ServerConnectionReference"); //cerca e ritorna l'oggetto reso disponibile su rete
+                        clientRMI = new ConnectionClientRMI(view, username, registry); //creo una connessione di tipo rmi
+                        connectionServer.setClientRMI(clientRMI, username); //rendo lo stub disponibile dalla parte del server
                         connectionServer.setUsername(username);
-                        clientRMI.setSkeleton(connectionServer);
+                        clientRMI.setSkeleton(connectionServer); //rendo lo skeleton disponibile dalla parte del cliente
                         view.setClient(clientRMI);
                         condition = false;
                     }catch (RemoteException | NotBoundException e){
