@@ -24,7 +24,7 @@ public class MessageUpdate implements MessageMV {
     private List<Cell[][]> cells = new ArrayList<>();
     private List<String> users = new ArrayList<>();
     private List<Integer> favUsers = new ArrayList<>();
-
+    private String username;
     private List<Boolean> useTools;
 
     private List<Dice> stock;
@@ -159,5 +159,13 @@ public class MessageUpdate implements MessageMV {
      */
     public void setFavUsers(List<Integer> favUsers) {
         this.favUsers = favUsers;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

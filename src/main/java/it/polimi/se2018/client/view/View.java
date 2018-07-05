@@ -107,7 +107,7 @@ public abstract class View implements Serializable {
      * @param favors         list of boolean
      */
     public void updateUsers(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
-                            RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
+                            RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String username) {
         gameStatus.setUsers(users);
         gameStatus.setCells(cells);
         gameStatus.setUseTools(useTools);
@@ -115,7 +115,11 @@ public abstract class View implements Serializable {
         gameStatus.setStock(stock);
         gameStatus.setFavUser(favors);
         addLog("Ho aggiornato le informazioni relative alle carte schema di tutti i giocatori");
-        prepareScene();
+        if (!username.equalsIgnoreCase(gameStatus.getUsers().get(gameStatus.getYourIndex()))){
+            printOtherStatus();
+            printPublicStatus();
+            printYourStatus();
+        }
     }
 
     /**
@@ -183,7 +187,7 @@ public abstract class View implements Serializable {
      */
     public void accept(MessageUpdate message) {
         updateUsers(message.getUsers(), message.getCells(), message.getUseTools(), message.getRoundSchemeMap(),
-                message.getStock(), message.getFavUsers());
+                message.getStock(), message.getFavUsers(),message.getUsername());
         addLog(message.getMessage());
     }
 
@@ -386,8 +390,9 @@ public abstract class View implements Serializable {
          */
         @Override
         public void run() {
-            addLog("Hai ancora "+ ((time/1000)-((time/4000)*counter)) + " secondi disponibili per effettuare la tua scelta");
             try {
+                Thread.sleep(100);
+                addLog("Hai ancora "+ ((time/1000)-((time/4000)*counter)) + " secondi disponibili per effettuare la tua scelta");
                 while (valid) {
                     Thread.sleep(time / 4);
                     counter++;
@@ -397,8 +402,10 @@ public abstract class View implements Serializable {
                             this.stopTimer();
                             reconn();
                         }
-                        else
+                        else{
                             addLog("Hai ancora "+ ((time/1000)-((time/4000)*counter)) + " secondi disponibili per effettuare la tua scelta");
+                        }
+
                     }
                 }
             }
@@ -464,6 +471,10 @@ public abstract class View implements Serializable {
      */
     public abstract void seeScore(List<Integer> scores);
 
-    public abstract void prepareScene();
+    public abstract void printYourStatus();
+
+    public abstract void printPublicStatus();
+
+    public abstract void printOtherStatus();
 }
 

@@ -128,7 +128,7 @@ public interface ConnectionServer extends Remote,Serializable {
      * @throws RemoteException if the stub is no longer online
      */
     void sendUpdate(List<Map> maps, List<String> users, String message, List<Boolean> tools,
-                    RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor) throws RemoteException;
+                    RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor, String username) throws RemoteException;
 
     /**
      * abstract method that manage the send for the tool card "Copper Foil Burnisher"

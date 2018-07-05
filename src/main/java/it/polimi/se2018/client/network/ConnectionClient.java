@@ -144,8 +144,8 @@ public interface ConnectionClient extends Remote, Serializable {
      * @param favors an arraylist of integer
      * @throws RemoteException if the skeleton is no longer online
      */
-    void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
-                       RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message) throws RemoteException;
+    void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools, RoundSchemeCell[] roundSchemeMap,
+                       List<Dice> stock, List<Integer> favors, String message, String username) throws RemoteException;
 
     /**
      * abstract method that manages the tool card Tap Wheel

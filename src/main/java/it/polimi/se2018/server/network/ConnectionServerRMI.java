@@ -187,13 +187,13 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      */
     @Override
     public void sendUpdate(List<Map> maps, List<String> users, String message, List<Boolean> tools,
-                           RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors) {
+                           RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String username) {
         // METODO CHE INVIA LE MATRICI DEI GIOCATORI, LA LISTA DEI GIOCATORI AGGIORNATA [Vedesi disconnessioni]
         // IL MESSAGGIO DA MOSTRARE A SCHERMO DI CHI TOCCA, ARRAYLIST DI BOOLEANI CHE SI RIFERISCONO ALLE CARTE TOOL,
         // LO SCHEMA DEI ROUND E LA RISERVA e l'elenco dei punti favore rimanenti ai giocatori
         List<Cell[][]> cells = maps.stream().map(Map::getCells).collect(Collectors.toList());
         try {
-            stub.receiveUpdate(users, cells, tools, roundSchemeMap, stock, favors,message);
+            stub.receiveUpdate(users, cells, tools, roundSchemeMap, stock, favors,message,username);
         } catch (RemoteException e) {
             connected=false;
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());

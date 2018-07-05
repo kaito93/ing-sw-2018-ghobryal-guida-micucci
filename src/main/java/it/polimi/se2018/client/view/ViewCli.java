@@ -20,8 +20,9 @@ import java.util.logging.Level;
  */
 public class ViewCli extends View {
 
-    private transient Scanner scanner = new Scanner(System.in);
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private transient Scanner scanner = new Scanner(System.in);
+    private static final String NUMERO = "Devi inserire un numero";
 
     /**
      * class constructor
@@ -54,7 +55,7 @@ public class ViewCli extends View {
         int chooseDice;
         int chooseColumn = 0;
         int chooseRow = 0;
-        int chooseTool;
+        int chooseTool=0;
         try {
             while (!valid) {
 
@@ -115,11 +116,20 @@ public class ViewCli extends View {
                             boolean tool = false;
                             while (!tool) {
                                 if (gameStatus.getFavUser().get(gameStatus.getYourIndex()) > 0) {
-                                    printBold("Carte utensili utilizzabili:");
-                                    printTools();
-                                    addLog(" ");
-                                    printBold("Quali delle carte utensili vuoi usare?");
-                                    chooseTool = Integer.decode(scanner.nextLine()) - 1;
+                                    boolean cond=true;
+                                    while(cond){
+                                        try{
+                                            printBold("Carte utensili utilizzabili:");
+                                            printTools();
+                                            addLog(" ");
+                                            printBold("Quali delle carte utensili vuoi usare?");
+                                            chooseTool = Integer.decode(scanner.nextLine()) - 1;
+                                            cond=false;
+                                        }
+                                        catch (NumberFormatException e){
+                                            addError(NUMERO);
+                                        }
+                                    }
                                     if (chooseTool > gameStatus.getUseTools().size() || chooseTool < 0)
                                         addError("Non hai selezionato una carta utensile corretta");
                                     else {
@@ -153,48 +163,16 @@ public class ViewCli extends View {
                     }
 
                     if (choose.equalsIgnoreCase("4")) {
-                        printBold("Carta obiettivo privata: ");
-                        printCardPrivate(gameStatus.getTitlePrivateObjective(), gameStatus.getDescriptionPrivateObjective());
-                        addLog(" ");
-                        printBold("Ecco la tua mappa: ");
-                        printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
-                        addLog(" ");
-                        printBold("Segnalini favore rimanenti: " + gameStatus.getFavUser().get(gameStatus.getYourIndex()));
+                        printYourStatus();
                         map = true;
                     }
 
                     if (choose.equalsIgnoreCase("5")) {
-
-                        for (int i = 0; i < gameStatus.getCells().size(); i++) {
-                            if (i != gameStatus.getYourIndex()) {
-                                addLog(" ");
-                                printBold("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
-                                addLog("Punti favore rimanenti: " + gameStatus.getFavUser().get(i));
-                                printSchemeMap(gameStatus.getCells().get(i));
-                            }
-                        }
-                        addLog(" ");
+                        printOtherStatus();
                         map = true;
                     }
                     if (choose.equalsIgnoreCase("6")) {
-                        printBold("Carte utensili: ");
-                        printTools();
-                        printBold("Carte obiettivo pubbliche: ");
-                        for (int i = 0; i < gameStatus.getTitlePublicObjective().size(); i++) {
-                            addLog("");
-                            printUnderline("Carta obiettivo pubblica " + (i + 1) + ":");
-                            printCardPublic(gameStatus.getTitlePublicObjective().get(i), gameStatus.getDescriptionPublicObjective().get(i)
-                                    , gameStatus.getScorePublicObjective().get(i));
-                        }
-                        addLog(" ");
-                        printBold("Schema dei round attuale:");
-                        printSchemeRounds();
-                        addLog(" ");
-                        printBold("Riserva attuale: ");
-                        printDicesStock();
-                        addLog(" ");
-
-
+                        printPublicStatus();
                         map = true;
                     }
 
@@ -244,73 +222,73 @@ public class ViewCli extends View {
         while ((val > maps.size()) || (val < 1)) {
             for (int rig = 0; rig < 2; rig++) {
                 System.out.println();
-                for (int i = 0; i < names.size()/2; i++) {
-                    System.out.print("      Mappa " + (i + 1 +2*rig) + "                                      ");
+                for (int i = 0; i < names.size() / 2; i++) {
+                    System.out.print("      Mappa " + (i + 1 + 2 * rig) + "                                      ");
                 }
                 System.out.println();
-                for (int i = 0; i < names.size()/2; i++) {
+                for (int i = 0; i < names.size() / 2; i++) {
 
-                    System.out.print("Nome: " + (doString(names.get((i +2*rig)))) + "                         ");
+                    System.out.print("Nome: " + (doString(names.get((i + 2 * rig)))) + "                         ");
                 }
 
                 System.out.println("  ");
                 System.out.print("  ");
 
-                for (int j = 0; j < maps.get(2*rig)[0].length; j++) {
+                for (int j = 0; j < maps.get(2 * rig)[0].length; j++) {
                     // scrivo il numero della colonna della prima mappa
-                    System.out.print("| " + (j+1) + " ");
+                    System.out.print("| " + (j + 1) + " ");
                 }
                 System.out.print("                             ");
-                for (int j = 0; j < maps.get(1 +2*rig)[0].length; j++) {
+                for (int j = 0; j < maps.get(1 + 2 * rig)[0].length; j++) {
                     // scrivo il numero della colonna della seconda mappa
-                    System.out.print("| " + (j+1) + " ");
+                    System.out.print("| " + (j + 1) + " ");
                 }
 
                 System.out.println("");
                 System.out.print("__");
                 System.out.print(" ");
-                for (int j = 0; j < maps.get(2*rig)[0].length; j++) {
+                for (int j = 0; j < maps.get(2 * rig)[0].length; j++) {
                     // scrivo un "_" per separare la intenstazione della prima tabella
                     System.out.print(" _  ");
 
                 }
                 System.out.print("                          ");
                 System.out.print("__ ");
-                for (int j = 0; j < maps.get(1 +2*rig)[0].length; j++) {
+                for (int j = 0; j < maps.get(1 + 2 * rig)[0].length; j++) {
                     // scrivo un "_" per separare la intenstazione della seconda tabella
                     System.out.print(" _  ");
                 }
 
                 // esamino le righe
-                for (int i = 0; i < maps.get(2*rig).length; i++) {
+                for (int i = 0; i < maps.get(2 * rig).length; i++) {
                     // mostra il numero di riga
                     System.out.println("");
                     System.out.print(i + 1);
                     // esamino le colonne
-                    for (int j = 0; j < maps.get(2*rig)[i].length; j++) {
+                    for (int j = 0; j < maps.get(2 * rig)[i].length; j++) {
                         System.out.print(" | ");
-                        if (maps.get((2*rig))[i][j].getDice() != null) {
+                        if (maps.get((2 * rig))[i][j].getDice() != null) {
                             // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
 
-                            printColor(maps.get(2*rig)[i][j].getDice().getColor().toString(), maps.get(2*rig)[i][j].getDice().toString());
+                            printColor(maps.get(2 * rig)[i][j].getDice().getColor().toString(), maps.get(2 * rig)[i][j].getDice().toString());
                         } else {
                             // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
-                            printColor(maps.get(2*rig)[i][j].getColor().toString(), maps.get(2*rig)[i][j].toString());
+                            printColor(maps.get(2 * rig)[i][j].getColor().toString(), maps.get(2 * rig)[i][j].toString());
                         }
 
                     }
 
                     System.out.print("                            ");
                     System.out.print(i + 1);
-                    for (int j = 0; j < maps.get(1 +2*rig)[i].length; j++) {
+                    for (int j = 0; j < maps.get(1 + 2 * rig)[i].length; j++) {
                         System.out.print(" | ");
-                        if (maps.get((1 +2*rig))[i][j].getDice() != null) {
+                        if (maps.get((1 + 2 * rig))[i][j].getDice() != null) {
                             // SE LA CASELLA HA GIA' UN DADO, STAMPA LE CARATTERISTICHE DEL DADO
 
-                            printColor(maps.get(1 +2*rig)[i][j].getDice().getColor().toString(), maps.get(1 +2*rig)[i][j].getDice().toString());
+                            printColor(maps.get(1 + 2 * rig)[i][j].getDice().getColor().toString(), maps.get(1 + 2 * rig)[i][j].getDice().toString());
                         } else {
                             // SE LA CASELLA NON HA ANCORA UN DADO, STAMPA LE CARATTERISTICHE DELLA CASELLA
-                            printColor(maps.get(1 +2*rig)[i][j].getColor().toString(), maps.get(1 +2*rig)[i][j].toString());
+                            printColor(maps.get(1 + 2 * rig)[i][j].getColor().toString(), maps.get(1 + 2 * rig)[i][j].toString());
                         }
 
                     }
@@ -318,16 +296,25 @@ public class ViewCli extends View {
                 }
                 System.out.println();
                 System.out.println();
-                for (int i=0;i<names.size()/2;i++) {
-                    System.out.print("    Difficoltà: " + fav.get(i+2*rig) + "                                ");
+                for (int i = 0; i < names.size() / 2; i++) {
+                    System.out.print("    Difficoltà: " + fav.get(i + 2 * rig) + "                                ");
                 }
 
                 System.out.println();
                 System.out.println();
 
             }
-            System.out.println("Quale mappa scegli?");
-            val = Integer.decode(scanner.nextLine());
+            try {
+                boolean cond = true;
+                while (cond) {
+                    System.out.println("Quale mappa scegli?");
+                    val = Integer.decode(scanner.nextLine());
+                    cond = false;
+                }
+            } catch (NumberFormatException e) {
+                addError(NUMERO);
+            }
+
             if (val > (maps.size()) || val < 1) {
                 addError("Hai inserito un valore errato");
             }
@@ -485,7 +472,18 @@ public class ViewCli extends View {
         else if (major == 0)
             return minus;
         addLog(String.valueOf(minus) + " o " + major + " ?");
-        return (Integer.decode(scanner.nextLine()));
+        boolean cond=true;
+        int valor=0;
+        while(cond){
+            try{
+                valor=Integer.decode(scanner.nextLine());
+                cond=false;
+            }
+            catch (NumberFormatException e){
+                addError(NUMERO);
+            }
+        }
+        return valor;
     }
 
     /**
@@ -624,10 +622,21 @@ public class ViewCli extends View {
      * @return the index of dice in the stock
      */
     private int askDiceStock() {
-        addLog("Dadi disponibili:");
-        printDicesStock();
-        addLog("Quale dado vuoi posizionare?");
-        return Integer.decode(scanner.nextLine()) - 1;
+        int map = 0;
+
+        boolean cond = true;
+        while (cond) {
+            try {
+                addLog("Dadi disponibili:");
+                printDicesStock();
+                addLog("Quale dado vuoi posizionare?");
+                map = Integer.decode(scanner.nextLine()) - 1;
+                cond = false;
+            } catch (NumberFormatException e) {
+                addError(NUMERO);
+            }
+        }
+        return map;
     }
 
     /**
@@ -651,19 +660,35 @@ public class ViewCli extends View {
         int chooseRow = 0;
         boolean column = false;
         while (!column) {
-            // SELEZIONE DELLA COLONNA
-            printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
-            addLog("Seleziona la colonna ");
-            chooseColumn = Integer.decode(scanner.nextLine()) - 1;
+            boolean cond = true;
+            while (cond) {
+                // SELEZIONE DELLA COLONNA
+                try {
+                    printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+                    addLog("Seleziona la colonna ");
+                    chooseColumn = Integer.decode(scanner.nextLine()) - 1;
+                    cond = false;
+                } catch (NumberFormatException e) {
+                    addError(NUMERO);
+                }
+            }
             if (chooseColumn > gameStatus.getCells().get(gameStatus.getYourIndex()).length || chooseColumn < 0)
                 LOGGER.log(Level.WARNING, "Attenzione! Non hai selezionato una colonna corretta");
             else {
                 column = true;
+                boolean condi = true;
                 // SELEZIONE DELLA RIGA
                 boolean row = false;
                 while (!row) {
-                    addLog("Seleziona la riga");
-                    chooseRow = Integer.decode(scanner.nextLine()) - 1;
+                    while (condi) {
+                        try {
+                            addLog("Seleziona la riga");
+                            chooseRow = Integer.decode(scanner.nextLine()) - 1;
+                            condi = false;
+                        } catch (NumberFormatException e) {
+                            addError(NUMERO);
+                        }
+                    }
                     if (chooseRow > gameStatus.getCells().get(gameStatus.getYourIndex()).length || chooseRow < 0)
                         LOGGER.log(Level.WARNING, "Attenzione! Non hai selezionato una riga corretta");
                     else {
@@ -734,14 +759,36 @@ public class ViewCli extends View {
      */
     private List<Object> askDiceRound() {
         ArrayList<Object> obj = new ArrayList<>();
-        addLog("Seleziona il dado dallo schema dei round:");
-        printSchemeRounds();
-        addLog("Seleziona il round dal quale prendere il dado:");
-        int round = Integer.decode(scanner.nextLine()) - 1;
-        addLog("Seleziona il dado da questo round:");
-        printSchemeRound(round);
-        addLog("");
-        obj.add(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(Integer.decode(scanner.nextLine()) - 1));
+        boolean cond = true;
+        int round = 0;
+        while (cond) {
+            try {
+                addLog("Seleziona il dado dallo schema dei round:");
+                printSchemeRounds();
+                addLog("Seleziona il round dal quale prendere il dado:");
+                round = Integer.decode(scanner.nextLine()) - 1;
+                if (round > -1 && round < 10)
+                    cond = false;
+                else
+                    addError("Il round deve essere compreso tra 1 e 10!");
+            } catch (NumberFormatException e) {
+                addError(NUMERO);
+            }
+        }
+        cond = true;
+        int dice = 0;
+        while (cond) {
+            try {
+                addLog("Seleziona il dado da questo round:");
+                printSchemeRound(round);
+                addLog("");
+                dice = Integer.decode(scanner.nextLine()) - 1;
+                cond = false;
+            } catch (NumberFormatException e) {
+                addError(NUMERO);
+            }
+        }
+        obj.add(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice));
         obj.add(round);
         return obj;
     }
@@ -814,18 +861,31 @@ public class ViewCli extends View {
         int valore = 0;
         boolean ok = false;
         while (!ok) {
-            addLog("Hai estratto un dado di colore " + dice.getColor().toString() + "\nScegli il valore da assegnare a questo dado:");
-            valore = Integer.decode(scanner.nextLine());
+            boolean cond = true;
+            while (cond) {
+                try {
+                    addLog("Hai estratto un dado di colore " + dice.getColor().toString() + "\nScegli il valore da assegnare a questo dado:");
+                    valore = Integer.decode(scanner.nextLine());
+                    cond = false;
+                } catch (NumberFormatException e) {
+                    addError(NUMERO);
+                }
+            }
             if (valore < 7 && valore > 0)
                 ok = true;
             else
                 addLog("Hai inserito un valore errato per questo dado");
         }
-        try {
+
+        try{
             dice.setValue(valore);
-        } catch (InvalidValueException e) {
+        } catch (
+                InvalidValueException e)
+
+        {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+
         List<Integer> obj2 = askRowColumn();
         ArrayList<Object> obj = new ArrayList<>();
         obj.add(dice);
@@ -866,11 +926,6 @@ public class ViewCli extends View {
         }
     }
 
-    @Override
-    public void prepareScene() {
-        // Solo GUI
-    }
-
     /**
      * method that print the information about private objective card
      *
@@ -892,5 +947,49 @@ public class ViewCli extends View {
     private void printCardPublic(String title, String description, int score) {
         printCardPrivate(title, description);
         addLog("Punteggio aggiuntivo: +" + score);
+    }
+
+    @Override
+    public void printPublicStatus() {
+        printBold("Carte utensili: ");
+        printTools();
+        printBold("Carte obiettivo pubbliche: ");
+        for (int i = 0; i < gameStatus.getTitlePublicObjective().size(); i++) {
+            addLog("");
+            printUnderline("Carta obiettivo pubblica " + (i + 1) + ":");
+            printCardPublic(gameStatus.getTitlePublicObjective().get(i), gameStatus.getDescriptionPublicObjective().get(i)
+                    , gameStatus.getScorePublicObjective().get(i));
+        }
+        addLog(" ");
+        printBold("Schema dei round attuale:");
+        printSchemeRounds();
+        addLog(" ");
+        printBold("Riserva attuale: ");
+        printDicesStock();
+        addLog(" ");
+    }
+
+    @Override
+    public void printYourStatus() {
+        printBold("Carta obiettivo privata: ");
+        printCardPrivate(gameStatus.getTitlePrivateObjective(), gameStatus.getDescriptionPrivateObjective());
+        addLog(" ");
+        printBold("Ecco la tua mappa: ");
+        printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+        addLog(" ");
+        printBold("Segnalini favore rimanenti: " + gameStatus.getFavUser().get(gameStatus.getYourIndex()));
+    }
+
+    @Override
+    public void printOtherStatus() {
+        for (int i = 0; i < gameStatus.getCells().size(); i++) {
+            if (i != gameStatus.getYourIndex()) {
+                addLog(" ");
+                printBold("Giocatore " + (i + 1) + " : " + gameStatus.getUsers().get(i));
+                addLog("Punti favore rimanenti: " + gameStatus.getFavUser().get(i));
+                printSchemeMap(gameStatus.getCells().get(i));
+            }
+        }
+        addLog(" ");
     }
 }

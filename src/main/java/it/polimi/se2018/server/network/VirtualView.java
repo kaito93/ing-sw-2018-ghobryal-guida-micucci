@@ -342,7 +342,7 @@ public class VirtualView implements Serializable {
 
         try {
             for (int i = 0; i < playersActive.size(); i++)
-                connections.get(i).sendUpdate(maps, users, message, tools, model.getRoundSchemeMap(), model.getStock(), fav);
+                connections.get(i).sendUpdate(maps, users, message, tools, model.getRoundSchemeMap(), model.getStock(), fav,name);
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }

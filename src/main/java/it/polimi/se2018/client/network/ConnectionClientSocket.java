@@ -577,7 +577,7 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
      */
     @Override
     public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
-                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message) {
+                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message, String username) {
         //solo per RMI
     }
 

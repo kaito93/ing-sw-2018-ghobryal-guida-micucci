@@ -241,7 +241,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
      */
     @Override
     public void sendUpdate(List<Map> maps, List<String> users, String msg, List<Boolean> tools,
-                           RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor) {
+                           RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favor, String username) {
         MessageUpdate message = new MessageUpdate();
         message.setMessage(msg);
         message.setCells(maps);
@@ -249,6 +249,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         message.setUseTools(tools);
         message.setUsers(users);
         message.setFavUsers(favor);
+        message.setUsername(username);
         message.setRoundSchemeMap(roundSchemeMap);
         mex = new Message(Message.MVEVENT, message);
         send(mex);

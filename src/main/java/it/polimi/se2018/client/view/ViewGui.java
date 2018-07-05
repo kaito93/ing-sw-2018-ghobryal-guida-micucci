@@ -165,7 +165,20 @@ public class ViewGui extends View {
     }
 
     @Override
-    public void prepareScene() {
-        // questo metodo aggiorna le informazioni della schermata del turno.Le informazioni prendile da gamestatus
+    public void printYourStatus() {
+       // questo metodo aggiorna le informazioni della schermata del turno relative ai tuoi dati .Le informazioni prendile da gamestatus
+        // tutti i pulsanti sono bloccati
+    }
+
+    @Override
+    public void printPublicStatus() {
+        // questo metodo aggiorna le informazioni della schermata del turno relative ai dati generali della partita.
+        // Le informazioni prendile da gamestatus.
+        // tutti i pulsanti sono bloccati
+    }
+
+    @Override
+    public void printOtherStatus() {
+        // questo metodo aggiorna le informazioni delle mappe degli altri giocatori. sempre tutto bloccato
     }
 }

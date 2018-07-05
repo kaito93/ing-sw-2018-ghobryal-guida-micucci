@@ -146,8 +146,8 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * @param favors an arraylist of integer
      */
     public void receiveUpdate(List<String> users, List<Cell[][]> cells, List<Boolean> useTools,
-                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message){
-        view.updateUsers(users, cells, useTools, roundSchemeMap, stock, favors);
+                              RoundSchemeCell[] roundSchemeMap, List<Dice> stock, List<Integer> favors, String message, String username){
+        view.updateUsers(users, cells, useTools, roundSchemeMap, stock, favors,username);
         view.addLog(message);
     }
 
