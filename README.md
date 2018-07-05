@@ -30,13 +30,13 @@
   
 *Pathname relativi per i file .Jar:*  
   
- - Classe Server, metodo Main, riga 265:   
+ - Classe Server, metodo Main, riga 266:   
 `PathDeserializer path = new PathDeserializer("/PathnameServer.json");`  
 - Classe LauncherClient, metodo Main, riga 37:   
  `PathDeserializer path = new PathDeserializer("/PathnameClient.json");`  
   *Pathname relativi per l'IDE:*  
   
- - Classe Server, metodo Main, riga 265:   
+ - Classe Server, metodo Main, riga 266:   
 `PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/server/json_server/Pathname.json");`  
 - Classe LauncherClient, metodo Main, riga 37:   
 `PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");`  
