@@ -704,6 +704,8 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
         try {
             stub.run();
+            connected=true;
+            playerOnline=true;
         } catch (RemoteException e) {
             connected=false;
             LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
