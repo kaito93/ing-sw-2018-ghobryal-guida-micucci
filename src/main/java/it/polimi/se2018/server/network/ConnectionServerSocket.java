@@ -560,8 +560,8 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
 
         } catch (IOException e) {
             connected = false;
-            if (client.isConnected())
-                LOGGER.log(Level.OFF, PLAYER + getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
+            /*if (client.isConnected())
+                LOGGER.log(Level.OFF, PLAYER + getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);*/
 
         } catch (ClassNotFoundException e) {
             connected = false;
