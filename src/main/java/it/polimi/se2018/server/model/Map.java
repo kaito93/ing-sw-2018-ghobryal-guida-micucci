@@ -12,7 +12,7 @@ import java.util.logging.Level;
 
 /** class Map
  * contains all the method to interact with the map
- * @author Andrea Micucci, Anton Ghobryal
+ * @author Anton Ghobryal
  */
 
 public class Map implements Serializable {
@@ -86,7 +86,7 @@ public class Map implements Serializable {
      * @return a boolean that is true if there is an Adjacent dice with the same value, else false
      */
     public boolean isAdjacentValue(int row, int column, int value) {
-        //controlla tutti i posti adiacenti a una certa posizione
+        //controlla tutti i posti adiacenti a una certa posizione se hanno lo stesso valore
         if(row < 1 && column < 1) // controlla alto sinistra della mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value);
@@ -100,22 +100,22 @@ public class Map implements Serializable {
         else if(row > numRow() - 2 && column < 1) //controlla basso sinistra sulla mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
-        else if(row > numRow() - 2 && column > numColumn() - 2)
+        else if(row > numRow() - 2 && column > numColumn() - 2) //controlla basso destra della mappa
             return (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value)
                     || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value);
-        else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2)
+        else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2) //controlla basso centro della mappa
             return (!isEmptyCell(row-1, column)  && getCell(row-1, column).getDice().getValue()==value)
                     || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
                     || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value);
-        else if(row > 0 && row <= numRow() - 2 && column < 1)
+        else if(row > 0 && row <= numRow() - 2 && column < 1) //controlla alto centro della mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
-        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2)
+        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2) //controlla centrale destra della map
             return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value);
-        else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1)
+        else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1) //controlla centro mappa
             return (!isEmptyCell(row, column+1)  && getCell(row, column+1).getDice().getValue()==value)
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getValue()==value)
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getValue()==value)
@@ -130,35 +130,36 @@ public class Map implements Serializable {
      * @return a boolean that is true if there is an Adjacent dice with the same color, else false
      */
     public boolean isAdjacentColor(int row, int column, Color color) {
-        if(row < 1 && column < 1)
+        //controlla tutti i posti adiacenti a una certa posizione se hanno lo stesso colore
+        if(row < 1 && column < 1) // controlla alto sinistra della mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color));
-        else if(row < 1 && column > numColumn() - 2)
+        else if(row < 1 && column > numColumn() - 2) //controlla alto destra della mappa
             return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color));
-        else if(row < 1 && column > 0 && column <= numColumn() - 2)
+        else if(row < 1 && column > 0 && column <= numColumn() - 2) //controlla alto centrale della mappa
             return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color));
-        else if(row > numRow() - 2 && column < 1)
+        else if(row > numRow() - 2 && column < 1) //controlla basso sinistra sulla mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color));
-        else if(row > numRow() - 2 && column > numColumn() - 2)
+        else if(row > numRow() - 2 && column > numColumn() - 2) //controlla basso destra della mappa
             return (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color));
-        else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2)
+        else if(row > numRow() - 2 && column > 0 && column <= numColumn() - 2) //controlla basso centro della mappa
             return (!isEmptyCell(row-1, column)  && getCell(row-1, column).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color));
-        else if(row > 0 && row <= numRow() - 2 && column < 1)
+        else if(row > 0 && row <= numRow() - 2 && column < 1) //controlla alto centro della mappa
             return (!isEmptyCell(row, column+1) && getCell(row, column+1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color));
-        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2)
+        else if(row > 0 && row <= numRow() - 2 && column > numColumn() - 2) //controlla centrale destra della map
             return (!isEmptyCell(row, column-1) && getCell(row, column-1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color));
-        else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1)
+        else if(row > 0 && row < numRow() - 1 && column > 0 && column < numColumn() - 1) //controlla centro mappa
             return (!isEmptyCell(row, column+1)  && getCell(row, column+1).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row+1, column) && getCell(row+1, column).getDice().getColor().equalsColor(color))
                     || (!isEmptyCell(row-1, column) && getCell(row-1, column).getDice().getColor().equalsColor(color))
@@ -357,21 +358,21 @@ public class Map implements Serializable {
      * @return a boolean, if the dice respects the cell restriction else false
      */
     public boolean isCellValid(Dice dice, int row, int column){
-        if(!isEmptyCell(row, column)){
+        if(!isEmptyCell(row, column)){ //controlla se c'è già un dado sulla posizione attuale
             errorBool.setErrorMessage("E' già presente un dado nella cella selezionata!");
             errorBool.setErrBool(true);
             return false;
-        }else if(diceCompatibleCell(row, column, 0, Color.NULL)){
+        }else if(diceCompatibleCell(row, column, 0, Color.NULL)){ //controlla se il dado è compatibile con una cella di nessun colore e nessun valore
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
             return true;
         }
-        else if(diceCompatibleCell(row, column, dice.getValue(), Color.NULL)) {
+        else if(diceCompatibleCell(row, column, dice.getValue(), Color.NULL)) { //controlla se il dado è compatibile con una cella di nessun colore e un certo valore
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
             return diceCompatibleCell(row, column, dice.getValue(), Color.NULL);
         }
-        else if(diceCompatibleCell(row, column, 0, dice.getColor())) {
+        else if(diceCompatibleCell(row, column, 0, dice.getColor())) { //controlla se il dado è compatibile con una cella di un certo colore e nessun valore
             errorBool.setErrorMessage(null);
             errorBool.setErrBool(false);
             return diceCompatibleCell(row, column, 0, dice.getColor());
@@ -434,11 +435,13 @@ public class Map implements Serializable {
      * @return a boolean, true if the dice can be positioned else false
      */
     public boolean posDice(Dice dice, int row, int column) {
+        //controlla se il bordo è vuoto e il giocatore sceglie una posizione in mezzo alla mappa
         if(isBorderEmpty() && ((column>0 && row>0) && (row<numRow()-1 && column<numColumn()-1))) {
             errorBool.setErrorMessage("Devi posizionare il dado sul bordo dello schema!");
             errorBool.setErrBool(true);
             return false;
         }
+        //controlla se tutte le restrizioni di posizionamento vanno rispettate
         else if((isCellValid(dice, row, column) && isBorderEmpty()
                 && ((column==0 || row==0) || (row==numRow()-1 || column==numColumn()-1)))||
                 (!isBorderEmpty() && isAdjacentDice(row, column) && isCellValid(dice, row, column) && !isAdjacentColor(row, column, dice.getColor())
@@ -451,6 +454,12 @@ public class Map implements Serializable {
         return false;
     }
 
+    /**
+     * sets the dice on the passed coordinates on this map
+     * @param row row's coordinate where to position the map
+     * @param column column's coordinate where to position the map
+     * @param dice the chosen dice
+     */
     private void setBoolFalse(int row, int column, Dice dice){
         cell[row][column].setDice(dice);
         errorBool.setErrorMessage(null);

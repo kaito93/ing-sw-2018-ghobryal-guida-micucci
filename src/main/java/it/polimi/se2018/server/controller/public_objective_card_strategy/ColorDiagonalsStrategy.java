@@ -69,7 +69,7 @@ public class ColorDiagonalsStrategy extends ObjectiveCardStrategy{
                 } else if (row > 0 && row <= map.numRow() - 2 && column > map.numColumn() - 2) { //controlla centrale destra della mappa
                     upleftcontrol(map, row, column);
                     downleftcontrol(map, row, column);
-                } else if (row < 1 && column > 0 && column <= map.numColumn() - 2) {
+                } else if (row < 1 && column > 0 && column <= map.numColumn() - 2) { //controlla alto centro della mappa
                     downleftcontrol(map, row, column);
                     downrightcontrol(map, row, column);
                 } else if (row > map.numRow() - 2 && column > 0 && column <= map.numColumn() - 2) { //controlla basso centrale della mappa

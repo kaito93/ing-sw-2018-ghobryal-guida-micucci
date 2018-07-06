@@ -23,6 +23,7 @@ import java.util.List;
 public class ConnectionClientRMI extends UnicastRemoteObject implements ConnectionClient,Serializable {
 
     private static final String NAMEONREGISTER = "//localhost/ServerConnectionReference";
+    private static final String RECONNECT = "Riprova a connettersi al server..";
 
     private transient ConnectionServer skeleton;
 
@@ -119,21 +120,16 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      */
     public void requestNewUsername() {
         try {
-            ConnectionClientRMI newClient = new ConnectionClientRMI(view, username, registry); //creo una nuova connessione client
             String newUsername = view.askNewUsername(); //chiedo un nuovo username
-            newClient.setUsername(newUsername);
-            newClient.setSkeleton(skeleton);
-            skeleton.setClientRMI(newClient, newUsername); //setto la nuova connessione come stub dalla parte del server
-        } catch (RemoteException e) {
-            while (true) {
-                try {
-                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER); //continuo a cercare l'oggetto finché non lo trovo
-                    requestNewUsername();
-                    break;
-                } catch (RemoteException | NotBoundException e1) {
-                    //continua a richiamare il server
-                }
-            }
+            ConnectionServer connectionServer = (ConnectionServer) registry.lookup(NAMEONREGISTER); //cerca e ritorna l'oggetto reso disponibile su rete
+            ConnectionClientRMI clientRMI = new ConnectionClientRMI(view, newUsername, registry); //creo una connessione di tipo rmi
+            connectionServer.setClientRMI(clientRMI, newUsername); //rendo lo stub disponibile dalla parte del server
+            connectionServer.setUsername(newUsername);
+            clientRMI.setSkeleton(connectionServer); //rendo lo skeleton disponibile dalla parte del cliente
+            view.setClient(clientRMI);
+        } catch (RemoteException | NotBoundException e) {
+            view.addError(RECONNECT);
+            requestNewUsername();
         }
     }
 
@@ -164,15 +160,14 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
                     (int) obj.get(2), (int) obj.get(6), (int) obj.get(3), (int)obj.get(7), (int)obj.get(4),
                     (int)obj.get(8), (int)obj.get(10));
         } catch (RemoteException e) {
-            while (true) {
-                try {
-                    skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
-                    tapWheel(title);
-                    break;
-                } catch (RemoteException | NotBoundException e1) {
-                    //continua a richiamare il server
-                }
+            try {
+                view.addError(RECONNECT);
+                skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
+                tapWheel(title);
+            } catch (RemoteException | NotBoundException e1) {
+                //non fare nulla
             }
+
         }
     }
 
@@ -185,15 +180,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.coppperSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     copperFoil(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -206,15 +199,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.corkSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     corkbacked(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -227,15 +218,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.eglomiseSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     eglomise(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -248,15 +237,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.fluxBrushSet(title, (Dice) obj.get(1), (int) obj.get(2), (int) obj.get(3), (Dice) obj.get(0));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     fluxBrush(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -269,15 +256,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.grindingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2), (Dice) obj.get(3));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     grinding(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -290,15 +275,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.grozingSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     grozing(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -312,15 +295,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
             skeleton.lathekinSet(title, (int) obj.get(0), (int) obj.get(4), (int) obj.get(1), (int) obj.get(5),
                     (int) obj.get(2), (int) obj.get(3), (List<Dice>) obj.get(8), (int) obj.get(6), (int) obj.get(7));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     lathekin(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -333,15 +314,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.lensSet(title, (Dice) obj.get(0), (int) obj.get(2), (int) obj.get(3), (int) obj.get(4), (Dice) obj.get(1));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     lens(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -354,15 +333,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.runningSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     running(title);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -385,15 +362,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.fluxRemoverSet(title, (Dice) obj.get(0), (int) obj.get(1), (int) obj.get(2));
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     fluxRemover2(title, dice);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -418,15 +393,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.posDice(dice, column, row);
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     sendPosDice(dice, column, row);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -439,15 +412,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.useTool(titleCardTool);
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     sendUseTool(titleCardTool);
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -459,15 +430,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.passTurn();
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     sendPassMove();
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -492,15 +461,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.setConnected(true);
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     sendReconnect();
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 
@@ -512,15 +479,13 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         try {
             skeleton.setPlayerOnline();
         } catch (RemoteException e) {
-            while (true) {
                 try {
+                    view.addError(RECONNECT);
                     skeleton = (ConnectionServer) registry.lookup(NAMEONREGISTER);
                     sendDisconnect();
-                    break;
                 } catch (RemoteException | NotBoundException e1) {
                     //continua a richiamare il server
                 }
-            }
         }
     }
 

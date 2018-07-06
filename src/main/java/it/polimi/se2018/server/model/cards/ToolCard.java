@@ -64,10 +64,11 @@ public class ToolCard extends Card{
     public boolean useTool(Player player, Dice dice, int row1, int column1, List<Dice> stock, int row2, int column2,
                            Dice roundSchemeDice, RoundSchemeCell[] roundSchemeMap
             , List<Player> turns, int posDice1){
-        if((!isUsed() && player.getFavSig()<1) || (isUsed() && player.getFavSig()<2)){
+        if((!isUsed() && player.getFavSig()<1) || (isUsed() && player.getFavSig()<2)){//controlla se il giocatore non ha abbastanza segnalini favore per usare una certa carta
             ToolCardStrategy.getErrorBool().setErrorMessage("Player doesn't have enough favor signals");
             ToolCardStrategy.getErrorBool().setErrBool(true);
             return false;
+            //controlla se il giocatore invece ha invece abbastanza segnalini favore per usare una carta
         }else if(!isUsed() && player.getFavSig()>0){
             strategy.useTool(player, dice, row1, column1, stock, row2, column2, roundSchemeDice, roundSchemeMap,
                     turns, posDice1);

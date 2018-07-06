@@ -28,7 +28,7 @@ public class LauncherClient {
     private static int port;
     private static String ip;
     private static int portRMI;
-    private LauncherClient launcher;
+    private static int timer;
 
 
     public static void main(String[] args) {
@@ -40,9 +40,9 @@ public class LauncherClient {
 
         port = clien.getCs().getPort();
         ip = clien.getCs().getIp();
-        int timer = clien.getCs().getTimerTurn();
-        int portRMI = clien.getCs().getPortRMI();
-        LauncherClient launcher = new LauncherClient(port,ip,timer,portRMI);
+        timer = clien.getCs().getTimerTurn();
+        portRMI = clien.getCs().getPortRMI();
+         LauncherClient launcher = new LauncherClient(port,ip,timer,portRMI);
     }
 
 
@@ -79,6 +79,7 @@ public class LauncherClient {
                 view.setClient(client);
                 try {
                     client.run();
+                    view.addLog("Connessione stabilita col server");
                 } catch (RemoteException e) {
                     LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
                 }
@@ -94,13 +95,13 @@ public class LauncherClient {
                         connectionServer.setUsername(username);
                         clientRMI.setSkeleton(connectionServer); //rendo lo skeleton disponibile dalla parte del cliente
                         view.setClient(clientRMI);
+                        view.addLog("Connessione stabilita col server");
                         condition = false;
                     }catch (RemoteException | NotBoundException e){
                         condition=true;
                     }
                 }
             }
-            view.addLog("Connessione stabilita col server");
         }
 
     }
