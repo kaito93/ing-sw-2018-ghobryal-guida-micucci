@@ -302,9 +302,16 @@ public class Game implements Serializable {
      * @param dice a chosen dice from the stock
      */
     public void removeDiceStock(Dice dice) {
-        for (int i=0; i<stock.size();i++)
+        int i=0;
+        boolean cond=true;
+        while(i<stock.size() && cond){
             if (dice.getValue()==stock.get(i).getValue() && dice.getColor().equalsColor(stock.get(i).getColor()))
+            {
                 stock.remove(i);
+                cond=false;
+            }
+            i++;
+        }
     }
 
     /**

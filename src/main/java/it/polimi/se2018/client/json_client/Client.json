@@ -1,6 +1,6 @@
 {
   "port": 9737,
   "ip": "127.0.0.1",
-  "timerTurn" : 5000,
+  "timerTurn" : 180000,
   "portRMI" : 1100
 }
