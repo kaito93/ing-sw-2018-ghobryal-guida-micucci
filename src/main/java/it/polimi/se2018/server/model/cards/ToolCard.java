@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * class to manage the toolcard
- * @Anton Ghobryal
+ * @author Anton Ghobryal
  */
 public class ToolCard extends Card{
     private int id;

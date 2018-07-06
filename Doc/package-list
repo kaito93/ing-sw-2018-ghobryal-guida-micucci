@@ -4,7 +4,14 @@ it.polimi.se2018.client.client_deserializer
 it.polimi.se2018.client.network
 it.polimi.se2018.client.view
 it.polimi.se2018.client.view.ViewGuiPack
-it.polimi.se2018.client.view.ViewGuiPack.choice_window_pack
+it.polimi.se2018.client.view.ViewGuiPack.HostesPage
+it.polimi.se2018.client.view.ViewGuiPack.LoginPage
+it.polimi.se2018.client.view.ViewGuiPack.MapChoicePage
+it.polimi.se2018.client.view.ViewGuiPack.ModelGui
+it.polimi.se2018.client.view.ViewGuiPack.gameBoardPage
+it.polimi.se2018.client.view.ViewGuiPack.publiccards
+it.polimi.se2018.client.view.ViewGuiPack.roundSchemeStockPage
+it.polimi.se2018.client.view.ViewGuiPack.wrongUsername
 it.polimi.se2018.server
 it.polimi.se2018.server.controller
 it.polimi.se2018.server.controller.public_objective_card_strategy
