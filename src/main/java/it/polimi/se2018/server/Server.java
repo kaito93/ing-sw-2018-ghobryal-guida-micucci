@@ -275,7 +275,7 @@ public class Server implements Remote {
      * @param args a matrix of strings
      */
     public static void main(String[] args) {
-        PathDeserializer path = new PathDeserializer("/PathnameServer.json");
+        PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/server/json_server/Pathname.json");
         path.deserializing();
         ServerDeserialize serv = new ServerDeserialize(path.getPathFromType("server"));
         serv.deserializing();

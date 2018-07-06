@@ -33,7 +33,7 @@ public class LauncherClient {
 
     public static void main(String[] args) {
 
-        PathDeserializer path = new PathDeserializer("/PathnameClient.json");
+        PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");
         path.deserializing();
         ClientDeserializer clien = new ClientDeserializer(path.getPathFromType("client"));
         clien.deserializing();

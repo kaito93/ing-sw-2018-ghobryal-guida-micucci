@@ -47,7 +47,7 @@ public class Game implements Serializable {
      */
     public Game(){
 
-        PathDeserializer path = new PathDeserializer("/PathnameServer.json");
+        path = new PathDeserializer("src/main/java/it/polimi/se2018/server/json_server/Pathname.json");
 
         path.deserializing();
 
