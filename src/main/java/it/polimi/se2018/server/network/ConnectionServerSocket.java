@@ -699,9 +699,21 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         //solo per RMI
     }
 
+    /**
+     * verifies if this is a socket connection
+     * @return true
+     */
     @Override
-    public boolean isConnection() throws RemoteException {
+    public boolean isConnection() {
         return socket;
+    }
+
+    /**
+     * only used by RMI
+     */
+    @Override
+    public void disconnectSuspendedPlayer() {
+        //solo per RMI
     }
 
     /**
