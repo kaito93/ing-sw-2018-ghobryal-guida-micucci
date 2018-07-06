@@ -27,6 +27,7 @@ public class ViewCli extends View {
     private int porSocket;
     private int porRMI;
     private String ipConn;
+    private Object lock = new Object();
 
 
     /**
@@ -61,6 +62,7 @@ public class ViewCli extends View {
     public void myTurn() {
         boolean valid = false;
         boolean map = false;
+        String choose;
         int chooseDice;
         int chooseColumn = 0;
         int chooseRow = 0;
@@ -75,7 +77,11 @@ public class ViewCli extends View {
                     addLog("1 - Posizionare un dado dalla riserva alla tua carta schema " +
                             "\n2 - Usare una carta utensile \n3 - Non fare niente in questa mossa \n4 - Visualizza il tuo stato" +
                             "\n5 - Visualizza lo stato degli avversari" + "\n6 - Visualizza le informazioni generali della partita");
-                    String choose = scanner.nextLine();
+                    try {
+                        choose = scanner.nextLine();
+                    }catch (NoSuchElementException e){
+                        return;
+                    }
                     map = false;
                     addLog(" ");
                     if (choose.equalsIgnoreCase("1")) {
@@ -200,6 +206,7 @@ public class ViewCli extends View {
             // se si entra qui dentro è perchè il giocatore prima si era disconnesso.
             addLog("Chiusura mossa precedente");
             LOGGER.log(Level.SEVERE, e.toString(), e);
+            valid=true;
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
         }
@@ -230,7 +237,7 @@ public class ViewCli extends View {
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav) {
 
         int val = 9;
-        while ((val > maps.size()) || (val < 1)) {
+        while ((val > maps.size()) || (val < 0)) {
             for (int rig = 0; rig < 2; rig++) {
                 System.out.println();
                 for (int i = 0; i < names.size() / 2; i++) {
@@ -319,7 +326,7 @@ public class ViewCli extends View {
                 boolean cond = true;
                 while (cond) {
                     System.out.println("Quale mappa scegli?");
-                    val = Integer.decode(scanner.nextLine());
+                    val = Integer.decode(scanner.nextLine())-1;
                     if (val > -1 && val < maps.size())
                         cond = false;
                     else
@@ -328,15 +335,8 @@ public class ViewCli extends View {
             } catch (NumberFormatException e) {
                 addError(NUMERO);
             }
-
-            if (val > (maps.size()) || val < 1) {
-                addError("Hai inserito un valore errato");
-            }
-
         }
-
-
-        return val - 1;
+        return val;
     }
 
     /**
@@ -934,8 +934,14 @@ public class ViewCli extends View {
         Scanner scanner2 = new Scanner(System.in);
         try {
             addLog("Per riconnetterti scrivi qualsiasi cosa:");
-            scanner.close();
-            scanner = null;
+            try{
+                scanner.close();
+                scanner = null;
+            }
+            catch (NullPointerException ignored){
+                //ignored
+            }
+            scanner=scanner2;
             return (scanner2.nextLine());
         } catch (NoSuchElementException e) {
             return "C'è vita dietro lo schermo";
@@ -951,7 +957,7 @@ public class ViewCli extends View {
     public void seeScore(List<Integer> scores) {
         addLog("Ecco i punteggi di tutti i giocatori: ");
         for (int i = 0; i < scores.size(); i++) {
-            printBold("\"Giocatore 1 - \" + gameStatus.getUsers().get(i)");
+            printBold("Giocatore " + (i+1)+  ":" + gameStatus.getUsers().get(i));
             addLog("Punteggio finale: " + scores.get(i));
         }
     }
