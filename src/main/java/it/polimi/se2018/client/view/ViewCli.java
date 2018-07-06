@@ -761,6 +761,32 @@ public class ViewCli extends View {
         }
     }
 
+
+    private void printColorDiceScheme(String color, String number){
+        switch (color) {
+            case "red":
+                System.out.println(Logger.getAnsiRed() + number + Logger.getAnsiReset());
+                break;
+            case "green":
+                System.out.println(Logger.getAnsiGreen() + number + Logger.getAnsiReset());
+                break;
+            case "blue":
+                System.out.println(Logger.getAnsiBlue() + number + Logger.getAnsiReset());
+                break;
+            case "yellow":
+                System.out.println(Logger.getAnsiYellow() + number + Logger.getAnsiReset());
+                break;
+            case "purple":
+                System.out.println(Logger.getAnsiPurple() + number + Logger.getAnsiReset());
+                break;
+            case "null":
+                System.out.println(number);
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
      * method that print a text in bold
      *
@@ -843,7 +869,7 @@ public class ViewCli extends View {
         addLog("Round " + (round + 1) + ":");
         for (int dice = 0; dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size(); dice++) {
             System.out.print((dice+1) + " - ");
-            printColor(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
+            printColorDiceScheme(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
                     gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).toString());
         }
     }
