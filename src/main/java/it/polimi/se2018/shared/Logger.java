@@ -72,4 +72,27 @@ public class Logger {
             System.out.print(ANSI_YELLOW + message + ANSI_RESET);
         }
 
+    public static String getAnsiBlue() {
+        return ANSI_BLUE;
     }
+
+    public static String getAnsiGreen() {
+        return ANSI_GREEN;
+    }
+
+    public static String getAnsiPurple() {
+        return ANSI_PURPLE;
+    }
+
+    public static String getAnsiRed() {
+        return ANSI_RED;
+    }
+
+    public static String getAnsiReset() {
+        return ANSI_RESET;
+    }
+
+    public static String getAnsiYellow() {
+        return ANSI_YELLOW;
+    }
+}
