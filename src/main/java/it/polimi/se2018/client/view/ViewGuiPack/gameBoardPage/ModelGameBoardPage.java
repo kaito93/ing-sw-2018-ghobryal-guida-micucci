@@ -25,6 +25,12 @@ public class ModelGameBoardPage {
 
     private RoundSchemeCell[] schemeRound;
 
+    private List<Cell[][]> maps;
+
+    private List<String> users;
+
+    private List<String> favors;
+
     public ModelGameBoardPage(){
 
     }
@@ -131,5 +137,29 @@ public class ModelGameBoardPage {
 
     public void setSchemeRound(RoundSchemeCell[] schemeRound) {
         this.schemeRound = schemeRound;
+    }
+
+    public List<Cell[][]> getMaps() {
+        return maps;
+    }
+
+    public void setMaps(List<Cell[][]> maps) {
+        this.maps = maps;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public List<String> getFavors() {
+        return favors;
+    }
+
+    public void setFavors(List<String> favors) {
+        this.favors = favors;
     }
 }

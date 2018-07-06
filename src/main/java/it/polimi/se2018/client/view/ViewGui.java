@@ -7,6 +7,7 @@ import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -233,6 +234,19 @@ public class ViewGui extends View {
         ModelFX.getInstance().getGbp().setUsageTool(gameStatus.getUseTools());
         ModelFX.getInstance().getGbp().setStock(gameStatus.getStock());
         ModelFX.getInstance().getGbp().setSchemeRound(gameStatus.getRoundSchemeMap());
+        List<Cell[][]> maps = new ArrayList<>();
+        List<String> users = new ArrayList<>();
+        List<String> favors = new ArrayList<>();
+        for (int i=0; i<gameStatus.getCells().size();i++){
+            if (i!=gameStatus.getYourIndex()){
+                maps.add(gameStatus.getCells().get(i));
+                users.add("Giocatore "+i+ " "+gameStatus.getUsers().get(i));
+                favors.add("Segnalini favore rimanenti: "+gameStatus.getFavUser().get(i));
+            }
+        }
+        ModelFX.getInstance().getGbp().setMaps(maps);
+        ModelFX.getInstance().getGbp().setUsers(users);
+        ModelFX.getInstance().getGbp().setFavors(favors);
     }
 
     @Override
