@@ -380,10 +380,8 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * @param index new index of player in the array
      */
     public void receiveLostConnection(String text, int index){
-        boolean a=view.updateIndex(index);
+        view.updateIndex(index);
         view.addError(text);
-        if (!a)
-            System.exit(0);
     }
 
     /**

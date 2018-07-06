@@ -655,6 +655,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     @Override
     public void sendVictoryAbbandon() {
         sendLostConnection("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)", 5);
+        System.exit(1);
     }
 
     /**
