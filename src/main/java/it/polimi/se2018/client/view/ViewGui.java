@@ -7,14 +7,14 @@ import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
 import javafx.stage.Stage;
-
-import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.assignMap;
-import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.getChosenMap;
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+
+import javax.jws.WebParam;
 
 public class ViewGui extends View {
 
@@ -221,7 +221,32 @@ public class ViewGui extends View {
 
     @Override
     public void printYourStatus() {
-
+        FxmlOpener.getInstance().openFX("/gamingBoard.fxml");
+        ModelFX.getInstance().getGbp().setDefinitiveMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+        ModelFX.getInstance().getGbp().setFav(gameStatus.getFavUser().get(gameStatus.getYourIndex()));
+        ModelFX.getInstance().getGbp().setPrivateCardTitle(gameStatus.getTitlePrivateObjective());
+        ModelFX.getInstance().getGbp().setPrivateCardDescription(gameStatus.getDescriptionPrivateObjective());
+        ModelFX.getInstance().getGbp().setTitlePub(gameStatus.getTitlePublicObjective());
+        ModelFX.getInstance().getGbp().setDescriptionPub(gameStatus.getDescriptionPublicObjective());
+        ModelFX.getInstance().getGbp().setScorePub(gameStatus.getScorePublicObjective());
+        ModelFX.getInstance().getGbp().setTitleTools(gameStatus.getTitleTools());
+        ModelFX.getInstance().getGbp().setDescriptionTool(gameStatus.getDescriptionTools());
+        ModelFX.getInstance().getGbp().setUsageTool(gameStatus.getUseTools());
+        ModelFX.getInstance().getGbp().setStock(gameStatus.getStock());
+        ModelFX.getInstance().getGbp().setSchemeRound(gameStatus.getRoundSchemeMap());
+        List<Cell[][]> maps = new ArrayList<>();
+        List<String> users = new ArrayList<>();
+        List<String> favors = new ArrayList<>();
+        for (int i=0; i<gameStatus.getCells().size();i++){
+            if (i!=gameStatus.getYourIndex()){
+                maps.add(gameStatus.getCells().get(i));
+                users.add("Giocatore "+i+ " "+gameStatus.getUsers().get(i));
+                favors.add("Segnalini favore rimanenti: "+gameStatus.getFavUser().get(i));
+            }
+        }
+        ModelFX.getInstance().getGbp().setMaps(maps);
+        ModelFX.getInstance().getGbp().setUsers(users);
+        ModelFX.getInstance().getGbp().setFavors(favors);
     }
 
     @Override

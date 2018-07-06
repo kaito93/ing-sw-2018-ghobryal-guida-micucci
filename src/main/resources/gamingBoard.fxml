@@ -8,9 +8,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.client.view.ViewGuiPack.gameBoardPage.ControllerSagradaGui">
@@ -70,38 +71,49 @@
                             </rowConstraints>
                         </GridPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
-                            <center>
-                                <Rectangle fx:id="privatecard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="161.0" stroke="BLACK" strokeType="INSIDE" width="75.0" BorderPane.alignment="CENTER" />
-                            </center>
+                     <center>
+                        <GridPane fx:id="priv" gridLinesVisible="true" prefHeight="203.0" prefWidth="110.0" BorderPane.alignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </center>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                            <center>
-                                <Rectangle fx:id="tool2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="108.0" onMouseClicked="#showAlertBoxTools2" stroke="BLACK" strokeType="INSIDE" width="67.0" BorderPane.alignment="CENTER" />
-                            </center>
-                            <left>
-                                <Rectangle fx:id="tool1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="108.0" onMouseClicked="#showAlertBoxTools1" stroke="BLACK" strokeType="INSIDE" width="67.0" BorderPane.alignment="CENTER" />
-                            </left>
-                            <right>
-                                <Rectangle fx:id="tool3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="108.0" onMouseClicked="#showAlertBoxTools3" stroke="BLACK" strokeType="INSIDE" width="67.0" BorderPane.alignment="CENTER" />
-                            </right></BorderPane>
+                     <center>
+                        <GridPane fx:id="publicCards" gridLinesVisible="true" BorderPane.alignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </center></BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                            <left>
-                                <Rectangle fx:id="public1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="108.0" onMouseClicked="#showAlertBoxPublic1" stroke="BLACK" strokeType="INSIDE" width="67.0" BorderPane.alignment="CENTER" />
-                            </left>
-                            <center>
-                                <Rectangle fx:id="public2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="108.0" onMouseClicked="#showAlertBoxPublic2" stroke="BLACK" strokeType="INSIDE" width="67.0" BorderPane.alignment="CENTER" />
-                            </center>
-                            <right>
-                                <Rectangle fx:id="public3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="108.0" onMouseClicked="#showAlertBoxPublic3" stroke="BLACK" strokeType="INSIDE" width="67.0" BorderPane.alignment="CENTER" />
-                            </right>
+                     <center>
+                        <GridPane fx:id="toolCards" gridLinesVisible="true" BorderPane.alignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </center>
                         </BorderPane>
-                        <Rectangle fx:id="logger" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="157.0" onInputMethodTextChanged="#handleLoggerPress" stroke="BLACK" strokeType="INSIDE" width="154.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <center>
-                                <Button fx:id="SaltaTurno" mnemonicParsing="false" onAction="#handleButtonClick" text="Salta il turno" BorderPane.alignment="CENTER" />
+                                <Button fx:id="SaltaTurno" mnemonicParsing="false" onAction="#handleSaltaClick" text="Salta il turno" BorderPane.alignment="CENTER" />
                             </center>
                         </BorderPane>
-                        <Rectangle fx:id="roundcheme" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="78.0" stroke="BLACK" strokeType="INSIDE" width="565.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <GridPane fx:id="reserve" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -115,6 +127,19 @@
                             </rowConstraints>
                         </GridPane>
                         <TextFlow fx:id="output" onKeyPressed="#handleLoggerPress" onKeyTyped="#handleLoggerPress" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <GridPane gridLinesVisible="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Pane fx:id="logger" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </GridPane>
+                  <Button fx:id="RoundSchemeButton" mnemonicParsing="false" onAction="#OpenRound" text="RoundScheme" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </center>
