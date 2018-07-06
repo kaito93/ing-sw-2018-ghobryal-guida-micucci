@@ -250,5 +250,17 @@ public interface ConnectionClient extends Remote, Serializable {
      */
     void receiveLostConnection(String text, int index) throws RemoteException;
 
+    /**
+     * sets the skeleton on the client
+     * @param skeleton the skeleton
+     * @throws RemoteException if the skeleton is no longer online
+     */
     void setSkeleton(ConnectionServer skeleton) throws RemoteException;
+
+    /**
+     * exits the client when he wins the game
+     * @param text Message of victory
+     * @throws RemoteException if the skeleton is no longer online
+     */
+    void receiveVictoryAbbandon(String text) throws RemoteException;
 }

@@ -385,6 +385,15 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
     }
 
     /**
+     * exits the winner
+     * @param text Message of victory
+     */
+    public void receiveVictoryAbbandon(String text){
+        view.addError(text);
+        System.exit(1);
+    }
+
+    /**
      * method that sends a request to reconnect to the game
      */
     @Override
