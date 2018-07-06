@@ -3,7 +3,8 @@
  ## Lista dei membri:    
     
  - *Ghobryal Anton - Matricola: 844941*    
- - *Guida Samuele - Matricola: 806408* - *Micucci Andrea - Matricola 811025*    
+ - *Guida Samuele - Matricola: 806408* 
+ - *Micucci Andrea - Matricola 811025*    
  ## ***Lista dei requisiti sviluppati***    
  ***Regole:***    
  - *Regole complete:* Abbiamo deciso di implementare tutte le funzionalità supportate dal gioco reale, ovvero la                          versione spiegata nel regolamento del gioco disponibile sul sito ufficiale.    

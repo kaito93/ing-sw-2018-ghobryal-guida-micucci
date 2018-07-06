@@ -160,7 +160,6 @@ public abstract class View implements Serializable {
     public void turn() {
         setTimer();
         myTurn();
-        cancelTimer();
     }
 
     /**

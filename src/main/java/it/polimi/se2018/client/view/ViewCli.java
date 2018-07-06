@@ -103,6 +103,7 @@ public class ViewCli extends View {
                                         if (finalChoose.equalsIgnoreCase("si")) {
                                             finals = true;
                                             cho = true;
+                                            cancelTimer();
                                             client.sendPosDice(gameStatus.getStock().get(chooseDice), chooseColumn, chooseRow);
                                             a = true;
                                         } else if (finalChoose.equalsIgnoreCase("no")) {
@@ -138,11 +139,12 @@ public class ViewCli extends View {
                                             addError(NUMERO);
                                         }
                                     }
-                                    if (chooseTool > gameStatus.getUseTools().size() || chooseTool < 0)
+                                    if (chooseTool > (gameStatus.getUseTools().size()-1) || chooseTool < 0)
                                         addError("Non hai selezionato una carta utensile corretta");
                                     else {
                                         valid = true;
                                         tool = true;
+                                        cancelTimer();
                                         client.sendUseTool(gameStatus.getTitleTools().get(chooseTool));
                                         a = true;
                                     }
@@ -163,6 +165,7 @@ public class ViewCli extends View {
                         printBold("Confermi di voler passare il turno? [Si/No]");
                         String finalChoose = scanner.nextLine();
                         if (finalChoose.equalsIgnoreCase("Si")) {
+                            cancelTimer();
                             client.sendPassMove();
                             a = true;
                             valid = true;
