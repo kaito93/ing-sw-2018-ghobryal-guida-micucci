@@ -6,6 +6,8 @@
 package it.polimi.se2018.client.view.ViewGuiPack.MapChoicePage;
 
 import it.polimi.se2018.shared.model_shared.Cell;
+import javafx.scene.layout.GridPane;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class ModelChoiceMap {
     List<String> mapName = new ArrayList();
     List<Integer> favour = new ArrayList();
     private int indexOfDefinitiveMap=-1;
+    GridPane gridDefinitive;
 
     public ModelChoiceMap() {
     }
@@ -50,5 +53,13 @@ public class ModelChoiceMap {
 
     public int getIndexOfDefinitiveMap() {
         return indexOfDefinitiveMap;
+    }
+
+    public GridPane getGridDefinitive() {
+        return gridDefinitive;
+    }
+
+    public void setGridDefinitive(GridPane gridDefinitive) {
+        this.gridDefinitive = gridDefinitive;
     }
 }

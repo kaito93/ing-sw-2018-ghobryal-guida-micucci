@@ -60,6 +60,8 @@ public class ControllerMapChoice {
     @FXML
     private Label fav4;
 
+    Cell[][] mapDefinitive;
+
 
     public void setSelected4(ActionEvent actionEvent) {
         map4.setSelected(true);
@@ -96,25 +98,25 @@ public class ControllerMapChoice {
                 ModelFX.getInstance().getGbp().setDefinitiveMap(ModelFX.getInstance().getChoice().getMaps().get(0));
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(0));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(0));
-                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(0);
+                ModelFX.getInstance().getChoice().setGridDefinitive(grid1);
             }
             if (map2.isSelected()) {
                 ModelFX.getInstance().getGbp().setDefinitiveMap(ModelFX.getInstance().getChoice().getMaps().get(1));
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(1));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(1));
-                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(1);
+                ModelFX.getInstance().getChoice().setGridDefinitive(grid2);
             }
             if (map3.isSelected()) {
                 ModelFX.getInstance().getGbp().setDefinitiveMap(ModelFX.getInstance().getChoice().getMaps().get(2));
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(2));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(2));
-                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(2);
+                ModelFX.getInstance().getChoice().setGridDefinitive(grid3);
             }
             if (map4.isSelected()) {
                 ModelFX.getInstance().getGbp().setDefinitiveMap(ModelFX.getInstance().getChoice().getMaps().get(3));
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(3));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(3));
-                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(3);
+                ModelFX.getInstance().getChoice().setGridDefinitive(grid4);
             }
 
             try {

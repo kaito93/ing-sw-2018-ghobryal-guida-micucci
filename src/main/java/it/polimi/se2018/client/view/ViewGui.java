@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.logging.Level;
 
 import javafx.stage.Stage;
-
-import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.assignMap;
-import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.getChosenMap;
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+
+import javax.jws.WebParam;
 
 public class ViewGui extends View {
 
@@ -221,7 +220,19 @@ public class ViewGui extends View {
 
     @Override
     public void printYourStatus() {
-
+        FxmlOpener.getInstance().openFX("/gamingBoard.fxml");
+        ModelFX.getInstance().getGbp().setDefinitiveMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
+        ModelFX.getInstance().getGbp().setFav(gameStatus.getFavUser().get(gameStatus.getYourIndex()));
+        ModelFX.getInstance().getGbp().setPrivateCardTitle(gameStatus.getTitlePrivateObjective());
+        ModelFX.getInstance().getGbp().setPrivateCardDescription(gameStatus.getDescriptionPrivateObjective());
+        ModelFX.getInstance().getGbp().setTitlePub(gameStatus.getTitlePublicObjective());
+        ModelFX.getInstance().getGbp().setDescriptionPub(gameStatus.getDescriptionPublicObjective());
+        ModelFX.getInstance().getGbp().setScorePub(gameStatus.getScorePublicObjective());
+        ModelFX.getInstance().getGbp().setTitleTools(gameStatus.getTitleTools());
+        ModelFX.getInstance().getGbp().setDescriptionTool(gameStatus.getDescriptionTools());
+        ModelFX.getInstance().getGbp().setUsageTool(gameStatus.getUseTools());
+        ModelFX.getInstance().getGbp().setStock(gameStatus.getStock());
+        ModelFX.getInstance().getGbp().setSchemeRound(gameStatus.getRoundSchemeMap());
     }
 
     @Override
