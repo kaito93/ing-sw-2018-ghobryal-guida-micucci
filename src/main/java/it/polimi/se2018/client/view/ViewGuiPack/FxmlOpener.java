@@ -1,6 +1,7 @@
 package it.polimi.se2018.client.view.ViewGuiPack;
 
 import it.polimi.se2018.client.view.ViewGuiPack.LoginPage.LoginController;
+import it.polimi.se2018.shared.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.logging.Level;
+
 import javafx.embed.swing.JFXPanel;
 
 /**
@@ -21,6 +24,9 @@ import javafx.embed.swing.JFXPanel;
  * @author Andrea Micucci
  */
 public class FxmlOpener {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     private static FxmlOpener fxmlOpener;
 
@@ -64,8 +70,7 @@ public class FxmlOpener {
                 stage.setScene(scene);
                 stage.show();
             } catch (Exception ex) {
-                ex.printStackTrace();
-            } finally {
+                LOGGER.log(Level.SEVERE, ex.toString(), ex);            } finally {
                 Thread.currentThread().setContextClassLoader(currentClassLoader);
             }
         });

@@ -3,6 +3,7 @@ package it.polimi.se2018.client.view.ViewGuiPack.gameBoardPage;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import it.polimi.se2018.client.view.ViewGuiPack.FxmlOpener;
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Color;
 import it.polimi.se2018.shared.model_shared.Dice;
@@ -24,12 +25,16 @@ import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * class for manage the fx components of the gameboard
  * @author Andrea Micucci
  */
 public class ControllerSagradaGui {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     @FXML
     private MenuBar matchMenu;
@@ -85,7 +90,7 @@ public class ControllerSagradaGui {
     /**
      * inizialize method for the gameboard
      */
-    void initialize() {
+    /*void initialize() {
         Cell[][] cell = ModelFX.getInstance().getGbp().getDefinitiveMap();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
@@ -125,7 +130,7 @@ public class ControllerSagradaGui {
 
             }
         }
-    }
+    }*/
 
     /**
      * method to open the roundscheme
@@ -151,7 +156,7 @@ public class ControllerSagradaGui {
             try {
                 ((Node) event.getSource()).getScene().getWindow().hide();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.toString(), ex);
 
         }
         FxmlOpener.getInstance().openFX("Publiccards.fxml");

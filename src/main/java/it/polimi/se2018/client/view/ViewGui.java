@@ -50,7 +50,7 @@ public class ViewGui extends View {
 
     }
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
-        ModelFX.getInstance().getChoice().setUpMap(maps, names, fav);
+        /*ModelFX.getInstance().getChoice().setUpMap(maps, names, fav);
         ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(-1);
         int index=0;
         FxmlOpener.getInstance().openFX("/SceltaMappe.fxml");
@@ -74,8 +74,8 @@ public class ViewGui extends View {
             if (index!=-1)
                 cond=false;
         }
-        //System.out.println(index);
-        return index;
+        //System.out.println(index);*/
+        return 0;
     }
 
 
@@ -282,7 +282,7 @@ public class ViewGui extends View {
     }
 
     private void launchLoginMain(){
-        FxmlOpener.getInstance().openFX("/LoginPageFXML.fxml");
+        /*FxmlOpener.getInstance().openFX("/LoginPageFXML.fxml");
         String user=null;
         String ipad=null;
         int ported=0;
@@ -325,6 +325,6 @@ public class ViewGui extends View {
     }
 
     public static Stage getStage(){
-        return stageOfGame;
+        return stageOfGame;*/
     }
 }

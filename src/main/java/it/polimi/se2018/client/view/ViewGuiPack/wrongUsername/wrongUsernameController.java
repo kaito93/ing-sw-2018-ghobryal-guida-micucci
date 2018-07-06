@@ -1,10 +1,13 @@
 package it.polimi.se2018.client.view.ViewGuiPack.wrongUsername;
 
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+import it.polimi.se2018.shared.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+
+import java.util.logging.Level;
 
 /**
  * class to manage the behaviour of the Wrong Username FX window
@@ -13,6 +16,8 @@ import javafx.scene.control.TextField;
 public class wrongUsernameController {
     @FXML
     private TextField rightUsername;
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     /**
      * method that send the new username to the model
@@ -25,7 +30,7 @@ public class wrongUsernameController {
             try {
                 ((Node) event.getSource()).getScene().getWindow().hide();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.toString(), ex);
             }
         }
     }

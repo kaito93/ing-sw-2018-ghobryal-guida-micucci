@@ -126,6 +126,7 @@ public class TestSomeCards1 extends TestCase {
                 null, null, null, -1));
         assertTrue(card3.useTool(player, r4, 1, -1, null,  3, 3,
                 null, null, null, -1));
+
         assertFalse(card4.useTool(player, r4, 2, 0, diceList, -1, -1,
                 null, roundSchemeCells, null, 0));
         roundSchemeCells[0].getRestOfStock().add(r4);

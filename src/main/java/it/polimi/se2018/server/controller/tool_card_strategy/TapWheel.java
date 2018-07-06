@@ -32,7 +32,7 @@ public class TapWheel extends ToolCardStrategy {
     public void useTool(Player player, Dice roundSchemeMapDice, int row1, int column1, List<Dice> dicesToMove,
                         int row2, int column2, Dice t2, RoundSchemeCell[] roundSchemeMap, List<Player> t3, int posDice){
         boolean d;
-        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice)
+        if(roundSchemeMap[posDice].getRestOfStock().contains(roundSchemeMapDice) && !dicesToMove.isEmpty()
                 && roundSchemeMapDice.getColor().equalsColor(dicesToMove.get(0).getColor())){ //se il dado passato è dentro il tracciato dei round
             if (dicesToMove.size() == 1) { //se sposto solo un dado e il suo colore è uguale a quello del tracciato dei round
                 try {

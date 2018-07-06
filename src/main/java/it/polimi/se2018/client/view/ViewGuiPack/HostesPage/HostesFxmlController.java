@@ -1,6 +1,7 @@
 package it.polimi.se2018.client.view.ViewGuiPack.HostesPage;
 
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Color;
 import javafx.event.ActionEvent;
@@ -14,10 +15,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import java.util.logging.Level;
+
 /**
  * class to see in GUI the maps of the other players
  */
 public class HostesFxmlController {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     @FXML
     private Button annulla;
@@ -57,7 +63,7 @@ public class HostesFxmlController {
         try {
             ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.toString(), ex);
         }
     }
 
@@ -83,7 +89,7 @@ public class HostesFxmlController {
      * @param cell from whinch has to take the info
      */
     public void setUpGlassWindow(GridPane grid, Cell[][] cell) {
-        for (int i = 0; i < 4; i++) {
+       /* for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
                 Text text = new Text();
                 Pane pane = new Pane();
@@ -120,7 +126,7 @@ public class HostesFxmlController {
                 }
 
             }
-        }
+        }*/
     }
 
 }

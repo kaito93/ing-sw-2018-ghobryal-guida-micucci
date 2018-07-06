@@ -527,7 +527,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      * @param column the column coordinate of the dice where to be positioned on the map
      */
     public void posDice(Dice dice, int row, int column){
-        vView.getController().setPos(dice, row, column);
+        vView.getController().setPos(dice, column, row);
     }
 
     /**
@@ -678,7 +678,7 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      * method that listens request of reconnection of a disconnected player
      */
     @Override
-    public synchronized void tryReconnect() {
+    public void tryReconnect() {
         // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
         try {
             stub.waitReconnect();

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
 Class-Path: /com/javafx/main/Main$1.class /com/javafx/main/Main$2.clas
  s /com/javafx/main/Main.class /com/javafx/main/NoJavaFXFallback.class
-Main-Class: it.polimi.se2018.server.Server
+Main-Class: it.polimi.se2018.client.LauncherClient
 

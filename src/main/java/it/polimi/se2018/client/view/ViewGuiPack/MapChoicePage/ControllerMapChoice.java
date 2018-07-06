@@ -1,5 +1,6 @@
 package it.polimi.se2018.client.view.ViewGuiPack.MapChoicePage;
 
+import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Color;
 import javafx.event.ActionEvent;
@@ -19,9 +20,13 @@ import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 
 public class ControllerMapChoice {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     @FXML
     private RadioButton map1 = new RadioButton("map1");
@@ -126,7 +131,7 @@ public class ControllerMapChoice {
             try {
                 ((Node) event.getSource()).getScene().getWindow().hide();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.toString(), ex);
             }
         }
     }
@@ -146,7 +151,7 @@ public class ControllerMapChoice {
     }
 
     public void setUpGlassWindow(GridPane grid, Cell[][] cell) {
-        for (int i = 0; i < 4; i++) {
+        /*for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
                 Text text = new Text();
                 Pane pane = new Pane();
@@ -183,7 +188,7 @@ public class ControllerMapChoice {
                 }
 
             }
-        }
+        }*/
     }
 
     @FXML

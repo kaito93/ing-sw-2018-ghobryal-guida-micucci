@@ -13,7 +13,6 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -644,7 +643,7 @@ public class VirtualView implements Serializable {
                 if (connection.isConnection())
                     return true;
             } catch (RemoteException e) {
-                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+                return false;
             }
         }
         return false;

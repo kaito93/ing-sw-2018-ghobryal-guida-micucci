@@ -9,7 +9,6 @@ import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.path.PathDeserializer;
 import it.polimi.se2018.client.view.View;
 import it.polimi.se2018.client.view.ViewCli;
-import it.polimi.se2018.client.view.ViewGui;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

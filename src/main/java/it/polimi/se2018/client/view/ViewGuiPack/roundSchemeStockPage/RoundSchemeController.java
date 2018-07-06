@@ -1,6 +1,7 @@
 package it.polimi.se2018.client.view.ViewGuiPack.roundSchemeStockPage;
 
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Color;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,12 +12,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import java.util.logging.Level;
+
 /**
  * Controller class for RoundScheme fx window
  * manage all the behaviour in that window
  * @author Andrea Micucci
  */
 public class RoundSchemeController {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     @FXML
     private GridPane roundschemestock;
@@ -30,7 +36,7 @@ public class RoundSchemeController {
         try {
             ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, ex.toString(), ex);
         }
     }
 

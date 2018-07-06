@@ -1,6 +1,7 @@
 package it.polimi.se2018.client.view.ViewGuiPack.LoginPage;
 
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
+import it.polimi.se2018.shared.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,11 +10,16 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
+import java.util.logging.Level;
+
 /**
  * class that works like controller for the LoginWindow
  * @author Andrea Micucci
  */
 public class LoginController {
+
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
 
     @FXML
     private Button Login;
@@ -54,7 +60,7 @@ public class LoginController {
             try {
             ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception ex) {
-            ex.printStackTrace();
+                LOGGER.log(Level.SEVERE, ex.toString(), ex);
         }
         }
     }
