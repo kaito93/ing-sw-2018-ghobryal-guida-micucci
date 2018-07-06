@@ -6,17 +6,25 @@
 package it.polimi.se2018.client.view.ViewGuiPack.wrongUsername;
 
 /**
- *
- * @author Andrea
+ * model for the Wrong userame FX window
+ * @author Andrea Micucci
  */
 public class ModelWrong {
     
     String newUsername = null;
 
+    /**
+     * getter method for the new username of the player
+     * @return a string
+     */
     public String getNewUsername() {
         return newUsername;
     }
 
+    /**
+     * setter method for the new username of the player
+     * @param newUsername to be setted
+     */
     public void setNewUsername(String newUsername) {
         this.newUsername = newUsername;
     }

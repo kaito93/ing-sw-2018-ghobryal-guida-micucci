@@ -5,6 +5,7 @@ import it.polimi.se2018.server.deserializer.JsonTransition;
 
 /**
  * class to create data structure to deserializer the json file of the public cards
+ * @author Andrea Micucci
  */
 public class PublicCardsTransfer extends JsonTransition {
 

@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 /**
  * class to deserializer Copper Foil Burnished strategy card
  * extends Tool Builder
+ * @author Andrea Micucci
  */
 public class CopperFoilBurnisherBuilder extends ToolBuilder {
 

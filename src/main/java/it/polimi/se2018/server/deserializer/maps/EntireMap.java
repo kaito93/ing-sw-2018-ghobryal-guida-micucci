@@ -9,6 +9,7 @@ import java.util.List;
  * class that is used to make support data structure for deserializer the maps
  * it represent a map deserialized from json file with the arraylist of matrix
  * in place of the GlassWindow matrix
+ * @author Andrea Micucci
  */
 public class EntireMap {
     private String title;

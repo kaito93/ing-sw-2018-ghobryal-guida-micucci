@@ -3,6 +3,10 @@ package it.polimi.se2018.server.deserializer.maps.cells;
 import it.polimi.se2018.server.model.cell.BlankCell;
 import it.polimi.se2018.shared.model_shared.Cell;
 
+/**
+ * class to build a Blank cell from a json file
+ * @author Andrea Micucci
+ */
 public class BlankCellBuilder extends CellsBuilder {
     private Cell blank;
 

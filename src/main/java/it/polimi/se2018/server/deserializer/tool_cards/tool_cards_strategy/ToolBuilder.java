@@ -14,6 +14,7 @@ import java.util.Observer;
 /**
  * class to be used to deserializer all tool cards
  * implements Observer Interface of java lang library
+ * @author Andrea Micucci
  */
 public class ToolBuilder implements Observer {
     private String toBeCompared;

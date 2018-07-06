@@ -6,11 +6,14 @@
 package it.polimi.se2018.shared.exception;
 
 /**
- *
- * @author Andrea
+ * not valid matrix exception
+ * @author Andrea Micucci
  */
 public class NotValidMatrixException extends Exception {
 
+    /**
+     * class constructor
+     */
     public NotValidMatrixException() {
         super();
     }

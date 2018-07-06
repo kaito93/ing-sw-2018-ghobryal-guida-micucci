@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
@@ -72,41 +71,16 @@
                         </GridPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                      <center>
-                        <GridPane fx:id="priv" gridLinesVisible="true" prefHeight="203.0" prefWidth="110.0" BorderPane.alignment="CENTER">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <Button mnemonicParsing="false" onAction="#ShowPrivatecards" text="private" BorderPane.alignment="CENTER" />
                      </center>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <center>
-                        <GridPane fx:id="publicCards" gridLinesVisible="true" BorderPane.alignment="CENTER">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <Button mnemonicParsing="false" onAction="#showToolcards" text="tool" BorderPane.alignment="CENTER" />
                      </center></BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <center>
-                        <GridPane fx:id="toolCards" gridLinesVisible="true" BorderPane.alignment="CENTER">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <Button mnemonicParsing="false" onAction="#showpubliccards" text="pubbliche" BorderPane.alignment="CENTER" />
                      </center>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
@@ -128,18 +102,12 @@
                         </GridPane>
                         <TextFlow fx:id="output" onKeyPressed="#handleLoggerPress" onKeyTyped="#handleLoggerPress" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                  <GridPane gridLinesVisible="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Pane fx:id="logger" prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </GridPane>
                   <Button fx:id="RoundSchemeButton" mnemonicParsing="false" onAction="#OpenRound" text="RoundScheme" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <center>
+                        <Button fx:id="hostesButton" mnemonicParsing="false" onAction="#showHostes" text="AltreMappe" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
                     </children>
                 </GridPane>
             </center>

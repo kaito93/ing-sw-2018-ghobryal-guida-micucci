@@ -3,6 +3,7 @@ package it.polimi.se2018.client.client_deserializer;
 /**
  * class to make support data structure to deserializer the json file
  * with the info for the clientn about a client-server socket network
+ * @author Andrea Micucci
  */
 public class ClientStructure {
 

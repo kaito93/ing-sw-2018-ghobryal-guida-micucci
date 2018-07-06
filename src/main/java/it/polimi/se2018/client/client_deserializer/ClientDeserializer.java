@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 
 /**
  * class to deserializer the client information in json file
+ * @author Andrea Micucci
  */
 public class ClientDeserializer extends Deserializer {
 

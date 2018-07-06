@@ -12,7 +12,7 @@ import java.util.List;
 
 /** class DiceBox
  * contains all method to generate the DiceBox from the Json file
- * @author Andrea
+ * @author Andrea Micucci
  */
 public class DiceBox extends Deserializer implements Serializable {
 

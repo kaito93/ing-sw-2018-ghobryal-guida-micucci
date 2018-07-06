@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 /**
  * class to deserializer Grozing pliers strategy card
  * extends ToolBuilder
+ * @author Andrea Micucci
  */
 public class GrozingPliersBuilder extends ToolBuilder {
 

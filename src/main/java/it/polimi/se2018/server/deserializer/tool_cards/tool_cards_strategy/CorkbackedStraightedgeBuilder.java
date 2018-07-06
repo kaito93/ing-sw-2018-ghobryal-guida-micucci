@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 /**
  * class to deserializer the cork backed Straighedge card
  * extends ToolBuilder
+ * @author Andrea Micucci
  */
 public class CorkbackedStraightedgeBuilder extends ToolBuilder{
 

@@ -10,7 +10,7 @@ import it.polimi.se2018.shared.model_shared.Cell;
 
 /** class BlankCell
  *  contains all methods and datas about a cell not coloured and with no value
- *  @author Andrea
+ *  @author Andrea Micucci
  */
 
 public class BlankCell extends Cell {

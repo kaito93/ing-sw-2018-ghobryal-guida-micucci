@@ -9,6 +9,10 @@ import it.polimi.se2018.shared.model_shared.RoundSchemeCell;
 
 import java.util.List;
 
+/**
+ * class to manage the toolcard
+ * @Anton Ghobryal
+ */
 public class ToolCard extends Card{
     private int id;
     private Color color;

@@ -99,11 +99,13 @@ public class ControllerMapChoice {
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(0));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(0));
                 ModelFX.getInstance().getChoice().setGridDefinitive(grid1);
+                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(0);
             }
             if (map2.isSelected()) {
                 ModelFX.getInstance().getGbp().setDefinitiveMap(ModelFX.getInstance().getChoice().getMaps().get(1));
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(1));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(1));
+                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(1);
                 ModelFX.getInstance().getChoice().setGridDefinitive(grid2);
             }
             if (map3.isSelected()) {
@@ -111,12 +113,14 @@ public class ControllerMapChoice {
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(2));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(2));
                 ModelFX.getInstance().getChoice().setGridDefinitive(grid3);
+                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(2);
             }
             if (map4.isSelected()) {
                 ModelFX.getInstance().getGbp().setDefinitiveMap(ModelFX.getInstance().getChoice().getMaps().get(3));
                 ModelFX.getInstance().getGbp().setFav(ModelFX.getInstance().getChoice().getFavour().get(3));
                 ModelFX.getInstance().getGbp().setName(ModelFX.getInstance().getChoice().getMapName().get(3));
                 ModelFX.getInstance().getChoice().setGridDefinitive(grid4);
+                ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(3);
             }
 
             try {

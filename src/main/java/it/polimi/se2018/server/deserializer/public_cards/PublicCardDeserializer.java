@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * class that deserializer the public cards dinamically building the type of cards
  * extends the strategy cards deserializer class
+ * @author Andrea Micucci
  */
 public class PublicCardDeserializer extends StrategyCardDeserializer {
 

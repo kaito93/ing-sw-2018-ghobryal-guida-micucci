@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * class to create the deck of all the private cards saved in json file
+ * @author Andrea Micucci
  */
 public class DeckOfPrivateCards extends Deserializer {
 

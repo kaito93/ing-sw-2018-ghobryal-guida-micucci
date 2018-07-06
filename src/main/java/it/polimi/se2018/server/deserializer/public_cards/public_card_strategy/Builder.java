@@ -13,6 +13,7 @@ import java.util.Observer;
 /**
  * class that is used to make the cards constructor from the json deserialized file
  * implements observer interface
+ * @author Andrea Micucci
  */
 public class Builder implements Observer{
     private ArrayList<Card> poc;

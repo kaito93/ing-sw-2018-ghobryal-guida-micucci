@@ -6,10 +6,18 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
+/**
+ * class to manage the behaviour of the Wrong Username FX window
+ * @author Andrea Micucci
+ */
 public class wrongUsernameController {
     @FXML
     private TextField rightUsername;
 
+    /**
+     * method that send the new username to the model
+     * @param event a clicked button
+     */
     public void newUsername(ActionEvent event) {
         if (!rightUsername.getText().isEmpty()) {
             ModelFX.getInstance().getWrong().setNewUsername(rightUsername.getText());

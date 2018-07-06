@@ -9,6 +9,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * class that works like controller for the LoginWindow
+ * @author Andrea Micucci
+ */
 public class LoginController {
 
     @FXML
@@ -34,6 +38,10 @@ public class LoginController {
 
 
     @FXML
+    /**
+     * method to manage the action of the Login button
+     * it close the window and send the information to ModelFX class
+     */
     void loginAction(ActionEvent event) {
         if (!((username.getText().isEmpty()) && (ip.getText().isEmpty()) && (port.getText().isEmpty()) && (Connection.getSelectedToggle().isSelected() != true))) {
             ModelFX.getInstance().getLogin().setUsername(username.getText());
@@ -52,6 +60,9 @@ public class LoginController {
     }
 
     @FXML
+    /**
+     * initializer method for the stage, with the use of the setting of port and iP address
+     */
     void initialize() {
         port.setText(String.valueOf(ModelFX.getInstance().getLogin().getPort()));
         ip.setText(ModelFX.getInstance().getLogin().getiP());

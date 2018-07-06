@@ -3,6 +3,7 @@ package it.polimi.se2018.server.deserializer.maps.cells;
 /**
  * class of support to deserializer the cell in json file
  * like strings
+ * @author Andrea Micucci
  */
 public class CellBuilder {
 

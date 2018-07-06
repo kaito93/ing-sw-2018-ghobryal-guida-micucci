@@ -4,6 +4,10 @@ import it.polimi.se2018.shared.message_socket.MessageVC;
 import it.polimi.se2018.shared.message_socket.MessageCV;
 import it.polimi.se2018.shared.model_shared.Dice;
 
+/**
+ * abstract class for the messages
+ * @Samuele Guida
+ */
 public abstract class MessageTool implements MessageVC, MessageCV {
 
     protected String title;

@@ -9,6 +9,7 @@ import java.util.List;
  * class that create some data structure for the support of cards deserializing:
  * it takes all value about one map deserialized from json file
  * like string
+ * @author Andrea Micucci
  */
 public class TransitionForMaps {
 

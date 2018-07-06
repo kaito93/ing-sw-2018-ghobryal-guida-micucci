@@ -12,6 +12,7 @@ import java.util.Observer;
 /**
  * abstract class for the building of the cells
  * implements observer interface
+ * @author Andrea Micucci
  */
 public abstract class CellsBuilder implements Observer {
 

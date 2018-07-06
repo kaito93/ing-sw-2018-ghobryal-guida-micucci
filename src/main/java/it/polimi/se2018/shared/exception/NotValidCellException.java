@@ -6,11 +6,14 @@
 package it.polimi.se2018.shared.exception;
 
 /**
- *
- * @author Andrea
+ * exception for not valid cell
+ * @author Andrea Micucci
  */
 public class NotValidCellException extends Exception {
 
+    /**
+     * class constructor
+     */
     public NotValidCellException() {
         super();
     }

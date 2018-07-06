@@ -3,6 +3,7 @@ package it.polimi.se2018.shared.path;
 /**
  * class that is used to make a data structure where save the strings about
  * the path of all the files
+ * @author Andrea Micucci
  */
 public class PathJsonStructure {
 

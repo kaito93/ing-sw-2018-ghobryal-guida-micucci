@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 /**
  * class to deserializer Lens cutter strategy card
  * extends ToolCard
+ * @author Andrea Micucci
  */
 public class LensCutterBuilder extends ToolBuilder {
 

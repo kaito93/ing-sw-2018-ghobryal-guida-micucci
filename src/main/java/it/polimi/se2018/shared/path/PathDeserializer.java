@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * class that is used to deserializer the path of the file json to search
+ * @author Andrea Micucci
  */
 public class PathDeserializer extends Deserializer implements Serializable {
 

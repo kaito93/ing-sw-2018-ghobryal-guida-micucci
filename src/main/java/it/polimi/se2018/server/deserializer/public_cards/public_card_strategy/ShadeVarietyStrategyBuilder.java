@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.ShadeVa
 /**
  * class to deserializer the shade variety strategy cards
  * extends Builder
+ * @author Andrea Micucci
  */
 public class ShadeVarietyStrategyBuilder extends Builder {
 

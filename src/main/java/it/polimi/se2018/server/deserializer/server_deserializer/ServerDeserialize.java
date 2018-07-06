@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 
 /**
  * class used to deserializer the Server information
+ * @author Andrea Micucci
  */
 public class ServerDeserialize extends Deserializer {
 

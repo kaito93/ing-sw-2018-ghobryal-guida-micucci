@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.RowShad
 /**
  * class that is used to deserializer the Row Shade variety strategy
  * extends Builder
+ * @author Andrea Micucci
  */
 public class RowShadeVarietyStrategyBuilder extends Builder {
 

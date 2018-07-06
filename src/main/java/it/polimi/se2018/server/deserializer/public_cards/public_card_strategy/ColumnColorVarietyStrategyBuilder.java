@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
 /**
  * class to deserializer column color variety strategy card
  * extends Builder
+ * @author Andrea Micucci
  */
 public class ColumnColorVarietyStrategyBuilder extends Builder{
 

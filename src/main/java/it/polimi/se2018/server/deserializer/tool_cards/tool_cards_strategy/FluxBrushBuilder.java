@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.tool_card_strategy.ToolCardStrategy;
 /**
  * class to deserializer the flux brush strategy card
  * extends ToolBuilder
+ * @author Andrea Micucci
  */
 public class FluxBrushBuilder extends ToolBuilder {
 

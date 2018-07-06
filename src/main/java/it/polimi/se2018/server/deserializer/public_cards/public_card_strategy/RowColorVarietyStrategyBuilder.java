@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.RowColo
 /**
  * class to deserializer the row color variety strategy
  * extends Builder
+ * @author Andrea Micucci
  */
 public class RowColorVarietyStrategyBuilder extends Builder {
 

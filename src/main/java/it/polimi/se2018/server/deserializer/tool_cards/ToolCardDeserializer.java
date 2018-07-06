@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * class that create the deck of all cards, extends StrategyCardDeserializer
+ * @author Andrea Micucci
  */
 public class ToolCardDeserializer extends StrategyCardDeserializer {
 

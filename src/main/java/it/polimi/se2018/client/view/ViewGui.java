@@ -2,19 +2,15 @@ package it.polimi.se2018.client.view;
 
 import it.polimi.se2018.client.LauncherClient;
 import it.polimi.se2018.client.view.ViewGuiPack.FxmlOpener;
-import it.polimi.se2018.client.view.ViewGuiPack.pathFXML;
 import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import javafx.stage.Stage;
 import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
-
-import javax.jws.WebParam;
 
 public class ViewGui extends View {
 
@@ -22,7 +18,6 @@ public class ViewGui extends View {
 
 
     private static Stage stageOfGame;
-    pathFXML paths = new pathFXML();
     Object lock = new Object();
 
     String connect;
@@ -56,6 +51,8 @@ public class ViewGui extends View {
     }
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
         ModelFX.getInstance().getChoice().setUpMap(maps, names, fav);
+        ModelFX.getInstance().getChoice().setIndexOfDefinitiveMap(-1);
+        int index=0;
         FxmlOpener.getInstance().openFX("/SceltaMappe.fxml");
         try {
             synchronized (lock){
@@ -64,15 +61,21 @@ public class ViewGui extends View {
         } catch (InterruptedException | IllegalMonitorStateException e) {
             // va bene
         }
-        int index=-1;
         boolean cond=true;
         while(cond){
+            try {
+                synchronized (lock){
+                    lock.wait(100);
+                }
+            } catch (InterruptedException | IllegalMonitorStateException e) {
+                // va bene
+            }
             index=ModelFX.getInstance().getChoice().getIndexOfDefinitiveMap();
             if (index!=-1)
                 cond=false;
         }
-        System.out.println(index);
-        return ModelFX.getInstance().getChoice().getIndexOfDefinitiveMap();
+        //System.out.println(index);
+        return index;
     }
 
 
@@ -222,6 +225,13 @@ public class ViewGui extends View {
     @Override
     public void printYourStatus() {
         FxmlOpener.getInstance().openFX("/gamingBoard.fxml");
+        try {
+            synchronized (lock){
+                lock.wait(100);
+            }
+        } catch (InterruptedException | IllegalMonitorStateException e) {
+            // va bene
+        }
         ModelFX.getInstance().getGbp().setDefinitiveMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
         ModelFX.getInstance().getGbp().setFav(gameStatus.getFavUser().get(gameStatus.getYourIndex()));
         ModelFX.getInstance().getGbp().setPrivateCardTitle(gameStatus.getTitlePrivateObjective());
@@ -247,6 +257,13 @@ public class ViewGui extends View {
         ModelFX.getInstance().getGbp().setMaps(maps);
         ModelFX.getInstance().getGbp().setUsers(users);
         ModelFX.getInstance().getGbp().setFavors(favors);
+        try {
+            synchronized (lock){
+                lock.wait(100);
+            }
+        } catch (InterruptedException | IllegalMonitorStateException e) {
+            // va bene
+        }
     }
 
     @Override

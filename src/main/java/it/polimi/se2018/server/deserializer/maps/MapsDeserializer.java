@@ -17,6 +17,7 @@ import java.util.logging.Level;
 /**
  * class used to deserializer the maps from json file
  * extends observable class for observer pattern
+ * @author Andrea Micucci
  */
 public class MapsDeserializer extends Deserializer {
 

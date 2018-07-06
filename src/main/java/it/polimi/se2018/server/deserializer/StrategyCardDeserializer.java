@@ -5,6 +5,7 @@ import it.polimi.se2018.shared.Deserializer;
 
 /**
  * abstract class that will use to make the deserializer of the cards
+ * @author Andrea Micucci
  */
 public abstract class StrategyCardDeserializer extends Deserializer {
 

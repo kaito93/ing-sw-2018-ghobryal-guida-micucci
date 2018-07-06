@@ -15,13 +15,25 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.embed.swing.JFXPanel;
 
+/**
+ * class used to load the FXML file for the
+ * FX project
+ * @author Andrea Micucci
+ */
 public class FxmlOpener {
 
     private static FxmlOpener fxmlOpener;
 
+    /**
+     * empty class constructor
+     */
     private FxmlOpener() {
     }
 
+    /**
+     * get instance method (like singleton pattern)
+     * @return an instance of the class
+     */
     public static FxmlOpener getInstance() {
         if (fxmlOpener == null) {
             fxmlOpener = new FxmlOpener();
@@ -29,6 +41,10 @@ public class FxmlOpener {
         return fxmlOpener;
     }
 
+    /**
+     * method that open an FXML file from a path
+     * @param path of the FXML file to be opened
+     */
     public void openFX(String path) {
         URL location = FxmlOpener.class.getResource(path);
         JFXPanel dte = new JFXPanel();

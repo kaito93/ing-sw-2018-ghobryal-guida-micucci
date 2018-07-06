@@ -6,6 +6,7 @@ import it.polimi.se2018.server.controller.public_objective_card_strategy.Objecti
 /**
  * class to deserializer the deep shades strategy card
  * extends Builder
+ * @author Andrea Micucci
  */
 public class DeepShadesStrategyBuilder extends Builder{
 

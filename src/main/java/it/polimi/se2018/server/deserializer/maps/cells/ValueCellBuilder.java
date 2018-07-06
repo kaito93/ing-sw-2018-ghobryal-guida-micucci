@@ -6,6 +6,7 @@ import it.polimi.se2018.server.model.cell.ValueCell;
 /**
  * class to set the creation for the value cell
  * extends mapBuilder
+ * @author Andrea Micucci
  */
 public class ValueCellBuilder extends CellsBuilder {
     private Cell valueCell;

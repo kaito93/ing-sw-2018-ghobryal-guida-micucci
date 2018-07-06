@@ -7,6 +7,7 @@ import it.polimi.se2018.server.model.cell.ColoredCell;
 /**
  * constructor class for the colored cell of the maps
  * extends map builder abstract class
+ * @author Andrea Micucci
  */
 public class ColoredCellBuilder extends CellsBuilder {
     private Cell colored;

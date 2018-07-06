@@ -2,6 +2,7 @@ package it.polimi.se2018.server.deserializer;
 
 /**
  * data structure to make the parsing of the cards stored in json files
+ * @author Andrea Micucci
  */
 public class JsonTransition {
 
