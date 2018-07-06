@@ -39,7 +39,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     private boolean connected=true;
     private boolean playerOnline=true;
     private transient Server server;
-    private boolean socket=false;
 
 
     /**
@@ -62,8 +61,8 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     }
 
     @Override
-    public boolean isConnection() throws RemoteException {
-        return socket;
+    public boolean isConnection() {
+        return false;
     }
 
     /**
