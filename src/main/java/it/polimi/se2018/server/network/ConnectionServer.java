@@ -435,7 +435,7 @@ public interface ConnectionServer extends Remote,Serializable {
      * abstract method that sets the boolean value that indicates if the player is doing his move before the timer is out
      * @throws RemoteException if the stub is no longer online
      */
-    void setPlayerOnline() throws RemoteException;
+    void setPlayerOnline(boolean playerOnline) throws RemoteException;
 
     /**
      * absract method that verifies if this is a socket connection
@@ -449,5 +449,7 @@ public interface ConnectionServer extends Remote,Serializable {
      * @throws RemoteException
      */
     void disconnectSuspendedPlayer() throws RemoteException;
+
+    boolean getPlayerOnline() throws RemoteException;
 
 }

@@ -265,7 +265,7 @@ public class VirtualView implements Serializable {
     /**
      * close every thread
      */
-    private void closeThreadConnection() {
+    private synchronized void closeThreadConnection() {
         for (PlayerPlay aPlayersPlay : playersPlay) aPlayersPlay.closeThread();
         for (PlayerPlay aPlayerNotPlay : playerNotPlay) aPlayerNotPlay.closeThread();
     }
