@@ -173,33 +173,37 @@ public class Controller implements Serializable {
                 disconnect = false;
                 setDice = false;
                 useTools = false;
-                view.setCurrentPlayer(playersInRound.get(turn));
-                // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
-                if (!playersInRound.get(turn).getRunningPliers()) {
-                    for (move = 0; move < 2; move++) {
-                        if (view.isTermi()) {
-                            // Invia a tutti i giocatori le informazioni generali del turn
-                            view.sendMessageUpdate(getGame(), playersInRound.get(turn).getName());
+                try {
+                    view.setCurrentPlayer(playersInRound.get(turn));
+                    // CICLO CHE GESTISCE LE DUE MOSSE DEL GIOCATORE DENTRO IL SINGOLO TURNO
+                    if (!playersInRound.get(turn).getRunningPliers()) {
+                        for (move = 0; move < 2; move++) {
+                            if (view.isTermi()) {
+                                // Invia a tutti i giocatori le informazioni generali del turn
+                                view.sendMessageUpdate(getGame(), playersInRound.get(turn).getName());
 
-                            // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
-                            view.sendMessageTurn(playersInRound, turn, setDice, useTools);
-                            b = false;
-                            try {
-                                if (view.searchPlayer(playersInRound.get(turn).getName()).isConnection())
-                                    waitMove();
-                            } catch (RemoteException e) {
-                                LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+                                // INVIA AL SINGOLO GIOCATORE LE INFORMAZIONI PER IL PROPRIO TURNO DI GIOCO
+                                view.sendMessageTurn(playersInRound, turn, setDice, useTools);
+                                b = false;
+                                try {
+                                    if (view.searchPlayer(playersInRound.get(turn).getName()).isConnection())
+                                        waitMove();
+                                } catch (RemoteException | IndexOutOfBoundsException e) {
+                                    // ciao
+                                }
+                                if (view.isTermi() && !disconnect) {
+                                    LOGGER.log(Level.INFO, "Termine mossa {0}", String.valueOf(move) + " del giocatore "
+                                            + playersInRound.get(turn).getName());
+                                }
+                            } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
+                                move = 2;
+                                turn = playersInRound.size();
+                                round = game.getMaxRound();
                             }
-                            if (view.isTermi() && !disconnect) {
-                                LOGGER.log(Level.INFO, "Termine mossa {0}", String.valueOf(move) + " del giocatore "
-                                        + playersInRound.get(turn).getName());
-                            }
-                        } else {// se la partita è terminata aumenta tutti i contatori per uscire dai cicli for.
-                            move = 2;
-                            turn = playersInRound.size();
-                            round = game.getMaxRound();
                         }
                     }
+                }catch (IndexOutOfBoundsException e){
+                    //non fare nulla
                 }
             }
 
@@ -314,12 +318,16 @@ public class Controller implements Serializable {
      */
 
     private void updatePlayersInRound(List<Player> players) {
-        Player exFirst = players.get(0); // salvo il giocatore da spostare
-        players.remove(players.size() - 1); // elimino il giocatore che si trova in fondo
-        players.remove(0); // elimino il giocatore che si trova in prima posizione
-        players.add(this.players.size() - 1, exFirst); // aggiungi il primo turn del giocatore
-        players.add(this.players.size(), exFirst); // aggiungi il secondo turn del giocatore
-        checkPlayerRound();// controlla che non si siano riconnessi giocatori. Se sì, li aggiunge come ultimi giocatori.
+        try {
+            Player exFirst = players.get(0); // salvo il giocatore da spostare
+            players.remove(players.size() - 1); // elimino il giocatore che si trova in fondo
+            players.remove(0); // elimino il giocatore che si trova in prima posizione
+            players.add(this.players.size() - 1, exFirst); // aggiungi il primo turn del giocatore
+            players.add(this.players.size(), exFirst); // aggiungi il secondo turn del giocatore
+            checkPlayerRound();// controlla che non si siano riconnessi giocatori. Se sì, li aggiunge come ultimi giocatori.
+        }catch (IndexOutOfBoundsException e){
+            //non fare nulla
+        }
     }
 
     /**
@@ -366,64 +374,67 @@ public class Controller implements Serializable {
         int j;
         ArrayList<Player> playersFinal = new ArrayList<>();
         // metti il primo giocatore nell'array.
-        playersFinal.add(players.get(0));
+        try {
+            playersFinal.add(players.get(0));
 
-        // cicla i giocatori
+            // cicla i giocatori
 
-        for (int i = 1; i < players.size(); i++) {
-            // cicla i giocatori già calcolati
-            set = false;
-            j = 0;
-            while (!set && j < playersFinal.size()) {
-                // confronta i punteggi
-                if (players.get(i).getScore() > playersFinal.get(j).getScore()) {
-                    // se il punteggio del giocatore preso in considerazione è più alto, aggiungilo prima di quello confrontato
-                    playersFinal.add(j, players.get(i));
-                    set = true;
-                } else { // altrimenti
-                    if (players.get(i).getScore() == playersFinal.get(j).getScore()) {
-                        // se il punteggio del giocatore preso in considerazione è uguale a quello confrontato
-                        // confronta i punteggi ottenuti dalle carte obiettivo privato
-                        if (players.get(i).getCardPrivateObj().search(players.get(i).getMap()) > playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())) {
-                            // se il punteggio ottenuto dall'obiettivo privato del giocatore è più alto aggiungilo prima di quello confrontato
-                            playersFinal.add(j, players.get(i));
-                            set = true;
-                        } else { // altrimenti
-                            // se anche i punteggi privati sono uguali
-                            if (players.get(i).getCardPrivateObj().search(players.get(i).getMap()) == playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())) {
-                                // confronta il numero di segnalini favore rimasti
-                                if (players.get(i).getFavSig() > playersFinal.get(j).getFavSig()) {
-                                    // se al giocatore sono rimasti più segnalini favore rispetto a quello confrontato allora aggiungilo prima di quello confrontato
-                                    playersFinal.add(j, players.get(i));
-                                    set = true;
-                                } else {
-                                    // se anche i segnalini favore rimasti sono uguali
-                                    if (players.get(i).getFavSig() == playersFinal.get(j).getFavSig() && (playersInLastRound.indexOf(players.get(i)) < playersInLastRound.indexOf(playersFinal.get(j)))) {
-                                        // se il giocatore preso in considerazione ha giocato prima del giocatore preso in considerazione nell'ultimo round
+            for (int i = 1; i < players.size(); i++) {
+                // cicla i giocatori già calcolati
+                set = false;
+                j = 0;
+                while (!set && j < playersFinal.size()) {
+                    // confronta i punteggi
+                    if (players.get(i).getScore() > playersFinal.get(j).getScore()) {
+                        // se il punteggio del giocatore preso in considerazione è più alto, aggiungilo prima di quello confrontato
+                        playersFinal.add(j, players.get(i));
+                        set = true;
+                    } else { // altrimenti
+                        if (players.get(i).getScore() == playersFinal.get(j).getScore()) {
+                            // se il punteggio del giocatore preso in considerazione è uguale a quello confrontato
+                            // confronta i punteggi ottenuti dalle carte obiettivo privato
+                            if (players.get(i).getCardPrivateObj().search(players.get(i).getMap()) > playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())) {
+                                // se il punteggio ottenuto dall'obiettivo privato del giocatore è più alto aggiungilo prima di quello confrontato
+                                playersFinal.add(j, players.get(i));
+                                set = true;
+                            } else { // altrimenti
+                                // se anche i punteggi privati sono uguali
+                                if (players.get(i).getCardPrivateObj().search(players.get(i).getMap()) == playersFinal.get(j).getCardPrivateObj().search(playersFinal.get(j).getMap())) {
+                                    // confronta il numero di segnalini favore rimasti
+                                    if (players.get(i).getFavSig() > playersFinal.get(j).getFavSig()) {
+                                        // se al giocatore sono rimasti più segnalini favore rispetto a quello confrontato allora aggiungilo prima di quello confrontato
                                         playersFinal.add(j, players.get(i));
                                         set = true;
+                                    } else {
+                                        // se anche i segnalini favore rimasti sono uguali
+                                        if (players.get(i).getFavSig() == playersFinal.get(j).getFavSig() && (playersInLastRound.indexOf(players.get(i)) < playersInLastRound.indexOf(playersFinal.get(j)))) {
+                                            // se il giocatore preso in considerazione ha giocato prima del giocatore preso in considerazione nell'ultimo round
+                                            playersFinal.add(j, players.get(i));
+                                            set = true;
+                                        }
                                     }
+
                                 }
+
 
                             }
 
-
                         }
-
                     }
+                    // se sei arrivato alla fine dei giocatori da confrontare
+                    if (j + 1 == playersFinal.size()) {
+                        // piazza il giocatore in fondo all'array.
+                        playersFinal.add(players.get(i));
+                        set = true;
+                    } else
+                        // altrimenti aumenta j per proseguire il confronto
+                        j++;
                 }
-                // se sei arrivato alla fine dei giocatori da confrontare
-                if (j + 1 == playersFinal.size()) {
-                    // piazza il giocatore in fondo all'array.
-                    playersFinal.add(players.get(i));
-                    set = true;
-                } else
-                    // altrimenti aumenta j per proseguire il confronto
-                    j++;
+
             }
-
+        }catch (IndexOutOfBoundsException e){
+            //non fare nulla
         }
-
 
         return playersFinal;
     }

@@ -709,4 +709,12 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     public void receiveVictoryAbbandon(String text) throws RemoteException {
         //solo per RMI
     }
+
+    /**
+     * only used by rmi connection
+     */
+    @Override
+    public void exitSystem() throws RemoteException {
+        //solo per rmi
+    }
 }

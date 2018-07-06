@@ -437,6 +437,17 @@ public interface ConnectionServer extends Remote,Serializable {
      */
     void setPlayerOnline() throws RemoteException;
 
+    /**
+     * absract method that verifies if this is a socket connection
+     * @return a boolean, true if the connection is type socket
+     * @throws RemoteException if the stub is no longer online
+     */
     boolean isConnection() throws RemoteException;
+
+    /**
+     * absract method that disconnects the player from the system
+     * @throws RemoteException
+     */
+    void disconnectSuspendedPlayer() throws RemoteException;
 
 }

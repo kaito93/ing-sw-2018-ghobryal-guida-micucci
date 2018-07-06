@@ -64,7 +64,11 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * @param skeleton remote object that represents the server proxy on client territory
      */
     public void setSkeleton(ConnectionServer skeleton) {
-        this.skeleton = skeleton;
+        try {
+            this.skeleton = skeleton;
+        }catch (NullPointerException e){
+            this.skeleton=null;
+        }
     }
 
     /**
@@ -390,7 +394,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      */
     public void receiveVictoryAbbandon(String text){
         view.addError(text);
-        System.exit(1);
+        System.exit(0);
     }
 
     /**
@@ -441,6 +445,14 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      */
     public View getView() {
         return view;
+    }
+
+    /**
+     * exits the system
+     */
+    public void exitSystem(){
+        view.addError("La partita è terminata. Il giocatore non può riconettersi");
+        System.exit(0);
     }
 
     @Override

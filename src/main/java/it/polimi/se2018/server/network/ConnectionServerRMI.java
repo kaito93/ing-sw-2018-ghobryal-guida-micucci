@@ -81,7 +81,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             vView.getController().map(player.getName(), maps.get(stub.receiveMapConn(cells, names, fav)));
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -97,7 +96,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.viewPrivateCard(card);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -120,7 +118,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.viewPublicInformation(titlePublic, descriptionPublic, titleTool, descriptionTool, publicScore);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -137,7 +134,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.viewScore(finalScore);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -155,7 +151,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.isTurn(dice, tool);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -170,7 +165,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.requestNewUsername();
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -195,7 +189,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.receiveUpdate(users, cells, tools, roundSchemeMap, stock, favors,message,username);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
 
     }
@@ -213,7 +206,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.tapWheel(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -250,7 +242,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.copperFoil(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -278,7 +269,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.corkbacked(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -304,7 +294,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.eglomise(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -332,7 +321,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.fluxBrush(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -359,7 +347,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             vView.getController().manageFluxRemoverExtractDice(title, stub.fluxRemover());
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -374,7 +361,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.fluxRemover2(title, dice);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -400,7 +386,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.grinding(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -427,7 +412,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.grozing(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -453,7 +437,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.lathekin(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -487,7 +470,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.lens(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -515,7 +497,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.running(title);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -541,7 +522,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.handleError(error);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -637,7 +617,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             return temp;
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
         return null;
     }
@@ -654,8 +633,13 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      */
     @Override
     public void sendVictoryAbbandon() {
-        sendLostConnection("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)", 5);
-        System.exit(1);
+        try {
+            stub.receiveVictoryAbbandon("Hai vinto per abbandono degli altri giocatori. Congratulazioni (?)");
+            connected=false;
+            stub.setSkeleton(null);
+        } catch (RemoteException e) {
+            connected=false;
+        }
     }
 
     /**
@@ -692,7 +676,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             stub.receiveLostConnection(text, index);
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
     }
 
@@ -708,7 +691,6 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
             playerOnline=true;
         } catch (RemoteException e) {
             connected=false;
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
         }
 
     }
@@ -759,6 +741,16 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
         return super.hashCode();
     }
 
+    /**
+     * disconnects the player from the system
+     */
+    public void disconnectSuspendedPlayer(){
+        try {
+            stub.exitSystem();
+        } catch (RemoteException e) {
+            connected=false;
+        }
+    }
     /**
      * sets if the player is connected or not
      * @param connected a boolean, true if the player is connected, else false

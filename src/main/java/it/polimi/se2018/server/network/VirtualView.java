@@ -12,6 +12,8 @@ import it.polimi.se2018.shared.Logger;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -573,11 +575,15 @@ public class VirtualView implements Serializable {
      */
     public void manageVictoryAbbandon() {
         try {
+            notTerminate = false;
             connections.get(0).sendVictoryAbbandon();
-        } catch (RemoteException e) {
-            LOGGER.log(Level.SEVERE, REMOTEERROR, e.getMessage());
+            for (ConnectionServer connectionServer : connectionsSuspend) {
+                connectionServer.disconnectSuspendedPlayer();
+            }
+        } catch (RemoteException | ConcurrentModificationException ignored) {
+            //non fare nulla
         }
-        notTerminate = false;
+
     }
 
     /**

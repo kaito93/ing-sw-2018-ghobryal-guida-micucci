@@ -263,4 +263,10 @@ public interface ConnectionClient extends Remote, Serializable {
      * @throws RemoteException if the skeleton is no longer online
      */
     void receiveVictoryAbbandon(String text) throws RemoteException;
+
+    /**
+     * exits the system of this player
+     * @throws RemoteException if the skeleton is no longer online
+     */
+    void exitSystem() throws RemoteException;
 }
