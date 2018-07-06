@@ -645,7 +645,6 @@ public class ViewCli extends View {
         while (condit) {
             while (cond) {
                 try {
-                    printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
                     addLog("Dadi disponibili:");
                     printDicesStock();
                     addLog("Quale dado vuoi posizionare?");
@@ -655,8 +654,10 @@ public class ViewCli extends View {
                         //non fare nulla
                     }
                     if (map > -1 && map < gameStatus.getStock().size())
+                    {
                         condit = false;
-                    cond = false;
+                        cond = false;
+                    }
                 } catch (NumberFormatException e) {
                     addError(NUMERO);
                 }
