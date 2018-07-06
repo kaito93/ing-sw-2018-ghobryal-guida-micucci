@@ -42,6 +42,8 @@ public class LensCutter extends ToolCardStrategy {
             roundSchemeMap[posDice].setDices(temp); //setta il dado della riserva sul tracciato dei round
             dice = roundSchemeDice;
             posDiceControl(player, dice, row, column); //posizionamento normale del dado
+            if (errorBool.getErrBool())
+                stock.add(dice);
             ToolCardStrategy.errorBool.setErrBool(false);
             return;
         }

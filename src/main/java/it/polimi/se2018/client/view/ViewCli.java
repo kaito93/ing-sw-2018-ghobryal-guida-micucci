@@ -623,6 +623,7 @@ public class ViewCli extends View {
         // Dice, row, column
         setTimer();
         ArrayList<Object> obj = new ArrayList<>();
+        printSchemeMap(gameStatus.getCells().get(gameStatus.getYourIndex()));
         obj.add(gameStatus.getStock().get(askDiceStock()));
         addLog("Seleziona le coordinate dove posizionare il dado:");
         List<Integer> obj2 = askRowColumn();

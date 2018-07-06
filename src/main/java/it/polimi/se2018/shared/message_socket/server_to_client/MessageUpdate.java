@@ -129,7 +129,6 @@ public class MessageUpdate implements MessageMV {
     }
 
 
-    // DA TESTARE
 
     /**
      * method that set the map of all players

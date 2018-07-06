@@ -41,6 +41,8 @@ public class GrozingPliers extends ToolCardStrategy {
         // Il metodo UseTool rimane comunque perchè viene richiamato tramite RMI
         //il resto della logica della carta è stato spostato nel controller nel manager della carta
         posDiceControl(player, dice, row, column); //posizionamento normale del dado scelto
+        if (errorBool.getErrBool())
+            t.add(dice);
         ToolCardStrategy.errorBool.setErrBool(false);
     }
 

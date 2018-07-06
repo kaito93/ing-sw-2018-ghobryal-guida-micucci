@@ -33,7 +33,7 @@ public class LauncherClient {
 
     public static void main(String[] args) {
 
-        PathDeserializer path = new PathDeserializer("src/main/java/it/polimi/se2018/client/json_client/Pathname.json");
+        PathDeserializer path = new PathDeserializer("/PathnameClient.json");
         path.deserializing();
         ClientDeserializer clien = new ClientDeserializer(path.getPathFromType("client"));
         clien.deserializing();
@@ -63,9 +63,10 @@ public class LauncherClient {
                 condition = false;
             }
             if ("gui".equalsIgnoreCase(text)){
-                view = new ViewGui(timer1,this);
-                view.startView();
-                condition = false;
+                System.out.println("Funzionalità non implementata, si prega di scegliere la CLI");
+                //view = new ViewGui(timer1,this);
+                //view.startView();
+                //condition = false;
             }
         }
     }

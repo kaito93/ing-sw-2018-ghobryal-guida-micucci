@@ -607,7 +607,7 @@ public class Controller implements Serializable {
      */
     public void manageFluxRemover(String title, Dice dice, int row, int column) {
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, row, column, getGame().getDiceBag().getBox(),
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, row, column, getGame().getStock(),
                     0, 0, null, null, null, 0)) {
                 getGame().getStock().add(dice);
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
@@ -663,7 +663,7 @@ public class Controller implements Serializable {
      */
     public void manageGrinding(String title, Dice dice, int row, int column, Dice diceBefore) {
         if (!setDice) {
-            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, 0, 0, null, row,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, 0, 0, getGame().getStock(), row,
                     column, null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
 
@@ -688,7 +688,7 @@ public class Controller implements Serializable {
     public void manageGrozing(String title, Dice dice, int rowDest, int colDest) {
         if (!setDice) {
 
-            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, rowDest, colDest, null, 0, 0,
+            if (!getGame().searchToolCard(title).useTool(getPlayersInRound().get(getTurn()), dice, rowDest, colDest, getGame().getStock(), 0, 0,
                     null, null, null, 0)) {
                 manageError(ToolCardStrategy.getErrorBool().getErrorMessage());
             } else {

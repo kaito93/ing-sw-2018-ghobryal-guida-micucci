@@ -18,7 +18,7 @@ public class GameView implements Serializable {
     private int yourIndex;
 
     private List<String> users;
-    private List<Cell[][]> cells = new ArrayList<>();
+    private List<Cell[][]> cells;
 
     private List<String> titleTools;
     private List<String> descriptionTools;
