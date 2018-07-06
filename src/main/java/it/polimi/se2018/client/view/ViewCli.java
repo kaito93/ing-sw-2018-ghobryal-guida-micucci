@@ -649,7 +649,11 @@ public class ViewCli extends View {
                     addLog("Dadi disponibili:");
                     printDicesStock();
                     addLog("Quale dado vuoi posizionare?");
-                    map = Integer.decode(scanner.nextLine()) - 1;
+                    try {
+                        map = Integer.decode(scanner.nextLine()) - 1;
+                    }catch (NullPointerException e){
+                        //non fare nulla
+                    }
                     if (map > -1 && map < gameStatus.getStock().size())
                         condit = false;
                     cond = false;
@@ -838,7 +842,7 @@ public class ViewCli extends View {
     private void printSchemeRound(int round) {
         addLog("Round " + (round + 1) + ":");
         for (int dice = 0; dice < gameStatus.getRoundSchemeMap()[round].getRestOfStock().size(); dice++) {
-            System.out.print(" - ");
+            System.out.print((dice+1) + " - ");
             printColor(gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).getColor().toString(),
                     gameStatus.getRoundSchemeMap()[round].getRestOfStock().get(dice).toString());
         }

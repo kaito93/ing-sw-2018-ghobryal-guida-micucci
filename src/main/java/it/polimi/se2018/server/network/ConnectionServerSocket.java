@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -559,8 +560,8 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
 
         } catch (IOException e) {
             connected = false;
-            /*if (client.isConnected())
-                LOGGER.log(Level.OFF, PLAYER + getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);*/
+            if (client.isConnected())
+                LOGGER.log(Level.OFF, PLAYER + getUsername() + " si è disconnesso. Non ho ricevuto nulla", e);
 
         } catch (ClassNotFoundException e) {
             connected = false;
@@ -698,21 +699,9 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
         //solo per RMI
     }
 
-    /**
-     * controls if this connection is socket
-     * @return true
-     */
     @Override
-    public boolean isConnection() {
+    public boolean isConnection() throws RemoteException {
         return socket;
-    }
-
-    /**
-     * only used by RMI
-     */
-    @Override
-    public void disconnectSuspendedPlayer() {
-        //solo per RMI
     }
 
     /**

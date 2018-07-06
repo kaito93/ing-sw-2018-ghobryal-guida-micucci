@@ -79,7 +79,6 @@ public class LauncherClient {
                 view.setClient(client);
                 try {
                     client.run();
-                    view.addLog("Connessione stabilita col server");
                 } catch (RemoteException e) {
                     LOGGER.log(Level.SEVERE, "Errore di connessione: {0} !", e.getMessage());
                 }
@@ -94,8 +93,8 @@ public class LauncherClient {
                         connectionServer.setClientRMI(clientRMI, username); //rendo lo stub disponibile dalla parte del server
                         connectionServer.setUsername(username);
                         clientRMI.setSkeleton(connectionServer); //rendo lo skeleton disponibile dalla parte del cliente
-                        view.setClient(clientRMI);
                         view.addLog("Connessione stabilita col server");
+                        view.setClient(clientRMI);
                         condition = false;
                     }catch (RemoteException | NotBoundException e){
                         condition=true;
