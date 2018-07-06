@@ -3,7 +3,6 @@ package it.polimi.se2018.server.network;
 import it.polimi.se2018.client.network.ConnectionClient;
 import it.polimi.se2018.server.Server;
 import it.polimi.se2018.server.model.cards.Card;
-import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Cell;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.server.model.Map;
@@ -19,7 +18,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /**
@@ -28,9 +26,6 @@ import java.util.stream.Collectors;
  */
 
 public class ConnectionServerRMI extends UnicastRemoteObject implements ConnectionServer,Serializable {
-
-    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
-    private static final String REMOTEERROR = "Errore di connessione: {0} !";
 
     private ConnectionClient stub;
 
@@ -56,8 +51,8 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
     /**
      * sets the boolean value that indicates if the player is doing his move before the timer is out
      */
-    public synchronized void setPlayerOnline() {
-        this.playerOnline = false;
+    public synchronized void setPlayerOnline(boolean playerOnline) {
+        this.playerOnline = playerOnline;
     }
 
     @Override
@@ -683,12 +678,10 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      * method that listens request of reconnection of a disconnected player
      */
     @Override
-    public void tryReconnect() {
+    public synchronized void tryReconnect() {
         // METODO CHE CONTROLLA SE IL GIOCATORE HA INVIATO UNA RICHIESTA PER RICONNETTERSI ALLA PARTITA
         try {
-            stub.run();
-            connected=true;
-            playerOnline=true;
+            stub.waitReconnect();
         } catch (RemoteException e) {
             connected=false;
         }
@@ -755,8 +748,12 @@ public class ConnectionServerRMI extends UnicastRemoteObject implements Connecti
      * sets if the player is connected or not
      * @param connected a boolean, true if the player is connected, else false
      */
-    public void setConnected(boolean connected) {
+    public synchronized void setConnected(boolean connected) {
         this.connected = connected;
         this.playerOnline = connected;
+    }
+
+    public synchronized boolean getPlayerOnline(){
+        return playerOnline;
     }
 }

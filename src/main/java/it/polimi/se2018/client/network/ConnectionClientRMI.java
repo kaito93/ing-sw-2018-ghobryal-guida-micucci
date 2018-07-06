@@ -401,7 +401,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * method that sends a request to reconnect to the game
      */
     @Override
-    public void sendReconnect() {
+    public synchronized void sendReconnect() {
         try {
             skeleton.setConnected(true);
         } catch (RemoteException e) {
@@ -414,9 +414,9 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * method that disconnects the player for inactivity
      */
     @Override
-    public void sendDisconnect() {
+    public synchronized void sendDisconnect() {
         try {
-            skeleton.setPlayerOnline();
+            skeleton.setPlayerOnline(false);
         } catch (RemoteException e) {
             LOGGER.log(Level.SEVERE, SERVERDISCONNECTION);
             System.exit(0);
@@ -453,6 +453,18 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
     public void exitSystem(){
         view.addError("La partita è terminata. Il giocatore non può riconettersi");
         System.exit(0);
+    }
+
+    public synchronized void waitReconnect(){
+        try {
+            boolean a = skeleton.getPlayerOnline();
+            while (!a){
+                a = skeleton.getPlayerOnline();
+            }
+        } catch (RemoteException e) {
+            LOGGER.log(Level.SEVERE, SERVERDISCONNECTION);
+            System.exit(0);
+        }
     }
 
     @Override

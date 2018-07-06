@@ -1,6 +1,5 @@
 package it.polimi.se2018.client.network;
 
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.se2018.server.model.cards.PrivateObjectiveCard;
 import it.polimi.se2018.server.network.ConnectionServer;
 import it.polimi.se2018.shared.model_shared.Cell;
@@ -269,4 +268,6 @@ public interface ConnectionClient extends Remote, Serializable {
      * @throws RemoteException if the skeleton is no longer online
      */
     void exitSystem() throws RemoteException;
+
+    void waitReconnect() throws RemoteException;
 }

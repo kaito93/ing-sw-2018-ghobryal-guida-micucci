@@ -695,7 +695,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
      * only used by RMI
      */
     @Override
-    public void setPlayerOnline() {
+    public void setPlayerOnline(boolean playerOnline) {
         //solo per RMI
     }
 
@@ -714,6 +714,15 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
     @Override
     public void disconnectSuspendedPlayer() {
         //solo per RMI
+    }
+
+    /**
+     * only used by RMI
+     * @return true
+     */
+    @Override
+    public synchronized boolean getPlayerOnline() {
+        return true;
     }
 
     /**

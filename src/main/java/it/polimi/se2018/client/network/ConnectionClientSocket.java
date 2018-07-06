@@ -717,4 +717,12 @@ public class ConnectionClientSocket implements ConnectionClient,Serializable {
     public void exitSystem() throws RemoteException {
         //solo per rmi
     }
+
+    /**
+     * only used by rmi connection
+     */
+    @Override
+    public void waitReconnect() throws RemoteException {
+        //solo per RMI
+    }
 }
