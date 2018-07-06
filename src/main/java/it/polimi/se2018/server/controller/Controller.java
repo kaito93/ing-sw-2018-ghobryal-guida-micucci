@@ -89,14 +89,16 @@ public class Controller implements Serializable {
      * @param username the player's username
      * @param map      player's passed map
      */
-    public synchronized void map(String username, Map map) {
+    public void map(String username, Map map) {
         int index = searchUser(username);
         if (index >= 0) {
             this.players.get(index).setMap(map);
             this.players.get(index).setFavorSig();
             mappe++;
             if (mappe == players.size()) {
-                notifyAll();
+                synchronized (this){
+                    notifyAll();
+                }
             }
 
         } else
@@ -236,7 +238,7 @@ public class Controller implements Serializable {
     /**
      * method that waits the map of a player
      */
-    private synchronized void waitw() {
+    private void waitw() {
         boolean condition = true;
         try {
             while (condition) {
@@ -255,7 +257,7 @@ public class Controller implements Serializable {
     /**
      * method that waits the move of a player
      */
-    private synchronized void waitMove() {
+    private void waitMove() {
         try {
             LOGGER.log(Level.INFO, "Attendo che il giocatore " + this.playersInRound.get(turn).getName() + " effettui la sua mossa");
 
@@ -272,7 +274,7 @@ public class Controller implements Serializable {
      * method that assigns a value to setTool and notify the waiting methods
      */
 
-    private synchronized void setTools() {
+    private void setTools() {
         this.setDice = A;
         notifyAll();
     }
@@ -285,14 +287,16 @@ public class Controller implements Serializable {
      * @param row    row's coordinate on the map where the dice will be positioned
      * @param column column's coordinate on the map where the dice will be positioned
      */
-    public synchronized void setPos(Dice dice, int row, int column) {
+    public void setPos(Dice dice, int row, int column) {
         if (!setDice) {
             if (!this.playersInRound.get(turn).posDice(dice, row, column)) {
                 manageError(Map.getErrorBool().getErrorMessage());
             } else {
                 game.removeDiceStock(dice);
                 setDice = A;
-                notifyAll();
+                synchronized (this){
+                    notifyAll();
+                }
             }
         } else {
             manageError(ERR);
@@ -460,7 +464,7 @@ public class Controller implements Serializable {
     /**
      * method that simulates a fake move from the player that have been disconnected and unlock the waiter
      */
-    public synchronized void fakeMove() {
+    public void fakeMove() {
         setSetDice(A);
         useTools = A;
         move++;

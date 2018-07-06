@@ -82,7 +82,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
      *
      * @param message an object
      */
-    public synchronized void send(Object message) {
+    public void send(Object message) {
         try {
             output.writeUnshared(message);
             output.flush();
@@ -185,7 +185,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
                 MessageVC reconn = (MessageVC) getInput().readObject();
                 reconnect = reconn instanceof RequestReconnect;
             } catch (IOException | ClassNotFoundException e) {
-                LOGGER.log(Level.SEVERE, e.toString(), e);
+                //non si usa
             }
         }
     }
@@ -721,7 +721,7 @@ public class ConnectionServerSocket implements ConnectionServer, Cloneable {
      * @return true
      */
     @Override
-    public synchronized boolean getPlayerOnline() {
+    public boolean getPlayerOnline() {
         return true;
     }
 

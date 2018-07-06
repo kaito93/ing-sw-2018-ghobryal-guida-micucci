@@ -28,11 +28,11 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
     private static final String SERVERDISCONNECTION = "Il server si è disconnesso";
 
-    private transient ConnectionServer skeleton;
+    private ConnectionServer skeleton;
 
-    private transient View view;
-    private transient String username;
-    private transient Registry registry;
+    private View view;
+    private String username;
+    private Registry registry;
 
 
     /**
@@ -401,7 +401,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * method that sends a request to reconnect to the game
      */
     @Override
-    public synchronized void sendReconnect() {
+    public void sendReconnect() {
         try {
             skeleton.setConnected(true);
         } catch (RemoteException e) {
@@ -414,7 +414,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
      * method that disconnects the player for inactivity
      */
     @Override
-    public synchronized void sendDisconnect() {
+    public void sendDisconnect() {
         try {
             skeleton.setPlayerOnline(false);
         } catch (RemoteException e) {
@@ -455,7 +455,7 @@ public class ConnectionClientRMI extends UnicastRemoteObject implements Connecti
         System.exit(0);
     }
 
-    public synchronized void waitReconnect(){
+    public void waitReconnect(){
         try {
             boolean a = skeleton.getPlayerOnline();
             while (!a){
