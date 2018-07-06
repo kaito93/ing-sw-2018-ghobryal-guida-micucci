@@ -43,7 +43,6 @@ public class LoginController {
                 ModelFX.getInstance().getLogin().setConnectivity("socket");
             else
                 ModelFX.getInstance().getLogin().setConnectivity("RMI");
-            System.out.println(ModelFX.getInstance().getLogin().getConnectivity());
             try {
             ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception ex) {

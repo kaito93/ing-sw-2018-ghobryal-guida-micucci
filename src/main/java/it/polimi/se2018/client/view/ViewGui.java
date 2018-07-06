@@ -3,10 +3,13 @@ package it.polimi.se2018.client.view;
 import it.polimi.se2018.client.LauncherClient;
 import it.polimi.se2018.client.view.ViewGuiPack.FxmlOpener;
 import it.polimi.se2018.client.view.ViewGuiPack.pathFXML;
+import it.polimi.se2018.shared.Logger;
 import it.polimi.se2018.shared.model_shared.Dice;
 import it.polimi.se2018.shared.model_shared.Cell;
 
 import java.util.List;
+import java.util.logging.Level;
+
 import javafx.stage.Stage;
 
 import static it.polimi.se2018.client.view.ViewGuiPack.MapChoiceScene.assignMap;
@@ -15,8 +18,12 @@ import it.polimi.se2018.client.view.ViewGuiPack.ModelGui.ModelFX;
 
 public class ViewGui extends View {
 
+    private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
+
+
     private static Stage stageOfGame;
     pathFXML paths = new pathFXML();
+    Object lock = new Object();
 
     String connect;
 
@@ -48,17 +55,59 @@ public class ViewGui extends View {
 
     }
     public int chooseSingleMap(List<Cell[][]> maps, List<String> names, List<Integer> fav){
-        assignMap(maps, names, fav);
-        FxmlOpener.getInstance().openFX("/FXML/SceltaMappe.fxml");
-        return getChosenMap();
+        ModelFX.getInstance().getChoice().setUpMap(maps, names, fav);
+        FxmlOpener.getInstance().openFX("/SceltaMappe.fxml");
+        try {
+            synchronized (lock){
+                lock.wait(100);
+            }
+        } catch (InterruptedException | IllegalMonitorStateException e) {
+            // va bene
+        }
+        int index=-1;
+        boolean cond=true;
+        while(cond){
+            index=ModelFX.getInstance().getChoice().getIndexOfDefinitiveMap();
+            if (index!=-1)
+                cond=false;
+        }
+        System.out.println(index);
+        return ModelFX.getInstance().getChoice().getIndexOfDefinitiveMap();
     }
 
 
     @Override
     public String askNewUsername() {
-        System.out.println("ciao popolo");
-        FxmlOpener.getInstance().openFX("/FXML/wrongUsername.fxml");
-        return ModelFX.getInstance().getWrong().getNewUsername();
+        ModelFX.getInstance().getWrong().setNewUsername(null);
+        FxmlOpener.getInstance().openFX("/wrongUsername.fxml");
+        try {
+            synchronized (lock){
+                lock.wait(100);
+            }
+        } catch (InterruptedException | IllegalMonitorStateException e) {
+            // va bene
+        }
+        String username=null;
+        boolean cond=true;
+        while(cond){
+            try{
+                try {
+                    synchronized (lock){
+                        lock.wait(100);
+                    }
+                } catch (InterruptedException | IllegalMonitorStateException e) {
+                    // va bene
+                }
+                username=ModelFX.getInstance().getWrong().getNewUsername();
+                if (!username.isEmpty())
+                    cond = false;
+            }
+            catch (NullPointerException e){
+                // waiita
+            }
+        }
+
+        return username;
     }
 
     @Override
@@ -191,26 +240,46 @@ public class ViewGui extends View {
     }
 
     private void launchLoginMain(){
-        FxmlOpener.getInstance().openFX("/FXML/LoginPageFXML.fxml");
+        FxmlOpener.getInstance().openFX("/LoginPageFXML.fxml");
+        String user=null;
+        String ipad=null;
+        int ported=0;
+        String choice=null;
+        try {
+            synchronized (lock){
+                lock.wait(100);
+            }
+        } catch (InterruptedException | IllegalMonitorStateException e) {
+            // va bene
+        }
         boolean cond=true;
         while(cond){
+            try {
+                synchronized (lock){
+                    lock.wait(100);
+                }
+            } catch (InterruptedException | IllegalMonitorStateException e) {
+                // va bene
+            }
             try{
                 if(!ModelFX.getInstance().getLogin().getUsername().isEmpty())
                 {
-                    String user = ModelFX.getInstance().getLogin().getUsername();
-                    String ipad = ModelFX.getInstance().getLogin().getiP();
-                    int ported = ModelFX.getInstance().getLogin().getPort();
-                    cond=false;
-                    launche.setConnection(ported, ipad, user, this, ModelFX.getInstance().getLogin().getConnectivity());
+                    user = ModelFX.getInstance().getLogin().getUsername();
+                    ipad = ModelFX.getInstance().getLogin().getiP();
+                    ported = ModelFX.getInstance().getLogin().getPort();
+                    choice=  ModelFX.getInstance().getLogin().getConnectivity();
+                    if(!choice.isEmpty()) {
+                        cond = false;
+                    }
 
                 }
             }
             catch(NullPointerException e){
-                // waitta
+                // ok
             }
 
         }
-
+        launche.setConnection(ported, ipad, user, this, choice);
     }
 
     public static Stage getStage(){

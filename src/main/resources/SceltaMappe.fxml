@@ -61,7 +61,7 @@
                 <ToggleGroup fx:id="maps" />
             </toggleGroup></RadioButton>
         <RadioButton fx:id="map2" layoutX="564.0" layoutY="38.0" mnemonicParsing="false" onAction="#setSelected2" text="map2" toggleGroup="$maps" />
-        <Label layoutX="352.0" layoutY="21.0" text="scegli la mappa" />
+        <Label layoutX="352.0" layoutY="21.0" text="Scegli la Vetrata" />
         <RadioButton fx:id="map3" layoutX="110.0" layoutY="263.0" mnemonicParsing="false" onAction="#setSelected3" text="map3" toggleGroup="$maps" />
         <RadioButton fx:id="map4" layoutX="567.0" layoutY="263.0" mnemonicParsing="false" onAction="#setSelected4" text="map4" toggleGroup="$maps" />
         <Button fx:id="buttonChoice" layoutX="382.0" layoutY="496.0" mnemonicParsing="false" onAction="#hasChoice" text="Scelto!" />
@@ -71,17 +71,17 @@
       <Label fx:id="fav4" layoutX="565.0" layoutY="292.0" text="Label" />
       <GridPane fx:id="grid1" gridLinesVisible="true" layoutX="110.0" layoutY="88.0" prefHeight="118.0" prefWidth="165.0">
         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
     </children>

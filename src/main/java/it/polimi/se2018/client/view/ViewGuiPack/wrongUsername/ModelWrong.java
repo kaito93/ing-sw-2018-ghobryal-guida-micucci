@@ -11,7 +11,7 @@ package it.polimi.se2018.client.view.ViewGuiPack.wrongUsername;
  */
 public class ModelWrong {
     
-    String newUsername;
+    String newUsername = null;
 
     public String getNewUsername() {
         return newUsername;

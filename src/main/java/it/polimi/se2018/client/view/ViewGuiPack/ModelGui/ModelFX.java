@@ -2,6 +2,7 @@ package it.polimi.se2018.client.view.ViewGuiPack.ModelGui;
 
 import it.polimi.se2018.client.view.ViewGuiPack.LoginPage.ModelLogin;
 import it.polimi.se2018.client.view.ViewGuiPack.MapChoicePage.ModelChoiceMap;
+import it.polimi.se2018.client.view.ViewGuiPack.gameBoardPage.ModelGameBoardPage;
 import it.polimi.se2018.client.view.ViewGuiPack.wrongUsername.ModelWrong;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class ModelFX {
     private ModelLogin login = new ModelLogin();
     private ModelWrong wrong = new ModelWrong();
     private ModelChoiceMap choice = new ModelChoiceMap();
+    private ModelGameBoardPage gbp = new ModelGameBoardPage();
 
     
     private static ModelFX pippo;
@@ -42,7 +44,16 @@ public class ModelFX {
     public void setWrong(ModelWrong wrong) {
         this.wrong = wrong;
     }
-    
-    
 
+    public ModelChoiceMap getChoice() {
+        return choice;
+    }
+
+    public ModelGameBoardPage getGbp() {
+        return gbp;
+    }
+
+    public void setGbp(ModelGameBoardPage gbp) {
+        this.gbp = gbp;
+    }
 }
